@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using OpenLDAP for User Authentication - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/using_openldap_for_user_authentication.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="NOTE: This is a revision of the previous LDAP authentication article on MandrakeSecure. A second revision is available on that site, but it is also more or less specific to Mandrakelinux whereas this topic will eventually cover as many different Linux and BSD implementations as possible to allow individuals to …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using OpenLDAP for User Authentication"/>
+    <meta property="og:url" content="https://annvix.com/using_openldap_for_user_authentication.html"/>
+    <meta property="og:description" content="NOTE: This is a revision of the previous LDAP authentication article on MandrakeSecure. A second revision is available on that site, but it is also more or less specific to Mandrakelinux whereas this topic will eventually cover as many different Linux and BSD implementations as possible to allow individuals to …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Using OpenLDAP for User Authentication</h1>
+        
+        <div class="entry-content">
+            <p><b>NOTE:</b> This is a revision of the previous LDAP authentication article on MandrakeSecure. A second revision is available on that site, but it is also more or less specific to Mandrakelinux whereas this topic will eventually cover as many different Linux and BSD implementations as possible to allow individuals to use a completely mixed environment with one central authentication system.
+</p>
+<p>User authentication for logins is generally a no brainer. You setup users on the local system and off you go... nothing to it. However, if you're on a LAN and you want to have a centralized "repository" of users, you will likely be looking at some method of distributing user information across the LAN. This has a few distinct advantages, the primary being all user authentication is centralized. This means that users have the same password on each system in the LAN, and if they change their password, the password is seamlessly changed everywhere. This provides the advantage of giving consistency to user authentication on the LAN. Users retain the same userid, groupid, password, and other information. This can be problematic if you assign users different levels of access on different machines, but if you permit the same access on all systems, this is an easy way to do it. Regardless, with sudo, you can fine-tune privileged access on a host-by-host basis as well.
+</p>
+<p>Traditionally, NIS (Network Information Services, aka YP (Yellow Pages)) was used to provide this sort of information. NIS is an RPC-based protocol similar to NFS. And while NIS may work well enough in most cases, it doesn't work well in all cases (personal experience here has shown NIS to be anything but reliable). However, there is another choice, and that choice is LDAP. Mandrakelinux provides OpenLDAP and this is the starting block of what is required for a distributed authentication system.
+</p>
+<p>There are few tutorials on how to accomplish using LDAP for authentication, and I found them to be difficult to understand or incomplete, and as a result some research and testing was done to setup LDAP-based authentication on Mandrakelinux. This was originally done using Mandrakelinux 8.2, and all later versions of Mandrakelinux operate in the same way. With other distributions or vendors, you may have to tweak a few things (this particular article is specific to Mandrakelinux). The information here should be enough to get you started, if not help you finish everything off. With the latest OpenLDAP update (<a rel="nofollow" class="external text" href="http://www.mandriva.com/security/advisories?name=MDKA-2003:009">MDKA-2003:009</a>), you should be able to follow this tutorial completely and have a working authentication system. Users of other distributions may have to patch their OpenLDAP packages in order to get the same results.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Pre-requisites"><span class="tocnumber">1</span> <span class="toctext">Pre-requisites</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_the_OpenLDAP_Server"><span class="tocnumber">2</span> <span class="toctext">Configuring the OpenLDAP Server</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_Server_ACLs"><span class="tocnumber">3</span> <span class="toctext">Configuring Server ACLs</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Migrating_Data"><span class="tocnumber">4</span> <span class="toctext">Migrating Data</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Configuring_the_OpenLDAP_Clients"><span class="tocnumber">5</span> <span class="toctext">Configuring the OpenLDAP Clients</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Configuring_NSS_to_use_LDAP"><span class="tocnumber">6</span> <span class="toctext">Configuring NSS to use LDAP</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Configuring_PAM_to_use_LDAP"><span class="tocnumber">7</span> <span class="toctext">Configuring PAM to use LDAP</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Host-based_Authentication"><span class="tocnumber">8</span> <span class="toctext">Host-based Authentication</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Configuring_Samba_to_use_LDAP"><span class="tocnumber">9</span> <span class="toctext">Configuring Samba to use LDAP</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Using_SSL.2FTLS_with_OpenLDAP"><span class="tocnumber">10</span> <span class="toctext">Using SSL/TLS with OpenLDAP</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Using_webmin_with_OpenLDAP"><span class="tocnumber">11</span> <span class="toctext">Using webmin with OpenLDAP</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Other_OpenLDAP_Clients"><span class="tocnumber">12</span> <span class="toctext">Other OpenLDAP Clients</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Notes_on_Other_Software"><span class="tocnumber">13</span> <span class="toctext">Notes on Other Software</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#OpenSSH"><span class="tocnumber">13.1</span> <span class="toctext">OpenSSH</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Credits_and_Links"><span class="tocnumber">14</span> <span class="toctext">Credits and Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Pre-requisites">Pre-requisites</span></h2>
+<p>The first things you need to do is ensure that OpenLDAP is properly installed, along with a few optional packages that will tie our system together. Obviously, the first step is to install OpenLDAP. The packages we need to have installed (on a Mandrakelinux system) are:
+</p>
+<ul><li> libldap2</li>
+<li> openldap</li>
+<li> openldap-clients</li>
+<li> openldap-migration</li>
+<li> openldap-servers</li>
+<li> nss_ldap</li>
+<li> pam_ldap</li></ul>
+<p>The openldap-servers and openldap-migration packages are only required on the system that will be your authentication server. They are not required on the "client" systems.
+</p>
+<p>The pam_ldap and nss_ldap packages are required for PAM authentication and for NSS information (ie. retrieving group, user, host, etc. information from the LDAP server). Once you have all of these packages installed, you can begin to configure your LDAP server.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_OpenLDAP_Server">Configuring the OpenLDAP Server</span></h2>
+<p>The first step in configuring your server is to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.conf</span> file. There are a few fields you will need to configure. In this topic, we will assume that your domain name to use on the LAN is "mylan.net" and will illustrate our configuration accordingly.
+</p>
+<pre>
+database        ldbm
+suffix          &quot;dc=mylan,dc=net&quot;
+rootdn          &quot;cn=root,dc=mylan,dc=net&quot;
+rootpw          {MD5}zYgLcm4KDb1CN/ENGdpG9A==
+directory       /var/lib/ldap
+index           objectClass,uid,uidNumber,gidNumber eq
+index           cn,mail,surname,givenname           eq,subinitial
+password-hash   {crypt}
+password-crypt-salt-format      &quot;$1$%.8s&quot;
+</pre>
+<p>There is much more in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file, but we'll only change these options to begin with. Here you are setting your domain, along with the root user and root's password. You are also setting up some indexes so that queries to the LDAP server do not take so long. These are the default index settings for <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> but you should make note of them. They should be sufficient for your system. Finally, you are setting the default password format for the LDAP server. This tells the LDAP server to use the "{crypt}" (or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crypt(3)</span>) hash, with the noted salt format, which translates to a standard <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crypt(3)</span> MD5 hash. This will allow a user to authenticate to the operating system and the LDAP server with the same password (and same password format).
+</p>
+<p>To obtain the value for the rootpw keyword, use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slappasswd</span> utility like this:
+</p>
+<pre>
+[root@ldap]# slappasswd -h {MD5}
+</pre>
+<p>You will be asked for a password and then <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slappasswd</span> will spit out the MD5 string that corresponds to your chosen password. Cut and paste this string into your file as the rootpw string. There are a few different types of passwords you can use, but I prefer to use MD5 passwords. You can also use SSHA (the default), CRYPT, SMD5, or SHA by specifying the name to the -h parameter, which is the hash parameter. For instance, if you wanted to use crypt passwords you would use "-h {CRYPT}".
+</p>
+<p>Before configuring your basic ACLs, let's start slapd and make sure it works.
+</p>
+<pre>
+[root@ldap]# service ldap start
+</pre>
+<p>Once you have started the slapd server, you can test it by executing the following query:
+</p>
+<pre>
+[root@ldap]# ldapsearch -x -b '' -s base '(objectclass=*)' namingContexts
+version: 2
+
+#
+# filter: (objectclass=*)
+# requesting: namingContexts
+#
+
+#
+dn:
+namingContexts: dc=mylan,dc=net
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 2
+# numEntries: 1
+</pre>
+<p>If you see something similar to the above, ldap is installed and working properly. If not, then go back and ensure you haven't tinkered too much yet. We currently have the LDAP server running, but not populated. To have slapd start on boot each time, execute:
+</p>
+<pre>
+[root@ldap]# chkconfig ldap on
+</pre>
+<h2><span class="mw-headline" id="Configuring_Server_ACLs">Configuring Server ACLs</span></h2>
+<p>The final step on the server before we begin migrating data is to set the basic ACLs (Access Control Lists) for the LDAP server. This will ensure that people only have access to what they need to have access to, and will allow users to update their passwords, see their passwords, but prevent others from seeing the same.
+</p>
+<p>Once again you need to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.conf</span> file. If you look in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file, you will see the following near the beginning:
+</p>
+<pre>
+# Define global ACLs to disable default read access.
+include /etc/openldap/slapd.access.conf
+</pre>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.access.conf</span> file is as good as any to place your ACLs in. You can either append your ACL rules to the end of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file, or insert them into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.access.conf</span>. The choice is entirely up to you. If you do choose to use the access file, remove the example ACLs at the end of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file. Let's begin with some basic ACLs:
+</p>
+<pre>
+# This is a good place to put slapd access-control directives
+
+access to dn=&quot;.*,dc=mylan,dc=net&quot; attr=userPassword
+        by dn=&quot;cn=root,dc=mylan,dc=net&quot; write
+        by self write
+        by * auth
+
+access to dn=&quot;.*,dc=mylan,dc=net&quot; attr=mail
+        by dn=&quot;cn=root,dc=mylan,dc=net&quot; write
+        by self write
+        by * read
+
+access to dn=&quot;.*,ou=People,dc=mylan,dc=net&quot;
+        by * read
+
+access to dn=&quot;.*,dc=mylan,dc=net&quot;
+        by self write
+        by * read
+</pre>
+<p>What this does is restrict access to the userPassword attribute of any entry; that is, any dn in dc=mylan,dc=net. The owner of the entry can modify it, and the owner is defined by someone binding to the server using that dn and it's associated password. Otherwise, it can only be accessed for authentication/binding purposes, but cannot be viewed. The second entry allows the user to modify their mail attribute (ie. email address). The third entry specifies that any dn in ou=People,dc=mylan,dc=net must be read-only. This is where we protect the system from users deciding to change their username, gid or uid numbers, home directory, and so forth. Because the ACLs are read top down in a "first match wins" order, we have effectively given users access to change their own password and their own email address, but they are unable to touch any other information on their account. Everything else is read-only... to the world, <i>and</i> the user. Finally, the last entry is a catch-all for other parts of the database. This will allow users to make changes to their own address books, for example. If you will not be allowing users to use their own address books on this LDAP server, feel free to remove the "by self write" ACL of the last entry. This will still allow users to read group and hosts information. If you like, you can duplicate the second entry to allow users to modify their loginShell attribute so they can select what shell they wish to use, but I wouldn't recommend it.
+</p>
+<p>To have the server use the new ACLs, be sure to restart it (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service ldap restart</span> on most Linux systems).
+</p>
+<h2><span class="mw-headline" id="Migrating_Data">Migrating Data</span></h2>
+<p>The next step is to begin migrating your data into your LDAP server. This is where things start to get interesting, and also where the openldap-migration package is necessary. Change to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/openldap/migration</span> directory and edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_common.ph</span> file. You will need to modify the following variables to match your system:
+</p>
+<pre>
+$DEFAULT_MAIL_DOMAIN = &quot;mylan.net&quot;;
+$DEFAULT_BASE = &quot;dc=mylan,dc=net&quot;;
+$DEFAULT_MAIL_HOST = &quot;mail.mylan.net&quot;;
+$EXTENDED_SCHEMA = 1;
+</pre>
+<p>This sets some defaults for the migrated data. Here we set the default mail domain, in this case "mylan.net" which will assign all users a default email address of "user@mylan.net". The default base is "dc=mylan,dc=net" which should be identical to the suffix defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>. The default mail host is the SMTP server used to send mail, in this case "mail.mylan.net". The extended schema is set to 1 to support more general object classes.
+</p>
+<p>Now you have two choices. You can migrate everything on the current system into the LDAP database, including hosts, groups, users, networks, services, etc. A lot of this is relatively unchanging and, in my opinion, should not be included in LDAP. For instance, importing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/services</span> seems useless because all systems have it, and the data is very static. Doing lookups from the LDAP server would only slow things down. The only things that I, personally, see as being useful are users, groups, and hosts. Everything else should use the system files, unless, of course, you have modified your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/networks</span> file and such, but most people probably have not.
+</p>
+<p>If you want to migrate everything, you will want to use the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_all_online.sh</span> script. I suggest that you comment out the migration of protocols and services due to some problems with migration (you will likely have missing entries due to some errors in the source files). You can do this by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_all_online.sh</span> and commenting out the following lines:
+</p>
+<pre>
+#echo &quot;Migrating protocols...&quot;
+#$PERL -I${INSTDIR} ${INSTDIR}migrate_protocols.pl       $ETC_PROTOCOLS &gt;&gt; $DB
+#echo &quot;Migrating services...&quot;
+#$PERL -I${INSTDIR} ${INSTDIR}migrate_services.pl       $ETC_SERVICES &gt;&gt; $DB
+</pre>
+<p>The next step is to execute the script. You will be asked a few questions, but in most cases the defaults should work fine:
+</p>
+<pre>
+[root@ldap]# ./migrate_all_online.sh
+Enter the X.500 naming context you wish to import into: [dc=mylan,dc=net]
+Enter the name of your LDAP server [ldap]: localhost
+Enter the manager DN: [cn=manager,dc=mylan,dc=net]: cn=root,dc=mylan,dc=net
+Enter the credentials to bind with: secret
+Do you wish to generate a DUAConfigProfile [yes|no]? no
+</pre>
+<p>The X.500 naming context is the base domain to use (the default should be fine since it should read this from the suffix in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>). The LDAP server name should be localhost unless you are configuring a remote LDAP server (which probably will not be the case). The manager DN should be identical to the rootdn in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>, which is almost the same except we use cn=root instead of cn=manager which is the default. The credentials to bind with is the password you generated and included in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> as the rootpw. The DUAConfigProfile should be set to no. This will import everything into your LDAP database and may take a few minutes.
+</p>
+<p>However, I personally favour doing things a little more manually to get some finer controls over what is being imported. For instance, there is no need to import root or the other system accounts into the server. While in most cases the information for these accounts should be read from the local system first, there is no need to make the database bigger than required. Since the system apache or rpm user will never login directly, having them included in the LDAP database is unnecessary. I've also found that migrating everything, especially user information, will require you to do a little cleanup work afterwards anyways due to some incorrect values being imported. I would suggest you decide what you want imported and obtain the values manually. For this example, we will import <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span>, the user information we only want imported, and likewise with the group information. It is a little more work, but it implies accuracy and a database that only contains necessary information.
+</p>
+<p>What we want to do is execute some migration scripts one by one and create ldif files that we will then use to import into the LDAP database. The first thing you must do is create the base structure for the LDAP database running the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_base.pl</span> script:
+</p>
+<pre>
+[root@ldap]# ./migrate_base.pl &gt;base.ldif
+[root@ldap]# ldapadd -x -D &quot;cn=root,dc=mylan,dc=net&quot; -W -f base.ldif
+</pre>
+<p>This generated the base structure and imports it into the LDAP database. Now we can begin to add actual information to the database. Let's start with <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span>:
+</p>
+<pre>
+[root@ldap]# ./migrate_hosts.pl /etc/hosts hosts.ldif
+[root@ldap]# ldapadd -x -D &quot;cn=root,dc=mylan,dc=net&quot; -W -f hosts.ldif
+</pre>
+<p>Let's assume that one of the entries in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file was:
+</p>
+<pre>
+10.0.10.23      wrkstation.mylan.net    wrkstation
+</pre>
+<p>You can test to make sure the migration worked by executing:
+</p>
+<pre>
+[root@ldap]# ldapsearch -LL -H ldap://localhost -b&quot;dc=mylan,dc=net&quot; -x &quot;(cn=wrkstation)&quot;
+version: 1
+
+dn: cn=wrkstation.mylan.net,ou=Hosts,dc=mylan,dc=net
+objectClass: top
+objectClass: ipHost
+objectClass: device
+ipHostNumber: 10.0.10.23
+cn: wrkstation.mylan.net
+cn: wrkstation
+</pre>
+<p>Be very careful that you do not have duplicate entires in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file. While this would be alright for normal operations, when importing the data into LDAP, the import will halt if a duplicate is encountered. In other words, make sure localhost isn't listed twice, and so on.
+</p>
+<p>Next, migrate the group information. Execute:
+</p>
+<pre>
+[root@ldap]# ./migrate_group.pl /etc/group group.ldif
+</pre>
+<p>This will put all groups into the _group.ldif_ file. Since this is redundant (do we really need apache group, rpm group, etc.?), you will want to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">group.ldif</span> file and remove the unwanted groups. I would only keep user groups, not system groups. I also would not put root into the LDAP database for this. The reason is simple: root is a system account and should be treated as such. It should also be specific to the machine. Having the same root password across machines is not a good idea. If you have one system where a user needs root access and you elect to use su and provide them with the root password, you can restrict them to the one machine by not including root in the LDAP database. And since each system will always have a root account, because we lookup locally first, and then the LDAP database, root should never be referenced by LDAP anyways. Some people may prefer to have the same root password across multiple machines (for example, a very large school lab). While I don't agree with this personally, others may find it difficult to remember a thousand different root passwords (a good password management scheme can deal with this, however). In this case, you may prefer to keep root in the LDAP directory and authenticate root against the LDAP directory instead of locally. This can be done by putting root in both the LDAP directory <i>and</i> locally, and changing how pam_ldap authenticates (we'll see about this in a moment). If this is your particular preference, keep root in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">group.ldif</span> file.
+</p>
+<p>If you're setting up a system without any pre-existing users, you may need to create this file from scratch. The file will look like this:
+</p>
+<pre>
+dn: cn=vdanen,ou=Group,dc=mylan,dc=net
+objectClass: posixGroup
+objectClass: top
+cn: vdanen
+gidNumber: 1001
+
+dn: cn=joe,ou=Group,dc=mylan,dc=net
+objectClass: posixGroup
+objectClass: top
+cn: joe
+gidNumber: 1002
+
+dn: cn=users,ou=Group,dc=mylan,dc=net
+objectClass: posixGroup
+objectClass: top
+cn: users
+gidNumber: 1000
+memberUid: vdanen
+memberUid: joe
+</pre>
+<p>You can see what objects are to be referenced here with the objectClass keywords. The cn is the group name, the gidNumber is the group ID number. Finally, the dn is a string that consists of the group name, the ou (which is Group), and the domain information (dc=mylan,dc=net). The last example shows a group with multiple users; in this instance the group is "users" and we assign it a gid of 1000, and add both vdanen and joe to the group by using the memberUid attribute. To import this information into LDAP, use:
+</p>
+<pre>
+[root@ldap]# ldapadd -x -D &quot;cn=root,dc=mylan,dc=net&quot; -W -f group.ldif
+</pre>
+<p>Now we come to the users. This can be somewhat time-consuming if you are setting up a lot of users, even if you use the migration script. First, let's run the migration script like this:
+</p>
+<pre>
+[root@ldap]# ETC_SHADOW=/etc/shadow ./migrate_passwd.pl /etc/passwd \
+passwd.ldif
+</pre>
+<p>You must set the $ETC_SHADOW environment variable before executing the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_passwd.pl</span> script. This is necessary to tell <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_passwd.pl</span> where <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> is located. Without this environment variable, none of the shadow information will be included (which means no passwords). As with the groups, you may have to write this file from scratch. If you do, you can simplify creating the file by cutting and pasting the encrypted password string in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> and placing it as the value for the user's userPassword attribute (which is all that <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_passwd.pl</span> does; there is no kind of conversion of any sort). Taking the above two groups of vdanen and joe, let's make two entries for them which would look like this in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">passwd.ldif</span> file:
+</p>
+<pre>
+dn: uid=vdanen,ou=People,dc=mylan,dc=net
+uid: vdanen
+cn: Vincent Danen
+givenname: Vincent
+sn: Danen
+mail: vdanen@mylan.net
+mailRoutingAddress: vdanen@mail.mylan.net
+mailHost: mail.mylan.net
+objectClass: mailRecipient
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: account
+objectClass: posixAccount
+objectClass: top
+objectClass: kerberosSecurityObject
+objectClass: shadowAccount
+userPassword: {crypt}$1$dYJI1DcK$r7Uod6DPFgh4XWL7l9GTF/
+shadowLastChange: 11761
+shadowMin: -1
+shadowMax: 99999
+shadowWarning: -1
+shadowInactive: -1
+shadowExpire: -1
+shadowFlag: 7100670
+krbname: vdanen@MYLAN.NET
+loginShell: /bin/bash
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /home/vdanen
+gecos: Vincent Danen
+
+dn: uid=joe,ou=People,dc=mylan,dc=net
+uid: joe
+cn: Joe User
+givenname: Joe
+sn: User
+mail: joe@mylan.net
+mailRoutingAddress: joe@mail.mylan.net
+mailHost: mail.mylan.net
+objectClass: mailRecipient
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: account
+objectClass: posixAccount
+objectClass: top
+objectClass: kerberosSecurityObject
+objectClass: shadowAccount
+userPassword: {crypt}$1$Ev9HK2ML$IhA3EpyS28SfJ.m74AMvW/
+shadowLastChange: 11762
+shadowMin: -1
+shadowMax: 99999
+shadowWarning: -1
+shadowInactive: -1
+shadowExpire: -1
+shadowFlag: 7100670
+krbname: joe@MYLAN.NET
+loginShell: /bin/bash
+uidNumber: 1002
+gidNumber: 1002
+homeDirectory: /home/joe
+gecos: Joe User
+</pre>
+<p>Now you will be able to import your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">passwd.ldif</span> file into LDAP by executing:
+</p>
+<pre>
+[root@ldap]# ldapadd -x -D &quot;cn=root,dc=mylan,dc=net&quot; -W -f passwd.ldif
+</pre>
+<p>Finally, let's test to make sure that the data got imported properly. You can use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapsearch</span> to search for an account you know exists. In our case, we know that user joe exists, so let's search for his data:
+</p>
+<pre>
+[root@ldap]# ldapsearch -LL -H ldap://localhost -b&quot;dc=mylan,dc=net&quot; -x &quot;(uid=joe)&quot;
+</pre>
+<p>This will return a screen of input which should like identical to what was stored in your ldif file. We have now imported our hosts, group, and user information into LDAP.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_OpenLDAP_Clients">Configuring the OpenLDAP Clients</span></h2>
+<p>Now you must configure OpenLDAP on each of the client systems. What we have configured previously is just the OpenLDAP server, or the authentication server. Now you must configure the clients. This also includes the server as it will likely be a client unto itself (ie. it will access the LDAP server via localhost to obtain authentication information). To do this, you must edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span> file. The entries we are most interested in are the following:
+</p>
+<pre>
+host 127.0.0.1
+base dc=mylan,dc=net
+rootbinddn cn=root,dc=mylan,dc=net
+scope one
+pam_filter objectclass=posixaccount
+pam_login_attribute uid
+pam_member_attribute gid
+pam_password md5
+nss_base_passwd         ou=People,dc=mylan,dc=net?one
+nss_base_shadow         ou=People,dc=mylan,dc=net?one
+nss_base_group          ou=Group,dc=mylan,dc=net?one
+nss_base_hosts          ou=Hosts,dc=mylan,dc=net?one
+</pre>
+<p>This tells the LDAP client the IP address of the host. For the server, you can use 127.0.0.1 (localhost), although you should really use the fully qualified domain name (a requirement if you're going to use SSL or TLS). The remote clients must use the domain name (and the IP must be listed in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span>) or the IP address of the LDAP server (again, using the IP or the FQDN really depends on your SSL settings; more on this in a moment). The base must be the same as the suffix denoted in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.conf</span>. The pam_password must be set to md5 (it uses the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crypt(3)</span> system call, which will use the unix MD5 hash instead of the built-in MD5 which is incompatible). If you use "pam_password crypt" (which was what was previously recommended), when you change passwords using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">passwd</span> program, passwords will be stored in crypt format, not MD5 format. The nss_base_* entries must be defined properly; they will be commented in the file so you must uncomment those you want to enable (in our case, just passwd, shadow, group, and hosts), and you must also make sure the base DN is correct. The ending "?one" is the search scope and should remain as illustrated.
+</p>
+<p>The rootbinddn keyword sets who to bind to the server as when the effective user ID is root (or 0). The password must be stored in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.secret</span>, which should be mode 0600 (read/write root, no access for group or other), and should be owned by root.root. This is a clear-text version of the password you specified with the "rootpw" keyword in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>, and the dn should be that of the root user (ie. cn=root,dc=mylan,dc=net). Please note that you *must* press enter after typing your password into the file. If the file does not end on the second line, connections to the LDAP server will fail. If you use echo to write the file (ie. using " <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">echo secret &gt;ldap.secret</span> "), you do not have to worry about this.
+</p>
+<p>In the previous revision, you'll note that this was a special proxy user we had created just for this situation (to read, and possibly write, the userPassword. This is no longer necessary since pam_ldap actually authenticates properly, and uses an anonymous auth bind, which our ACLs permit.
+</p>
+<p>However, you must decide whether or not each client should have a copy of the root password stored in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ldap.secret</span>. I would advise against this, and only specify the rootbinddn on the LDAP server itself. With pam_ldap working, normal users can change their own password on any machine. The only time the rootbinddn is really used is if the root user needs to change another user's password. This should, more often than not, be a seldom situation. By keeping the rootbinddn specified only on the LDAP server, a user with root privileges on that server will be able to change user passwords. root users on other systems, however, will not be able to do so (and depending upon your situation, this may or may not be a good thing). You may want to provide the rootbinddn on a workstation that your LAN administrator users; that way they can change the password directly on their own workstation without logging in on the LDAP server itself. How you implement this is entirely up to you, however I don't believe it is necessary (and would be a security risk), to specify the rootbinddn and root password on every workstation using the LDAP server for authentication. I think it foolhardy and unnecessary. As long as their is one system that the LAN administrator(s) can reach that has the rootbinddn specified, they will be able to change user passwords as required. Remember, users can change their own passwords without needing a proxy user to accomplish it, so this is <i>only</i> required for administrators who may need to change a user's password (in the event is compromised, lost, etc.).
+</p>
+<p>Finally, you should have the domain name and IP address of the OpenLDAP server defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span>.
+</p>
+<h2><span class="mw-headline" id="Configuring_NSS_to_use_LDAP">Configuring NSS to use LDAP</span></h2>
+<p>The next step is to configure NSS to use LDAP. NSS stands for Name Service Switch and is a means to tell the system what sources you want referenced for certain information. The configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/nsswitch.conf</span> and probably looks something like this:
+</p>
+<pre>
+passwd:     files nisplus nis
+shadow:     files nisplus nis
+group:      files nisplus nis
+hosts:      files nisplus nis dns
+</pre>
+<p>This is somewhat abridged, but the point is clear. Here you can see that we are telling the system to use local files, then nisplus, then nis when attempting to reference passwd, shadow, or group information. We are using the same order but append dns to the search order for hosts. This is what tells most applications to use your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file prior to doing a DNS lookup. And, if you were using NIS, the system would already be configured to do local lookups then NIS-based lookups for user information. However, if you look in the file, there is no mention of LDAP at all. That is why we needed the nss_ldap package installed. Now, since we want to do user and host lookups via LDAP, we would modify the above entries to look like this:
+</p>
+<pre>
+passwd:     files ldap
+shadow:     files ldap
+group:      files ldap
+hosts:      files ldap dns
+</pre>
+<p>This tells the system to use local files first, then do LDAP lookups, and, in the case of hosts, use DNS last. Now that you've made this switch, you can trim your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file, however it should contain the localhost definition and the IP/hostname of your LDAP server. Everything else can be removed and will be looked up via LDAP. Finally, you can test to make sure that this is in fact being done by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">getent</span> tool like this:
+</p>
+<pre>
+[root@ldap]# getent hosts
+[root@ldap]# getent group
+[root@ldap]# getent passwd
+[root@ldap]# getent shadow
+</pre>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">getent</span> will return the local information first (because we've defined the sort order as being files then ldap), and then the LDAP information. You should see in each instance the LDAP entries at the end. If you have the same user defined locally and in LDAP, you will see two entries for the dual-defined user. If this works as expected then congratulations! You can now setup each client the same way to reference the LDAP server for host and user information.
+</p>
+<p>There is one caveat to this. If you use OpenLDAP to serve host information in place of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> on the client systems, you <i><b>must</b></i> include the host information on the <i><b>server</b></i> in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file directly. For some strange reason, even if you have OpenLDAP, on the server, defined to use "files ldap dns" for host information, the LDAP server is not referenced for doing reverse-IP lookups on the server. This means that if, for example, the IP address 10.0.10.25 connects to the LDAP server, the LDAP server will spend time trying to determine the hostname of that IP address, but will be unable to obtain it even if it is defined in the LDAP database itself. This will cause delays from 30 seconds to 1 minute. The solution is to have a "fully stocked" <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file on the LDAP server that contains the identical information from the LDAP database. To obtain this information, you can use:
+</p>
+<pre>
+[root@ldap]# echo &quot;127.0.0.1 localhost.localdomain localhost&quot; &gt;/etc/hosts
+[root@ldap]# echo &quot;10.0.10.20 ldap.mylan.net ldap&quot; &gt;&gt;/etc/hosts
+[root@ldap]# getent hosts &gt;&gt;/etc/hosts
+</pre>
+<p>Of course, change the IP address and domain name to suit your LDAP server. This will prevent any delays when clients are talking to the server, which is crucial for login information (who wants to sit at a login prompt for an extra 30 seconds?). You may want to do this each time you modify the Hosts database on the LDAP server in order to keep it updated.
+</p>
+<p>Because of this limitation, you may prefer to setup an internal DNS server to handle the LAN as opposed to using LDAP for this. If you use something like BIND or djbdns internally, you can remove all references of host information from the LDAP directory, and remove the call to lookup in LDAP host information from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">nsswitch.conf</span>.
+</p>
+<h2><span class="mw-headline" id="Configuring_PAM_to_use_LDAP">Configuring PAM to use LDAP</span></h2>
+<p>Making PAM use LDAP is very easy. Mandrakelinux, Red Hat Linux, and some other Linux distributions make use of the system-auth facility of PAM, so you will need to modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/system-auth</span> to make it LDAP-aware. The following is what your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span> file should look like to make it LDAP-aware:
+</p>
+<pre>
+#%PAM-1.0
+auth        required      /lib/security/pam_env.so
+auth        sufficient    /lib/security/pam_unix.so likeauth nullok
+auth        sufficient    /lib/security/pam_ldap.so use_first_pass
+auth        required      /lib/security/pam_deny.so
+
+account     required      /lib/security/pam_unix.so
+account     sufficient    /lib/security/pam_ldap.so
+
+password    required      /lib/security/pam_cracklib.so retry=3 minlen=4 \
+dcredit=0 ucredit=0
+password    sufficient    /lib/security/pam_unix.so nullok use_authtok \
+md5 shadow
+password    sufficient    /lib/security/pam_ldap.so use_authtok
+password    required      /lib/security/pam_deny.so
+
+session     required      /lib/security/pam_limits.so
+session     required      /lib/security/pam_unix.so
+session     optional      /lib/security/pam_ldap.so
+</pre>
+<p>Please note the two lines that wrap, using the standard "\" character to indicate continuation on a second line. These lines <i><b>must</b></i> be a single line in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span> file, and should not use the "\" character to wrap the line.
+</p>
+<p>This inserts the pam_ldap.so module into the stack so that it will be referenced if a user is not found locally. This will not affect system users from being able to login and will allow you to have logins from users that are not explicitly defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/passwd</span>.
+</p>
+<p>If you want to be able to have the system create home directories on the fly (ie. you enter a user into the LDAP database but have not created a home directory for them on the system), you can use the pam_mkhomedir module. Replace the above "session" entries in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span> with (and note the line wrap):
+</p>
+<pre>
+session     required      /lib/security/pam_mkhomedir.so skel=/etc/skel/ \
+umask=0022
+session     required      /lib/security/pam_limits.so
+session     required      /lib/security/pam_unix.so
+session     optional      /lib/security/pam_ldap.so
+</pre>
+<p>This will create a home directory for the user, on the fly, using <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/skel</span> as the skeleton directory (which is the standard when creating new system users on most Linux systems).
+</p>
+<p>One final note. There seems to be issues with the pam_unix.so and pam_pwdb.so modules. On a Mandrakelinux 8.2 or 9.0 system, the above works just fine. However, on a 9.1-based system, you will need to use pam_pwdb.so in place of pam_unix.so in the "auth" section of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span>. If you use pam_unix.so, using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">su</span> tool will segfault. By using pam_pwdb.so, everything should work fine. If you find something doesn't seem to work as expected (ie. everything but su works, or everything but ssh works, etc.), try fiddling with your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span> file and interchange pam_unix.so with pam_pwdb.so, change the order that modules are called, etc. There doesn't seem to be any sure-fire way to indicate what definitive order to use, as PAM modules differ from Mandrakelinux version to Mandrakelinux version (and more than likely vary more from distro to disto). Also note this has, so far, only been tested with Mandrakelinux. As we broaden the scope, we will include notes for other Linux and BSD distributions.
+</p>
+<p>At this point, any program that uses system-auth for authentication will also be using LDAP. This includes services such as SSH, possibly FTP, and others that authenticate against the system using PAM.
+</p>
+<p>Finally, you will also need to modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/passwd</span> file as well in order to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">passwd</span> program to modify passwords in the LDAP database. The file should look like this:
+</p>
+<pre>
+#%PAM-1.0
+auth       sufficient   /lib/security/pam_ldap.so
+auth       required     /lib/security/pam_pwdb.so shadow nullok
+
+account    sufficient   /lib/security/pam_ldap.so
+account    required     /lib/security/pam_pwdb.so
+
+password   required     /lib/security/pam_cracklib.so retry=3 minlen=4  \
+dcredit=0  ucredit=0
+password   sufficient   /lib/security/pam_ldap.so use_authtok
+password   required     /lib/security/pam_pwdb.so use_authtok nullok \
+md5 shadow
+</pre>
+<p>Please note the two lines that wrap, using the standard "\" character to indicate continuation on a second line. These lines <i><b>must</b></i> be a single line in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">passwd</span> file, and should not use the "\" character to wrap the line. In Mandrakelinux 9.0+, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">passwd</span> file uses system-auth, so you don't need to change anything.
+</p>
+<p>Changing passwords used to be problematic, and this is due to how OpenLDAP is built by default. OpenLDAP compiles with it's own MD5 before using the system (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crypt(3)</span>) MD5, which makes OpenLDAP look for passwords in a different MD5 format than the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crypt(3)</span> MD5 format. Reversing this order fixes the problem and makes OpenLDAP use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">crypt(3)</span> MD5 first, which means that we can now use pam_ldap to change passwords (the user's login password will be identical to the LDAP password). This has been patched in the Mandrakelinux OpenLDAP updates in MDKA-2003:009; other distributions may or may not have this patch applied. If you do not, you can download the [openldap-2.0.27-slapd-Makefile.patch openldap-2.0.27-slapd-Makefile. patch] and patch your own OpenLDAP installation (a rebuild would be required).
+</p>
+<p>You can also easily change passwords with Directory Administrator (see the Clients section near the end of this topic).
+</p>
+<h2><span class="mw-headline" id="Host-based_Authentication">Host-based Authentication</span></h2>
+<p>If you plan to use OpenLDAP to authenticate users in a LAN, you may find situations where users should not be permitted on certain machines. As it stands, if the user supplies a proper password, they will be able to log into any machine that uses OpenLDAP for authentication. Using the pam_mkhomedir module, they will even have a home directory created for them. This may not be what you want. Assume for a moment that you have user Joe and user Jim. Joe has his own system, let's say workA, and Jim has his own, workB. Joe is a competent user and doesn't want Jim to have access to his machine, but Jim likes to have Joe on his computer for support. In this case, Joe must have access to workA and workB, whereas Jim should only have access to workB.
+</p>
+<p>This is very easy to accomplish. In your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span> file, you must include another two keyword attributes:
+</p>
+<pre>
+# check for login rights on the host
+pam_check_host_attr yes
+pam_filter |(host=this.host.com)(host=\*)
+</pre>
+<p>This will tell the pam_ldap module to search the "host" attribute in a user's record to determine if he has access to the system. There is no way to determine what machine the user is originating <i>from</i>, but you can determine if they should have access to the machine they are attempting to log <i>into</i>. The easiest way to do this is to create another ldif file that looks something like this (following the scenario above):
+</p>
+<pre>
+dn: uid=joe,ou=People,dc=mylan,dc=net
+changetype: modify
+add: host
+host: workA
+host: workB
+
+dn: uid=jim,ou=People,dc=mylan,dc=net
+changetype: modify
+add: host
+host: workB
+</pre>
+<p>Now execute the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapmodify</span> command like this:
+</p>
+<pre>
+[root@ldap]# ldapmodify -H ldap://localhost -D &quot;cn=root,dc=mylan,dc=net&quot; \
+-x -W -f host-auth.ldif
+</pre>
+<p>Assuming that the file containing the above statements is called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">host-auth.ldif</span>. This will modify the records for both Joe and Jim, allowing Joe access to workA and workB, and Jim access only to workB. You must use the FQDN for each host as the host will call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">gethostbyname()</span> for it's own name (you can see the same result using the "hostname" command). If the hostname returned matches one of the host attributes, the user will be allowed to login. If not, PAM will reject the login attempt.
+</p>
+<p>One thing to note: If you do not have the pam_check_host_attr keyword in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ldap.conf</span>, that host will not check the host attribute and will allow any LDAP-authenticated users to login. So if you control your own machine (as root) and are part of a LAN that uses LDAP for authentication, be sure you modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ldap.conf</span> and enable this. In a LAN situation with, say, 500 users, without this line all 500 users will be able to login to your system. Of course, if your user entry does not contain a host attribute with your hostname, you won't be able to login either.
+</p>
+<p>You also need to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pam_filter</span> method noted above to grant access to the host. Here you specify the hostname that must be matched; in the above case it is "this.host.com" and "\*". If you wish to give a user access to all hosts that are being served by the LDAP server, you can add the entry "hosts: *" to their account, rather than numerous hosts entries. If you do not use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pam_filter</span> you will have to modify your PAM file (we've been discussing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span> in this article, but whaterver PAM file is relevant if you do not use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">system-auth</span>). The relevant change is to make "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">account sufficient pam_ldap.so</span>" into "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">account required pam_ldap.so</span>", however if you used a mixed system/LDAP environment (ie. if you have root in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/passwd</span> and not in LDAP), system users will be unable to login; only LDAP-based users will be able to login. Using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pam_filter</span> is a good solution to allow you to keep a mixed system/LDAP environment.
+</p>
+<p>This should also illustrate the importance of minimizing what attributes users can change in their LDAP entries. For instance, our <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.access.conf</span> indicates that the user can only modify their userPassword and mail attributes. If you had included something like this instead:
+</p>
+<pre>
+access to *
+        by self write
+        by * read
+</pre>
+<p>You would be allowing the user to add their own host entries. This means they can arbitrarily give themself access to any other host, provided they know the FQDN for that host. Even if pam_mkhomedir is not used, they can still obtain a bash prompt on that host, without administrator approval or knowledge.
+</p>
+<h2><span class="mw-headline" id="Configuring_Samba_to_use_LDAP">Configuring Samba to use LDAP</span></h2>
+<p>You can also make Samba use LDAP for authentication. In order to do this, you must rebuild Samba so that it stores smbpasswds in LDAP. Unfortunately, Samba can use either LDAP or the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbpasswd</span> file, and not both. By default, it uses the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbpasswd</span> file. To enable the LDAP support, you must rebuild the src.rpm (for Mandrakelinux) using:
+</p>
+<pre>
+[root@ldap]# rpm --rebuild --with ldap samba-2.2.3a-10mdk.src.rpm
+</pre>
+<p>The Mandrakelinux Samba packages have support for LDAP, provided you build it this way. You will find the Samba source RPM package on your Sources CD, or on any FTP mirror.
+</p>
+<p>Once you have built Samba with LDAP support, you must modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smb.conf</span> file to use LDAP. The important things to include in the [global] section are:
+</p>
+<pre>
+ldap admin dn = cn=root,dc=mylan,dc=net
+ldap server = 127.0.0.1
+ldap suffix = dc=mylan,dc=net
+ldap port = 389
+ldap ssl = start tls
+</pre>
+<p>By default, TLS/SSL support is enabled anyways so it isn't necessary to specify the ldap ssl key. If you do not plan on using TLS/SSL, you can disable it by setting it to "off". TLS/SSL is discussed a little later on. For the purpose of Samba, you should know that by default it will try to talk TLS over port 636, which is the standard LDAPS port (LDAP+SSL). However, if you enable TLS, it uses port 389, which is the standard LDAP port. If you wish to use SSL on port 636, you must have "ssl on" instead of "ssl start_tls" in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file. For the purposes of this tutorial, TLS is started, so you must tell Samba to use port 389 otherwise you will consistently get errors trying to bind to the LDAP server.
+</p>
+<p>You should also have the latest <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">samba.schema</span> included in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file. It will default to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/openldap/schema/samba.schema</span> which you do not want to use. You will want add to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file instead:
+</p>
+<pre>
+include /usr/share/doc/samba-doc-2.2.3a/examples/LDAP/samba.schema
+</pre>
+<p>In other words, use the schema file that comes with Samba.
+</p>
+<p>The next step is to give Samba a password for the admin dn you defined previously (cn=root,dc=mylan,dc=net). This can be done using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbpasswd</span>:
+</p>
+<pre>
+[root@ldap]# smbpasswd -w [password]
+</pre>
+<p>Unfortunately, you have to pass the password on the command line, so be sure to clear your history once you have done so. The admin dn password is stored in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/secrets.tdb</span> file. Now you will have to add Samba accounts. The existing users do not impact the Samba password settings at all, so you will need to add each user manually using:
+</p>
+<div class="highlight"><pre><span></span><code>                                                                        &lt;pre&gt;
+</code></pre></div>
+
+<p>[root@ldap]# smbpasswd -a [username]
+</pre></p>
+<p>There are some migration scripts in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/docs/samba-doc-2.2.3a/examples/LDAP</span> directory but they are not up-to-date and may not work properly. The only attributes that need to be added to existing users are the rid, lmpasswd, ntpasswd, and sambaAccount attributes, which is what smbpasswd should do.
+</p>
+<p>On a side note, if you plan to have Samba authenticate against the LDAP database, you should protect the lmPassword and ntPassword attributes the same as you would the userPassword attribute in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.access.conf</span>.
+</p>
+<h2><span class="mw-headline" id="Using_SSL.2FTLS_with_OpenLDAP">Using SSL/TLS with OpenLDAP</span></h2>
+<p>Every example previously shown with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapadd</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapmodify</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapsearch</span>, and so on assumed that the LDAP server was running without any means of encrypting traffic (or basic authentication). On a local system, this would be ok, but using OpenLDAP for authentication obviously shines when many machines are involved. Passing password data in the clear definitely is not a good idea, so OpenLDAP provides the means to access the server using SASL or TLS. Since TLS is the easier to setup, we'll look at using it instead of SASL.
+</p>
+<p>TLS uses SSL, so it also uses certificate files and keys. TLS provides proof of server identity and protection of data in transit. Because of this, it is almost necessary when plaintext passwords or other data may be transmitted over a network.
+</p>
+<p>To begin using TLS, you must create a certificate and a key file. The ldap initscript in Mandrakelinux will create a self-signed certificate for you to use; the file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/ldap.pem</span>. To enable TLS support for both the server and the client, you must first modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> like this:
+</p>
+<pre>
+TLSCertificateFile /etc/openldap/ldap.pem
+TLSCertificateKeyFile /etc/openldap/ldap.pem
+TLSCACertificateFile /etc/openldap/ldap.pem
+</pre>
+<p>Then, in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span> file, comment out the default of turning SSL off, and turn TLS on like this:
+</p>
+<pre>
+ssl start_tls
+#ssl off
+</pre>
+<p>Once you restart the server, TLS will be used on the standard LDAP port of 389. The LDAP server will handle TLS and unencrypted traffic on the same port.
+</p>
+<p>If you don't want to use the pre-generated certificate, but generate your own (using a Certificate Authority-signed cert instead of a self-signed cert), the following will illustrate how to accomplish it. Execute on the LDAP server:
+</p>
+<pre>
+[root@ldap]# openssl genrsa -out ldap.key 1024
+[root@ldap]# openssl req -new -key ldap.key -out ldap.csr
+</pre>
+<p>You will have to fill in all the appropriate information for the CSR (or Certificate Signing Request). For the Common Name field, you should use the exact name that clients will use when contacting the server, usually the FQDN. You can either have a registered Certificate Authority like Thawte sign your CSR or you can create your own CA to sign it. If you already have your own CA, you would sign the CSR using:
+</p>
+<pre>
+[root@ldap]# openssl x509 -req -in ldap.csr -out ldap.cert -CA ca.cert \
+-CAkey ca.key -CAcreateserial -days 365
+</pre>
+<p>The resulting file, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ldap.cert</span> is the certificate for the LDAP server. If you do not have your own CA setup, you can easily do so using:
+</p>
+<pre>
+[root@ldap]# openssl genrsa -des3 -out ca.key 2048
+[root@ldap]# openssl req -new -x509 -days 365 -key ca.key \
+-out ca.cert
+</pre>
+<p>If you wish to examine the contents of the LDAP certificate, you can use:
+</p>
+<pre>
+[root@ldap]# openssl x509 -in ldap.cert -text -noout
+</pre>
+<p>The LDAP server needs access to a copy of it's own certificate and key files, as well as the CA certificate. The key file must only be readable by the server process, so make it mode 0400 and owned by user ldap, group ldap. To make the server aware of these files, edit your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file and include:
+</p>
+<pre>
+TLSCertificateFile /etc/ssl/openldap/ldap.cert
+TLSCertificateKeyFile /etc/ssl/openldap/ldap.key
+TLSCACertificateFile /etc/ssl/openldap/ca.cert
+</pre>
+<p>Now you must restart the LDAP server by issuing a <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service ldap restart</span> command.
+</p>
+<p>This will now provide transport-level encryption for your LDAP traffic, which will keep the data secure across the network.
+</p>
+<h2><span class="mw-headline" id="Using_webmin_with_OpenLDAP">Using webmin with OpenLDAP</span></h2>
+<p>For those of you who use webmin, you can use it to ease some of the user management pains of using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapmodify</span> on the command line. webmin comes with three LDAP modules in the "Others" section: LDAP Browser, LDAP Manager, and LDAP users and group administration.
+</p>
+<p>In order for these modules to work properly, you must install the perl-ldap package (which comes with Mandrakelinux), and the perl-Convert-ASN1 package (which does not, but it is available in contribs). To install perl-ldap from your installation CDs, just use:
+</p>
+<pre>
+[root@ldap]# urpmi perl-ldap
+</pre>
+<p>If you purchased a Power Pack or ProSuite, or can find a contribs mirror for your particular distribution, you can install the perl-Convert-ASN1 module from your installation CDs or from an external mirror site.
+</p>
+<p>Once both modules are installed, you can click on the first module, LDAP Browser. The first time you do this, it will report that it cannot connect to the LDAP server and give you an error. Click on the "Module Config" link to configure the module. The settings you select will look something like this:
+</p>
+<pre>
+LDAP server host name or IP                     127.0.0.1
+LDAP server port number                         389
+Root DN for your directory tree                 dc=mylan,dc=net
+LDAP administrative user credentials            cn=root,dc=mylan,dc=net
+LDAP administrative password (clear text)       secret
+</pre>
+<p>When you save these changes, you will see a listing of all the Distinguished Name entries in the database and will be able to manipulate these entries.
+</p>
+<p>The next module is the LDAP users and groups administration module. Again, you will get an error when you first click on the module, so enter "Module Config" once more. The settings you will select will look something like this:
+</p>
+<pre>
+LDAP server host name or IP                     127.0.0.1
+LDAP server port number                         389
+Root DN for your directory tree                 dc=mylan,dc=net
+LDAP administrative user credentials            cn=root,dc=mylan,dc=net
+LDAP administrative password (clear text)       secret
+LDAP users directory                            ou=People,dc=mylan,dc=net
+LDAP groups directory                           ou=Group,dc=mylan,dc=net
+</pre>
+<p>Once you have saved the configuration, the index page of the module will now list the LDAP users and groups on the system. To make it easy to create new users, you can define a local template. This will allow you to select which attributes new users should have, and allow you to assign some default values to these attributes. You will have to save the template to a file on the webmin server's filesystem; ie. you could save it as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/ldap-webmin-user.template</span> or something.
+</p>
+<p>Now if you select to create a new user, you will be asked for the new user's full name, and the attributes you wish to add to the users profile, or the template file to use. Unfortunately, the module always seems to give errors, with or without a template, so it's not quite ready for use in adding new users. However, it does make a great browser for users and groups, and will allow you to modify a user's attributes easily enough.
+</p>
+<p>The final module, LDAP Manager, does not work without additional perl modules installed, like the perldap module which currently is not packaged due to a requirement on the Mozilla LDAP SDK. It would be nice if the module was re-written to work with perl-ldap instead.
+</p>
+<h2><span class="mw-headline" id="Other_OpenLDAP_Clients">Other OpenLDAP Clients</span></h2>
+<p>Of course, you can also use GUI tools to handle your LDAP data. One tool that comes with Mandrakelinux is called Directory Administrator. To install it from your installation CDs, execute:
+</p>
+<pre>
+[root@ldap]# urpmi directory_administrator
+</pre>
+<p>The latest version as of this writing is 1.3.5 and has some good bug fixes. You can rebuild the latest version from cooker or download it from the <a rel="nofollow" class="external text" href="http://diradmin.open-it.org/">Directory Administrator website</a>. It has been included in Mandrakelinux since version 8.2.
+</p>
+<p>Another good tool is gq, which is available in contribs. This will allow you to view your entire LDAP database in a tree view and modify all aspects of it. It's a very comprehensive and powerful GTK-based LDAP tool.
+</p>
+<p>You can also use the MandrakeSoft tool userdrake to modify LDAP users.
+</p>
+<h2><span class="mw-headline" id="Notes_on_Other_Software">Notes on Other Software</span></h2>
+<p>Because different software packages manage authentication slightly different, even if relying on PAM, there is a place to note "exceptions to the rule".
+</p>
+<h3><span class="mw-headline" id="OpenSSH">OpenSSH</span></h3>
+<p>OpenSSH portable has had a lot of problems with PAM-related issues since privilege separation was implemented. This doesn't make OpenSSH bad, just a little bit of a challenge to work with. With current versions of OpenSSH, if you are using LDAP for authentication and, at least, the pam_pwdb module, attempting to ssh into an LDAP-controlled box to a user that is in the LDAP directory won't work. pam_pwdb reports the user as unknown and returns that to OpenSSH <i>unless</i> you disable s/key support by setting the following in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sshd_config</span>:
+</p>
+<pre>
+ChallengeResponseAuthentication no
+</pre>
+<p>This may work differently (better?) if you build OpenSSH with s/key support, but I don't know for sure. However, disabling s/key support in the configuration file will allow you to ssh into a box using the account of an LDAP-controlled user.
+</p>
+<h2><span class="mw-headline" id="Credits_and_Links">Credits and Links</span></h2>
+<p>I would be a very bad person if I didn't give some thanks here. Because this was my first foray into the world of LDAP, a lot of questions were asked and I'd like to thank the folks on the discuss@mandrakesecure.net mailing list, as well as Todd Lyons and Buchan Milne for their help. As well, to all of those who posted great comments on the first revision of the article; those comments are very helpful. Hopefully this revision will incorporate enough of the Mandrake-specific comments and provide a good help to those who are contemplating setting up an LDAP-based authentication system. Finally, I would like to thank Jose Permuy for pointing me to the patch to fix the MD5 issue with OpenLDAP, which was the whole source of the problem with pam_ldap we previously had.
+</p>
+<p>Here are some other OpenLDAP-related links that may help to further your understanding of OpenLDAP, both for authentication purposes and just general usage. Some of them are slightly dated, but a lot of the information is still valid; you may just have to pick and choose what information you apply to anything you wish to accomplish.
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.skills-1st.co.uk/papers/security-with-ldap-jan-2002/security-with-ldap.html">Security with LDAP</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.openldap.org/doc/admin/">OpenLDAP Administrator's Guide</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/linux/libs/pam/Linux-PAM-html/pam.html">The Linux-PAM System Administrator's Guide</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.direct-to-linux.com/TUTORIALS/LinuxTutorialLDAP.html">YoLinux LDAP Tutorial: Deploying OpenLDAP</a></li>
+<li> <a rel="nofollow" class="external text" href="http://quark.humbug.org.au/publications/intro_ldap/index.htm">Introduction to LDAP</a></li>
+<li> <a rel="nofollow" class="external text" href="http://online.securityfocus.com/infocus/1427">Linux Authentication Using OpenLDAP, Part One</a></li>
+<li> <a rel="nofollow" class="external text" href="http://online.securityfocus.com/infocus/1428">Linux Authentication Using OpenLDAP, Part Two</a></li>
+<li> <a rel="nofollow" class="external text" href="http://homex.subnet.at/~max/ldap/index.php">Using OpenLDAP on Debian Woody to serve Linux and Samba users </a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

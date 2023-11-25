@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Syslog and Klog - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/syslog_and_klog.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Syslog and Klog"/>
+    <meta property="og:url" content="https://annvix.com/syslog_and_klog.html"/>
+    <meta property="og:description" content="Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Syslog and Klog</h1>
+        
+        <div class="entry-content">
+            <p>Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems also come with a daemon called klogd, the Linux kernel log daemon.
+</p>
+<p>Configuration of syslog is done via the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Each Linux distribution, and other systems like FreeBSD, Mac OS X, etc. may have their default syslog configurations slightly different, and each may run a slightly different syslogd that may offer enhanced or reduced functionality. The basic syntax of the logfiles are similar, however.
+</p>
+<p>What syslog does is receive messages from various "facilities" on the system. Each received message will also have an importance level assigned to it. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">syslog.conf</span> file tells syslogd what to do with these messages, based upon their facility and level of importance. The basic syntax of syslog.conf is as follows:
+</p>
+<pre>
+facility.level       action
+</pre>
+<p>The selector (the first field; "facility.level"), must be separated from the action by one or more TAB characters. While some syslog implementations understand using spaces as a separator, others do not so if you're unsure, use tabs. You can also include blank lines and comments (lines beginning with the # character) in the configuration file. You may also have multiple facilities specified, separated by a comma.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Facilities.2C_Levels.2C_and_Actions"><span class="tocnumber">1</span> <span class="toctext">Facilities, Levels, and Actions</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_syslog"><span class="tocnumber">2</span> <span class="toctext">Configuring syslog</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Remote_and_Central_Logging"><span class="tocnumber">3</span> <span class="toctext">Remote and Central Logging</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Facilities.2C_Levels.2C_and_Actions">Facilities, Levels, and Actions</span></h2>
+<p>The following is a list of syslog facilities:
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> Facility
+</th>
+<th style="background:#efefef;"> Description
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">auth</span> </td>
+<td> Authentication information, but has been deprecated in favor of <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">authpriv</span>, although some programs still use it
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">authpriv</span> </td>
+<td> Authentication information which may contain data like usernames and other privileged information
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">console</span> </td>
+<td> Messages written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span> by the kernel console output driver [BSD only]
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">cron</span> </td>
+<td> Messages from the cron and at daemons
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">daemon</span> </td>
+<td> Messages from daemons, such as inetd, xinetd, etc.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ftp</span> </td>
+<td> Messages from FTP daemons
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern</span> </td>
+<td> Messages from the kernel; on Linux systems these are normally passed through klogd first
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">lpr</span> </td>
+<td> Messages from printer services like lpd, LPRng, etc.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail</span> </td>
+<td> Messages from mail-related daemons such as sendmail or postfix
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mark</span> </td>
+<td> An internal facility for syslog to generate timestamps
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">news</span> </td>
+<td> Messages from NNTP daemons such as innd or leafnode
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">security</span> </td>
+<td> Messages from the security subsystem, such as ipfw [BSD only]
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">syslog</span> </td>
+<td> Messages from syslog itself
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">user</span> </td>
+<td> Messages generated by user-space programs; this is the default for unspecified syslog facilities
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">uucp</span> </td>
+<td> Messages from UUCP
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">local0-local7</span> </td>
+<td> Facilities used by customized programs (ie. in some programs you can tell it via a configuration file what facility to use, so you may opt to have OpenLDAP log to local0, OpenSSH to log to local1, and so forth).
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> </td>
+<td> All facilities except <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mark</span>
+</td></tr></table>
+<p>The following table describes the various syslog levels:
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> Level
+</th>
+<th style="background:#efefef;"> Description
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">emerg</span> </td>
+<td> The system is unusable
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">alert</span> </td>
+<td> A condition exists that needs to corrected immediately
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">crit</span> </td>
+<td> An error condition that indicates a program or subsystem may no longer be useable
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">err</span> </td>
+<td> An error condition that indicates a component of a program or subsystem may no longer be useable
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">warning</span> </td>
+<td> A warning message
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">notice</span> </td>
+<td> A normal condition with significance
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">info</span> </td>
+<td> An informational message
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">debug</span> </td>
+<td> A debug message, usually a message that does not indicate any problems or have any normal significance
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">none</span> </td>
+<td> No level, usually used as a facility exemption when using the wildcard
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> </td>
+<td> All levels, except none
+</td></tr></table>
+<p>Finally, the following table illustrates the different actions syslog can take. Not all of these actions may be available with all implementations of syslog, however.
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> Action
+</th>
+<th style="background:#efefef;"> Description
+</th></tr>
+<tr>
+<td> file or device </td>
+<td> The absolute pathname to a file (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>). The message will be written to the specified file. You can also use the full path to a device such as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/tty1</span>, or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/lp0</span>, etc. This can be useful for writing to a serial port, printer, or specific console. On Linux systems, you can prefix a file with the "-" character to tell syslog not to sync the file after every logging, which can have some performance benefits, but may also result in missing messages in the event of a system crash.
+</td></tr>
+<tr>
+<td> @hostname </td>
+<td> Messages are sent to specified hostname. The remote syslogd must be able to receive remote messages and must be configured for the selected facility.level being sent.
+</td></tr>
+<tr>
+<td> username </td>
+<td> Sends the message to the specified user(s) using write, provided they are logged in. Multiple users can be specified by using a comma-separated list (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">root,vdanen,joe</span>. To write to everyone, use "*".
+</td></tr>
+<tr>
+<td> named pipe </td>
+<td>) symbol. This tells syslog to write into the FIFO (pipe), and other programs like swatch can read from the FIFO and act on the message. [Linux only]
+</td></tr></table>
+<p>You can also specify multiple selectors by separating them with a semi-colon (ie. you can use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.emerg;mail.crit</span> to specify two facilities to log to the same place. Each specified level indicates that level and higher; so if you specifiy "crit", you will actually be logging "crit", "alert", and "emerg". To specify one level and that level only, prefix it with the "=" character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.=crit</span>). To negate a specific level use the "!" character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.info;kern.!err</span>) tells syslog to log everything from facility <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern</span> with level "info" and higher, except everything with level "err" and higher (basically, log levels "info", "notice", and "warning")).
+</p>
+<h2><span class="mw-headline" id="Configuring_syslog">Configuring syslog</span></h2>
+<p>With the above information, you can finetune your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Most vendors provide sane defaults for syslog and likely you will not need to change anything. The logfile that usually contains the most "centralized" information and will be the one most people will likely want to monitor closely is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (on Linux) and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span> (on BSD). For instance, on Linux, the following is used to determine what to write to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (taken from Mandrakelinux 9.1):
+</p>
+<pre>
+*.info;mail.none;news.none;authpriv.none           -/var/log/messages
+</pre>
+<p>This tells syslog to log every facility, of level "info" and higher, except the facilities "mail", "news", and "authpriv" to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>, and to not sync the file after every write.
+</p>
+<p>On Mac OS X, the default is as follows:
+</p>
+<pre>
+*.notice;*.info;authpriv,remoteauth,ftp.none;kern.debug;mail.crit  /var/log/system.log
+</pre>
+<p>This tells syslog to log every facility of level "notice" and "info" except for facilities "authpriv", "remoteauth", and "ftp", as well as debug kernel messages, and critical mail messages to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span>.
+</p>
+<p><b>NOTE</b>: I'm not sure where this remoteauth facility is coming from for OS X as Apple neglected to include a manpage for syslog.conf, and the syslog manpage makes no reference to this facility, nor does it look like FreeBSD has it, so I don't know if this is a valid facility or where it comes from or what it specifically does (although I suspect perhaps telnet logins by the name, as OpenSSH seems to be logging to <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">auth.info</span>, which is it's default (unless Apple patched it for some reason)). Using logger to test it does indeed show that it is a working facility, but I don't know what systems use it.
+</p>
+<p>When you make changes to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span>, you need to tell syslog to re-read it's configuration file. This can be done by executing, as root, "killall -HUP syslogd" or restarting the service itself (ie. executing "/etc/init.d/syslog restart" on some Linux systems). Some implementations of syslog will create any newly specified logfiles from the configuration upon startup; others may not so you may want to do a simple "touch /var/log/mynewlogfile" before restarting syslogd.
+</p>
+<p>You can also test your syslog changes quite easily by using the logger tool. For instance, I wanted to test if <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">remoteauth.crit</span> was actually being logged on OS X, so I executed:
+</p>
+<pre>
+$ logger -p remoteauth.crit -t TEST &quot;This is a test&quot;
+</pre>
+<p>syslog dutifully wrote it to my <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/secure.log</span> file in OS X and the file contained:
+</p>
+<pre>
+Feb 21 14:36:59 tibook TEST: This is a test
+</pre>
+<p>You can make use of this in your scripts so you can have, for example, some auditing script or archival script record it's start and end (and any errors it may have encountered) to a logfile via syslog.
+</p>
+<h2><span class="mw-headline" id="Remote_and_Central_Logging">Remote and Central Logging</span></h2>
+<p>Logging remotely, to a central loghost, is a great idea, especially if you have machines that are publically accessible, such as web servers in a DMZ. One thing that crackers attempt to do after gaining access to a system is to srub the logfiles to remove as much evidence that they were there as possible. By having your system logger log remotely, they are unlikely to be able to do this without also breaking into your log host.
+</p>
+<p>There are two simple steps to accomplishing this. The first is to configure syslog appropriately, the second is to have the system time synchronized between machines. For the latter, using something like ntp is appropriate; you can use it to match your clock to a specified time server. If all machines use the same time server, the time between machines should match to a high degree.
+</p>
+<p>In your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> configuration file, you need to tell it to log data to a log server. For redundancy, have syslog log both locally and remotely, except on the central log server. For instance, you may add the following to the end of your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file:
+</p>
+<pre>
+*.info              @loghost.mydomain.com
+</pre>
+<p>where loghost.mydomain.com is a fully resolveable domain name that points to your log server. This will log all messages of level "info" and higher to the log server.
+</p>
+<p>On the log server itself, you must start syslog with the "-r" commandline parameter (on Linux) or "-u" on Mac OS X. On FreeBSD, syslog listens to the network with no commandline options, but is configured to run in "secure mode" (with the commandline parameter "-s") by default. This tells syslog to listen to UDP port 514 for logging messages. It will write to the local system as per the rules defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> on the host. So if you have, for instance, <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> being written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mail/info</span> on your server, but written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> on the log server, the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> messages will be also be logged to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> as syslog pays attention to the rules on the host it is running on; it knows nothing of the rules on the remote server.
+</p>
+<p>On a Mandrakelinux system, you would modify the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/syslog</span> file and change:
+</p>
+<pre>
+SYSLOGD_OPTIONS=&quot;-m 0&quot;
+</pre>
+<p>to:
+</p>
+<pre>
+SYSLOGD_OPTIONS=&quot;-r -m 0&quot;
+</pre>
+<p>and then restart the syslogd daemon.
+</p>
+<p>In Mac OS X, you need to modify the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/StartupItems/SystemLog/SystemLog</span>. In the StartService() function is a line that simply reads "syslogd"; replace it with "syslogd -u", like in the following illustration.
+</p>
+<pre>
+StartService ()
+{
+    ConsoleMessage &quot;Starting system log&quot;
+
+    if [ -f /etc/syslog.conf ]; then
+        if&#160;! pid=$(GetPID syslog); then
+            rm -f /dev/log
+            syslogd -u
+        fi
+    else
+        echo &quot;Warning: syslogd was not started&quot;
+    fi
+}
+</pre>
+<p>You will either need to reboot to have the change take effect, or kill and start syslogd manually in order to see the immediate change.
+</p>
+<p>On a FreeBSD system,syslog is started in "safe mode" to begin with, so you need to disable it. To do this, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.conf</span> and add:
+</p>
+<pre>
+syslogd_flags=&quot;&quot;
+</pre>
+<p>to the end of the file. You will need to restart syslog completely in order for this to take effect, which can be accomplished by doing a reboot or killing syslogd and then starting it again manually.
+</p>
+<p>Perhaps one of the most frustrating things with syslog is the differences across various platforms. It performs the same function, but as you can see with three different, yet similar, operating systems, there are three very different syslog implementations in terms of how it's run (the configurations are very similar across the board).
+</p>
+<p>On a final note, you will need to modify your firewall to allow inbound traffic on UDP port 514. You will want to limit this to the client systems that will be sending logs to you, to ensure you receive only legitimate log entries. If you leave it open for the world, an attacker can DoS your system by just filling your filesystem full of bogus log entries.
+</p>
+<p>On a Linux system, using iptables, you would use the following rule on the logging client (the machine from which you will receive syslog messages). It assumes a default OUTPUT policy of DENY:
+</p>
+<pre>
+iptables -A OUTPUT -o $IFACE -p udp -s $MYIP -d $LOGHOST --dport 514 -j ACCEPT
+</pre>
+<p>This implied $IFACE being equal to your external ethernet interface (ie. eth0), $MYIP being the IP address of the server (the machine you are adding this iptables rule to) and $LOGHOST is the IP address of the machine you wish to send the logs to.
+</p>
+<p>On the receiving system, you would use a similar rule:
+</p>
+<pre>
+iptables -A INPUT -o $IFACE -p udp -s $LOGCLIENT -d $MYIP --dport 514 -j ACCEPT
+</pre>
+<p>In this case, $LOGCLIENT is the IP address of the machine sending the logs, and $MYIP is the IP address of the log server.
+</p>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

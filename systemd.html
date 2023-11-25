@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Systemd/systemctl tips and info - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/systemd.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I&#39;m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle boot …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Systemd/systemctl tips and info"/>
+    <meta property="og:url" content="https://annvix.com/systemd.html"/>
+    <meta property="og:description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I&#39;m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle boot …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Systemd/systemctl tips and info</h1>
+        
+        <div class="entry-content">
+            <p>SysV-init has been a staple of Linux for years and years.  In recent versions of Fedora (current version is 18) this has changed to using <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd">systemd</a>.  I'm no stranger to alternative means for running startup commands (I did, after all, have Annvix using <a href="/Annvix:User_Guide/Services" title="Annvix:User Guide/Services">Annvix:User_Guide/Services</a> runit to handle boot with a custom script called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">srv</span> to handle all the service management stuff (similar to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span>).
+</p>
+<p>Now I need to learn a new system which is quite a bit different from both and reminds me a lot of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">launchd</span> on OS X.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Command_Comparison"><span class="tocnumber">1</span> <span class="toctext">Command Comparison</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Boot_Commands"><span class="tocnumber">2</span> <span class="toctext">Boot Commands</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Runlevels"><span class="tocnumber">3</span> <span class="toctext">Runlevels</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Changing_the_Default_Runlevel"><span class="tocnumber">3.1</span> <span class="toctext">Changing the Default Runlevel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Systemctl_Commands_In_Depth"><span class="tocnumber">4</span> <span class="toctext">Systemctl Commands In Depth</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Systemctl_Show"><span class="tocnumber">4.1</span> <span class="toctext">Systemctl Show</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Command_Comparison">Command Comparison</span></h1>
+<p>Out of the box, we're used to commands like "service foo restart" or "chkconfig --add foo" and so forth.  In Fedora 17, you could still use these commands and they would transparently go to the equivalent <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> command.  But some stuff doesn't work (like "chkconfig --list" doesn't really list the systemd service units), and it's just plain old better to learn the real commands for the day when these wrappers are deprecated.
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;" width="20%"> SysV-init
+</th>
+<th style="background:#efefef;" width="25%"> systemd
+</th>
+<th style="background:#efefef;" width="55%"> What it does
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl list-units -t service --all</span> </td>
+<td> List available services; the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> command however does not list targets, so unlike <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span> we do not know what runlevel (or boot target) a specific service will start in
+</td></tr>
+<tr style="background: #f8f8f8;">
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig X on</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl enable X.service</span> </td>
+<td> Enables service X so that it will start at boot; this does not start X now
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig X off</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl disable X.service</span> </td>
+<td> Disables service X so that it will not start at boot; this does not stop X now
+</td></tr>
+<tr style="background: #f8f8f8;">
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service X start</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl start X.service</span> </td>
+<td> Starts service X immediately; <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service</span> provides feedback on success, but <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> does not (although it will tell you if it fails)
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service X stop</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl stop X.service</span> </td>
+<td> Stops service X immediately
+</td></tr>
+<tr style="background: #f8f8f8;">
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service X restart</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl restart X.service</span> </td>
+<td> Restarts service X immediately
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service X status</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl status X.service</span> or<br /> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl is-active X.service</span> </td>
+<td> Displays the status of service X; the first command displays the path to the loaded service unit file, the process, PID, etc.  The second command will simply display whether or not the service is active (good for shell scripts, etc.)
+</td></tr>
+<tr style="background: #f8f8f8;">
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list | grep '3:on'</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -p show "Wants" multi-user.target | cat</span> </td>
+<td> Lists all services enabled for runlevel 3 (or multi-user/network/text);see <a href="#Systemctl_Show">#Systemctl_Show</a> below.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">telinit 3</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl isolate multi-user.target</span> </td>
+<td> Switch to runlevel 3 (or multi-user.target).  See <a href="#Runlevels">#Runlevels</a> for more details.
+</td></tr>
+<tr style="background: #f8f8f8;">
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -t service</span> </td>
+<td> Show all loaded services (running, failed, active, inactive, etc.).  Can use target, etc. as well; no arguments shows everything loaded
+</td></tr>
+<tr>
+<td> n/a </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -t service | grep running</span> </td>
+<td> Show all currently running services
+</td></tr></table>
+<h1><span class="mw-headline" id="Boot_Commands">Boot Commands</span></h1>
+<p>With systemd, if you want to boot into the non-default runlevel (or target) you need to edit the GRUB boot command for the linux kernel and options to specify the target to boot into.  The default is typically graphical.target.  You can do this by appending to the boot command:
+</p>
+<pre>
+linux /vmlinuz-3.7.2-204.fc18.i686.PAE root= [...] quiet systemd.unit=multi-user.target
+</pre>
+<p>Other valid targets include "rescue.target" (like runlevel 1), "emergency.target" (like using init=/bin/sh).  Further details can be found via <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">man systemd.special</span>.
+</p>
+<h1><span class="mw-headline" id="Runlevels">Runlevels</span></h1>
+<p>SysV-init had the concept of runlevels, defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inittab</span>, for example:
+</p>
+<pre>
+# Default runlevel. The runlevels used are:
+#   0 - halt (Do NOT set initdefault to this)
+#   1 - Single user mode
+#   2 - Multiuser, without NFS (The same as 3, if you do not have networking)
+#   3 - Full multiuser mode
+#   4 - unused
+#   5 - X11
+#   6 - reboot (Do NOT set initdefault to this)
+#
+id:3:initdefault:
+</pre>
+<p>The above will boot into runlevel 3 by default.  Systemd does not have the same concept of runlevels, it uses targets instead.  You can get the output of available targets using:
+</p>
+<pre>
+% systemctl list-units -t target --all
+UNIT                         LOAD   ACTIVE   SUB    JOB DESCRIPTION
+emergency.target             loaded inactive dead       Emergency Mode
+graphical.target             loaded active   active     Graphical Interface
+multi-user.target            loaded active   active     Multi-User
+rescue.target                loaded inactive dead       Rescue Mode
+shutdown.target              loaded inactive dead       Shutdown
+</pre>
+<p>I've snipped out the targets that are not really relevant as "runlevels" (for instance the "unmount.target" isn't really a runlevel you would boot into, so I didn't include it in the above output).  Again, if you want to see what any of these load, use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p "Wants" rescue.target</span>, which will show ou what services and/or targets this target (or runlevel) wants.
+</p>
+<p>Also note that there is some correspondance with the initial runlevel; for instance <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">multi-user.target</span> can also be called as <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">runlevel3.target</span>.  You can look at <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/lib/systemd/system/runlevel*</span> to see which runlevel target corresponds to the systemctl target, for instance:
+</p>
+<pre>
+ ls /lib/systemd/system/runlevel3.target -al
+lrwxrwxrwx. 1 root root 17 Jan  8 21:19 /lib/systemd/system/runlevel3.target -&gt; multi-user.target
+</pre>
+<h2><span class="mw-headline" id="Changing_the_Default_Runlevel">Changing the Default Runlevel</span></h2>
+<p>Changing the default runlevel is done by changing the symlink of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/systemd/system/default.target</span>:
+</p>
+<pre>
+% ls -al /etc/systemd/system/default.target
+lrwxrwxrwx. 1 root root 36 May 28  2012 /etc/systemd/system/default.target -&gt; /lib/systemd/system/runlevel5.target
+</pre>
+<p>So if you wanted to boot into runlevel3 (multi-user.target) by default, you would:
+</p>
+<pre>
+# cd /etc/systemd/system
+# rm default.target
+# ln -s /lib/systemd/system/multi-user.target default.target
+</pre>
+<h1><span class="mw-headline" id="Systemctl_Commands_In_Depth">Systemctl Commands In Depth</span></h1>
+<p>Here we'll look at a few commands in depth to try to make sense of them.
+</p>
+<h2><span class="mw-headline" id="Systemctl_Show">Systemctl Show</span></h2>
+<p>One of the more annoying things about <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> is the show command.  This is probably because it behaves quite differently from what I would expect from <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> and it's worth discussing in a little more depth.
+</p>
+<p>The primary issue is that when you run <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p "Wants" multi-user.target</span> it pipes it to less, so you don't really get to see all of the commands at once.  Not sure why it does this, but it's annoying.  Piping that output to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">cat</span> instead gives us the whole thing together:
+</p>
+<pre>
+% systemctl show -p &quot;Wants&quot; multi-user.target | cat
+Wants=systemd-update-utmp-runlevel.service sm-client.service abrt-vmcore.service remote-fs.target abrt-xorg.service apcupsd.service sssd.service
+mcelog.service nfs-idmap.service nfs-lock.service auditd.service crond.service sendmail.service sshd.service rsyslog.service acpid.service
+avahi-daemon.service netatalk.service ntpd.service rpcbind.service NetworkManager.service chronyd.service httpd.service arp-ethers.service
+atd.service irqbalance.service abrt-oops.service certmonger.service mysqld.service abrt-ccpp.service cups.path abrtd.service mdmonitor.service
+plymouth-quit-wait.service systemd-logind.service dbus.service getty.target systemd-ask-password-wall.path plymouth-quit.service
+systemd-user-sessions.service rc-local.service nrpe.service tcsd.service
+</pre>
+<p>This shows all the services and targets that the multi-user.target wants, which is our non-GUI runlevel (essentially runlevel 3).  So if we want to see what starts with our graphical target:
+</p>
+<pre>
+% systemctl show -p &quot;Wants&quot; graphical.target | cat
+Wants=systemd-readahead-collect.service systemd-readahead-replay.service systemd-update-utmp-runlevel.service system-setup-keyboard.service
+prefdm.service nrpe.service tcsd.service atieventsd.service
+</pre>
+<p>Based on the above, it doesn't look like the graphical target wants a whole heck of a lot.  This is quite different from the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> output where you see all the services and whether or not they are enabled in a particular runlevel.  Here, at a quick glance, we would be thinking that things like dbus, getty, sshd, etc. aren't being started.  But we need to look at the dependencies between targets to know for sure what is going on.  To that end:
+</p>
+<pre>
+% systemctl show -p &quot;RequiredBy&quot; multi-user.target| cat
+RequiredBy=graphical.target
+</pre>
+<p>and:
+</p>
+<pre>
+% systemctl show -p &quot;Requires&quot; graphical.target | cat
+Requires=multi-user.target
+</pre>
+<p>So now we see that multi-user.target is required by graphical.target (and likewise that graphical.target requires multi-user.target).  This means that the multi-user.target must be loaded before graphical.target can be loaded.  In other words, for the graphical.target we can add the "Wants" of multi-user.target to its "Wants" list.  Confused yet?  It's not bad, but just annoying.  With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> you need to to run two commands ("Wants" on both targets) versus a simple <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span> command (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list | grep '5:on'</span>).
+</p>
+<h1><span class="mw-headline" id="References">References</span></h1>
+<p>Here are links to other systemd documentation and articles worth reading:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd">Official systemd Home</a>
+<ul><li> <a rel="nofollow" class="external text" href="http://freedesktop.org/wiki/Software/systemd/Optimizations">Official systemd Optimizations</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions">Official systemd FAQ</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks">Official systemd Tips And Tricks</a></li></ul></li>
+<li> <a rel="nofollow" class="external text" href="http://fedoraproject.org/wiki/Systemd">systemd on Fedora</a></li>
+<li> <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/Systemd">systemd on ArchLinux</a>
+<ul><li> <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/Systemd_FAQ">systemd FAQ (ArchLinux)</a></li></ul></li>
+<li> <a rel="nofollow" class="external text" href="http://0pointer.de/public/systemd-ebook-psankar.pdf">systemd for Administrators E-Book (PDF)</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

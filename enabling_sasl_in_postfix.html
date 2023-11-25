@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Enabling SASL in Postfix - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/enabling_sasl_in_postfix.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="NOTE: This is a revision of the previous &#34;Enabling SASL in Postfix&#34; article on MandrakeSecure. SASL, short for Simple Authentication and Security Layer is a method for adding authentication support to connection-based protocols. In order for SASL to be used, a protocol must include a command for identifying and authenticating …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Enabling SASL in Postfix"/>
+    <meta property="og:url" content="https://annvix.com/enabling_sasl_in_postfix.html"/>
+    <meta property="og:description" content="NOTE: This is a revision of the previous &#34;Enabling SASL in Postfix&#34; article on MandrakeSecure. SASL, short for Simple Authentication and Security Layer is a method for adding authentication support to connection-based protocols. In order for SASL to be used, a protocol must include a command for identifying and authenticating …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Enabling SASL in Postfix</h1>
+        
+        <div class="entry-content">
+            <p><i><b>NOTE:</b> This is a revision of the previous "Enabling SASL in Postfix" article on MandrakeSecure.</i>
+</p>
+<p>SASL, short for <b>Simple Authentication and Security Layer</b> is a method for adding authentication support to connection-based protocols. In order for SASL to be used, a protocol must include a command for identifying and authenticating a user to a server and for optionally negotiating protection of subsequent protocol interactions. If it's use is negotiated, a security layer is inserted between the protocol and the connection.
+</p>
+<p>That description is taken basically verbatim from the <a rel="nofollow" class="external text" href="http://asg.web.cmu.edu/sasl/">Cyrus SASL</a> homepage. Cyrus SASL is the SASL authentication library that is provided in Mandrakelinux from version 8.0 on. Unfortunately, the description may not mean a lot to people, so let's try to simplify it a little bit. In easier terms, SASL is a means for authenticating yourself to the server without providing your password in the clear. This can also be used to provide extended capabilities based on your authorization.
+</p>
+<p>In this paper, we will look at enabling SASL support in the postfix MTA. In current versions of Mandrakelinux, sendmail comes with SASL support out of the box but postfix does not. To enable SASL support in postfix, you need to configure a few things, and we will go through these step by step.
+</p>
+<p>The benefit to using SASL with your SMTP server is quite simple. To understand the benefit, you need to understand some of the fundamental flaws with the SMTP protocol. In the early days of SMTP when the internet was much smaller, there was a certain amount of trust between users. Since then, due to the explosive growth of the internet and the subsequent abuse from some individuals, the lack of authentication between client and server should be considered a flaw. It basically boils down to the fact that now you can't trust everyone anymore. Servers cannot trust clients and clients cannot trust servers due to how easy it is to spoof IP protocols. Because of this, neither client nor server cannot know if the other end is legitimate.
+</p>
+<p>There are other forms of authentication, but none are as efficient as using SASL. Some other methods of authentication that were conceived were POP-before-SMTP, which would require a user to POP into the server and then immediately send their mail out, thus authenticating them through the POP server. Others used DNS or IP information, both of which could be spoofed. To this end, SASL was used with the SMTP AUTH extension, as described in <a rel="nofollow" class="external text" href="http://www.ietf.org/rfc/rfc2554.txt">RFC 2554</a>. Using SASL, protocols such as CRAM-MD5 can be used to authenticate, as well as other mechanisms such as Kerberos, the system password file, or others.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Pre-requisites"><span class="tocnumber">1</span> <span class="toctext">Pre-requisites</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_postfix"><span class="tocnumber">2</span> <span class="toctext">Configuring postfix</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_Cyrus_SASL"><span class="tocnumber">3</span> <span class="toctext">Configuring Cyrus SASL</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Testing_Your_Configuration"><span class="tocnumber">4</span> <span class="toctext">Testing Your Configuration</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Resources"><span class="tocnumber">5</span> <span class="toctext">Resources</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Pre-requisites">Pre-requisites</span></h1>
+<p>The first thing you need to do is have a version of postfix installed that has SASL support enabled. Recently, MandrakeSoft issued updates to postfix that provided fixed SASL support for 8.1 and introduced SASL support in 8.0 (for more information, view the advisory, <a rel="nofollow" class="external text" href="http://www.mandrakesoft.com/security/advisories?name=MDKA-2002:003">MDKA-2002:003</a>). These versions of postfix (postfix-20010228-6.2mdk for 8.0 and postfix-200102280-15.2mdk for 8.1) provide proper SASL support and can be upgraded via MandrakeUpdate. You will also need the Cyrus SASL library files, which you can also obtain from updates due to a security fix (<a rel="nofollow" class="external text" href="http://www.mandrakesoft.com/security/advisories?name=MDKSA-2002:018">MDKSA-2002:018</a>). These updates are available for 8.0 and 8.1 also.
+</p>
+<p>You will need to have the basic components installed: cyrus-sasl and libsasl7. To enable the authentication methods, you will need the appropriate plugin. For example, to enable CRAM-MD5 authentication, you will need to install the libsasl7-plug-crammd5 package; for PLAIN authentication, you will need the libsasl7-plug-plain package. You can install the specific plugin you wish, or simply download and install all of the plugins (anonymous, crammd5, digestmd5, login, or plain).
+</p>
+<p>Once you have upgraded and/or installed the appropriate packages, you're ready to configure postfix and Cyrus SASL. 8.2 users can install postfix and the SASL packages from their install CDs.
+</p>
+<h1><span class="mw-headline" id="Configuring_postfix">Configuring postfix</span></h1>
+<p>To configure postfix to use SASL, you must edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/main.cf</span> file. There are a few different options that you must enable. At the end of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">main.cf</span> file, include the following:
+</p>
+<pre>
+# Other configurable parameters
+# server
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_local_domain = $myhostname
+smtpd_recipient_restrictions = permit_mynetworks,
+  permit_sasl_authenticated, check_relay_domains
+smtpd_sasl_security_options = noanonymous
+# client
+smtp_sasl_auth_enable = yes
+</pre>
+<p>Please note that that the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_recipient_restrictions</span> command should be entered on one single line, not two lines as illustrated here.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_sasl_auth_enable</span> keyword tells postfix to use SASL authentication, and advertises AUTH in the ESMTP capabilities.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_sasl_local_domain</span> keyword should contain the authentication realm that the postfix smtpd process attempts to authenticate sessions against. This currently has no effect if you are not using the sasldb. This should be set to $myhostname as there is no provision for clients to specify a realm and postfix has no support for multiple authentication domains.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_sasl_security_options</span> keyword tells postfix which methods to use. You can set this to "noplaintext" to disable the use of PLAIN and LOGIN methods (which use plaintext passwords). "noanonymous" tells postfix to disable methods that use anonymous authentication (ANON). Setting this to "nodictionary" tells postfix not to advertise methods that are vulnerable to passive (or dictionary) attacks. Finally, if set to "noactive", postfix will not use methods that are vulnerable to active (or non-dictionary) attacks.
+</p>
+<p>You can also use the keyword <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">broken_sasl_auth_clients</span>. If this is set to "yes", then postfix will support older clients that expect the server to return AUTH= instead of AUTH, which will result in postfix providing two AUTH banners. This is typically only useful if you have clients using Outlook Express 4.x.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_recipient_restrictions</span> keyword specifies restrictions on recipient addresses that clients can send in RCPT TO commands. There are a <i>lot</i> of different restrictions that can be configured here, if you're interested in a full list of the available restrictions, look in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/doc/postfix-20010228/sample/sample-smtpd.cf</span> file (it's described starting at line 245). To describe the options shown in the above example, the "permit_mynetworks" will permit if the client address matches $mynetworks (which is a default in postfix); the "permit_sasl_authenticated" permits if the client successfully authenticates with SASL authentication (which is what we want to enable here), and "check_relay_domains" permits if a series of tests are successfully passed (also a default in postfix, but describing the tests is beyond the scope of this paper).
+</p>
+<p>To obtain more details on the different SASL-related options, you can view the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/doc/postfix-20010228/sample/sample-auth.cf</span> file.
+</p>
+<p>On a final note, postfix logs the username provided by the remote host, the requested authentication method, and the sender address during authenticated sessions.
+</p>
+<p>The above options handle incoming AUTH requests in the SMTP server (smtpd). The following options handle outgoing AUTH requests in the SMTP client (smtp). You do not need to use authentication on outgoing sessions, and it is perfectly reasonable to use authentication only for incoming sessions. The following are the options you can use to handle outgoing authentication:
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtp_sasl_auth_enable</span> keyword tells postfix to attempt to authenticate on all outbound connections.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtp_sasl_password_maps</span> keyword tells postfix what maps store outgoing credential information. This is <i>not</i> the same as your sasldb; the sasldb cannot be used for outgoing credentials. An example might be "hash:/etc/postfix/sasl_passwd".
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtp_sasl_security_options</span> keyword uses the same values as the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_sasl_security_options</span> keyword noted above.
+</p>
+<p>If you decide to use outbound authentication, you will need to create the map that postfix will use (identified by <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtp_sasl_password_maps</span>). The file must be plaintext using the following syntax:
+</p>
+<pre>
+destination   username:password
+</pre>
+<p>or
+</p>
+<pre>
+destination   username
+</pre>
+<p>if a password is not required. The destination must be the fully qualified domain name (FQDN) of the remote host or a domain name that is serviced by multiple hosts. Postfix will attempt first to find the server hostname in this map, and if it doesn't it will attempt to find the destination hostname. If the destination is a group of SMTP servers that all share the same authentication database, you should set the destination to the domain name instead of adding one line per server.
+</p>
+<p>The only oddity of SMTP client AUTH is that the host information matched in the client password map must also exist in DNS. This is even if you are using NIS or the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file.
+</p>
+<p>Once you have completed your postfix configuration you should execute the following commands to make sure you have made no syntax errors:
+</p>
+<pre>
+# postfix check
+# postfix reload
+</pre>
+<h1><span class="mw-headline" id="Configuring_Cyrus_SASL">Configuring Cyrus SASL</span></h1>
+<p>The next step it to configure Cyrus SASL. This only deals with incoming authentication sessions. The first thing to do is to tell the SASL library where to pull the authentication from. This is done by editing the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/lib/sasl/smtpd.conf</span> file. You have a few choices that you can select:
+</p>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pam</span>: this tells SASL to integrate with your system's PAM libraries and to authenticate against the database specified by pam. This can be used with plaintext protocols such as PLAIN and LOGIN, and should allow you to authenticate against other services such as LDAP and RADIUS. On most systems, pam will be configured to authenticate logins against the system passwd file. Unfortunately, the only way I could make pam authentication work was if the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> file was mode 644, which is definately not a good idea. This is only useful if you have pam authenticate against something like LDAP. If you want to authenticate local users, you should use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pwcheck</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">shadow</span>.
+</p>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">shadow</span>: this tells SASL to look for the username and password using the system <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> file. Again, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> must be mode 644 in order for this authentication mechanism to work.
+</p>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sasldb</span>: this tells SASL to use the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/lib/sasl/sasl.db</span> database to check passwords and secrets. This method must be used to allow DIGEST-MD5 or CRAM-MD5 authentication. Users must be added to this database using the saslpasswd utility. You must add at least one user to the database for it to be properly initialized. This file must also be readable by the postfix user; Mandrakelinux installs the file with 0644 permissions. However, this seems to be ok as regular users cannot read information from the sasldb using the sasldblistusers program.
+</p>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pwcheck</span>: this is similar to the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">shadow</span> method except you do not need to give the postfix user read access to the file (a very good idea). This method interfaces with the pwcheck daemon, which runs as root to read the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> file instead of permitting postfix to do it. Using pwcheck is very simple, and if you want to authenticate against local users without using sasldb, you should use pwcheck. It uses the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/sbin/pwcheck</span> daemon, which runs as root, to check against your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> file. This means you don't have to change the permissions of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/shadow</span> to something insecure like mode 644. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pwcheck</span> is a daemon that must be started as root and immediately launches itself into the background. Since there is no initscript for pwcheck, you can simple add to the end of your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.d/rc.local</span> file the following:
+</p>
+<pre>
+/usr/sbin/pwcheck
+</pre>
+<p>For simplicity's sake, I recommend using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sasldb</span> method. Your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/lib/sasl/smtpd.conf</span> file should then look like this:
+</p>
+<pre>
+pwcheck_method:sasldb
+</pre>
+<p>If you wish to use a different authentication method noted above, simply replace "sasldb" in the above example with your chosen authentication method (pam, shadow, sasldb, or pwcheck).
+</p>
+<p>The next step is to populate the database. This is done with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">saslpasswd</span> program. Execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">saslpasswd</span> like this:
+</p>
+<pre>
+# saslpasswd -a smtpd -c username
+</pre>
+<p>This will add "username" to the application "smtpd". You will be prompted for the password interactively. The "-c" option tells saslpasswd to create an entry for the user if the user doesn't already exist. You can use the "-d" flag to delete the specified user. You can also use "-u [domain]" to specify the user domain (realm) which also corresponds with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smtpd_sasl_local_domain</span> keyword. If you set the keyword to $myhostname, do not use the "-u" option as saslpasswd will automatically set the domain to the system's hostname (which is the equivalent of the $myhostname macro in postfix).
+</p>
+<p>You can use the sasldblistusers program to list the users in the database. It will display the username, realm, and authentication mechanism available.
+</p>
+<p>Once you have completed all of this, you should restart postfix using:
+</p>
+<pre>
+# service postfix restart
+</pre>
+<h1><span class="mw-headline" id="Testing_Your_Configuration">Testing Your Configuration</span></h1>
+<p>The final thing to do is to test that you have set everything up properly. The easiest way to test is to launch the Evolution mail client. In the Tools, Mail Settings, Accounts, Edit, Sending Mail menu define the server name as the SMTP server. Click on the "Check for supported type" button so that Evolution probes the server to determine what authentication types can be used. If you have installed the crammd5 and digestmd5 plugins, you should have Evolution return that Passwd, DIGEST-MD5, CRAM-MD5, and NT Login are available. Of course, make sure that you have defined the username in Evolution to be the same as that which you added to the SASL database, or a user on the SMTP server if you use the pwcheck method.
+</p>
+<p>Finally, send a test message via Evolution. When you send the message, you should be asked for your SASL password. If the message is sent and the recipient has received it (best thing to do is send to another account you control or to a friend's account), you know you've done it right.
+</p>
+
+<p><center><img src="https://annvix.com/images/Postfix-sasl.jpg" class="img-responsive" /></center></p>
+<p>Configuring SASL support in postfix may seem a little clumsy or time consuming, but it is worth it. Requiring authentication on the SMTP server can prevent people from abusing your postfix server and ensure that only those people authorized to use it actually <i>do</i> use it.
+</p>
+<h1><span class="mw-headline" id="Resources">Resources</span></h1>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.thecabal.org/~devin/postfix/smtp-auth.txt">Postfix SMTP Authentication</a></li>
+<li> <a rel="nofollow" class="external text" href="http://dudle.linuxroot.org/docs/postfix_cyrus/">Hosting email for virtual domains using Postfix and Cyrus</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.linux.com/howto/Cyrus-IMAP.html">Cyrus IMAP HOWTO</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Creating and Maintaining Your Own Certification Authority (incomplete) - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/creating_and_maintaining_your_own_certification_authority.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Creating and Maintaining Your Own Certification Authority (incomplete)"/>
+    <meta property="og:url" content="https://annvix.com/creating_and_maintaining_your_own_certification_authority.html"/>
+    <meta property="og:description" content="Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Creating and Maintaining Your Own Certification Authority (incomplete)</h1>
+        
+        <div class="entry-content">
+            <p>Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You can easily generate a self-signed certificate to get around this, or you can create your own personal Certification Authority so you can create, update, and sign your own certificates, for any service you like, with impunity.
+</p>
+<p>This has distinct advantages. A number of services take advantage of SSL that even if all you do is run your own LAN with an external server or two, creating your own CA will be worth the time spent to do so (and it isn't much). Better that then shelling out a few thousand dollars to secure every service you want to wrap in SSL. Services such as HTTP, LDAP, POP3, IMAP, and more can all take advantage of SSL, and it would be to your advantage to make use of that support. Protecting services in SSL is a good thing.
+</p>
+<p>The only real requirement to creating your own CA is to have OpenSSL installed on your system, and pretty much every BSD, Linux, and other UNIX distribution will come with OpenSSL. If they don't, you can easily obtain it from <a rel="nofollow" class="external text" href="http://www.openssl.org/">www.openssl.org</a> and compile your own copy.
+</p>
+<p>There are two ways of managing your CA: Manually, or with the help of an extremely useful tool called <a rel="nofollow" class="external text" href="http://tinyca.sm-zone.net/">TinyCA</a>. The latter is recommended, and requires Perl/TK as it is a GUI interface to managing your CA.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Using_TinyCA"><span class="tocnumber">1</span> <span class="toctext">Using TinyCA</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Creating_a_CA_.22The_Old_Fashioned_Way.22"><span class="tocnumber">2</span> <span class="toctext">Creating a CA "The Old Fashioned Way"</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#The_OpenSSL_Configuration_File"><span class="tocnumber">2.1</span> <span class="toctext">The OpenSSL Configuration File</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_the_Root_Certificate"><span class="tocnumber">3</span> <span class="toctext">Creating the Root Certificate</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Exporting_your_CA_Certificate"><span class="tocnumber">4</span> <span class="toctext">Exporting your CA Certificate</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Using_TinyCA">Using TinyCA</span></h1>
+<p>Many Linux distributions come with Perl/TK and it can usually be installed from your installation CDs. Mac OS X, however, is a little different and you will need to take a few extra steps in order for it to work properly. You will have to build Perl/TK from source and update your version of Perl (for 10.2) and will additionally have to hack things a little bit (for 10.1). Other BSD implementations and UNIX variants should be able to build Perl/TK from source with little to no issues.
+</p>
+<p>For Mac OS X, there is a good walk-through on installing Perl/TK available at <a rel="nofollow" class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/">www.lehigh.edu/~sol0/ Macintosh/X/ptk/</a>.
+</p>
+<p>Download and install TinyCA; the current version as of this writing is 0.4.4. The configuration of TinyCA is extremely simple. Untar the file wherever you like; <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local</span> might be an appropriate directory, or if you plan on being the only person to manage the CA, untar it in your home directory.
+</p>
+<p>Once you've unpacked it, edit the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> script itself. Three things need to change:
+</p>
+<pre>
+BEGIN { push(@INC, './lib'); } # put here the location of the modules
+</pre>
+<p>Change this to the full path of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">lib/</span> directory (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/lib</span>) so that you can call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> from anywhere.
+</p>
+<pre>
+# location of openssl
+$init-&gt;{'opensslbin'} = &quot;/usr/bin/openssl&quot;;
+</pre>
+<p>Change this to the location of the =openssl= binary on your system. On most systems, this will suffice, but on some you may need to use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/bin/openssl</span> or, in if you installed OpenSSL using Fink on OS X, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/openssl</span>. Executing <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">which openssl</span> on the command line will tell you where your <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> program is.
+</p>
+<pre>
+# directory with the templates
+$init-&gt;{'templatedir'} = &quot;./templates&quot;;
+</pre>
+<p>This is where your template files for your CA will reside. Change this to the full path (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/templates</span>).
+</p>
+<p>Once you have made these changes, you're ready to fire up TinyCA for the first time. Execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> on the command line and you'll be greated with an empty screen. The first step is to click on the CA pulldown menu and create a new CA.
+</p>
+<p>Here you will be asked for some information to generate your CA: A password to protect the private key, your two letter country code, state or province, locality (city) name, Organization Name and Organizational Unit Name, Common Name, Email Address, and how long the key should be valid for. You'll also be asked to select the keylength: 4096, 2048 (default), or 1024 bits. Unfortunately, while the Organizational Unit Name is generally optional, TinyCA insists that you include it. You will also be asked for a name of the CA, which is used only to create the directory the data is stored in. This can be useful if you intend to have more than a single CA.
+</p>
+<p>Once you have done this, proceed and create the certificate. You'll be given a chance to modify options used for creating the CA certificate and also for server and client certs; unless you really know what you're doing, leave these at their defaults. When the CA cert is created, TinyCA will inform you and you can begin to work with certificates immediately.
+</p>
+<p>The idea behind TinyCA is to allow you to take CSR (Certificate Signing Requests), sign them with your CA key, and export the signed certificates for use with individual servers and services. Because of this, TinyCA provides you with a four-tabbed view of managing your CA: The CA itself (which shows the active CA data), Certificates (which shows what certs have been signed), Keys (which shows what client keys have been signed) and Requests (which shows what CSR's are in the system).
+</p>
+<p>If you generate, or receive, a CSR, go to the Requests tab and click "Import Request". You will be given the chance to input the filename or use the browser to find it. Note that TinyCA looks for PEM, DER, or Request (*.req) files, so if you are like me and generally create *.csr files, you'll need to change the file type to "all files". When you've selected your file, you'll be shown the details of the request so you can confirm whether or not to actually import the CSR. Once you've imported it, you can sign it by clicking on the "Sign Request" button.
+</p>
+<p>You'll be asked for the type of certificate to generate (server or client), for your CA password, and for how long the cert will be valid for. Once it's signed, you'll be asked if you want to delete it. Technically, once the CSR has been signed, you no longer need it, so feel free to remove it now, or wait until you're sure the cert was generated properly. Now if you go to the Certificates tab, you'll see your signed cert, which you can then export, revoke, or delete.
+</p>
+<p>While using TinyCA has the advantage that it's somewhat easy to follow and has a decent GUI, I found that I didn't have the kind of flexibility that I wanted, so I prefer to create my own CA from scratch and do things a little manually. TinyCA is a good enough program, but I believe it needs a little more polish and it doesn't seem to have the ability to import data from a previous CA database (or, if it does, I missed it), which throws my serial numbers off. I also could not make it run under OS X, so it was of limited use to me already.
+</p>
+<h1><span class="mw-headline" id="Creating_a_CA_.22The_Old_Fashioned_Way.22">Creating a CA "The Old Fashioned Way"</span></h1>
+<p>The real old-fashioned way to handle your own CA is to do everything manually. This is actually the method that I prefer the most as it gives you the greatest control over what you intend to accomplish. The process is very similar to what is covered in the book <a rel="nofollow" class="external text" href="http://www.oreilly.com/catalog/openssl/">Network Security with OpenSSL</a> published by O'Reilly. If you want to learn a lot more about OpenSSL than just Certification Authorities, or even if you want to learn a lot of the details of what you are doing with creating your own CA, this book is a recommended read. For our purposes, we will only cover the steps to setup the CA, and not all the theory and detail behind what we are doing.
+</p>
+<p>The first thing that needs to be done is the directory structure and environment for you CA must be created. I keep my CA environment on an encrypted DMG file that is stored on a removable USB disk. This offers a few levels of protection: The USB disk must be physically present in order to mount what is essentially an encrypted loopback filesystem, protected by a strong passphrase. You may not require this same level of protection, but since I had my SSH and GPG keys on the same filesystem, putting the CA there also made sense. So for this example, we will use the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> as our directory for the CA files.
+</p>
+<p>In this directory you need to create two subdirectories: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> directory is where the certificates that we have issued will be stored. The second directory, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span> stores the CA private key. This directory must be protected to ensure that no one else has read access to the directory or the key stored in it. Remember, if you take the steps I have taken, if the filesystem is mounted and someone obtains access to the system (ie. remote access), they can access the files on the encrypted filesystem if they have sufficient privilege to do so. To that end, standard UNIX permissions are still a factor. To accomplish these steps, execute:
+</p>
+<pre>
+$ mkdir -p /Volumes/encrypted/ssl/{certs,private}
+$ cd /Volumes/encrypted/ssl
+$ chmod 700 private
+</pre>
+<p>Next, we have to create two files: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file is used to keep track of the last serial number we used to issue a certificate. Each new certificate will have it's serial number incremented by one, so we need to keep track of this. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file does this for us. We need to initialize this file with the number "01". The number must be two digits, which is why we pad the number with a leading "0". Finally, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span> is like a database that keeps track of the certificates we have issued. OpenSSL requires that this file exists, so we'll just make an empty file:
+</p>
+<pre>
+$ echo &quot;01&quot; &gt; serial
+$ touch index.txt
+</pre>
+<h2><span class="mw-headline" id="The_OpenSSL_Configuration_File">The OpenSSL Configuration File</span></h2>
+<p>The next step is to create a configuration file for OpenSSL. This will ease creating and signing certificates because we won't have to pass as much information to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> on the command line. This file will be stored in our CA directory (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span>) and will be called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">openssl.cnf</span>. Use your favourite text editor to create the file, which would look something like this:
+</p>
+<pre>
+[ ca ]
+default_ca = myca
+
+[ myca ]
+dir               = /Volumes/encrypted/ssl
+certificate       = $dir/cacert.pem
+database          = $dir/index.txt
+new_certs_dir     = $dir/certs
+private_key       = $dir/private/cakey.pem
+serial            = $dir/serial
+
+default_crl_days  = 7
+default_days      = 365
+default_md        = md5
+
+policy            = myca_policy
+x509_extensions   = certificate_extensions
+
+[ myca_policy ]
+commonName             = supplied
+stateOrProvinceName    = supplied
+countryName            = supplied
+emailAddress           = supplied
+organizationName       = supplied
+organizationalUnitName = optional
+
+[ certificate_extensions ]
+basicConstraints = CA:false
+</pre>
+<p>Let's explore the configuration file in a little more depth. The first section "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ ca ]</span>" deals with identifying the default CA we are using. In this case, we define the default CA to be "myca". We then create a new section specifically for this CA which we give the same name as our default CA, in this case "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca ]</span>". As you can see here, you can configure multiple CA's and use one as a default and provide commandline overrides to use other CA's when appropriate. If you do create other CA sections, you can override the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_ca</span> by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">name</span> option.
+</p>
+<p>For our CA section, we have to define a number of keywords. The first is the directory where the CA files will be stored. We created <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> for this purpose so that is the value we use for the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dir</span> keyword. The rest of the keywords in this section simply detail the locations of the certificate file for the CA, the database, directory to place new certificates, the CA's private key, and the location of the file containing the serial numbers.
+</p>
+<p>The next section, still for our CA, details certain defaults for our CA. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_crl_days</span> keyword specifies the number of days between CRLs (Certificate Revocation Lists). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_days</span> keyword defines the number of days for which a new certificate will be valid (in our case, the 365 days, or the equivalent of one year). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_md</span> keyword defines the default message digest algorithm to use when signing CRLs, which can be either "md5", "sha1", or "mdc2".
+</p>
+<p>Finally, we define the default policy for our CA with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">policy</span> keyword, in our case the default policy section is "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca_policy ]</span>". This policy, which is defined in the section of the same name, determines what information we require in a certificate. Each keyword corresponds to an entry in the certificate, such as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">commonName</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">countryName</span>. You can define whether the keyword must match what you specifiy, whether it can be whatever the certificate creator likes (but must be present), or whether the keyword can be optional; it may either be there or not. Use the values <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">match</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">supplied</span>, or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">optional</span> respectively.
+</p>
+<p>The final keyword, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">x509_extension</span> specifies the name of the section that contains the extensions to be added to each certificate the CA issues. If the keyword is omitted, OpenSSL creates an X.509v1 certificate. If the keyword is present, it creates an X.509v3 certificate (even if the keyword is empty). In this example, we set the section to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ certificate_extensions ]</span>, where we have further defined that any certificate created cannot be used to create additional CA's.
+</p>
+<p>At this point, OpenSSL needs to know where to find our default configuration file. You can do this by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-config</span> option passed to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> or you can set an environment variable (ie. in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.bashrc</span> or somewhere similar) the sets the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">OPENSSL_CONF</span> environment variable to the location of your configuration file. ie:
+</p>
+<pre>
+$ echo &quot;OPENSSL_CONF=/Volumes/encrypted/ssl/openssl.cnf&quot; &gt;&gt; ~/.bashrc
+</pre>
+<h1><span class="mw-headline" id="Creating_the_Root_Certificate">Creating the Root Certificate</span></h1>
+<p>Before you can create any certificates with your CA, you need to generate a certifcate for the CA that is used to sign the certificates it will issue, and also any CRLs it may issue. To do this, you need a certificate signed by another CA, or a self-signed root certificate.
+</p>
+<p>...TODO...
+</p>
+<h1><span class="mw-headline" id="Exporting_your_CA_Certificate">Exporting your CA Certificate</span></h1>
+<p>At the end of the day, having your own CA is pretty worthless unless you trust certificates signed by it. To do this, you will need to export your CA root certificate to your clients so that certificates you have signed with your CA can be validated by them. Usually the format required by clients for this purpose is a DER format file (or .crt file). This can be done by executing:
+</p>
+<pre>
+$ openssl x509 -in demoCA/cacert.pem -outform der -out cacert.crt
+</pre>
+<p>This will create the DER format file. This file should be transmitted securely to your clients so that they can import it in their web browser or whatever application will be interacting with the secured service. If it is HTTP traffic you are wrapping in SSL, the CA certificate can be imported into the browser simply by viewing it; most browsers can do this (Galeon, Mozilla, and IE for the Mac, although Safari simply downloaded the file).
+</p>
+<h1><span class="mw-headline" id="References">References</span></h1>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.openssl.org/">OpenSSL home page</a></li>
+<li> <a rel="nofollow" class="external text" href="http://tinyca.sm-zone.net/">TinyCA home page</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/">Perl/Tk and Mac OS X</a> (HOWTO)</li>
+<li> <a rel="nofollow" class="external text" href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/">SSL Certificates HOWTO</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

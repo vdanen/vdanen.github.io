@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Filesystem Security: AIDE - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/filesystem_security_aide.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="AIDE (Advanced Intrustion Detection Environment) is a GPL replacement for the commercial Tripwire tool and does pretty much the same thing. Both tools monitor the local filesystem for changes by building an initial database to which subsequent checks are compared. Both use a variety of algorithms to ensure that files …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Filesystem Security: AIDE"/>
+    <meta property="og:url" content="https://annvix.com/filesystem_security_aide.html"/>
+    <meta property="og:description" content="AIDE (Advanced Intrustion Detection Environment) is a GPL replacement for the commercial Tripwire tool and does pretty much the same thing. Both tools monitor the local filesystem for changes by building an initial database to which subsequent checks are compared. Both use a variety of algorithms to ensure that files …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Filesystem Security: AIDE</h1>
+        
+        <div class="entry-content">
+            <p>AIDE (Advanced Intrustion Detection Environment) is a GPL replacement for the commercial Tripwire tool and does pretty much the same thing. Both tools monitor the local filesystem for changes by building an initial database to which subsequent checks are compared. Both use a variety of algorithms to ensure that files and directories that are changed are noticed. For a while, the MD5 checksum has been considered not as reliable as it could be (files can be changed and have the MD5's the same). But can you do that and defeat an MD5 check, a CRC32 check, a SHA1 check, a rmd160 check, and more? Likely not. You might be able to beat one, but can you beat the combination?
+</p>
+<p>AIDE can use a combination of different algorithms to determine if a file has been changed. Each time it is run after that initial run, it is compared against the original database and all changes are reported.
+</p>
+<p>Before running out and grabbing AIDE and installing it, be aware of two things. The first is that you should be installing and initializing your database on a pristine system, one that has not been connected to a network. If you connect to a network and possible get rooted before you run AIDE, you run the risk of creating your initial database with bad data. The chances of you finding out later may be much smaller if you rely on AIDE to alert you to changes.
+</p>
+<p>Secondly, you should store a copy of your initial database on a read-only medium immediately after creating it (and, again, before connecting to a network). If someone manages to obtain root access on your system, they can tamper with your database to make it look like nothing has happened, effectively covering their tracks. If you have a sneaking suspicion of something and execute AIDE, it will give you the all ok if you're using a database on the compromised system; likely compromised by the attacker you're trying to detect. If you have the original database on a CD or some other read-only medium, you can mount that medium on your system and run AIDE in check mode, using the original, read-only, initial database. The chances of finding issues are dramatically increased, and you know you can trust the read-only medium to the extent that an attacker did not physically affect it.
+</p>
+<p>AIDE is currently still in pre-release format, so the documentation is a little scarce and it can have some quirks. The current version as of this writing is version 0.9.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Compiling_and_Installing_AIDE"><span class="tocnumber">1</span> <span class="toctext">Compiling and Installing AIDE</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_AIDE"><span class="tocnumber">2</span> <span class="toctext">Configuring AIDE</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#aide.conf"><span class="tocnumber">3</span> <span class="toctext">aide.conf</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Default_Groups"><span class="tocnumber">4</span> <span class="toctext">Default Groups</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#The_Checks"><span class="tocnumber">5</span> <span class="toctext">The Checks</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Initializing_the_Database"><span class="tocnumber">6</span> <span class="toctext">Initializing the Database</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Updating_the_Database"><span class="tocnumber">7</span> <span class="toctext">Updating the Database</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Final_Notes"><span class="tocnumber">8</span> <span class="toctext">Final Notes</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Resources"><span class="tocnumber">9</span> <span class="toctext">Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Compiling_and_Installing_AIDE">Compiling and Installing AIDE</span></h2>
+<p>Compiling AIDE is extremely straightforward. You will need the GNU versions of flex, bison, and make, and a C compiler like gcc. You may also want to build and install mhash prior to compiling AIDE to take advantage of a few more algorithms such as the haval checksum, gost checksum, and crc32 checksum. You can download mhash from <a rel="nofollow" class="external text" href="http://mhash.sourceforge.net/">mhash.sourceforge.net</a>; some systems come with mhash or have packages readily available (via contribs, ports, etc.).
+</p>
+<p>If you don't have a binary package available for AIDE, download it and compile it.
+</p>
+<pre>
+$ tar xvzf aide-0.9.tar.gz
+$ cd aide-0.9
+$ ./configure
+$ make
+# make install
+</pre>
+<p>You can configure some of AIDE's behaviour by modifying the =configure= call with some options. For instance, you can define a number of syslog options to use (ie. defining the facility, ident, and priority). You can also indicate whether or not AIDE should build with zlib support (which you will want if you wish AIDE to compress it's database file). Use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">./configure --help</span> to get the different configuration options you would like. You may wish to use something like:
+</p>
+<pre>
+$ ./configure --with-zlib --with-mhash --enable-mhash --with-config-file=/etc/aide.conf
+</pre>
+<p>This will enable zlib and mhash support, and will set the default configuration file to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/aide.conf</span>. By default, AIDE installs into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local</span>.
+</p>
+<p>Once you have AIDE compiled and installed, it's time to configure it.
+</p>
+<h2><span class="mw-headline" id="Configuring_AIDE">Configuring AIDE</span></h2>
+<p>Before running AIDE for the first time, you will need to configure it. You should also configure it to keep an eye on the data that is important to you. System files and devices are a no-brainer, but if you have gigabytes of data in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home</span> directory, is it really necessary to perform such an intense integrity check on it? Depending on the data there, sure it might be. You may also want to really fine-tune AIDE to skip the bulk of the data there and simply keep an eye on the important things. Determining this before you commit to an initial database and bring the system up live would be a good thing.
+</p>
+<p>Depending on how you configured AIDE, your configuration file might be <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/aide.conf</span> or something else. We'll assume your configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/aide.conf</span> and that your database directory (where the database will be stored) is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/aide</span>, and that the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">aide</span> program itself is installed in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/bin</span>.
+</p>
+<p>Before proceeding, you may want to make a copy of your <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">aide</span> binary as well and copy it to a read-only medium. Having a pristine binary along with the pristine database just makes sense.
+</p>
+<p>The first step is to modify your configuration file to reflect your system and your needs. Use your favourite editor to modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/aide.conf</span>. The following is an example <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">aide.conf</span> file:
+</p>
+<h2><span class="mw-headline" id="aide.conf">aide.conf</span></h2>
+<pre>
+@@define BINDIR /usr/local/bin
+@@define CONFDIR /etc
+@@define DBDIR /usr/local/aide
+@@define LOGDIR /var/log
+
+# the database
+database=file:@@{DBDIR}/aide.db.gz
+database_out=file:@@{DBDIR}/aide.db.new.gz
+gzip_dbout=yes
+
+# reporting options
+report_url=stdout
+report_url=file:@@{LOGDIR}/aide.log
+verbose=20
+warn_dead_symlinks=yes
+
+# rule definitions
+# the default config file lists the pre-defined rule definitions; these are
+on top of those
+GLOG=&gt;
+DEV=p+n+u+g
+CONF=R+sha1
+BIN=R+sha1
+LOG=p+n+u+g
+All=R+a+sha1+rmd160+tiger+crc32
+
+# main configuration
+/bin                   BIN
+/lib                   BIN
+/sbin                  BIN
+/usr/bin               BIN
+/usr/lib               BIN
+/usr/sbin              BIN
+/usr/local/bin         BIN
+/usr/local/lib         BIN
+/usr/local/sbin        BIN
+!/usr/src
+!/usr/local/src
+/boot                  BIN
+/boot/System.map$      BIN-m-c
+/dev                   DEV
+/etc                   CONF
+/etc/mtab$             LOG
+/var/log               GLOG
+@@{CONFDIR}/aide.conf$ All
+@@{BINDIR}/aide$       All
+@@{DBDIR}/aide.db.gz$  All
+</pre>
+<p>This makes for a good start. You will want to fine-tune this according to your own needs, of course, but this covers the basics.
+</p>
+<p>We first define a few macros, which we can then use later in the configuration file. Then we define some database specifics, such as the location of the existing database and the database to create. We also indicate we want the database files compressed with gzip (which is only available if you build AIDE with zlib).
+</p>
+<p>Next we define some reporting options. We want the report printed to standard output and the log file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/aide.log</span>. We want to increase the verbosity to 20, which is a good number (the default is 5). Finally, we want to be warned about symlinks that point to non-existant files.
+</p>
+<p>The next step is to define some rules. AIDE comes with a few pre-defined rules, and a rule is made up of different checks. The available checks for AIDE are:
+</p>
+<h2><span class="mw-headline" id="Default_Groups">Default Groups</span></h2>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> Group
+</th>
+<th style="background:#efefef;"> Check
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">p</span> </td>
+<td> permissions
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">i</span> </td>
+<td> inode
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">n</span> </td>
+<td> number of links
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">u</span> </td>
+<td> user
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">g</span> </td>
+<td> group
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">s</span> </td>
+<td> size
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">b</span> </td>
+<td> block count
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">m</span> </td>
+<td> mtime
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">a</span> </td>
+<td> atime
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">c</span> </td>
+<td> ctime
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">S</span> </td>
+<td> check for growing size
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">md5</span> </td>
+<td> md5 checksum
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">sha1</span> </td>
+<td> sha1 checksum
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">rmd160</span> </td>
+<td> rmd160 checksum
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">tiger</span> </td>
+<td> tiger checksum
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">haval</span> </td>
+<td> haval checksum (only if mhash enabled)
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">gost</span> </td>
+<td> gost checksum (only if mhash enabled)
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">crc32</span> </td>
+<td> crc32 checksum (only if mhash enabled)
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">R</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">p+i+n+u+g+s+m+c+md5</span>
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">L</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">p+i+n+u+g</span>
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">E</span> </td>
+<td> empty group
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">&gt;</span> </td>
+<td> growing logfile (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">p+u+g+i+n+S</span>)
+</td></tr></table>
+<p>You can easily use the default groups, however you have the ability to define your own groups if you want to add a few more checks to certain things. You can also do it to make things easier for you to understand, as we have done above. The following new groups have been defined:
+</p>
+<pre>
+GLOG=&gt;
+DEV=p+n+u+g
+CONF=R+sha1
+BIN=R+sha1
+LOG=p+n+u+g
+All=R+a+sha1+rmd160+tiger+crc32
+</pre>
+<p>We've created <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">GLOG</span> as our growing logfile group. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">DEV</span> group is suitable for devices, checking permissions, number of links, user, and group entries. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">LOG</span> group is similar. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">CONF</span> group is defined to handle configuration files, checking everything in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">R</span> group and adding the sha1 checksum. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">BIN</span> group is similar, which will be used for checking things like binaries and libraries. Finally, we define <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">All</span> which applies every check; great for very sensitive information.
+</p>
+<h2><span class="mw-headline" id="The_Checks">The Checks</span></h2>
+<p>Finally, the checks are defined. There are a few rules to remember with this list, which allows for a lot of flexibility.
+</p>
+<ul><li> Directories or files prefixed with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">!</span> are ignored (ie. in the above, we completely ignore <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/src</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/src</span>)</li>
+<li> Directories prefixed with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">=</span> are added alone; none of its children are added. However, AIDE will first do a depth-first search</li>
+<li> Directories and files are always treated as a regular expression; ie. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin</span> is identical to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin.*</span></li>
+<li> Suffixing a directory or file with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$</span> restricts the check to that directory or file alone</li></ul>
+<p>This may sound a little confusing, but it becomes easier to understand. Each check has three parts: The directive (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">!</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">=</span>), a regular expression for the directory/file to check, and the rule to apply.
+</p>
+<p>For instance:
+</p>
+<pre>
+@@{CONFDIR}/aide.conf$ All
+</pre>
+<p>defines the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">aide.conf</span> file (the regular expression <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">@@{CONFDIR}/aide.conf$</span>) and the rule to apply (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">All</span>). There is no directive here.
+</p>
+<pre>
+!/usr/src
+</pre>
+<p>The directive <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">!</span> is used here to tell it not to match the regular expression <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/src</span> (which is, remember, really <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/src.*</span>).
+</p>
+<p>There are a few things to remember. If you wish to check something like a directory alone, and one sub-directory with contents, you may be tempted to use something like:
+</p>
+<pre>
+=/foo R
+/foo/bar R
+</pre>
+<p>However, this is the incorrect way to specify it. Here everything under <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/foo</span> will be added because your rule is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">=/foo.* R</span>, so the second rule is redundant. Instead of just <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/foo</span> and the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/foo/bar</span>, you're getting all of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/foo</span>. To write this rule properly, you would use:
+</p>
+<pre>
+=/foo$ R
+/foo/bar R
+</pre>
+<p>When specifying a single file to check, always suffix it with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$</span> (ie. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/path/to/file$</span>). This will prevent someone from creating a file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/path/to/file_hack</span> and avoiding detection (remember the regular expression <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">.*</span> is at the end of everything and applies to files and directories).
+</p>
+<p>A moderate understanding of regular expressions will really help you develop a configuration that suites your system and needs.
+</p>
+<h2><span class="mw-headline" id="Initializing_the_Database">Initializing the Database</span></h2>
+<p>Once you have your configuration file configured the way you want (or the way you think you want), it's time to execute AIDE for the first time to initialize the database. Remember, your system should still not be connected to a network to make sure the database you are creating is pristine and not tampered with. To create the database, execute:
+</p>
+<pre>
+# aide --init
+</pre>
+<p>Depending on your configuration and the size of your filesystem, this can take a while. When the initialization is complete, move it immediately to a read-only media to ensure it remains pristine. At this point, AIDE does not encrypt the database at all, so the entire database is a plain ASCII file which would allow anyone to read or modify the file (should they obtain access to be able to do so).
+</p>
+<p>The next step is to run a check against the database, just to ensure that your configuration is written the way you want it to. This is also a great opportunity to modify and fine-tune your configuration to cover exactly what you want, and to omitt what you don't want included in the database.
+</p>
+<p>To run the check, execute:
+</p>
+<pre>
+# aide --check
+</pre>
+<p>This will check the current state of the filesystem with the database you initially created. If there are any changes, they will show up in the report. Examine the output carefully. This will indicate to you if there have been any changes to the system. Also be aware of changes you have made to the system. If you have installed new software or upgraded packages, you will see the results of those changes in the report. If you have added or removed users, or made any other system changes (ie. changes to configuration files, etc.) those changes will be reflected in the report.
+</p>
+<h2><span class="mw-headline" id="Updating_the_Database">Updating the Database</span></h2>
+<p>Once you have your system live, with the initial database stored on CD-ROM or some other removable, read-only media, you may wish to update the database. In fact, you likely will have to as you track security updates and install new software, make changes to your configuration files, etc. You do not need to create a new database with <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">--init</span> each time you wish to do this. Once you've made changes to your system, you may wish to do this immediately. The new database will be written to the file specified by the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">database_out</span> keyword in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">aide.conf</span> file. You will want to place this new database onto read-only media immediately, and replace your old database with it.
+</p>
+<p>To update the database, execute:
+</p>
+<pre>
+# aide --update
+</pre>
+<p>If you wish to use a different configuration file (with different rules, perhaps different output files, etc.) you can specify a non-default configuration file with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">--config=[file]</span> option to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">aide</span>. You can also change the verbosity level per-run (overriding that specified in the configuration file) by using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">--verbose=255</span> (or whatever verbosity level you wish to set). This is useful if you're debugging your configuration file.
+</p>
+<p>Overall, AIDE is a very useful system to have in place. It offers a very reliable means to check system state, and while it isn't an active alert system to warn you of compromise, like a Network Intrusion Detection System like snort, it will let you know passively if something has happened to warrant investigation. It may be too late to prevent the attack, but if nothing else, you'll know that the attack has occured and will be able to do something about it.
+</p>
+<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
+<p>A few things to be aware of. It looks as though AIDE 0.9, unlike 0.8, requires a newer <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vsnprintf</span> in glibc, so you will need a more recent glibc in order to build it for Linux (I'm not sure exactly what version of glibc is required, although I am running it on Mandrakelinux 9.0 which comes with glibc 2.25).
+</p>
+<p>Some operating systems, like Solaris 2.6 apparently, and Mac OS X 10.2 do not have this newer vsnprintf and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">configure</span> will fail on the vsnprintf check. You can bypass this check by commenting out line 2524 in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">configure</span> file (the line reads <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">exit 1</span>). Unfortunately, there seems to be mixed results with this judging from the mailing list archive; in some cases AIDE will compile and dump core as soon as you run it, in others it fails to compile at all, and in others it looks like it might work. What most people seem to have done is stuck with AIDE 0.8 on these systems.
+</p>
+<p>Another problem I encountered was attempting to build AIDE on OS X, aside from the vsnprintf issues. Compiling mhash from source works just fine, but for some reason the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">configure</span> script for AIDE refuses to see the library (whether it's installed in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/lib</span> or in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/lib</span> (where the rest of the good stuff from fink resides)). It's indicated that, in these cases, calling configure like:
+</p>
+<pre>
+$ ./configure --with-extra-libs=-L/usr/local/lib \
+--with-extra-includes=-I/usr/local/include
+</pre>
+<p>should work, but the mhash libraries still are not picked up during the test. I'm unsure if this is a quirk in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">configure</span> script or an issue with OS X's environment.
+</p>
+<p>In short, there might be some issues getting AIDE to work for you, depending upon what operating system you are using. You may find that AIDE works flawlessly for you, and you may find yourself unable to even compile it. Dependant upon your results, you may wish to take a look at Tripwire instead. However, please do keep in mind that AIDE is still pre-release software so if you do come across any problems, feel free to bring it up with the developers on the mailing list.
+</p>
+<h2><span class="mw-headline" id="Resources">Resources</span></h2>
+<ul>
+<li> <a rel="nofollow" class="external text" href="https://aide.github.io">AIDE homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://mhash.sourceforge.net">mhash homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="https://www.comparitech.com/net-admin/network-intrusion-detection-tools/">Intrusion Detection Systems Explained: 11 Best IDS Tools Reviewed</a></li>
+</ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

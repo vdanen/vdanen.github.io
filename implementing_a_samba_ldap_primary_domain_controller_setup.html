@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Implementing a Samba LDAP Primary Domain Controller Setup - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/implementing_a_samba_ldap_primary_domain_controller_setup.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Copyright © 2003 Jim Colling Originally written for the MandrakeSecure website. Contents 1 Upgrading to Samba-LDAP 2 Adjustments to smb.conf 3 The &#34;Computers&#34; OU 4 Configuring the Perl Scripts 5 Editing /etc/ldap.conf 6 Security 7 Congratulations! 8 Credits The example server box is i686 Mandrake 9.0 with …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Implementing a Samba LDAP Primary Domain Controller Setup"/>
+    <meta property="og:url" content="https://annvix.com/implementing_a_samba_ldap_primary_domain_controller_setup.html"/>
+    <meta property="og:description" content="Copyright © 2003 Jim Colling Originally written for the MandrakeSecure website. Contents 1 Upgrading to Samba-LDAP 2 Adjustments to smb.conf 3 The &#34;Computers&#34; OU 4 Configuring the Perl Scripts 5 Editing /etc/ldap.conf 6 Security 7 Congratulations! 8 Credits The example server box is i686 Mandrake 9.0 with …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Implementing a Samba LDAP Primary Domain Controller Setup</h1>
+        
+        <div class="entry-content">
+            <p><small>Copyright &#169; 2003 Jim Colling</small>
+</p>
+<p>Originally written for the MandrakeSecure website.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Upgrading_to_Samba-LDAP"><span class="tocnumber">1</span> <span class="toctext">Upgrading to Samba-LDAP</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Adjustments_to_smb.conf"><span class="tocnumber">2</span> <span class="toctext">Adjustments to smb.conf</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#The_.22Computers.22_OU"><span class="tocnumber">3</span> <span class="toctext">The "Computers" OU</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_the_Perl_Scripts"><span class="tocnumber">4</span> <span class="toctext">Configuring the Perl Scripts</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Editing_.2Fetc.2Fldap.conf"><span class="tocnumber">5</span> <span class="toctext">Editing <span>/etc/ldap.conf</span></span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Security"><span class="tocnumber">6</span> <span class="toctext">Security</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Congratulations.21"><span class="tocnumber">7</span> <span class="toctext">Congratulations!</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Credits"><span class="tocnumber">8</span> <span class="toctext">Credits</span></a></li>
+</ul>
+</div>
+
+<p>The example server box is i686 <b>Mandrake 9.0</b> with all the updates I can get my hands on. To cut down on network traffic and to ease security, it houses both the <b>OpenLDAP</b> server and <b>Samba</b>. It has also been tested on Mandrake 9.1.
+</p>
+<p>Speaking of Mandrake 9.1, the reader would be well advised to ensure that all updates have been installed for the OpenLDAP package as some bugs were discovered in the original release of OpenLDAP that comes with Mandrake 9.1.
+</p>
+<p>As of the writing of this document, Samba 3.0 is still in Alpha stage. There will be differences in implementation / configuration but anyone adequately familiar with 2.2.x will probably be able to figure it out. This document is meant to be an addendum to the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">OpenLDAP for Authentication</a> topic and the basic <a rel="nofollow" class="external text" href="http://www.mandrakeuser.org/docs/connect/index.html#lfs">Samba PDC instructions.</a> Many thanks and all credit due to the authors of these documents. Problems discovered in this document should be forwarded to me at this <a rel="nofollow" class="external text" href="mailto:jcllings@tsunamicomm.net">email </a>address. Go easy on me, I'm new at this.&#160;:-)
+</p>
+<p>Basic procedure for implementing this HOWTO should be as follows:
+</p>
+<ol><li> Implement the article on OpenLDAP authentication. This will eliminate the Linux based authentication portion. When finished, return to this HOWTO. Also don't bother, just yet, with the section on Samba as we do not yet have it installed. While you are implementing this article read very, *VERY* carefully. The font is small and I found it quite easy to miss important steps while I was doing it. Also the volume of information provided, while very informative and necessary, increases the odds of an error. I would consider it wise to install the GUI-LDAP browser/editor called <b>gq</b> so that you can easily see exactly what is occurring in the database and delete records if you don't quite get it right the first time. Here is the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">topic on OpenLDAP authentication</a>; <b>gq</b> is on the contribs CD. One might acquire it by going to <a rel="nofollow" class="external free" href="http://plf.zarb.org/~nanardon">http://plf.zarb.org/~nanardon</a> and adding a contrib source to rpmdrake. Having done this facilitates the use of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">urpmi [gq package name]</span>, which automates rpm and is nicer to use. I've used <b>gq-0.7.0beta2-1mdk</b> on the original Mandrake 9.0 box which I found at <a rel="nofollow" class="external text" href="http://speakeasy.rpmfind.net/linux/RPM/">speakeasy.</a> Note that migrating old <b>userid</b>'s over to <b>samba-ldap</b> may be something to put off until a fully functioning samba-ldap system has been established. In this way, we will also be able to take advantage of the special scripts provided for this purpose. At least two accounts will be required immediately for testing, however. These are <b>Administrator</b> (or <i>an</i> administrator) and a regular unprivileged user.</li>
+<li> Performance of a certain amount of complexity management will also be worth while. This material can cause headaches, so take things one step at a time. In the same spirit, if you've never installed a Samba PDC <i>without</i> LDAP, it is probably wise to give that a try before moving on to this, the next level. The basic process for doing this can be found in the docs section of <a rel="nofollow" class="external text" href="http://www.mandrakeuser.org/docs/connect/index.html#lfs">mandrakeuser. org</a> and can be performed with OpenLDAP installed and configured without any harm. You can get your Samba rpm packages from <a rel="nofollow" class="external text" href="http://download.samba.org/samba/ftp/Binary_Packages/Mandrake/">download.samba.org</a>. While they will be needed in the next step, <i>do not</i> install the LDAP packages for this stage. Use the others instead.</li>
+<li> Ensure that you have the NetBIOS ports 136,137 and 138 available to both the OpenLDAP / Samba server and the client systems. While doing this, it may also be desirable to check on OpenLDAP ports 389 and 636. Especially if your OpenLDAP and Samba servers are not on the same box. Don't forget to start the daemons first as shown below.</li></ol>
+<pre>
+[root@ldap]# service ldap start; service smb start
+</pre>
+<p>Most network people will say that having one box performing both the Firewall and File Server functions is a poor security practice and they are correct. This may not be practical, reasonable or possible on many systems, however. Home networks, for example, may find themselves in situations similar to my own. I am not only poorly funded but I am also situated behind an Internet Service Provider's hard-core, supra-draconian firewall and bandwidth management system. Such is the price one finds oneself paying for high speed access in a small rural college town.
+</p>
+<p>But I digress. As a result of the above, I've provided a commented example [rules.txt /etc/shorewall/rules] file here. How useful this is depends on much, so your mileage may vary.
+</p>
+<p>OK, you've made it this far, now you are ready for cross-platform samba-ldap!! Because we've performed step 1, we already have a working and at least minimally populated OpenLDAP database and, because we have performed step 2, we already have a good idea of what settings are required to get a Samba PDC server to authenticate users for Windows. We are still missing some things however.
+</p>
+<ul><li> We may have to upgrade to our new samba-ldap packages from the old Samba packages.</li>
+<li> We have to make the same adjustments to smb.conf as mentioned in the Samba PDC article with several additional adjustments for LDAP.</li>
+<li> We need to make some design decisions about where in the database we want our computer accounts placed.</li>
+<li> We must configure the Perl scripts that will manage our accounts in the LDAP database.</li>
+<li> We need to make one minor change to _/etc/ldap.conf_</li>
+<li> Security must be tailored to reduce the new system's exposure.</li></ul>
+<h2><span class="mw-headline" id="Upgrading_to_Samba-LDAP">Upgrading to Samba-LDAP</span></h2>
+<p>In order to perform our upgrade, new samba-ldap packages can be retrieved from the same location mentioned before. When we do this, the old configuration files will be copied to a new file named <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">[old file name].rpmsave</span>.
+</p>
+<p>If you install an external source (ie. a Sambaldap source via the PLF pages mentioned momentarily), then use this command:
+</p>
+<pre>
+[root@ldap]# urpmi samba-server-ldap
+</pre>
+<p>If would rather not install an external source, you will have to go to <a rel="nofollow" class="external text" href="http://download.samba.org/samba/ftp/Binary_Packages/Mandrake/">download.samba.org</a> and download and install them by hand using:
+</p>
+<pre>
+[root@ldap]# rpm -U [package name]
+</pre>
+<p>The real difference is that urpmi takes care of the dependencies automatically. The above source can be added from <a rel="nofollow" class="external text" href="http://plf.zarb.org/~nanardon/?minor=1">plf.zarb.org</a>.
+</p>
+<h2><span class="mw-headline" id="Adjustments_to_smb.conf">Adjustments to smb.conf</span></h2>
+<p>Next we need to refer back to this section on Samba in the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">OpenLDAP Auth</a> topic. Follow the instructions but with these caveats:
+</p>
+<p>The article suggests the following settings:
+</p>
+<pre>
+ldap admin dn = cn=root,dc=mylan,dc=net
+ldap server = 127.0.0.1
+ldap suffix = dc=mylan,dc=net
+ldap port = 389
+ldap ssl = start_tls
+</pre>
+<p>We don't really need the overhead that accompanies encryption between two servers on the same system. If a cracker can gain access to your system at this level then likely they can get your encryption codes also, rendering the point moot. If your LDAP server is not on the same machine you would definitely want this on.
+</p>
+<p>More specifically, if you have:
+</p>
+<pre>
+ldap ssl = start_tls
+</pre>
+<p>then you should set <b>ldap port = 389</b>. If you have:
+</p>
+<pre>
+ldap ssl = on
+</pre>
+<p>then you should set <b>ldap port = 636</b>. Finally, if you have:
+</p>
+<pre>
+ldap ssl = off
+</pre>
+<p>or
+</p>
+<pre>
+#ldap ssl = start_tls
+</pre>
+<p>(commented out), then you should set <b>#ldap port = 389</b> (also commented out).
+</p>
+<p>Again, since both our Samba and our OpenLDAP servers are on the same box, we will go with the last one.
+</p>
+<p>Settings specific to a particular versions of Microsoft's OS's are dealt with in the basic Samba PDC article and are consequently outside the scope of this HOWTO.
+</p>
+<p>Remember to pay close attention to the comments in the _smb.conf_ file. They can be quite educational. All in all then, the settings in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span> to be added to those found in the basic Samba PDC article are:
+</p>
+<pre>
+#in the global section:
+[global]
+ldap admin dn = cn=root,dc=mylan,dc=net
+ldap server = 127.0.0.1
+ldap suffix = dc=mylan,dc=net
+#ldap ssl = start_tls
+add user script = /usr/share/samba/scripts/smbldap-useradd.pl -w -d /dev/null -g machines \
+ -c 'Machine Account' -s /bin/false&#160;%u
+domain admin group = root Administrator @adm @Administrators @wheel
+</pre>
+<p>(Note the line wrap in the above example; this should all be on one line in your file.)
+</p>
+<p>When Samba goes to manipulate or read the OpenLDAP database, it needs to have an administrative level of access. This is what the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldap admin dn</span> setting is used for, but have you noticed something missing? No password! Just like in a normal Samba PDC implementation we need to use:
+</p>
+<pre>
+[root@ldap]# smbpasswd -w [password]
+</pre>
+<p>to store the password in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/secrets.tdb</span>.
+</p>
+<p>In Windows Networking, computers are treated like users. They have their own <b>userid</b>'s. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">add user script</span> line, mentioned above, will cause a machine that successfully joins the domain to be added to the LDAP database automatically. This will ease management of Computer accounts.
+</p>
+<p>Exploring the various other Perl scripts available in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/samba/scripts</span> directory might also be wise. Some of them do require minor changes. Take <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">import_smbpasswd</span>, for example. It requires changes to the section displayed below that reflect the system as it actually is:
+</p>
+<pre>
+#################################################
+## set these to a value appropriate for your site
+##
+
+$DN=&quot;ou=people,dc=mylan,dc=net&quot;;
+$ROOTDN=&quot;cn=root,dc=mylan,dc=net&quot;;
+# If you use perl special character  in your
+# rootpw, escape them:
+# $rootpw = &quot;secr\@t&quot; instead of $rootpw = &quot;secr@t&quot;
+$rootpw = &quot;n0pass&quot;;
+$LDAPSERVER=&quot;scooby&quot;;
+
+##
+## end local site variables
+#################################################
+</pre>
+<p>Since the script requires the $rootpw password value in clear text, the file is only readable by root. This is for your own protection, but if you use the script, please remember to remove the password once you have imported all your users. The fewer plain text passwords laying around the better.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">domain admin group</span> setting in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/smb.conf</span> is a list of users and groups of users who are allowed to administer the system. The list above is an example of users and groups you may wish to include. Note that the <b>@</b> symbol is used to tag groups so that the system can tell the difference between a user and a group. By default, only people who are listed here, or in one of the groups listed here, can add users or machines to the system.
+</p>
+<h2><span class="mw-headline" id="The_.22Computers.22_OU">The "Computers" OU</span></h2>
+<p>Next, we have to make an adjustment to our OpenLDAP database. Specifically, we will need an additional organizational unit (ou).
+</p>
+<p>So far we are keeping our users under the <b>People</b> ou but we still need a place for our computer accounts. We'll call this place <b>ou=Computers,sc=mylan,dc=net</b> as shown below. Create a text file with the following contents named <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ComputersOU.ldif</span>:
+</p>
+<pre>
+dn: ou=Computers,dc=mylan,dc=net
+ou: Computers
+objectClass: top
+objectClass: organizationalUnit
+objectClass: domainRelatedObject
+associatedDomain: mylan.net
+</pre>
+<p>Now, as root, use this command to add it to the system:
+</p>
+<pre>
+[root@ldap]# ldapadd -x -D &quot;dc=mylan,dc=net&quot; -W -f ComputersOU.ldif
+</pre>
+<p>As a side note, I will mention that amongst user accounts of any sort (i.e. whether it be a computer account or a living breathing user) the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">uidNumber</span> must be unique. For example, there should be only one <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">uidNumber: 501</span> anywhere in the <b>dc=mylan,dc=net</b> domain.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_Perl_Scripts">Configuring the Perl Scripts</span></h2>
+<p>Let's talk about the script configuration file, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smbldap_conf.pm</span>. This file provides information about how you want things to the Perl scripts we will be using to manage our system. Now again, this is another well commented script file. Reading these comments, as before, can prove highly educational. Open it using your favourite text editor and set the following:
+</p>
+<pre>
+$slaveLDAP = &quot;127.0.0.1&quot;;
+
+$masterLDAP = &quot;127.0.0.1&quot;;
+
+$suffix = &quot;dc=mylan,dc=net&quot;;
+
+$usersou = q(People);
+
+$computersou = q(Computers);
+
+$groupsou = q(Group);
+
+#Where mylan is the name of our domain. It should be the same as the
+#workgroup setting in '/etc/smb.conf'
+$binddn = &quot;cn=root,dc=mylan,dc=net&quot;;
+
+$bindpasswd = &quot;place password belonging to the binddn above, here&quot;;
+
+$_userLoginShell = q(/bin/bash);
+
+$_userHomePrefix = q(/home/);
+
+#All users must belong to at least one group.  On my system this group
+#is called dusers and the gidNumber is entered below.
+$_defaultUserGid = 1002;
+
+#All computer accounts must also belong to at least one group.
+#On my system this group is called &quot;Machines&quot; and the gidNumber is
+#entered below.
+$_defaultComputerGid = 421;
+#Note: Use a drive letter below that is not being used, otherwise
+#there will be trouble. It has to be unique. There can't be two named Z:
+
+#I'm going to use 'Z:' but you can use anything that is free on all
+#systems.
+$_userHomeDrive = q(Z:);
+</pre>
+<p>Now that we can use our scripts, we need to ensure that we have an <b>Administrator</b> account, an <b>adm</b> group, a <b>dusers</b> group, a <b>Machines</b> group and at least one unprivileged user. The unprivileged user I am using is <b>jcolling</b>. Those who lean on the Unix side may certainly use <b>root</b> instead of <b>Administrator</b>, if they wish.
+</p>
+<p>To check for the groups, you can do as I have done:
+</p>
+<pre>
+[root@ldap]# smbldap-groupshow [name of group]
+</pre>
+<p>For example:
+</p>
+<pre>
+[root@ldap]# smbldap-groupshow adm
+dn: cn=adm,ou=Group,dc=mylan,dc=net
+objectClass: posixGroup
+cn: adm
+gidNumber: 1001
+</pre>
+<p>Checking for the users is only slightly different. Don't be alarmed if you see the users passwords though. Due to the <b>$binddn = "dc=mylan,dc=net"</b> setting, the scripts access the system as root and are entitled to them. Just remember to clear your screen afterwords with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">clear</span> command (or CTRL-L):
+</p>
+<pre>
+[root@ldap]# smbldap-usershow Administrator
+dn: uid=Administrator,ou=People,dc=mylan,dc=net
+sn: Administrator
+mail: root@mylan.net
+mailForwardingAddress: Administrator@mail.mylan.net
+mailHost: mail.mylan.net
+objectClass: mailRecipient
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+objectClass: kerberosSecurityObject
+objectClass: shadowAccount
+objectClass: sambaAccount
+userPassword:: [I've deleted this for security reasons]
+shadowLastChange: 12110
+shadowMax: 99999
+shadowWarning: 7
+krbName: Administrator@MYLAN.NET
+loginShell: /bin/bash
+uidNumber: 1000
+homeDirectory: /home/Administrator
+gecos: Administrator
+gidNumber: 1001
+mailLocalAddress: root@mylan.net
+uid: Administrator
+pwdLastSet: 1046627953
+logonTime: 0
+logoffTime: 2147483647
+kickoffTime: 2147483647
+pwdCanChange: 0
+pwdMustChange: 2147483647
+displayName: Administrator
+cn: Administrator
+rid: 3000
+primaryGroupID: 3003
+lmPassword: [I've deleted this for security reasons]
+ntPassword: [I've deleted this for security reasons]
+acctFlags: [UX         ]
+
+[root@ldap]# clear
+</pre>
+<p>If you are missing users or groups they are easily added using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbldap-groupadd</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbldap-useradd</span> as shown below. Just remember to keep the default gidNumbers straight in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smbldap_conf.pm</span>.
+</p>
+<p>The commands to add each user/group are as follows:
+</p>
+<pre>
+[root@ldap]# smbldap-groupadd adm
+[root@ldap]# smbldap-groupadd Machines
+[root@ldap]# smbldap-groupadd dusers
+[root@ldap]# smbldap-useradd -a -P -m -E '' -F '' -g adm -G dusers Administrator
+[root@ldap]# smbldap-useradd -a -P -m -E '' -F '' -g dusers unpriviledgeduser
+</pre>
+<p>Note that I've been using dusers because users is already a local group in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/group</span>.
+</p>
+<h2><span class="mw-headline" id="Editing_.2Fetc.2Fldap.conf">Editing /etc/ldap.conf</span></h2>
+<p>OK, now we have a new (ou) which we have yet to set up access for. Fixing this situation will entail editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span>.
+</p>
+<p>Remember these lines in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span> from the OpenLDAP Auth article?
+</p>
+<pre>
+nss_base_passwd         ou=People,dc=mylan,dc=net?one
+nss_base_shadow         ou=People,dc=mylan,dc=net?one
+nss_base_group          ou=Group,dc=mylan,dc=net?one
+nss_base_hosts          ou=Hosts,dc=mylan,dc=net?one
+</pre>
+<p>On the LDAP server machine, and only on the LDAP server machine, we need to change the first one to read:
+</p>
+<pre>
+nss_base_passwd         dc=mylan,dc=net?sub
+</pre>
+<p>We need to do this because if we don't, the system will not be able to find the Computer accounts which don't live in the <b>People</b> organizational unit. When we add them, they will live in the <b>Computers</b> organizational unit and when Samba goes hunting for them we want it to start at the base and continue down the directory tree so that it finds ALL user accounts.
+</p>
+<h2><span class="mw-headline" id="Security">Security</span></h2>
+<p>Security is our last issue. Log into Linux as the unprivileged user and from the command line execute:
+</p>
+<pre>
+[root@ldap]# ldapsearch -LL -H ldap://localhost -b&quot;dc=mylan,dc=net&quot; -x &quot;(uid=Administrator)&quot; \
+| grep Password
+</pre>
+<p>Whoa! The unprivileged user can see <i>all</i> the Windows NT and Lanmanager passwords! We have <i>got</i> to fix this. Fortunately, the fix is as simple as altering the first line of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/slapd.access.conf</span>. It used to read:
+</p>
+<pre>
+access to dn=&quot;.*,dc=mylan,dc=net&quot; attr=userPassword
+</pre>
+<p>...but now we should change it to this to secure those passwords:
+</p>
+<pre>
+access to dn=&quot;.*,dc=mylan,dc=net&quot; attr=userPassword,lmPassword,ntPassword
+</pre>
+<p>Now the OpenLDAP server needs to be restarted. We do this in the same manner as mentioned in the OpenLDAP Auth article, namely:
+</p>
+<pre>
+[root@ldap]# service ldap restart
+</pre>
+<p>To double check those password attributes, you man now wish to run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapsearch</span> command again. You shouldn't see any passwords this time.
+</p>
+<p>Now the last major security issue we have to worry about is securing the server.
+</p>
+<p>If you have a firewall running on this box, shut it down momentarily and enter the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">netstat</span> command shown below and notice any connections from Samba's ports (i.e. ports 137 - 139) open to the Internet.
+</p>
+<pre>
+[root@ldap]# netstat -ntupl | grep smbd; netstat -ntupl | grep nmbd
+</pre>
+<p>Your output will be different but should resemble mine:
+</p>
+<pre>
+[root@ldap]# netstat -ntupl | grep smbd; netstat -ntupl | grep nmbd
+tcp        0      0 0.0.0.0:139             0.0.0.0:* LISTEN      28174/smbd
+udp        0      0 208.152.4.207:137       0.0.0.0:*             28184/nmbd
+udp        0      0 192.168.1.253:137       0.0.0.0:*             28184/nmbd
+udp        0      0 0.0.0.0:137             0.0.0.0:*             28184/nmbd
+udp        0      0 208.152.4.207:138       0.0.0.0:*             28184/nmbd
+udp        0      0 192.168.1.253:138       0.0.0.0:*             28184/nmbd
+udp        0      0 0.0.0.0:138             0.0.0.0:*             28184/nmbd
+</pre>
+<p>Now I know that eth0 (a.k.a 208.152.4.207, in my case ) is non-local (i.e. the Internet) and eth1 ( a.k.a 192.168.1.253 ) is my local network. This is not secure because folks from outside my network can talk to my Samba server over eth0. I can secure it by making two minor changes to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smb.conf</span>. In <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span> you will find two lines similar to these:
+</p>
+<pre>
+#  hosts allow = 192.168.1. 192.168.2. 127.
+
+;   interfaces = 192.168.12.2/24 192.168.13.2/24
+
+#Change the first one to read:
+
+   hosts allow = 192.168.1. 127.
+
+#and the second one to read:
+
+   interfaces = 192.168.1.253/24
+
+#and lastly add this line, also, in the global section:
+
+        bind interfaces only = yes
+</pre>
+<p>Ensure that either reverse DNS lookups work or that you have a good <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> file, otherwise you may get weird errors on the samba side, and no connection on the windows side when using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">hosts allow</span>.
+</p>
+<p>Now restart both the firewall and the Samba server and let's take a second look with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">netstat</span> command again:
+</p>
+<pre>
+[root@ldap]# netstat -ntupl | grep smbd; netstat -ntupl | grep nmbd
+</pre>
+<p>Mine now gives this output. Notice that IP address 208.152.4.207 is no longer displayed, indicating that access is no longer available to that IP address:
+</p>
+<pre>
+[root@ldap]# netstat -ntupl | grep smbd; netstat -ntupl | grep nmbd
+tcp        0      0 0.0.0.0:139             0.0.0.0:* LISTEN     28311/smbd
+udp        0      0 192.168.1.253:137       0.0.0.0:*            28321/nmbd
+udp        0      0 0.0.0.0:137             0.0.0.0:*            28321/nmbd
+udp        0      0 192.168.1.253:138       0.0.0.0:*            28321/nmbd
+udp        0      0 0.0.0.0:138             0.0.0.0:*            28321/nmbd
+</pre>
+<h2><span class="mw-headline" id="Congratulations.21">Congratulations!</span></h2>
+<p>You've just finished your samba-ldap PDC! Remember to make any necessary adjustments to your client systems in accordance with standard Samba PDC procedure then use the <b>Administrator</b> user's <b>userid</b> and password to add your machine to the domain.
+</p>
+<p>According to discussion on the OpenLDAP lists, these next comments do not pertain to the smbldap-tools package (i.e. the Perl scripts in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/samba/scripts</span>) but they are important if you are going to write scripts in languages other than Perl. Now, if you have things set such that you never have more than one entity, either an administrator or a script etc., making changes at one time you may safely ignore these issues. Otherwise you may be interested in the information below.
+</p>
+<p>OpenLDAP is a trimmed down Object Orientated DBMS as opposed to an RDBMS or Relational DBMS. Trimmed down means that some of the functions one might normally find in a DBMS have been omitted. This lack of function is not by any means a bad thing as it facilitates speed and compatibility across different versions of LDAP. However because of this, some creativity is frequently required when writing scripts that manage the system.
+</p>
+<p>Specific problems I have encountered include the inability to efficiently retrieve the largest uidNumber in the database and the lack of record-locking facilities. The former can be resolved by adding the uidPool and gidPool objectClass'es to the proxyuser. One then uses these to store the largest uidNumber or gidNumber so that we don't have to query the entire system to retrieve them. The later can be resolved by using a data structure called a <i>semaphore</i> in our local scripts. Also, by specifying the entire dn, including the value to be modified, in the script such that if the value is modified by another script before we can finish our modification, our modification will fail because the dn no longer exists. Semaphores exist in Perl, PHP and also I believe in Python. To find out more about them, use an on-line reference appropriate to the script language you wish to use. Most of these explain the concept sufficiently so that even one who does not know the script language in question can understand it.
+</p>
+<h2><span class="mw-headline" id="Credits">Credits</span></h2>
+<p>The amount of help I received in compiling this article was phenomenal. When I started, I was new to authentication, OpenLDAP and Samba PDC's. The guidance I received from the folks listed here was invaluable. Doubly so since this HOWTO is a direct contribution to my graduate thesis on Cross-platform user authentication. I owe a great number of people thanks however it is likely that I will not be able to list them all. The listed sources then, are those to whom I feel especially indebted.
+</p>
+<ul><li> Buchan Milne</li>
+<li> Vincent Danen</li>
+<li> The online Samba Community</li>
+<li> The online OpenLDAP Community</li></ul>
+<p><small>Copyright &#169; 2003 Jim Colling</small>
+</p>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

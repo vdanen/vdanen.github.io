@@ -54,10 +54,10 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="https://annvix.com/about">
+                         <li><a href="https://annvix.com/about.html">
                              About
                           </a></li>
-                         <li><a href="https://annvix.com/documentation">
+                         <li><a href="https://annvix.com/documentation.html">
                              Documentation
                           </a></li>
             </ul>

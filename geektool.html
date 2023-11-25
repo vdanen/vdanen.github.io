@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>GeekTool - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/geektool.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="GeekTool is a great application for OS X that allows you to display the contents of shell scripts, images, and files directly on the desktop. This page provides some scripts that I have written or adapted from others I&#39;ve found to provide useful information on the desktop with GeekTool. I …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="GeekTool"/>
+    <meta property="og:url" content="https://annvix.com/geektool.html"/>
+    <meta property="og:description" content="GeekTool is a great application for OS X that allows you to display the contents of shell scripts, images, and files directly on the desktop. This page provides some scripts that I have written or adapted from others I&#39;ve found to provide useful information on the desktop with GeekTool. I …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">GeekTool</h1>
+        
+        <div class="entry-content">
+            <p><a rel="nofollow" class="external text" href="http://projects.tynsoe.org/en/geektool/">GeekTool</a> is a great application for OS X that allows you to display the contents of shell scripts, images, and files directly on the desktop.  This page provides some scripts that I have written or adapted from others I've found to provide useful information on the desktop with GeekTool.
+</p>
+<p>I put all of my scripts into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/gt-scripts/</span> to keep them all organized and together.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Scripts"><span class="tocnumber">1</span> <span class="toctext">Scripts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#IP_Information"><span class="tocnumber">1.1</span> <span class="toctext">IP Information</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Mini-Calendar"><span class="tocnumber">1.2</span> <span class="toctext">Mini-Calendar</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Uptime.2C_CPU.2FRAM_usage"><span class="tocnumber">1.3</span> <span class="toctext">Uptime, CPU/RAM usage</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Disk_Usage"><span class="tocnumber">1.4</span> <span class="toctext">Disk Usage</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Weather"><span class="tocnumber">1.5</span> <span class="toctext">Weather</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#The_Hit_List"><span class="tocnumber">1.6</span> <span class="toctext">The Hit List</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Revision_History"><span class="tocnumber">2</span> <span class="toctext">Revision History</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Scripts">Scripts</span></h1>
+<p>The following are scripts that I use with GeekTool.  They were either written by me or were found elsewhere and adapted/improved or otherwise changed to suit my needs.
+</p>
+<h2><span class="mw-headline" id="IP_Information">IP Information</span></h2>
+<p>This script displays your current local and external IP addresses.
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-ipinfo</span>:
+</p>
+<pre>
+#!/bin/sh
+
+external=$(curl -s www.whatismyip.com/automation/n09230945.asp | awk {'print $1'})
+internal0=$(ifconfig en0 | grep &quot;inet&quot; | grep -v 127.0.0.1 | grep -v inet6 | cut -d ' ' -f 2)
+internal1=$(ifconfig en1 | grep &quot;inet&quot; | grep -v 127.0.0.1 | grep -v inet6 | cut -d ' ' -f 2)
+
+echo &quot;External&#160;: ${external}&quot;
+
+if [ &quot;${internal0}&quot;&#160;!= &quot;&quot; ]; then
+    echo &quot;Ethernet&#160;: ${internal0}&quot;
+fi
+
+if [ &quot;${internal1}&quot;&#160;!= &quot;&quot; ]; then
+    echo &quot;Ethernet&#160;: ${internal1}&quot;
+fi
+</pre>
+<h2><span class="mw-headline" id="Mini-Calendar">Mini-Calendar</span></h2>
+<p>This script displays the calendar for this month with the current day hashed out.
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-cal</span>
+</p>
+<pre>
+#!/bin/sh
+cal | sed &quot;s/^/ /;s/$/ /;s/ $(date +%e) / $(date +%e | sed 's/./#/g') /&quot;
+</pre>
+<h2><span class="mw-headline" id="Uptime.2C_CPU.2FRAM_usage">Uptime, CPU/RAM usage</span></h2>
+<p>This script displays current uptime as well as RAM and CPU usage on the system.
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-cpustats</span>
+</p>
+<pre>
+#!/bin/sh
+
+# in 10.5 use the following:
+#cpu=$(top -l 1| grep 'Load Avg' | awk '{print $12, $13}')
+# in 10.6 use the following:
+cpu=$(top -l 1|grep 'CPU usage' | awk '{print $7, $8}')
+inactivemem=$(top -l 1 | awk '/PhysMem/ {print $6}')
+freemem=$(top -l 1 | awk '/PhysMem/ {print $10}')
+
+if [ &quot;$(echo ${inactivemem} | egrep '.*G$')&quot; ]; then
+    inactivemem=$(echo ${inactivemem} | cut -d 'G' -f 1)
+    let inactivemem=${inactivemem}*1024
+else
+    inactivemem=$(echo ${inactivemem} | cut -d 'M' -f 1)
+fi
+
+if [ &quot;$(echo ${freemem} | egrep '.*G$')&quot; ]; then
+    freemem=$(echo ${freemem} | cut -d 'G' -f 1)
+    let freemem=${freemem}*1024
+else
+    freemem=$(echo ${freemem} | cut -d 'M' -f 1)
+fi
+
+let freemem=${freemem}+${inactivemem}
+
+freemem=$(echo &quot;scale=2; ${freemem} / 1024&quot; | bc)
+uptime=$(uptime | awk '{print $3 &quot; &quot; $4 &quot; &quot; $5 }' | sed -e 's/.$//g')
+
+echo &quot;Uptime&#160;: ${uptime}&quot;
+echo &quot;CPU   &#160;: ${cpu}&quot;
+echo &quot;RAM   &#160;: ${freemem}G&quot;
+</pre>
+<h2><span class="mw-headline" id="Disk_Usage">Disk Usage</span></h2>
+<p>This script shows current mounted volumes and disk usage, separating local and remote volumes:
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-df</span>
+</p>
+<pre>
+#!/bin/sh
+
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=C
+
+local=$(df -hl | egrep -v '(devfs|fdesc)')
+remote=$(df -h | egrep -v '(devfs|fdesc|/dev/disk|map)')
+
+echo &quot;Local filesystems:\n\n${local}\n&quot;
+if [ &quot;$(echo ${remote} | grep Volumes)&quot;&#160;!= &quot;&quot; ]; then
+    echo &quot;Remote filesystems:\n\n ${remote}\n&quot;
+fi
+</pre>
+<h2><span class="mw-headline" id="Weather">Weather</span></h2>
+<p>This script displays current weather conditions.  You will need to change the p= value in the URL to your own location code or you'll see what crappy weather we currently have in Edmonton.
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-weather</span>:
+</p>
+<pre>
+#!/bin/sh
+weather=$(curl --silent &quot;http://xml.weather.yahoo.com/forecastrss?p=CAXX0126&amp;u=c&quot; | grep -E '(Current Conditions:|C&lt;BR)' | \
+  sed -e 's/Current Conditions://' -e 's/&lt;br \/&gt;//' -e 's/&lt;b&gt;//' -e 's/&lt;\/b&gt;//' -e 's/&lt;BR \/&gt;//' -e 's/&lt;description&gt;//' -e 's/&lt;\/description&gt;//')
+# doing it this way gets rid of a preceeding blank line
+echo ${weather}
+</pre>
+<h2><span class="mw-headline" id="The_Hit_List">The Hit List</span></h2>
+<p>I really like Potion Factory's <a rel="nofollow" class="external text" href="http://www.potionfactory.com/thehitlist/">The Hit List</a> but only found a script written in Ruby that would let me get the information I wanted.  I'm not 100% satisfied with this script so it will likely be updated in the future yet, but this two-script combo works pretty well for my needs right now.  It is a combination of Python and AppleScript.. AppleScript gets the data from The Hit List and Python calls the AppleScript and does all the formatting of the output.  This way I can have my upcoming list pretty much in my face all the time.
+</p>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">hitlist.scpt</span>
+</p>
+<pre>
+tell application &quot;System Events&quot; to if (name of every process) contains &quot;The Hit List&quot; then
+
+    set theList to &quot;&quot;
+    set lf to (ASCII character 10)
+
+    tell application &quot;The Hit List&quot;
+
+        set upTasks to every task in upcoming list
+        set todayTasks to every task in today list
+        set allTasks to upTasks &amp; todayTasks
+
+        repeat with aTask in allTasks
+
+            if completed of aTask is true then
+                set checkbox to &quot;/&quot;
+            else if canceled of aTask is true then
+                set checkbox to &quot;x&quot;
+            else
+                set checkbox to &quot;-&quot;
+            end if
+
+            set taskText to title of aTask
+            set taskStart to start date of aTask
+            set taskDue to due date of aTask
+
+            set theList to theList &amp; checkbox &amp; &quot; |&quot; &amp; taskText &amp; &quot;|&quot; &amp; taskStart &amp; &quot;|&quot; &amp; taskDue &amp; lf
+
+        end repeat
+    end tell
+
+    return theList
+
+end if
+</pre>
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">gt-hitlist.py</span>:
+</p>
+<pre>
+#!/usr/bin/env python
+
+import os, commands, re, calendar
+from datetime import date
+
+re_tag     = re.compile(r'@\S+')
+re_context = re.compile(r'/\S+')
+
+def print_item(todo):
+    item = re_tag.sub(' ', todo['item'])  # not working
+
+    if todo['start'] == '0':
+        start  = 'TODAY!'
+        prefix = '!!!'
+    elif todo['start'] == '1':
+        start  = 'Tomorrow'
+        prefix = '***'
+    else:
+        start  = 'in&#160;%s days'&#160;% todo['start']
+        prefix = '  +'
+
+    pdue = '  '
+    if todo['due'] == '0':
+        due    = '   *** TASK IS DUE TODAY! ***'
+        pdue   = '!!'
+    elif todo['due'] == '1':
+        due    = '   Due: Tomorrow'
+    elif todo['due'] == '-1':
+        due    = ''
+    else:
+        due    = '   Due: in&#160;%s days'&#160;% todo['due']
+
+    print '%s%s&#160;%s'&#160;% (pdue, prefix, item)
+    print '      Start:&#160;%s &#160;%s'&#160;% (start, due)
+
+
+
+def trans_date(input_date):
+    #Saturday, August 15, 2009 12:00:00 AM
+    if input_date == 'none' or input_date == 'missing value':
+        return '-1'
+
+# need to handle overdue tasks
+
+    (dname, month, day, year, time, extra) = input_date.split(' ')
+    dname = dname.split(',')[0]
+    day   = day.split(',')[0]
+    (hour, min, sec) = time.split(':')
+    month = list(calendar.month_name).index(month)
+
+    today   = date.today()
+    tdate   = date(int(year), int(month), int(day))
+    timedue = str(abs(tdate - today)).split(' ')[0]
+    if timedue == '0:00:00':
+        timedue = '0'
+    return(timedue)
+
+
+
+output = commands.getoutput(&quot;osascript /Users/vdanen/bin/gt-scripts/hitlist.scpt&quot;)
+lines  = output.split('\n')
+
+contexts = []
+tags     = []
+todos    = {}
+count    = 0
+
+for items in lines:
+    try:
+        (status, item, start, due) = items.split('|')
+    except:
+        continue
+
+    if due == 'missing value':
+        due = 'none'
+
+    if status.strip() == '/' or status.strip() == 'x':
+        # don't add completed or cancelled items
+        continue
+
+    todos[count]           = {}
+    todos[count]['item']   = item.strip()
+    todos[count]['status'] = status.strip()
+    todos[count]['start']  = trans_date(start.strip())
+    todos[count]['due']    = trans_date(due.strip())
+
+    p_ctxt = item.split(' ')
+    for x in p_ctxt:
+        # regexp for '@+' and '/+'
+        if re_tag.search(x):
+            x = x.split('@')[1]
+            todos[count]['tags'] = []
+            todos[count]['tags'].append(x)
+            if not x in tags:
+                tags.append(x)
+
+        if re_context.search(x):
+            x = x.split('/')[1]
+            todos[count]['contexts'] = []
+            todos[count]['contexts'].append(x)
+            if not x in contexts:
+                contexts.append(x)
+
+    count += 1
+
+notags = []
+
+# slight bug here: if an item has more than one tag, it will
+# go in only one list, not both
+print 'Upcoming The Hit List items'
+tags.sort()
+
+# also need to sort by due/start dates
+for t in tags:
+    count = []
+
+    for x in todos:
+        if 'tags' in todos[x]:
+            for ptag in todos[x]['tags']:
+                if ptag == t:
+                    count.append(x)
+        else:
+            if not x in notags:
+                notags.append(x)
+
+    if len(count) &gt; 0:
+        print '\nTODO items tagged &quot;%s&quot;\n'&#160;% t
+        for x in count:
+            print_item(todos[x])
+
+if len(notags) &gt;= 1:
+    print '\nTODO items with no tags\n'
+    for x in notags:
+        print_item(todos[x])
+</pre>
+<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
+<ul><li> 09/01/2009 - fix the gt-hitlist.py script due to output errors from 10.6</li>
+<li> 08/30/2009 - fix the gt-cpustats script with info for 10.6</li>
+<li> 08/14/2009 - initial article</li>
+</ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

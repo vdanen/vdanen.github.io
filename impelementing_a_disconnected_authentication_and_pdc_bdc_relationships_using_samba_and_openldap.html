@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/impelementing_a_disconnected_authentication_and_pdc_bdc_relationships_using_samba_and_openldap.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Copyright © 2003 Buchan Milne Originally written for the MandrakeSecure website. Contents 1 Initial LDAP Setup 2 Initial Samba setup for LDAP 3 Changes required on the Master LDAP Server 4 Setting up the Slave LDAP Servers 4.1 Copying configuration files 4.2 Modifications to slapd.conf 4.3 Transferring …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP"/>
+    <meta property="og:url" content="https://annvix.com/impelementing_a_disconnected_authentication_and_pdc_bdc_relationships_using_samba_and_openldap.html"/>
+    <meta property="og:description" content="Copyright © 2003 Buchan Milne Originally written for the MandrakeSecure website. Contents 1 Initial LDAP Setup 2 Initial Samba setup for LDAP 3 Changes required on the Master LDAP Server 4 Setting up the Slave LDAP Servers 4.1 Copying configuration files 4.2 Modifications to slapd.conf 4.3 Transferring …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP</h1>
+        
+        <div class="entry-content">
+            <p><small>Copyright &#169; 2003 Buchan Milne</small>
+</p>
+<p>Originally written for the MandrakeSecure website.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Initial_LDAP_Setup"><span class="tocnumber">1</span> <span class="toctext">Initial LDAP Setup</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Initial_Samba_setup_for_LDAP"><span class="tocnumber">2</span> <span class="toctext">Initial Samba setup for LDAP</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Changes_required_on_the_Master_LDAP_Server"><span class="tocnumber">3</span> <span class="toctext">Changes required on the Master LDAP Server</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Setting_up_the_Slave_LDAP_Servers"><span class="tocnumber">4</span> <span class="toctext">Setting up the Slave LDAP Servers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Copying_configuration_files"><span class="tocnumber">4.1</span> <span class="toctext">Copying configuration files</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Modifications_to_slapd.conf"><span class="tocnumber">4.2</span> <span class="toctext">Modifications to <span>slapd.conf</span></span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Transferring_the_directory_to_the_slave"><span class="tocnumber">4.3</span> <span class="toctext">Transferring the directory to the slave</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Testing_replication"><span class="tocnumber">5</span> <span class="toctext">Testing replication</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Disconnected_Authentication"><span class="tocnumber">6</span> <span class="toctext">Disconnected Authentication</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Configuring_the_Samba_.22BDC.22"><span class="tocnumber">7</span> <span class="toctext">Configuring the Samba "BDC"</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Preparing_the_LDAP_directory_for_Samba"><span class="tocnumber">7.1</span> <span class="toctext">Preparing the LDAP directory for Samba</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Configuration_file_changes_for_the_Samba_BDC"><span class="tocnumber">7.2</span> <span class="toctext">Configuration file changes for the Samba BDC</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Complications_for_Windows-specific_features"><span class="tocnumber">7.3</span> <span class="toctext">Complications for Windows-specific features</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Password_Changing.2C_Expiry_and_Synchronisation"><span class="tocnumber">8</span> <span class="toctext">Password Changing, Expiry and Synchronisation</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Changing_Samba_passwords_from_Windows_machines"><span class="tocnumber">9</span> <span class="toctext">Changing Samba passwords from Windows machines</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Windows_users_changing_Unix_passwords"><span class="tocnumber">9.1</span> <span class="toctext">Windows users changing Unix passwords</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Unix_users_changing_Unix_passwords"><span class="tocnumber">9.2</span> <span class="toctext">Unix users changing Unix passwords</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Unix_users_change_Windows_passwords"><span class="tocnumber">9.3</span> <span class="toctext">Unix users change Windows passwords</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Password_Expiry"><span class="tocnumber">9.4</span> <span class="toctext">Password Expiry</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Exercises_for_the_student"><span class="tocnumber">10</span> <span class="toctext">Exercises for the student</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Cleaning_up"><span class="tocnumber">11</span> <span class="toctext">Cleaning up</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Credits_and_References"><span class="tocnumber">12</span> <span class="toctext">Credits and References</span></a></li>
+</ul>
+</div>
+
+<p>In what is now becoming a series on LDAP, previous articles have already covered <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">basic LDAP setup and UNIX authentication</a>, and the basics of <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup" title="Implementing a Samba LDAP Primary Domain Controller Setup">building a samba PDC backended on OpenLDAP</a>. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.
+</p>
+<p>The advantages that are available in running slave LDAP servers include:
+</p>
+<ul><li> Redundancy</li>
+<li> Reduced network traffic</li>
+<li> Better performance of LDAP clients (samba, nss_ldap, pam_ldap, MTAs)</li>
+<li> Disconnected authentication</li></ul>
+<p>One can see that all of these benefits would be advantageous to both UNIX authentication, and authentication of Windows clients via Samba. In fact, the use of LDAP as authentication backend is the only way to implement Backup Domain Controllers with Samba (besides home-cooked rsync scripts).
+</p>
+<p>In addition, having Samba on an LDAP backend allows non-root users (who have Domain Admin rights) to join machines to the Domain (this is not possible when using the smbpasswd file).
+</p>
+<p>In this article, we will look at the various aspects of setting up your domain, with the objectives of enabling disconnected Unix authentication and PDC/BDC functionality with Samba, using the following values in the examples in this document:
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> Setting
+</th>
+<th style="background:#efefef;"> Value
+</th></tr>
+<tr>
+<td> Base DN: </td>
+<td> dc=mylan,dc=net
+</td></tr>
+<tr>
+<td> Mail Domain: </td>
+<td> mylan.net
+</td></tr>
+<tr>
+<td> Root DN: </td>
+<td> cn=root,dc=mylan,dc=net
+</td></tr>
+<tr>
+<td> Samba DN(s): </td>
+<td> cn=samba,dc=mylan,dc=net
+</td></tr>
+<tr>
+<td> Mail Host: </td>
+<td> mail.mylan.net
+</td></tr>
+<tr>
+<td> LDAP Master server: </td>
+<td> ldap.mylan.net
+</td></tr>
+<tr>
+<td> LDAP Slave servers: </td>
+<td> ldap1.mylan.net; ldap2.mylan.net
+</td></tr>
+<tr>
+<td> Netbios Domain Name: </td>
+<td> mylan
+</td></tr></table>
+<h2><span class="mw-headline" id="Initial_LDAP_Setup">Initial LDAP Setup</span></h2>
+<p>While the original LDAP article covers the initial setup of the LDAP server and clients in detail, there are some issues which have caused frustration, and they will be mentioned here in the hope of allowing some of you to go home on time for a change!
+</p>
+<p><b>Avoiding editing the migration scripts</b>
+</p>
+<p>When using the migration tools, the first article suggested editing the scripts to customise the settings. However, since those files will likely be lost in an upgrade (they are not marked as config files to rpm), and since scripts should not rely on editing of the files, I prefer to use the mechanism provided in the migration tools, the use of shell variables.
+</p>
+<p>Following the example configuration, we would set these variables instead of editing the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">migrate_common.ph</span> as in the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">migration section of the first article</a>:
+</p>
+<pre>
+[root@ldap ~]# export LDAP_BASEDN=&quot;dc=mylan,dc=net&quot;
+[root@ldap ~]# export LDAP_DEFAULT_MAIL_DOMAIN=&quot;mylan.net&quot;
+[root@ldap ~]# export LDAP_DEFAULT_MAIL_HOST=&quot;mail.mylan.net&quot;
+[root@ldap ~]# export LDAP_EXTENDED_SCHEMA=1
+</pre>
+<p>For actually adding the entries to the LDAP server, I would follow a similar approach to save typing:
+</p>
+<pre>
+[root@ldap ~]# LDAP_ROOTDN=&quot;cn=root,dc=mylan,dc=net&quot;
+[root@ldap ~]# read -s -p &quot;Enter LDAP Root DN Password: &quot; LDAP_BINDPW
+[root@ldap ~]# &lt;span class=&quot;input LDAP_ADD=&quot;ldapadd -x -H ldap://localhost -D $LDAP_ROOTDN -w $L
+</pre>
+<p>Note that the LDAP password is not exported, since it is only needed in the current shell. It is now much simpler to import data into the LDAP server. From the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/openldap/migration</span> directory, to import the base entries, run:
+</p>
+<pre>
+[root@ldap ~]# ./migrate_base.pl | $LDAP_ADD
+</pre>
+<p><i>Importing the base entries has been the cause of much frustration for people who use a longer suffix than the examples of mylan.net, padl.com and example.com that are available all over. This frustration is avoided simply by use the "-c" option with ldapadd, as we have in the LDAP_ADD variable. If you have received errors such as "parent does not exist" or "No such object", this is for you!</i>
+</p>
+<h2><span class="mw-headline" id="Initial_Samba_setup_for_LDAP">Initial Samba setup for LDAP</span></h2>
+<p>The <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup" title="Implementing a Samba LDAP Primary Domain Controller Setup">second LDAP</a> article covers the setup of a single samba server on an LDAP backend well, but one of the steps (mentioned in both articles) is providing samba with it's LDAP password.
+</p>
+<p>One of my pet hates is seeing clear-text passwords, and unfortunately providing samba with it's LDAP password is one case where this is usually necessary. If you thought storing the LDAP password in a shell variable (as above) was insecure, you will see that this is the reason for it. I prefer a password in a shell variable than on my screen and in my history, since I can unset the variable when I am done. By using the "-s" switch to read, we avoid seeing the password when we enter it, thus we don't see it at all. Now, passing the LDAP password of your choice is as easy as:
+</p>
+<pre>
+[root@ldap ~]# read -s -p &quot;Enter LDAP Root DN Password: &quot; LDAP_BINDPW
+Enter LDAP Root DN Password:
+[root@ldap ~]# smbpasswd -w $LDAP_BINDPW
+</pre>
+<p>If you are using your rootdn account for samba, the first step may be unnecessary if you entered it above. If you are done with your password for the moment, remove it from your shell with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">'unset LDAP_BINDPW'</span>.
+</p>
+<h2><span class="mw-headline" id="Changes_required_on_the_Master_LDAP_Server">Changes required on the Master LDAP Server</span></h2>
+<p>To make provision for slave LDAP servers, we need to make some changes to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file on the master LDAP server, and possibly add some entries to the LDAP directory, which will be used for the replication. Note that all the changes we are adding here are database-specific options (as opposed to global options), so they must be added after the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">database</span> directive for the database you are replicating.
+</p>
+<p>LDAP replication works by notifying each slave LDAP server of changes that have been made on the master server. For you to have a consistent directory across your servers, this requires that the copies of the directory are consistent to begin with (which we will do later), and then updates to each server need to be tracked to ensure that a given server has received all it's updates. To accomplish this, OpenLDAP uses a replication log file, which logs all the changes that must be made across all servers. Each replication host will also have a log file, indicating which updates still need to be applied. These changes are managed by a separate daemon, slurpd, which spawns a separate instance per replication host.
+</p>
+<p>The first change we need to make on the server is thus to tell OpenLDAP which file to use as a log file. Add a "replogfile" directive to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>:
+</p>
+<pre>
+replogfile      /var/lib/ldap/replog
+</pre>
+<p>Note that slapd needs to be able to create (or write to, if it already exists) the file, so it is best to leave it in a place that the user slapd runs as has write access. Also, since the replog is associated with a database, placing it in the directory specified in the "directory" directive for the database is convenient.
+</p>
+<p>Now, for each LDAP slave, we need to add a replica section, which will specify the host to replicate to, the LDAP DN to connect to the replica as, the bind method (and password in the case of clear-text) and ssl settings. Assuming we were wanting to replicate the LDAP directory to hosts ldap1.mylan.net, ldap2.myland.net, we would add something like this to slapd.conf on the master:
+</p>
+<pre>
+replica host=ldap1.mylan.net:389
+        binddn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+        bindmethod=simple credentials='4l70szch'
+        tls=yes
+
+replica host=ldap2.mylan.net:389
+        binddn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+        bindmethod=simple credentials='4l70szch'
+        tls=yes
+
+</pre>
+<p>It is essential that the password is secured in some fashion, either via SASL (which is beyond the scope of this article, and I'm waiting for an article that does cover it!), or if you are using simple bind, via either ssl or tls. Please note that the use of SSL or TLS requires that you specify the host as the name that appears on the SSL certificate the host is using. The simplest way to ensure this is to use the FQDN on the certificate and in the host entry for the replica, and ensure that you have working DNS, specifically resolution of the FQDN to the IP address of the host.
+</p>
+<p>I would suggest using a password generator to generate passwords, the one above was generated for use in this document using passwd-gen (available in contrib).
+</p>
+<p>Now, we also need to ensure that this DN exists in the directory, and that it has the password to authenticate against. If you already have an LDAP entity that can be used for this (in this case an entry from the hosts file for the server itself that was imported with migrate_hosts.pl), you could do something like this:
+</p>
+<pre>
+[root@ldap ~]# slappasswd -s 4l70szch
+{SSHA}ZVlKuLSLDJ/2AVbedB3qQ+S6c6K+Fgum
+[root@ldap ~]# LDAP_MODIFY=&quot;ldapmodify -x -H ldap://localhost -D $LDAP_ROOTDN
+[root@ldap ~]# $LDAP_MODIFY
+dn: cn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+changetype: modify
+add: objectclass
+objectclass: simpleSecurityObject
+-
+add: userPassword
+userPassword: {SSHA}ZVlKuLSLDJ/2AVbedB3qQ+S6c6K+Fgum
+^D
+modifying entry &quot;ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&quot;
+^C
+[root@ldap ~]#
+</pre>
+<p><i>Note, the <b>^D</b> indicates the use of the key combination CTRL-D to signify the end of input, after which the modification will be applied. The <b>^C</b> ends the ldapmodify session.</i>
+</p>
+<p>We will need to restart the ldap server, which will then start up a slurpd to replicate to ldap1.mylan.net, but first we need to configure ldap1.mylan.net.
+</p>
+<h2><span class="mw-headline" id="Setting_up_the_Slave_LDAP_Servers">Setting up the Slave LDAP Servers</span></h2>
+<p>You should repeat this section for each of your LDAP slaves, in this case we will use ldap1.mylan.net.
+</p>
+<p>Before we start, you need to ensure you have the necessary software installed on each machine which is to become a slave LDAP server. You will need at least the 'openldap-servers' package, but openldap-clients, openldap, nss_ldap and pam_ldap may be useful, depending on your objectives. To install all the LDAP software we will be using, run the following command:
+</p>
+<pre>
+[root@ldap ~]# urpmi openldap openldap-clients openldap-servers nss_ldap pam_ldap
+</pre>
+<p><i>Apparently on Debian systems the equivalent command would be something like 'apt-get install slapd ldap-utils nss_ldap pam_ldap'</i>
+</p>
+<p>In setting up each slave LDAP server, we need to complete a number of tasks. First, we should copy all the configurations from the master server (as for example, we don't want ACLs weaker on the slave). We then need to make a few changes to make slapd run as a slave (instead of allowing updates as usual, it will only accept changes from the master, and refer all requests for modifications to the master). We can then start up the LDAP server, and import the entire directory.
+</p>
+<h3><span class="mw-headline" id="Copying_configuration_files">Copying configuration files</span></h3>
+<p>First, you need to get copies of all the config files to the slave server. The most convenient way is probably via scp. If you have not used scp before, see [/syshardening/openssh.php Using OpenSSH]. Assuming we have a secure, convenient means of using ssh (such as via ssh-agent/keychain and keys with passphrases), you can copy the configuration files across to the first LDAP slave as follows:
+</p>
+<pre>
+[root@ldap ~]# scp ldap:/etc/openldap/slapd.conf /etc/openldap/
+</pre>
+<p>Be sure to copy any other config files you have modified, or added to the master server. Examples include <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.access.conf</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/samba-slapd.include</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/openldap/schema/samba.schema</span>:
+</p>
+<pre>
+[root@ldap1 ~]# scp ldap:/etc/openldap/slapd.access.conf /etc/openldap/
+[root@ldap1 ~]# scp ldap:/etc/samba/samba-slapd.include /etc/samba/
+[root@ldap1 ~]# scp ldap:/usr/share/openldap/schema/samba.schema \
+/usr/share/openldap/schema/
+</pre>
+<p><i>The file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba-slapd.include</span> has not been discussed before. It just contains directives to index the rid (which samba uses when doing lookups on users, so indexing it should improve samba's LDAP queries), and an ACL to protect the samba passwords in the lmPassword and ntPassword attributes. You may want to instead make these changes in the slapd.conf file itself, or you could use an include directive in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>, between the existing ACLs and index directives, such as <b>include /etc/samba/samba-slapd.include</b></i>
+</p>
+<h3><span class="mw-headline" id="Modifications_to_slapd.conf">Modifications to slapd.conf</span></h3>
+<p><i>Before we continue, just undo the changes we made above on the master to add the replica hosts in the slapd.conf on the slave.</i>
+</p>
+<p>We need to tell slapd a few things now, first, which DN to accept updates from, with:
+</p>
+<pre>
+updatedn &quot;ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&quot;
+</pre>
+<p>We also need to tell slapd that it is to refer any changes not from the replica DN to the master server, by adding:
+</p>
+<pre>
+updateref &quot;ldap://ldap.mylan.net&quot;
+</pre>
+<p>Finally, we also need to add ACLs on the slave to allow the DN used for replica update write access, so in each set of ACLs covering entries which need to be replicated, add write access for the replication DN, such as:
+</p>
+<pre>
+access to attr=userPassword
+        by self read
+        by anonymous auth
+        by dn=&quot;cn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&quot; write
+        by * none
+</pre>
+<p>Remember also to check any ACLs defined in files included in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>, such as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/openldap/slapd.access.conf</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/samba-slapd.include</span>.
+</p>
+<h3><span class="mw-headline" id="Transferring_the_directory_to_the_slave">Transferring the directory to the slave</span></h3>
+<p>We need to initialise the LDAP directory on the slave server. To my knowledge, the best way to do this is to run an ldap dump (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapcat</span>) on the slave, and pipe the LDIF data into <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapadd</span>, which must be done while the slave server is not running. To ensure consistency, we must prevent any changes from occuring on the master server. The OpenLDAP documentation recommends stopping the master LDAP server, however small installations which rely on the master LDAP server will want to rather put the master server into read-only mode (also mentioned in the OpenLDAP documentation).
+</p>
+<p>On the master server, set it to read-only mode (by placing "readonly on" in the section of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file for the database you want to have in read-only mode), and restart. If you have just one database on the master server, you can do this as follows:
+</p>
+<pre>
+[root@ldap ~]# echo &quot;readonly on&quot; &gt;&gt; /etc/openldap/slapd.conf
+[root@ldap ~]# service ldap restart
+Stopping slapd:                                                 [  OK  ]
+Stopping slurpd:                                                [FAILED]
+ldaps
+Starting slapd (ldap + ldaps):                                  [  OK  ]
+
+Starting slurpd:                                                [  OK  ]
+[root@ldap ~]#
+</pre>
+<p>As you will see, we now have slurpd starting up as well (as a result of our changes above). Now, we can run the LDAP query on the slave server, or run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapcat</span>, and pipe the output directly into the database. An LDAP query may be easier, but will possibly not return all entries in the directory (specifically if you have more entries than your LDAP server is configured to return on a query, or if your query does not take LDAP server settings into account, or if the DN you use does not have access to all data. Ensure that the ldap server is not running on the slave server, as we are going to use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapadd</span> (instead of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapadd</span>), since we have only one account that will be able to do modifications to the directory, but it is not in the local copy of the directory yet. It would also be possible to uncomment the settings for the slave, and use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapadd</span> as the rootdn, but that could mean that the master LDAP server would have to run in read-only mode for longer. To accomplish this easily, we want to be able to run some commands as the user who the ldap server runs as, which means we don't have to worry about permissions afterwards on new files. This requires that the user has a valid shell, which is most likely not the case by default. On Mandrake, simply run '<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">usermod -s /bin/bash ldap</span>' as root first. Then run something like this on the slave:
+</p>
+<pre>
+[root@ldap1 ~]# ssh ldap1.mylan.net slapcat | su ldap -c 'slapadd -c; slapindex'
+</pre>
+<p>This runs <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapcat</span> on the master (ldap.mylan.net), and brings back the output to stdout on the slave (ldap1.mylan.net), which we then pipe into 'slapadd -c', and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapindex</span>, both run as the user 'ldap'.
+</p>
+<p>If you do not have ssh setup (either via ssh keys or using password authentication) to allow connections as root, and you have fewer entries that your LDAP search limit, you can run an LDAP query on the slave:
+</p>
+<pre>
+[root@ldap1 ~]# ldapsearch -x -LLL -h ldap.mylan.net -D &quot;cn=root,dc=mylan,dc=net&quot; -W \
+ | su ldap -c 'slapadd -c;slapindex'
+Enter LDAP Password:
+[root@ldap1 ~]#
+</pre>
+<p>Last resort is to run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slapcat -l &lt;file&gt;</span> on the master LDAP server, transfer the file to the slave server, and run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">su ldap -c 'slapadd -c -l &lt;file&gt;;slapindex'</span>.
+</p>
+<p>We are now ready to fire up the slapd on the slave:
+</p>
+<pre>
+[root@ldap1 ~]# service ldap start
+Stopping slapd:                                                 [  OK  ]
+ldaps
+Starting slapd (ldap + ldaps):                                  [  OK  ]
+</pre>
+<p>Now, you can restart the master LDAP server in read-write mode. Comment out the "readonly on" you added above and restart the master server:
+</p>
+<pre>
+[root@ldap ~]# perl -pi -e 's/^readonly on/#readonly on/g' /etc/openldap/slap
+[root@ldap ~]# service ldap restart
+ldaps
+Starting slapd (ldap + ldaps):                                  [  OK  ]
+Starting slurpd:                                                [  OK  ]
+</pre>
+<p>While it is not critical at this stage, in future you will want to minimise the amount of time that your master is in read-only mode, since this will prevent users from changing their passwords, other admins from making their changes etc. As your enterprise grows and you rely more on your LDAP service, this will become more important. So, get into the habit of being quick with a new slave LDAP server. You should not need to have the master server in readonly mode for more than a minute when adding a slave, if you follow the method above.
+</p>
+<p>Remember to set the ldap user's shell (on the slave) back in the interest of security! <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">'usermod -s /bin/false ldap'</span> should do.
+</p>
+<h2><span class="mw-headline" id="Testing_replication">Testing replication</span></h2>
+<p>The whole point of this exercise was to have working replication, so it is worthwhile ensuring that it works correctly. I find the easiest way is to modify the gecos of my own user account on the master, and query it on the slave. I guess it would also be feasible to use a separate LDAP entity for this, but would be more effort. Since we already have the smbldap tools available and configured on the master server (see <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup" title="Implementing a Samba LDAP Primary Domain Controller Setup">article 2</a>), it is convenient to use them to modify values, since we don't have to bother with passwords. In this example, I will use the account "joe" from the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">first article</a>:
+</p>
+<pre>
+[root@ldap ~]# smbldap-usermod -c &quot;Joe User - ldap replication test 1&quot; joe
+[root@ldap ~]# ldapsearch -x -h ldap1 &quot;(uid=joe)&quot; gecos -LLL
+dn: uid=joe,ou=People,dc=mylan,dc=net
+gecos: Joe User - ldap replication test 1
+
+[root@ldap ~]#
+</pre>
+<p>You should also test a few more attributes to ensure that ACLs on the slave work, so test an attribute for each ACL you have.
+</p>
+<p>If you don't get your modification back, you have a problem with your replication, which you need to fix before we progress further. On the master server, you should find a file such as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/lib/ldap/replica/ldap1.mylan.net:389.rej</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/lib/ldap/replica/slurpd.replog</span> which should contain some debugging information which should be able to help you find out what is wrong. You may want to test various pieces of the replication setup, such as binding to the slave as the updatedn, or running slurpd in one-shot mode ('<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slurpd -o -d31 -r /var/lib/ldap/replica/slurpd.replog</span>' should work to test <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">slurpd</span>). Unfortunately not all the errors from slurpd in one-shot mode are self-explanatory.
+</p>
+<p>If replication is working, remember to set Joe's gecos back, or he might complain when he gets to his Linux workstation and the screen saver dialog doesn't have his name correct anymore!
+</p>
+<h2><span class="mw-headline" id="Disconnected_Authentication">Disconnected Authentication</span></h2>
+<p>To complete our first objective, disconnected authentication, we finally need to do the client-side setup on the LDAP slave. The most important thing here is the configuration of the host in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span>, as this hostname must be resolvable to the local machine at all times. The next decision is whether to use SSL/TLS here or not. Since all communication will be local, SSL/TLS should not be necessary for encryption support between the client and the server. This frees us from the need to specify an FQDN, and we can use the loopback IP address, 127.0.0.1.
+</p>
+<p>We mentioned redundancy, and to achieve that goal, you can configure multiple LDAP servers in the host line of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span>. If the first server listed (which should be the localhost on a slave server) is not available, pam_ldap and nss_ldap should failover to the next server in the list.
+</p>
+<p>Now, you should be able to disconnect your LDAP slave from the network, and still be able to authenticate. Note however that you may have problems if your network interface stays up, as slapd or pam_ldap or nss_ldap may try and use it, and not return. So, you may have to manually take the interface down, with something like 'ifdown eth0'. If your NIC is supported by ifstatus (check with 'ifstatus -v' while both connected and disconnected), then ifplugd will do this for you on Mandrake 9.1, and you won't have to think about it. However, this issue seems to have been resolved with the latest pam_ldap packages which are available as updates for Mandrake 9.1.
+</p>
+<p>If you only wanted disconnected authentication (for example for use on laptops which run Linux), you can skip the Samba bits and go right to the end.
+</p>
+<p>If you cannot authenticate while disconnected, you have a problem you must solve before continuing.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_Samba_.22BDC.22">Configuring the Samba "BDC"</span></h2>
+<p>Before continuing with this section, ensure you have installed the software required, you should use the latest samba packages available from the samba ftp mirrors, compiled with ldap support. 'urpmi samba-server-ldap' should be sufficient to install the necessary software if you have set up your urpmi sources at <a rel="nofollow" class="external text" href="http://plf.zarb.org/~nanardon/?minor=1">http://plf.zarb.org/~nanardon/ </a>. (I am not aware of Debian sources for samba packages compiled with LDAP support, so I am not aware of an apt-get equivalent.)
+</p>
+<h3><span class="mw-headline" id="Preparing_the_LDAP_directory_for_Samba">Preparing the LDAP directory for Samba</span></h3>
+<p>As before, we need to configure a few aspects of how Samba will connect to the LDAP server. The first issue to be decided is which DN samba will use when connecting to the LDAP server. To decide this, it is worthwhile reviewing what changes a Samba BDC will be making to the directory. At minimum Samba will need to be able to modify the attributes that it uses for authentication, namely <b>lmPassword</b>, <b>ntPassword</b> and <b>pwdLastSet</b> when users change their passwords from the BDC.
+</p>
+<p>Unfortunately, Samba (at least 2.2.x) makes changes to all the attributes it uses when modifying one, so Samba-2.2.x will additionally need write access all those defined in the objectclass:SambaAccount.
+</p>
+<p>If you want to be able to create user accounts from the remote server, Samba (or rather the DN used in the 'add user script', thus the DN configured in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbldap_conf.pm</span> on the BDC) will also need to have write access to the OU used for storing user accounts, and must have write access to all attributes. Similarly, if you want to be able to join machines to the domain from the BDC without pre-making machine accounts, you will need to give Samba (via the DN in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbldap_conf.pm</span>) write access to the OU you use for machine accounts.
+</p>
+<p>Since Samba thus has many rights on the directory, some people will be satisfied in giving samba the rootdn account. However, note that Samba will then store the LDAP rootdn password in a plaintext-readable format on the machine (both in the secrets.tdb file for internal Samba use, and if you use smbldap-tools, in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbldap_conf.pm</span> file). Also, using a separate DN will give more traceability to modifications to the directory. Any modifications will mark the entries modified with the DN that made the most recent changes, and using one DN for multiple modifiers defeats the point of maintaining this data.
+</p>
+<p>In this example, we will add a new LDAP entry, "cn=samba,dc=mylan,dc=net" to the root of our directory, for use by samba. First ensure that your new samba DN is added to the existing ACLs for ntPassword and lmPassword, then add something like the following to the ACL section of your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span> file:
+</p>
+<pre>
+access to attr=uid,rid,cn,logonTime,logoffTime,kickoffTime,pwdCanchange,pwdMustchange,\
+acctFlags,displayName,smbHome,scriptPath,profilePath,description,userWorkstations,\
+primaryGroupID,domain
+        by dn=&quot;uid=root,ou=People,dc=mylan,dc=net&quot; write
+        by dn=&quot;cn=samba,dc=mylan,dc=net&quot; write
+        by * read
+
+access to dn=&quot;ou=People,dc=mylan,dc=net&quot;
+        by dn=&quot;uid=root,ou=People,dc=mylan,dc=net&quot; write
+        by dn=&quot;cn=samba,dc=mylan,dc=net&quot; write
+        by * read
+
+access to dn=&quot;ou=Group,dc=mylan,dc=net&quot;
+        by dn=&quot;uid=root,ou=People,dc=mylan,dc=net&quot; write
+        by dn=&quot;cn=samba,dc=mylan,dc=net&quot; write
+        by * read
+
+
+
+[root@ldap ~]# slappasswd -s 8gi42uie
+{SSHA}Yc0VQhwX8IQGyKDnWLUrP+OTnRYAjhl/
+
+[root@ldap ~]# $LDAP_ADD
+dn: cn=samba,dc=mylan,dc=netobjectclass: top
+objectclass: simpleSecurityObject
+userPassword: {SSHA}Yc0VQhwX8IQGyKDnWLUrP+OTnRYAjhl/
+adding new entry &quot;cn=samba,dc=mylan,dc=net&quot;
+</pre>
+<p>You must now replace your previous settings in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smb.conf</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/samba/smbldap_conf.pm</span>, and tell Samba the password for the new DN:
+</p>
+<pre>
+[root@ldap ~]# smbpasswd -w 8gi42uie
+</pre>
+<p>Whether you want each samba server using the LDAP server to use its own DN is a choice for you to make. Doing so will allow better auditing (from the ldap data you would be able to know which server had made the most recent change, which would narrow down the search for the admin who made a mistake), but will be more effort. If you choose to do so, just repeat the steps above, adding the new DN to the existing samba ACLs on the directory.
+</p>
+<p>After making your changes, test your ACLs, ensuring that now samba has the ability to make changes to those attributes. For example, you can create a new user using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbldap-useradd</span> and then test that you can disable the user via <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbpasswd</span>. This is also a convenient time to ensure that your LDAP data is replicating to the slave. You will probably have to change some of the ACLs on the slave to allow samba to read the attributes it needs.
+</p>
+<h3><span class="mw-headline" id="Configuration_file_changes_for_the_Samba_BDC">Configuration file changes for the Samba BDC</span></h3>
+<p>The majority of the configuration from your PDC will apply to your BDC, so copy your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span> from the PDC to the BDC, and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbldap_conf.pm</span> also. The changes you should make to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span> on the BDC include:
+</p>
+<ul><li> netbios name (if you set it manually on the PDC) - <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span></li>
+<li> If your PDC runs as a WINS server, make your BDC a WINS client of the PDC instead,  since Samba does not support WINS replication yet - <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span></li>
+<li> If you are using different DNs, change them - <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span></li>
+<li> Don't set the BDC as <b>domain master</b>, but ensure it is set up for <b>domain logons</b> - <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span></li>
+<li> Affinity of clients for a certain logon server can be adjusted with <b>os level</b> - <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span></li>
+<li> In the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smbldap_conf.pm</span>, where you previously set $slaveLDAP and $masterLDAP, you should obviously ensure they point to the relevant LDAP servers.</li></ul>
+<p>The final change to the smb.conf file relates to the creation of machine accounts. When you join a machine to the domain, samba will do a check for a machine account on the LDAP server, and if no account exists, it will run the "add user script", and query its LDAP server again for an account. You may find that Samba does not wait long enough between adding the account (to the master) and checking for the account on the slave to allow replication to occur. If this is the case, you can just force samba to wait after running the script by making the full "add user script" on the slave look something like this (which will make it wait for 5 seconds):
+</p>
+<pre>
+add user script = /usr/share/samba/scripts/smbldap-useradd.pl -w -d /dev/null \
+ -g machines -c 'Machine Account' -s /bin/false&#160;%u; sleep 5
+</pre>
+<p>Remember to import Samba's LDAP DN password on the slave via <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbpasswd -w &lt;password&gt;</span>.
+</p>
+<p>The last bit that is important is importing the domain SID, which the PDC has, on the BDC. On the BDC, run something like this:
+</p>
+<pre>
+[root@ldap ~]# smbpasswd -S -r ldap.mylan.net
+</pre>
+<p>Start your samba server up on the slave, and you should now be able to join a Windows machine to the domain, via either machine. If you imported a <b>uid=root</b> account, that had an smbpasswd, you should be able to use that account. Additionally, any user that is a member of the adm group on one of the machines should have rights to join the machine to the domain. This is controlled by the permissions on the smbldap-tools scripts and configuration file. Additionally, members of the adm group should have Domain Admin rights on the windows machines, controlled by the "domain admin group" parameter in the smb.conf file. Furthermore, members of the adm group should be able to administer printers on any Mandrake samba servers, due to the "printer admin group" default parameter, and the permissions on the files in the print$ share.
+</p>
+<p>For more detail on joining Windows clients to a Samba Domain Controller, including screenshots, please see the <a rel="nofollow" class="external text" href="http://mandrake.vmlinuz.ca/bin/view/Main/SambaDomainController#join">relevant section of the Mandrake Community Wiki</a>. Note of course that although the screenshots show the use of the root account, any Domain Admin account should be able to join machines to the domain.
+</p>
+<p>You should be able to log in to the windows client with a domain account (after the reboot) to either server. Test this by stopping samba on one machine at a time (if the server you are stopping is your WINS server, you must not shut nmbd down but rather just the smbd's, which you can do (assuming no users have files open) with 'killall smbd' as root).
+</p>
+<h3><span class="mw-headline" id="Complications_for_Windows-specific_features">Complications for Windows-specific features</span></h3>
+<p>Note that there are additional complications for LDAP domain controllers that you will encounter on your first login, relating to profiles and login scripts. When using LDAP accounts, Samba will first check to see if the LDAP account for the user has profilePath and scriptPath LDAP attributes, in which case those paths will be used for locating the user's profile and login script. If the attributes do not exist for the LDAP account, Samba will fall back to the settings in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span>. While settings in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">smb.conf</span> are not as flexible, the use of samba macros in the 'logon path' and 'login script' entries allows easy customisation. Additionally, if you are using multiple domain controllers to cut down on bandwidth, having the profilePath contain the server name defeats this purpose. Unfortunately, the smbldap-tools will always set the LDAP attributes, so if you don't use them, you must currently delete them manually, in which case it is also a good time to add any additional attributes for the user.
+</p>
+<p>Also, the user logging must either have rights to create a profile directory, or their profile directory must exist and be accessible by them. An example of one way to achieve this is given in the example config file, using a 'root preexec' on the profiles share to create and assign permissions on the profile directory.
+</p>
+<p>The final issue is with retaining existing profiles. For Windows NT-based (ie Windows NT, Windows 2000, Windows XP Professional) version, the registry settings in a user's profile are protected by ACLs, so when copying profiles (such as a local profile to the server), you must ensure that you assign the new (domain) user account rights to use the profile. If you are migrating a large network from an existing Windows domain, it is not easy to do this, and you may want to use Samba3 instead, which is able to retain the SIDs for each user, making this unnecessary.
+</p>
+<p>You may notice that you now end up with multiple of your profile. Ideally you will want to ensure that profiles are replicated somehow, but that is beyond the scope of this article. It seems the windows machines will always attempt to log on to the server they most recently logged into. If this machine is not available, they will query for a logon server.
+</p>
+<h2><span class="mw-headline" id="Password_Changing.2C_Expiry_and_Synchronisation">Password Changing, Expiry and Synchronisation</span></h2>
+<p>Depending on your future plans for your network, you may want to accomplish different objectives for password synchronisation, expiry etc. The most basic password-changing aspect is an administrative user changing passwords for users, which can be done conveniently on any machine setup for smbldap-tools by using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbldap-passwd</span>. However, in most cases you will want the users to be able to change their passwords easily on their own, and in all likelihood you will want to enforce password changes at regular intervals. The issues we will look at in accomplishing this include:
+</p>
+<ul><li> Windows users changing their Windows password from their Windows client (probably the most important in the short-term)</li>
+<li> Windows users changing their Unix password from their Windows client (important if you authenticate other services on Unix via the Unix password</li></ul>
+<p>in LDAP, such as IMAP/SSH servers etc)
+</p>
+<ul><li> Unix users changing their Unix password from their Unix machine (if you have Unix/Linux desktops, you will want this at least)</li>
+<li> Unix users changing their Windows password from their Unix machine (the most difficult part)</li></ul>
+<h2><span class="mw-headline" id="Changing_Samba_passwords_from_Windows_machines">Changing Samba passwords from Windows machines</span></h2>
+<p>Password changing for windows machines should now work as follows:
+</p>
+<ul><li> User runs password-changing tool (ie CTRL-ALT-DEL-&gt;Change Password)</li>
+<li> If samba is configured for unix password synchronisation, either via a password script or via pam, Samba will first try to change the Unix password.</li>
+<li> If the Unix password change succeeded (if configured) or if samba is not configured for Unix password synchronisation, Samba will try to change the ntPassword and lmPassword attributes in its LDAP server.</li>
+<li> If Samba is a "PDC", its changes should be successful. If samba is a "BDC", its first attempt should fail, returning a referral to the master LDAP server. Samba should then rebind to the master LDAP server, and attempt to change lmPassword and ntPassword.</li>
+<li> If this is all successful, Windows should tell you your password change was successful.</li></ul>
+<h3><span class="mw-headline" id="Windows_users_changing_Unix_passwords">Windows users changing Unix passwords</span></h3>
+<p>To keep passwords in synchronisation, it is possible to have samba change the users Unix password whenever they change their Windows/Samba password. To do this, you need to enable the <b>unix password sync</b> option, and either use <b>passwd program = /usr/bin/passwd&#160;%u</b> or <b>pam password change = yes</b>, both of which require a suitable <b>passwd chat</b>.
+</p>
+<p>The advantage of using pam is that you can customise the way Samba passwords are changed, however by default they will work just like the passwd program (since the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/samba</span> file by default should use pam_stack and pass password changes on to the configuration in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/system-auth</span>).
+</p>
+<p>Note that the password change operation will take place as root, so any Samba server that does Unix password synchronisation for LDAP accounts must be configured to bind as a DN that has write access to the password attributes in LDAP, normally by configuring a <b>rootbinddn</b> in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.conf</span> and entering the password for that DN in plain text in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.secret</span>. Finally, note that failure of a Unix password change operation will cause the samba password change to fail, so ensure your Unix password change for other users works as root before testing from Windows clients.
+</p>
+<p>Full configuration for Unix password synchronisation via Samba could look like this:
+</p>
+<pre>
+unix password sync = yes
+pam password change = yes
+passwd chat = *New*UNIX*password*&#160;%n\n *Re*ype*new*UNIX*password*&#160;%n\n \
+*passwd:*all*authentication*tokens*updated*successfully*
+</pre>
+<h3><span class="mw-headline" id="Unix_users_changing_Unix_passwords">Unix users changing Unix passwords</span></h3>
+<p>If your pam_ldap is set up correctly according to the original article, then password changes should work from your Unix clients, however note that some packages of openldap have a bug in this regard. If you have updated to the latest openldap packages for Mandrakelinux, everything should work fine. Note that a user will require their existing Unix password in LDAP in order to be able to change their password. Also, in most cases it should not be possible for the local root user to be able to change other users passwords in LDAP, since you would not place your rootdn password on the clients.
+</p>
+<h3><span class="mw-headline" id="Unix_users_change_Windows_passwords">Unix users change Windows passwords</span></h3>
+<p>This is one of the most difficult to solve cleanly, as there are only two ways this can be accomplished, one which is not available in maintained form, the other has security implications:
+</p>
+<ul><li> There is a <a rel="nofollow" class="external text" href="http://www.rit.bme.hu/~balsa/pam_ldap_ntlm/">version of pam_ldap available</a> that will modify the lmPassword and ntPassword attributes when changing the userPassword attribute, however it is not maintained and has not been merged into the mainline pam_ldap.</li>
+<li> pam_smbpass (part of the Samba suite) will, when samba is compiled with ldapsam support, change Samba passwords in the configured sam backend on the machine where it is called, however this requires that each pam_smbpass installation installed for this purpose be provided with an LDAP DN with rights to change the password, and the password for that rootdn be imported into Samba, consequently stored in plain-text in one of Samba's tdb files (protected with file permissions of course). This is no better than entering your rootdn password into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ldap.secret</span> and should be avoided on non-server machines.</li></ul>
+<p>At present, since your Unix users are likely to be more command-line literate, it may be best to have them change their Samba password manually with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">smbpasswd</span>.
+</p>
+<h3><span class="mw-headline" id="Password_Expiry">Password Expiry</span></h3>
+<p>Password expiry for Samba password will only be fully functional with Samba-3 on a "rich" SAM backend, including LDAP. The Samba schema for Samba-2.2.x includes password-expiry-related attributes, but only minimal use is made of them. While it is possible to get samba to cause a password-expiry prompt to appear at login time, changing the password will not update the password age, thus the following login prompt will still result in a password-expiry dialog. Also, an expired samba password may also not prevent a user from logging in. The updating of password ages could be done via a modified 'passwd program' and a cron job (this is being investigated).
+</p>
+<p>However, Samba can be configured to "obey pam restrictions", in which case Samba will deny logins to users when a pam "account" or "session" module has failed. Thus, if you expire Unix accounts via the LDAP attribute *shadowExpire*, both Unix and Samba accounts will be locked out until their passwords are reset. Unfortunately it seems impossible to have users warned automatically when their passwords are about to expire (as it would be with Samba-3), so you may have to write a script to check for accounts that are about to expire.
+</p>
+<h2><span class="mw-headline" id="Exercises_for_the_student">Exercises for the student</span></h2>
+<p>There are always things that can be improved upon, and these are some examples which the author is currently implementing, but are not complete or have not been in production for sufficient time that the author is willing to make them available for public scrutiny:
+</p>
+<ul><li> Using regex-based ACLs for <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">slapd.conf</span>, allowing generic ACLs in the global section of slapd.conf, instead of per-db ACLs</li>
+<li> Using OUs to group entities that require the same Access Controls (such as Domain Controllers and/or LDAP slaves), allowing fewer ACLs (which can have a significant performance impact)</li>
+<li> Patching the smbldap-tools to make the addition of profilePath and scriptPath attributes configurable</li>
+<li> Implementation of password-unexpiry for Samba passwords in LDAP</li>
+<li> Two-way (minimum) replication of user profiles (since one-way is too easy to give for homework)</li>
+<li> Update to OpenLDAP-2.1 and Samba3</li></ul>
+<h2><span class="mw-headline" id="Cleaning_up">Cleaning up</span></h2>
+<p>No job is done until the tools have been put back in their places, and in our case that applies to any changes you made to your configurations during testing. So, remember to remove any passwords you used for migrating data (such as in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">import_smbpasswd.pl</span> file), turn logging back to sane levels, change any passwords that may have been transmitted in the clear or stored in files with weak permissions. Remove unnecessary bloat from your configuration files (you may want to make backups first), and ensure all the services are configured to start at boot. You should also ensure that your backup system takes snapshots of your LDAP database.
+</p>
+<h2><span class="mw-headline" id="Credits_and_References">Credits and References</span></h2>
+<p>A number of people have been involved in allowing me to complete this document. Firstly, Vincent Danen, whose <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">LDAP authentication article</a> allowed me to get our LDAP authentication working correctly. Without Jim Collings, who wrote the <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup" title="Implementing a Samba LDAP Primary Domain Controller Setup">initial Samba+LDAP PDC article</a> I would not have been motivated to tackle this large topic, since we already had everything running. Of course, the <a rel="nofollow" class="external text" href="http://www.samba.org">The Samba Team</a> who provide excellent software and better support, as well as the <a rel="nofollow" class="external text" href="http://www.openldap.org">OpenLDAP developers</a>.
+</p>
+<p>I located a lot of documentation covering issues relating to LDAP (including ACLs and replication etc) and Samba. Some good documents which have content I have not referred to or covered are referenced below:
+</p>
+<ul><li> Ignacio Coupeau's <a rel="nofollow" class="external text" href="http://www.unav.es/cti/ldap-smb/ldap-smb-2_2-howto.html">Samba-2.2.x&lt;/ a&gt; and [http://www.unav.es/cti/ldap-smb/smb-ldap-3-howto.html Samba-3</a> HOWTOS</li>
+<li> <a rel="nofollow" class="external text" href="http://www.arrayservices.com/projects/Exchange-HOWTO/html/book1.html">The Exchange Server Replacement HOWTO</a></li>
+<li> <a rel="nofollow" class="external text" href="http://group-ldap-auth.sourceforge.net/squid/group_ldap_auth/">Squid authentication by groups</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.metaconsultancy.com/whitepapers/ldap.htm">Using OpenLDAP (includes minimal information on LDAP slaves)</a></li>
+<li> <a rel="nofollow" class="external text" href="http://caesar.elte.hu/eltenet/projects/demogrid/demogrid-report-1/dg-rep-1-sec-eval.pdf">Evaluation of Distributed Authentication, Authorization and Directory Services</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.daasi.de/staff/norbert/thesis/html/thesis.html">Directory Services for Linux</a></li>
+<li> OpenLDAP Admin Guide: <a rel="nofollow" class="external text" href="http://www.openldap.org/devel/admin/slapdconfig.html#Access">ACLs</a></li></ul>
+<p><small>Copyright &#169; 2003 Buchan Milne</small>
+</p>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

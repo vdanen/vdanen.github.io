@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using OpenLDAP as an Address Book - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/using_openldap_as_an_address_book.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="One of the best uses for LDAP is as an address book. Whether this is a company white pages or a personal (or distributed) email address book, LDAP makes for a great means of storing addresses that are not often changed. This will detail my own personal experiences in setting …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using OpenLDAP as an Address Book"/>
+    <meta property="og:url" content="https://annvix.com/using_openldap_as_an_address_book.html"/>
+    <meta property="og:description" content="One of the best uses for LDAP is as an address book. Whether this is a company white pages or a personal (or distributed) email address book, LDAP makes for a great means of storing addresses that are not often changed. This will detail my own personal experiences in setting …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Using OpenLDAP as an Address Book</h1>
+        
+        <div class="entry-content">
+            <p>One of the best uses for LDAP is as an address book. Whether this is a company white pages or a personal (or distributed) email address book, LDAP makes for a great means of storing addresses that are not often changed.
+</p>
+<p>This will detail my own personal experiences in setting up OpenLDAP to serve as an address book for a number of different applications. I use <a rel="nofollow" class="external text" href="http://www.mutt.org">mutt</a> as my email client on Mac OS X (previously used it on Linux) and mutt's aliases file served as a half-decent address book, although it was not portable at all. For instance, if I chose to use Mozilla to compose an email, or Apple's Mail.app, I would have to view my mutt aliases file in order to find appropriate addresses. Using LDAP, I can avoid this and have Mozilla, Mail.app, <i>and</i> mutt all use the same source for obtaining email addresses.
+</p>
+<p>Setting this up is a bit of chore, thus this topic. A few different tools are involved to get this setup working, and it should work with virtually any email client that supports LDAP (most do), and you can even use an intermediate tool called <a rel="nofollow" class="external text" href="http://www.spinnaker.de/lbdb/">The Little Brother's Database (lbdb)</a> to help out (in fact, for mutt it's pretty much a requirement).
+</p>
+<p>We'll look at getting mutt to use lbdb to access LDAP data (and the OS X Address Book for you Mac users), getting Mozilla to use it, and getting the OS X Address Book to use it as well. First, however, you must have OpenLDAP properly configured; something that can be done by following the <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">Using OpenLDAP for User Authentication</a> topic (just ignore the PAM/NSS and other authentication-specific items).
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_the_Address_Book"><span class="tocnumber">1</span> <span class="toctext">Creating the Address Book</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Modifying_Entries_in_the_Address_Book"><span class="tocnumber">2</span> <span class="toctext">Modifying Entries in the Address Book</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_lbdb"><span class="tocnumber">3</span> <span class="toctext">Configuring lbdb</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_mutt"><span class="tocnumber">4</span> <span class="toctext">Configuring mutt</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Configuring_Apple.27s_Address_Book"><span class="tocnumber">5</span> <span class="toctext">Configuring Apple's Address Book</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Configuring_Mozilla"><span class="tocnumber">6</span> <span class="toctext">Configuring Mozilla</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Resources"><span class="tocnumber">7</span> <span class="toctext">Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Creating_the_Address_Book">Creating the Address Book</span></h2>
+<p>The first step is to create the Address Book, and this can be extremely tedious the first time around. You need to create a LDIF file containing the skeleton for your new Organizational Unit (we'll assume you are using ou=People for user authentication; if you're not, feel free to use that OU). In this case, we will create a new OU called "email" which will be used solely to store email addresses. The LDIF file would look like this:
+</p>
+<pre>
+dn: ou=email,dc=mylan,dc=net
+ou: email
+objectClass: organizationalUnit
+</pre>
+<p>Of course, change the suffix to suit your setup (here it is dc=mylan,dc=net). Import this into the directory to create the structure by using:
+</p>
+<pre>
+# ldapadd -h localhost -D &quot;cn=root,dc=mylan,dc=net&quot; -W -x -f addr-skel.ldif
+</pre>
+<p>Change the parameters to, again, suit your setup. The "-h" option indicates the host to connect to (in this case, localhost), the "-D" option indicates the DN to bind as (in this case cn=root,dc=mylan,dc=net which would be your administrator DN). We also tell <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapadd</span> we want to be prompted for our bind DN's password, use simple authentication, and import the data from the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">addr-skel.ldif</span> (which would contain the contents noted above).
+</p>
+<p>Once this is done, you can begin working on a new LDIF file (which we'll call <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">addr.ldif</span>) which contains the actual entries. You're not restricted to only using email addresses; you can specify any information you like provided by the organizationalUnit objectClass. The following are two example entries; the first with minimal data, the latter with a lot more.
+</p>
+<pre>
+# Vincent Danen
+dn: cn=Vincent Danen,ou=email,dc=mylan,dc=net
+cn: Vincent Danen
+givenName: Vincent
+sn: Danen
+mail: vdanen@nospam.net
+objectClass: inetOrgPerson
+
+# Joe User
+dn: cn=Joe User,ou=email,dc=mylan,dc=net
+cn: Joe User
+givenName: Joe
+sn: User
+mail: joe@nospam.net
+labeledURI: http://linsec.ca/
+telephoneNumber: 800-111-2222
+postalAddress: 123 45 Nowhere Ave, Edmonton, AB, T1X 1T1
+objectClass: inetOrgPerson
+</pre>
+<p>The first entry contains a few items: the DN for the entry, the CN (or Common Name), the givenName (first name), the SN, (surname), and a mail entry. This is all you really need if you're aiming for just an email address book. The latter entry contains the same thing but also labeledURI (a URL), a telephone number, and postal address. This may be more useful for a company whitepages. There are a lot of other types you can use; take a look at the <b><i>inetorgperson.schema</i></b> for a full list.
+</p>
+<p>Yes, this is the tedious part. Copy and pasting helps alleviate the pain to some degree. Scripts could probably be written quite easily to parse a flat file and generate the LDIF for you with a little bit of perl magic. That would save a lot of time. At any rate, once you have completed your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">addr.ldif</span> file (or done as much as you can stand), you can import the entries into the directory by using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapadd</span> again and providing it with <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">addr.ldif</span> as the filename to import.
+</p>
+<p>Once you have done this, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapsearch</span> to verify that the data is available.
+</p>
+<pre>
+# ldapsearch -LL -H ldap://localhost -x &quot;(mail=*) mail
+version: 1
+
+dn: cn=Vincent Danen,ou=email,dc=mylan,dc=net
+mail: vdanen@nospam.net
+
+dn: cn=Joe User,ou=email,dc=mylan,dc=net
+mail: joe@nospam.net
+</pre>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ldapsearch</span> command will list all DN's with a mail entry (so if you use LDAP for authentication as well, you'll likely see some entries from ou=People as well). If your output is returned similar to the above, your address book works.
+</p>
+<h2><span class="mw-headline" id="Modifying_Entries_in_the_Address_Book">Modifying Entries in the Address Book</span></h2>
+<p><b><i>TODO</i></b>
+</p>
+<h2><span class="mw-headline" id="Configuring_lbdb">Configuring lbdb</span></h2>
+<p>The next step is to configure lbdb to use LDAP as a query source for mutt. Download lbdb from the homepage (as of this writing, the latest version is 0.27) and untar the file somewhere like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/src</span>. Compiling lbdb is extremely straightforward:
+</p>
+<pre>
+# cd /usr/local/src/lbdb-0.27
+# ./configure
+# make
+# make install
+</pre>
+<p>This will install lbdb into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local</span>. Create a new configuration file for lbdb in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.lbdbrc</span> that looks something like this:
+</p>
+<pre>
+# lbdb config file
+
+# methods to search
+METHODS=&quot;m_ldap m_muttalias m_osx_addressbook&quot;
+# modules location
+MODULES_PATH=&quot;/usr/local/lib&quot;
+# ldap nicks
+LDAP_NICKS=&quot;ldap&quot;
+</pre>
+<p>Here we define what methods we want to use (or what sources we want to search). In this case, we want to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">m_ldap</span> method (which uses <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">mutt_ldap_query</span> to query the LDAP server), <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">m_muttalias</span> (which queries our local mutt aliases file), and (for the OS X users), <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">m_osx_addressbook</span> (which queries the OS X Address Book). Order is important since, by default, lbdb filters out duplicates. The last duplicate remains, so the methods listed last have a higher precedence. In this case, if an address is matched in all three methods, the one in the OS X Address Book is shown. We also specify the path that contains the modules (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">$prefix/lib</span> or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/lib</span> by default); this is the directory that contains the actual methods files. Finally, we specify our LDAP nicknames with the LDAP_NICKS keyword. More on this in a moment.
+</p>
+<p>lbdb uses <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/lib/mutt_ldap_query</span> to do the actual lookups, and this is a perl script that requires the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Net::LDAP</span> perl module. If you don't have this installed, you can install from RPM or DEB packages if your vendor provides it, or use CPAN to install it. Installing from RPM and DEB files is pretty self-explanatory, so if you don't have one available to you, you'll need to install via CPAN using something like this:
+</p>
+<pre>
+# perl -MCPAN -e 'install Bundle::Net::LDAP'
+</pre>
+<p>If this is your first time using CPAN to install a perl module, you'll have to answer a few questions to get things configured correctly, but it's pretty straightforward. Once this is completed, you'll need to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/lib/mutt_ldap_query</span> file directly to set the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$prefix</span> variable, otherwise it will die with errors. Simply modify the file to look like this:
+</p>
+<pre>
+my $config_file = ' ';
+my $prefix = '/usr/local';
+</pre>
+<p>Where you're adding the line <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">{{{1}}}</span> below the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$config_file</span> variable declaration.
+</p>
+<p>Next create a configuration file for <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">mutt_ldap_query</span>; the best to use is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt_ldap_query.rc</span>. It should look something like this:
+</p>
+<pre>
+# mutt_ldap resource file
+
+# The format of each entry of the ldap server database is the following:
+# LDAP_NICKNAME =&gt; ['LDAP_SERVER',
+#                   'LDAP_SEARCH_BASE',
+#                   'LDAP_SEARCH_FIELDS',
+#                   'LDAP_EXPECTED_ANSWERS',
+#                   'LDAP_RESULT_EMAIL',
+#                   'LDAP_RESULT_REALNAME',
+#                   'LDAP_RESULT_COMMENT',
+#                   IGNORANT],
+# (IGNORANT is an optional argument. If you set it to 1, mutt_ldap_query
+# uses wildcards *foo* for searching).
+
+%ldap_server_db = (
+  'ldap'     =&gt; ['ldap.mylan.net', 'ou=email,dc=mylan,dc=net', 'cn sn givenname mail', 'cn sn givenname mail', '${mail}', '${givenname} ${sn}', '(LDAP)', '1']
+);
+
+$ldap_server           = 'ldap.mylan.net';
+$search_base           = 'ou=email,dc=mylan,dc=net';
+$ldap_search_fields    = 'givenname sn cn mail';
+$ldap_expected_answers = 'givenname sn cn mail';
+$ldap_result_email     = '${mail}';
+$ldap_result_realname  = '${givenname} ${sn}';
+$ldap_result_comment   = '(LDAP)';
+$ignorant              = 0;
+
+$prefix                = '/usr/local';
+</pre>
+<p>Essentially, we are defining the same thing in two places; an LDAP server with the nick name "ldap" (remember the LDAP_NICKS setting in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.lbdbrc</span>?), which has a hostname of "ldap.mylan.net". Our search base is "ou=email,dc=mylan,dc=net". We're looking for a few specific items, particularly the common name (cn), surname (sn), first name (givenname), and email address (mail) records from the LDAP directory. I also found it necessary to define the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$prefix</span> variable in the file directly, otherwise <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">mutt_ldap_query</span> would complain and give errors.
+</p>
+<p>Once this is done, you can give it a test. The program used to query the various sources of information is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">lbdbq</span>, so we execute it with what we're searching for:
+</p>
+<pre>
+$ lbdbq vdanen
+lbdbq: 1 matches
+vdanen@nospam.net Vincent Danen   (LDAP)
+</pre>
+<p>If you get the above without any errors, congratulations! If you do encounter some difficulties, make sure that you have <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Net::LDAP</span> installed, that your configuration files are correct, and that you've told lbdb to look in the right place for the methods files.
+</p>
+<h2><span class="mw-headline" id="Configuring_mutt">Configuring mutt</span></h2>
+<p>Configuring mutt is the easiest part of this entire exercise. Edit your mutt configuration file (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.muttrc</span>) and add:
+</p>
+<pre>
+set query_command=&quot;/usr/local/bin/lbdbq&#160;%s&quot; # query tlr's little brothers database.
+</pre>
+<p>At this point, you can use the query command in mutt to search for email addresses using lbdb. By default this is <b>&lt;ESC&gt;q</b> in mutt. When you hit this key combination, you will be prompted for a Query string. Enter your search string, press enter, and you'll get a list of matching addresses from lbdb's output. Move your cursor to highlight the address you were looking for, press enter, and you'll be composing an email to that person.
+</p>
+<h2><span class="mw-headline" id="Configuring_Apple.27s_Address_Book">Configuring Apple's Address Book</span></h2>
+<p>The Address Book tool in OS X also has the ability to query and search from an LDAP database. It's quite simple to configure Address Book to search through as many LDAP servers as you like. Launch Address Book and go into the Preferences. There are two tabs here; "General" and "LDAP". Click on the "LDAP" tab and then click on the "Add" button near the bottom of the panel.
+</p>
+<p>Give the LDAP directory a name to describe it and define the FQDN for the server itself (ie. ldap.mylan.net). The Search Base should be "ou=email,dc=mylan,dc=net"; the OU you defined when first creating your directory structure. The port should be 389 unless your LDAP server uses a non-standard port, and the scope should be Subtree. Save your entry and make sure that it is marked active in the LDAP tab list.
+</p>
+<p>Close the Preferences and go back to the Address Book main window. In the Group column you should have at least two rows: "All" and "Directories" (possibly more if you created your own groups). Click on "Directories" and then click on the name of your newly defined LDAP directory (or "All", which would allow Address Book to search in multiple LDAP directories).
+</p>
+<p>Unfortunately, you won't get any data out of the LDAP directory unless you search for it, similar to using lbdb. In the search text entry field, type in your search criteria and as you type, Address Book will start searching the directory and will display the results in the final column. If you chose to include more data than just an email address, you may be disappointed to see that you can't view it all; all you will see is the givenName and sn entries (combined in the Name column) and either the Email address or Phone number in the last column. All the other data that may be in the directory is left there.
+</p>
+<p>Another option is <a rel="nofollow" class="external text" href="http://www.j2anywhere.com/">Addressbook4LDAP</a> which is both an address book and contact-centric LDAP tool for OS X.
+</p>
+<h2><span class="mw-headline" id="Configuring_Mozilla">Configuring Mozilla</span></h2>
+<p>Mozilla is not as straightforward as Address Book, but it's also a little more flexible. To configure Mozilla to use a directory, go into the Mozilla preferences, then "Mail &amp; Newsgroups" then "Addressing". In this section, under "Address Autocompletion" is a checkbox allowing you to enable or disable "Directory Server". Click on the checkbox to activate it, then click on the "Edit Directories..." button. A new window should pop up listing your defined LDAP servers, but since none are currently defined, click the "Add" button. Here you can define the name (or alias) of the LDAP server, the hostname for it (ie. ldap.mylan.net), the Base DN (ie. "ou=email,dc=mylan,dc=net"), port number, and you can even specify a DN to bind as (leaving this blank will allow you to bind anonymously). If you like, you can use SSL to connect to the LDAP server as well. Save the entry and exit Preferences and fire up the Address Book. In the Address Books column you should see three entries (more if you added them, of course): Personal Address Book, Collected Addresses, and the name of the LDAP server you defined.
+</p>
+<p>To search the LDAP directory, type in your search criteria in the "Name or Email contains" search box and press enter. You'll see the matching entries show up in the column view below.
+</p>
+<h2><span class="mw-headline" id="Resources">Resources</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.mutt.org">mutt homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.spinnaker.de/lbdb/">The Little Brother's Database (lbdb) homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.apple.com/macosx/jaguar/addressbook.html">OS X Address Book info page</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.j2anywhere.com/">Addressbook4LDAP</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.mozilla.org">Mozilla homepage</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

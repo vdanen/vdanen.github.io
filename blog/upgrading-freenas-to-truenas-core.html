@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Upgrading FreeNAS to TrueNAS Core - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="freenas,truenas" />
+        <meta name="description" content="Given it&#39;s the holidays and that&#39;s when I tend to have time and energy to poke around the house, I decided to upgrade my FreeNAS box to the newer TrueNAS 12 release. The upgrade itself went without a hitch, simply switching from the FreeNAS 11 train to the TrueNAS 12 …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Upgrading FreeNAS to TrueNAS Core"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core.html"/>
+        <meta property="og:description" content="Given it&#39;s the holidays and that&#39;s when I tend to have time and energy to poke around the house, I decided to upgrade my FreeNAS box to the newer TrueNAS 12 release. The upgrade itself went without a hitch, simply switching from the FreeNAS 11 train to the TrueNAS 12 …"/>
+        <meta property="article:published_time" content="2020-12-22" />
+            <meta property="article:section" content="Bsd" />
+            <meta property="article:tag" content="freenas" />
+            <meta property="article:tag" content="truenas" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core.html"
+                       rel="bookmark"
+                       title="Permalink to Upgrading FreeNAS to TrueNAS Core">
+                        Upgrading FreeNAS to TrueNAS Core
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-12-22T18:00:00-07:00"> Tue 22 December 2020</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open-o"></i> Bsd</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/freenas.html"> freenas</a></span>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/truenas.html"> truenas</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="Image" src="https://vdanen.github.io/images/truenas.png"></p>
+<p>Given it's the holidays and that's when I tend to have time and energy to poke around the house, I decided to upgrade my FreeNAS box to the newer TrueNAS 12 release.  The upgrade itself went without a hitch, simply switching from the FreeNAS 11 train to the TrueNAS 12 train was sufficient.  However when everything came back, none of my jails started.  I have three jails that are used daily: plex, gitea, and inkdrop (which runs a CouchDB server for the Inkdrop note-taking tool <a href="https://annvix.com/blog/inkdrop-with-couchdb-on-freenas">I've detailed before</a>).</p>
+<p>Noting this here, as a followup to my earlier blog post about <a href="https://annvix.com/blog/updating-iocage-jails-in-freenas">updating iocage jails in FreeNAS</a> was helpful but insufficient.  It might have been sufficient on any day other than today though...</p>
+<p>Trying to start the jails in the TrueNAS UI yielded no real information as to why the jails weren't starting, so off to the trusty commandline:</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">sudo</span><span class="w"> </span><span class="nv">iocage</span><span class="w"> </span><span class="nv">start</span><span class="w"> </span><span class="nv">inkdrop</span><span class="w"></span>
+<span class="nv">No</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">gateway</span><span class="w"> </span><span class="nv">found</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">ipv6</span>.<span class="w"></span>
+<span class="o">*</span><span class="w"> </span><span class="nv">Starting</span><span class="w"> </span><span class="nv">inkdrop</span><span class="w"></span>
+<span class="nv">inkdrop</span><span class="w"> </span><span class="nv">devfs_ruleset</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="nv">does</span><span class="w"> </span><span class="nv">not</span><span class="w"> </span><span class="nv">exist</span><span class="o">!</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Not</span><span class="w"> </span><span class="nv">starting</span><span class="w"> </span><span class="nv">jail</span><span class="w"></span>
+</code></pre></div>
+
+<p>Still not overly helpful, but some poking around led me to <a href="https://github.com/iocage/iocage/issues/1140">this issue on GitHub</a> that described the problem I was having.  You could edit the <code>config.json</code> file directly, but iocage let's you use tooling for this as well.</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># sudo iocage get all inkdrop|grep dev</span><span class="w"></span>
+<span class="n">allow_mount_devfs</span><span class="o">:</span><span class="mi">0</span><span class="w"></span>
+<span class="n">devfs_ruleset</span><span class="o">:</span><span class="mi">7</span><span class="w"></span>
+<span class="n">min_dyn_devfs_ruleset</span><span class="o">:</span><span class="mi">1000</span><span class="w"></span>
+<span class="n">mount_devfs</span><span class="o">:</span><span class="mi">1</span><span class="w"></span>
+
+<span class="cp"># sudo iocage set devfs_ruleset=4 inkdrop</span><span class="w"></span>
+<span class="n">devfs_ruleset</span><span class="o">:</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+</code></pre></div>
+
+<p>Here we set the devfs_ruleset to 4.  Why 4?  No idea, that's what the GitHub issue noted to set it to.  Also note that these were incremental; my plex server had a devfs_ruleset value of 5, gitea was 6, and inkdrop was 7 (incidentally the order in which they were created).  I set all of them to 4.  Now the jail starts:</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">sudo</span><span class="w"> </span><span class="nv">iocage</span><span class="w"> </span><span class="nv">start</span><span class="w"> </span><span class="nv">inkdrop</span><span class="w"></span>
+<span class="nv">No</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">gateway</span><span class="w"> </span><span class="nv">found</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">ipv6</span>.<span class="w"></span>
+<span class="o">*</span><span class="w"> </span><span class="nv">Starting</span><span class="w"> </span><span class="nv">inkdrop</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Started</span><span class="w"> </span><span class="nv">OK</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Using</span><span class="w"> </span><span class="nv">devfs_ruleset</span>:<span class="w"> </span><span class="mi">1001</span><span class="w"> </span><span class="ss">(</span><span class="nv">iocage</span><span class="w"> </span><span class="nv">generated</span><span class="w"> </span><span class="nv">default</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Configuring</span><span class="w"> </span><span class="nv">VNET</span><span class="w"> </span><span class="nv">OK</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Using</span><span class="w"> </span><span class="nv">IP</span><span class="w"> </span><span class="nv">options</span>:<span class="w"> </span><span class="nv">vnet</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Starting</span><span class="w"> </span><span class="nv">services</span><span class="w"> </span><span class="nv">OK</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Executing</span><span class="w"> </span><span class="nv">poststart</span><span class="w"> </span><span class="nv">OK</span><span class="w"></span>
+<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">DHCP</span><span class="w"> </span><span class="nv">Address</span>:<span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">1</span>.<span class="mi">82</span><span class="o">/</span><span class="mi">23</span><span class="w"></span>
+</code></pre></div>
+
+<p>Now that the jail started, I pulled in the FreeBSD 12.2-RELEASE with <code>iocage fetch</code>.  And following previous instructions I had outlined wanted to do the upgrade.  Which <em>would</em> have worked, except that the FreeBSD folks appear to be monkeying around with their git repos today!  Since I wanted to get this all done today rather than wait, I decided to do some more digging.</p>
+<p>The upgrade error:</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">sudo</span><span class="w"> </span><span class="nv">iocage</span><span class="w"> </span><span class="nv">upgrade</span><span class="w"> </span><span class="nv">inkdrop</span><span class="w"> </span><span class="o">-</span><span class="nv">r</span><span class="w"> </span><span class="mi">12</span>.<span class="mi">2</span><span class="o">-</span><span class="nv">RELEASE</span><span class="w"></span>
+<span class="nv">Traceback</span><span class="w"> </span><span class="ss">(</span><span class="nv">most</span><span class="w"> </span><span class="nv">recent</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="nl">last</span><span class="ss">)</span>:<span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/iocage&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nv">sys</span>.<span class="k">exit</span><span class="ss">(</span><span class="nv">cli</span><span class="ss">())</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/click/core.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">764</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">__call__</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">self</span>.<span class="nv">main</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>,<span class="w"> </span><span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/click/core.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">717</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">main</span><span class="w"></span>
+<span class="w">    </span><span class="nv">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span>.<span class="nv">invoke</span><span class="ss">(</span><span class="nv">ctx</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/click/core.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">1137</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">invoke</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">_process_result</span><span class="ss">(</span><span class="nv">sub_ctx</span>.<span class="nv">command</span>.<span class="nv">invoke</span><span class="ss">(</span><span class="nv">sub_ctx</span><span class="ss">))</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/click/core.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">956</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">invoke</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">ctx</span>.<span class="nv">invoke</span><span class="ss">(</span><span class="nv">self</span>.<span class="nv">callback</span>,<span class="w"> </span><span class="o">**</span><span class="nv">ctx</span>.<span class="nb">params</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/click/core.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">555</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">invoke</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">callback</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>,<span class="w"> </span><span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/iocage_cli/upgrade.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">40</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">cli</span><span class="w"></span>
+<span class="w">    </span><span class="nv">ioc</span>.<span class="nv">IOCage</span><span class="ss">(</span><span class="nv">jail</span><span class="o">=</span><span class="nv">jail</span>,<span class="w"> </span><span class="nv">skip_jails</span><span class="o">=</span><span class="nv">skip_jails</span><span class="ss">)</span>.<span class="nv">upgrade</span><span class="ss">(</span><span class="nv">release</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/iocage_lib/iocage.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">2070</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">upgrade</span><span class="w"></span>
+<span class="w">    </span><span class="nv">new_release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ioc_upgrade</span>.<span class="nv">IOCUpgrade</span><span class="ss">(</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/site-packages/iocage_lib/ioc_upgrade.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">112</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">upgrade_jail</span><span class="w"></span>
+<span class="w">    </span><span class="nv">with</span><span class="w"> </span><span class="nv">urllib</span>.<span class="nv">request</span>.<span class="nv">urlopen</span><span class="ss">(</span><span class="nv">f</span><span class="ss">)</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">fbsd_update</span>:<span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">222</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">urlopen</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">opener</span>.<span class="nv">open</span><span class="ss">(</span><span class="nv">url</span>,<span class="w"> </span><span class="nv">data</span>,<span class="w"> </span><span class="nb">timeout</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">531</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">open</span><span class="w"></span>
+<span class="w">    </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">meth</span><span class="ss">(</span><span class="nv">req</span>,<span class="w"> </span><span class="nv">response</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">640</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">http_response</span><span class="w"></span>
+<span class="w">    </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span>.<span class="nv">parent</span>.<span class="nv">error</span><span class="ss">(</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">569</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">error</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">self</span>.<span class="nv">_call_chain</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">502</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">_call_chain</span><span class="w"></span>
+<span class="w">    </span><span class="nb">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">func</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span><span class="ss">)</span><span class="w"></span>
+<span class="w">  </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/urllib/request.py&quot;</span>,<span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="mi">649</span>,<span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">http_error_default</span><span class="w"></span>
+<span class="w">    </span><span class="nv">raise</span><span class="w"> </span><span class="nv">HTTPError</span><span class="ss">(</span><span class="nv">req</span>.<span class="nv">full_url</span>,<span class="w"> </span><span class="nv">code</span>,<span class="w"> </span><span class="nv">msg</span>,<span class="w"> </span><span class="nv">hdrs</span>,<span class="w"> </span><span class="nv">fp</span><span class="ss">)</span><span class="w"></span>
+<span class="nv">urllib</span>.<span class="nv">error</span>.<span class="nv">HTTPError</span>:<span class="w"> </span><span class="nv">HTTP</span><span class="w"> </span><span class="nv">Error</span><span class="w"> </span><span class="mi">404</span>:<span class="w"> </span><span class="nv">Not</span><span class="w"> </span><span class="nv">Found</span><span class="w"></span>
+</code></pre></div>
+
+<p>The patch I applied, based on <a href="https://github.com/iocage/iocage/issues/1237">this issue in GitHub detailing the same problem</a>:</p>
+<div class="highlight"><pre><span></span><code># diff -uN ioc_upgrade.py /usr/local/lib/python3.8/site-packages/iocage_lib/ioc_upgrade.py
+--- ioc_upgrade.py  2020-12-22 11:45:17.715773034 -0700
++++ /usr/local/lib/python3.8/site-packages/iocage_lib/ioc_upgrade.py    2020-12-22 11:45:58.144014593 -0700
+@@ -104,6 +104,8 @@
+         f = &#39;https://raw.githubusercontent.com/freebsd/freebsd&#39; \
+             f&#39;/release/{f_rel}/usr.sbin/freebsd-update/freebsd-update.sh&#39;
+
++   f = &#39;https://raw.githubusercontent.com/freebsd/freebsd/master/usr.sbin/freebsd-update/freebsd-update.sh&#39;
++
+         tmp = None
+         try:
+             tmp = tempfile.NamedTemporaryFile(delete=False)
+</code></pre></div>
+
+<p>Now performing the upgrade worked:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># sudo iocage upgrade inkdrop -r 12.2-RELEASE</span><span class="w"></span>
+<span class="n">src</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="p">,</span><span class="w"> </span><span class="n">skipped</span><span class="w"></span>
+<span class="n">Looking</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">update</span><span class="o">.</span><span class="n">FreeBSD</span><span class="o">.</span><span class="n">org</span><span class="w"> </span><span class="n">mirrors</span><span class="o">...</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">mirrors</span><span class="w"> </span><span class="n">found</span><span class="o">.</span><span class="w"></span>
+<span class="n">Fetching</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mf">11.3</span><span class="o">-</span><span class="n">RELEASE</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">update2</span><span class="o">.</span><span class="n">freebsd</span><span class="o">.</span><span class="n">org</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span><span class="w"></span>
+<span class="n">Fetching</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="n">index</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span><span class="w"></span>
+<span class="n">Fetching</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="n">files</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span><span class="w"></span>
+<span class="n">Inspecting</span><span class="w"> </span><span class="n">system</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span><span class="w"></span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">components</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">FreeBSD</span><span class="w"> </span><span class="n">seem</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">installed</span><span class="p">:</span><span class="w"></span>
+<span class="n">world</span><span class="o">/</span><span class="n">base</span><span class="w"> </span><span class="n">world</span><span class="o">/</span><span class="n">doc</span><span class="w"> </span><span class="n">world</span><span class="o">/</span><span class="n">lib32</span><span class="w"></span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">components</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">FreeBSD</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">seem</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">installed</span><span class="p">:</span><span class="w"></span>
+<span class="n">world</span><span class="o">/</span><span class="n">base</span><span class="o">-</span><span class="n">dbg</span><span class="w"> </span><span class="n">world</span><span class="o">/</span><span class="n">lib32</span><span class="o">-</span><span class="n">dbg</span><span class="w"></span>
+
+<span class="n">Does</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">look</span><span class="w"> </span><span class="n">reasonable</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="err">?</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
+
+<span class="o">...</span><span class="w"></span>
+
+<span class="n">Completing</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="n">requires</span><span class="w"> </span><span class="n">removing</span><span class="w"> </span><span class="n">old</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">files</span><span class="o">.</span><span class="w"></span>
+<span class="n">Please</span><span class="w"> </span><span class="n">rebuild</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="mi">3</span><span class="n">rd</span><span class="w"> </span><span class="n">party</span><span class="w"> </span><span class="n">software</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">programs</span><span class="w"></span>
+<span class="n">installed</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ports</span><span class="w"> </span><span class="n">tree</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="s2">&quot;/tmp/tmp723gk2ae install&quot;</span><span class="w"></span>
+<span class="n">again</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">finish</span><span class="w"> </span><span class="n">installing</span><span class="w"> </span><span class="n">updates</span><span class="o">.</span><span class="w"></span>
+<span class="n">src</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="p">,</span><span class="w"> </span><span class="n">skipped</span><span class="w"></span>
+<span class="n">Installing</span><span class="w"> </span><span class="n">updates</span><span class="o">...</span><span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">openssl</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">en</span><span class="o">.</span><span class="n">ISO8859</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">openssl</span><span class="o">/</span><span class="n">man</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">openssl</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">en</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">en</span><span class="o">.</span><span class="n">ISO8859</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">rmdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">inkdrop</span><span class="o">/</span><span class="n">root</span><span class="o">//</span><span class="k">var</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">etcupdate</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="p">:</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="w"> </span><span class="n">done</span><span class="o">.</span><span class="w"></span>
+
+<span class="n">inkdrop</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">upgraded</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">11.3</span><span class="o">-</span><span class="n">RELEASE</span><span class="o">-</span><span class="n">p14</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="mf">12.2</span><span class="o">-</span><span class="n">RELEASE</span><span class="o">-</span><span class="n">p2</span><span class="o">!</span><span class="w"></span>
+</code></pre></div>
+
+<p>Now that the upgrade was completed (which took a bit), time to log into the jail and do a userland upgrade:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">iocage</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">inkdrop</span><span class="w"></span>
+<span class="nl">Password</span><span class="p">:</span><span class="w"></span>
+<span class="k">Last</span><span class="w"> </span><span class="nl">login</span><span class="p">:</span><span class="w"> </span><span class="n">Tue</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="mi">11</span><span class="err">:</span><span class="mi">24</span><span class="err">:</span><span class="mi">12</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">pts</span><span class="o">/</span><span class="mi">0</span><span class="w"></span>
+<span class="n">FreeBSD</span><span class="w"> </span><span class="mf">12.2</span><span class="o">-</span><span class="k">RELEASE</span><span class="o">-</span><span class="n">p2</span><span class="w"> </span><span class="mf">663e6</span><span class="n">b09467</span><span class="p">(</span><span class="n">HEAD</span><span class="p">)</span><span class="w"> </span><span class="n">TRUENAS</span><span class="w"></span>
+
+<span class="n">Welcome</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">FreeBSD</span><span class="err">!</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+
+<span class="n">root</span><span class="nv">@inkdrop</span><span class="err">:</span><span class="o">~</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">pkg</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">pkg</span><span class="w"> </span><span class="n">upgrade</span><span class="w"></span>
+<span class="n">Updating</span><span class="w"> </span><span class="n">FreeBSD</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="n">catalogue</span><span class="p">...</span><span class="w"></span>
+<span class="n">FreeBSD</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nc">date</span><span class="p">.</span><span class="w"></span>
+<span class="ow">All</span><span class="w"> </span><span class="n">repositories</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nc">date</span><span class="p">.</span><span class="w"></span>
+<span class="n">Updating</span><span class="w"> </span><span class="n">FreeBSD</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="n">catalogue</span><span class="p">...</span><span class="w"></span>
+<span class="n">FreeBSD</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nc">date</span><span class="p">.</span><span class="w"></span>
+<span class="ow">All</span><span class="w"> </span><span class="n">repositories</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nc">date</span><span class="p">.</span><span class="w"></span>
+<span class="n">Checking</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">upgrades</span><span class="w"> </span><span class="p">(</span><span class="mi">77</span><span class="w"> </span><span class="n">candidates</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="w"></span>
+<span class="n">Processing</span><span class="w"> </span><span class="n">candidates</span><span class="w"> </span><span class="p">(</span><span class="mi">77</span><span class="w"> </span><span class="n">candidates</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="w"></span>
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="mi">77</span><span class="w"> </span><span class="n">package</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="k">of</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">checked</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="p">....</span><span class="w"></span>
+</code></pre></div>
+
+<p>Seems to be working well!  The web UI now shows the inkdrop jail running 12.2-RELEASE-p2 which is what I wanted.  Rinse and repeat for the other two jails.  Both of which worked just as well.  All in all, upgrading the jails took longer than upgrading from FreeNAS to TrueNAS.</p>
+<p>So far so good!  I still have to upgrade the ZFS pools, and FreeNAS (sorry, TrueNAS... will take some getting used to) also supports being an OpenVPN server which is something I've missed since I switched from pfSense to the Unifi USG.  I'll have to fiddle with that later on.</p>
+<p>If it wasn’t for the, hopefully transient, changes to the FreeBSD git repos it likely would have all been fine.  Judging by the GitHub issues, if I had done this last weekend it probably wouldn't have been an issue.  If you do opt to do like me, make sure you have a backup and probably take snapshots of your jails first so you can rollback if you have any problems (which, as I'm typing this, made me think that would have been a good idea that I neglected to do myself...).  I'll be fiddling with this new TrueNAS release over the next few days, but so far it seems pretty good.</p>
+<p>Also don't forget to revert the changes to <code>ioc_upgrade.py</code> when you're done!</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

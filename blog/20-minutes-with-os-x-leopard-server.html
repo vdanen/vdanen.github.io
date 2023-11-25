@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>20 minutes with OS X Leopard Server - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it&#39;s extremely &#34;wow&#34;. It&#39;s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="20 minutes with OS X Leopard Server"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server.html"/>
+        <meta property="og:description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it&#39;s extremely &#34;wow&#34;. It&#39;s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some …"/>
+        <meta property="article:published_time" content="2007-11-09" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server.html"
+                       rel="bookmark"
+                       title="Permalink to 20 minutes with OS X Leopard Server">
+                        20 minutes with OS X Leopard Server
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2007-11-09T16:36:00-07:00"> Fri 09 November 2007</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server).  I can honestly say it's extremely "wow".  It's got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some other goodies.  All wrapped up in a nice GUI interface (I've never seen Apache so nice to configure before).  Extremely slick.  Very cool stuff.  I could easily replace my Annvix-based LAN server with this puppy.</p>
+<p>Unfortunately, it's expensive.  I mean <em>really</em> expensive, for someone like me.  I've got a few machines here, and a whole pile of virtual machines.  My LAN server runs DHCP, DNS, OpenLDAP, Samba... lots of stuff.  I've got cross-system backups, LDAP-based authentication, NFS exports and auto-mounting.  Webservers, MySQL and PostgreSQL servers scattered around... wikis, blogs... you name it.  I've got a lot of stuff going on here.  OS X server could definitely simplify a few of those things.</p>
+<p>And, at a 10-client license (that's 10 concurrent file-sharing connections, which is enough for me), I'm looking at about $500.  That in itself isn't such a bad price.  The problem is you need a machine capable of running it.  Ideally, that would be an <a href="http://store.apple.com/1-800-MY-APPLE/WebObjects/canadastore.woa/wa/RSLID?mco=7E50163B&amp;nclm=Xserve">Xserve</a>, but starting at $3499CAD, that's expensive.  Sure, it comes with OS X server (web page says 10.4 server... I wonder if that's a typeo... must be).  It's not a bad configuration either: 2 64bit dual-core Xeon processors, 1GB RAM, and a single 80GB SATA HDD.  All wrapped up in a nice 1U machine -- perfect for my rack.</p>
+<!--more-->
+
+<p>The problem here though is that it would need more RAM and new HDDs... let's face it, Apple could keep the 80GB drive.  I'd want that puppy loaded with 3 500GB drives.  And a minimum of 2GB RAM, but probably more.  All of a sudden I'm over $6000CAD if I bought the stuff through Apple (with 750GB drives instead of 500GB drives).  That's a half-decent used car around here.</p>
+<p>Not only that, but a similar spec'd opteron-based system from Sun is quite a bit cheaper.  I could get a Sun Fire X4100 M2 with dual opteron processors (dual-core I believe) with 4GB RAM and 4 SATA drive capability for just over $5000CAD.  Or go with a trusty Sun Fire X2100 with a single dual-core opteron, 4GB RAM for $2000CAD (and let me tell you, those Sun Fire X2100's are impressive... I have one and love it).</p>
+<p>Because Apple doesn't give you a choice of a "lower-end" machine, you're stuck with the quad-core xeon... not necessarily a bad thing but if all you're going to be doing is providing room for backups and file sharing, LDAP authentication, DNS and DHCP, and an intranet website, the price tag is hefty.  The geek in me would want the Sun Fire X4100, but the practical person in me knows an X2100 would be more than sufficient.  And then I could toss Annvix or Mandriva on there and have the OS for no cost.</p>
+<p>Of course, I have a powermac G5 that is capable of running Leopard Server -- it would cost me $500 to get it up and running with no other hardware cost.  But my concern is that if/when that machine dies, what then?  That G5 has a few months of AppleCare left, sure, but after that it's anyone's guess how long it'll last.  Probably quite a few years yet, but there's no guarantee.  By using Annvix or Mandriva, if my LAN server dies, I can buy a low-end X2100 and replace it with little cost.  If I used 10.5 server on my G5 and it died, I'm looking at about $6000 just to replace it.</p>
+<p>So while the geek in me would love to get my hands on and play with Leopard Server and use it for my LAN server, the practical person in me thinks it's too much risk.  At least with the consumer desktops it's no so bad... if my macbook dies, the replacement cost after 3 years is reasonable.  But would you really want to run an iMac as a server?  I could go for a mini I guess, and it probably has enough juice to actually perform all the tasks it would need to perform... reasonably.  Replacement cost for it wouldn't be so bad, at least compared to an xserve (and it would fit in my rack reasonably well too).</p>
+<p>I guess the bottom line is that Apple has a spanking nice product with Leopard Server, and the xserve is entirely too cool.  But for the average guy, the cost just doesn't justify it.  My Annvix box can do everything that Leopard Server can with a little bit of effort (and I stress little)... it just doesn't look as cool and you're stuck with the CLI (which, in my opinion, is great).  And the cost is extremely reasonable.  I suppose this is the same argument for Linux vs Windows servers except with Windows you pay through the nose for licensing, but can largely run it on anything you want.  With Apple, the pricing is quite reasonable for the software, but you get nailed with the hardware.</p>
+<p>It was a fun and interesting 20 minutes, I'll give it that, but I have no (practical) desire to spend more than that on it.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

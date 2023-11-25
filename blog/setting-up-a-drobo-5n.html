@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Setting up a Drobo 5N - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/setting-up-a-drobo-5n.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="drobo" />
+        <meta name="description" content="There&#39;s something about NAS units that makes me happy. Tiny little boxes full of storage and ripe for mucking with since for the most part they run Linux make me all warm and fuzzy and just generally put me in a good mood. Probably because I&#39;m a bit of a …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Setting up a Drobo 5N"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/setting-up-a-drobo-5n.html"/>
+        <meta property="og:description" content="There&#39;s something about NAS units that makes me happy. Tiny little boxes full of storage and ripe for mucking with since for the most part they run Linux make me all warm and fuzzy and just generally put me in a good mood. Probably because I&#39;m a bit of a …"/>
+        <meta property="article:published_time" content="2013-06-26" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="drobo" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/setting-up-a-drobo-5n.html"
+                       rel="bookmark"
+                       title="Permalink to Setting up a Drobo 5N">
+                        Setting up a Drobo 5N
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-06-26T22:12:00-06:00"> Wed 26 June 2013</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/drobo.html"> drobo</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>There's something about NAS units that makes me happy.  Tiny little boxes full of storage and ripe for mucking with since for the most part they run Linux make me all warm and fuzzy and just generally put me in a good mood.  Probably because I'm a bit of a digital packrat, so I like having gobs of storage space.</p>
+<p>I've played with different NAS units over the years: the D-Link DNS-323 was a favourite for a while due to it's high hackability, and I've used the Iomega Storcenter ix2-200 (it's not awful, but not great).  I did some consulting for a friend's company earlier this year and setup a QNAP for them for off-site backups, and when the backup box at my mom's died I picked up a QNAP for myself (I like these QNAPs; very familiar md-based RAID and really quite feature-rich, easier to muck about it in than the DNS-323 I found).  The same friend also had two Drobo units at his office, connected via FW800 to a Mac Mini (so two big storage volumes).  When I first popped in, one of the units had a failed drive that needed replacing, and within the following 2-3mos, another drive in each unit had died.  Zero-dataloss in both cases, which impressed me.</p>
+<p>After taking the backup box from my mom's that I replaced with the QNAP, I played a bit with FreeNAS (I've never played with ZFS before so it seemed like a good excuse).  I like FreeNAS -- those guys did some excellent work on it, but after doing a bunch of reading I'm glad I went with the QNAP at my mom's rather than building a new FreeNAS-based box to put there.  And it didn't seem like the right fit for what I wanted at home (lots of storage with a small footprint, low power usage, and not necessarily having all the bells and whistles that I didn't need).  As a result, I did some reading up on the Drobo 5N which sounded like a perfect fit, and having had played with those other two Drobo units, seemed like it could be exactly what I was looking for.</p>
+<p>The Drobo 5N is a NAS unit (so only takes power and ethernet as far as "peripherals" go.  It's a Linux-based system as well, which meant I could poke around and make it do interesting things.  I also like that it can take an mSATA SSD for a caching accelerator, making writing to the device much faster.  I also really like that I can hot-swap the drives easily.  No downtime, no dataloss, what's not to like?</p>
+<p>So yesterday I picked one up and loaded it with five drives and a 128GB SSD.</p>
+<p>I'll dispense with the typical "unboxing" that you tend to find, and get right down to making it more usable.  Out of the box, the Drobo does SMB/CIFS and AFP, so it works good for OS X and Windows.  NFS is available through the <a href="https://sites.google.com/a/droboports.com/www/">DroboPorts</a> site, but after fiddling with it for a bit (and it might just be a quirk of this version or I did something wrong), I wasn't able to write to the shares (only read), so I instead went with using CIFS to mount this thing from Linux instead.  When a new version of NFS is available for it maybe I'll try it again.  For now, CIFS works pretty nice.</p>
+<p>My first steps to make this thing a bit more usable:</p>
+<p>Install <a href="https://sites.google.com/a/droboports.com/www/app-repository/openssh-6-1">openssh</a>.  This will allow you to log remotely into the Drobo unit.  A few things to note: 1) you will need to copy the openssh.tgz to the DroboApps share and then reboot, at which point openssh will get installed and will start, 2) any users defined will by default have access via ssh to the Drobo, 3) root has access with the default password "root" (please please please change this ASAP!), 4) the defined administrator user's username is Admin, not admin.</p>
+<p>Once you have openssh installed and can ssh into the box, you can install <a href="https://sites.google.com/a/droboports.com/www/app-repository/sudo-1-8-5p3">sudo</a>.  You'll need to install it as root (or as Admin, and then login as root and chown everything to root).  The app instructions indicate to setup a sudo group, etc. but unless you have more than one user it's probably unnecessary.  You can simply edit the sudoers file to give your Admin user sudo access, or a chosen other user (say, joe or mary).</p>
+<p>These two I find pretty much critical to install, but some other essential apps to add would be rsync, vim, curl, and nfs (assuming you can make the latter work better than I could).  Other nice apps that are available include git and openvpn.  You can even install apache and mysql on this thing if you were so inclined (as well as php, python, ruby, etc.).</p>
+<p>Because none of these will be in your $PATH, you'll need to follow these <a href="https://sites.google.com/a/droboports.com/www/using-command-line-apps">instructions</a> on how to get these things in your $PATH if you want to use them easily when you ssh in.</p>
+<p>Once you've done all of this, the final steps would be to 1) change the root password if you have not already done so, 2) copy an ssh public key to the drobo and make sure it works for password-less authentication, 3) turn off password-based authentication to the Drobo via editing /mnt/DroboFS/Shares/DroboApps/openssh/etc/sshd_config.</p>
+<p>All in all, I'm pleased with this unit.  I loaded it with 2x4TB, 2x3TB, and 1x1.5TB (the latter simply because I pulled it from a de-commissioned box and didn't want to waste the drive), and it gave me 10TB of usable space, which is pretty good.  In this configuration it will tolerate one dead drive.  The data on here isn't critical enough for me to enable the dual-drive-fail mode (which would drop the usable space to just upwards of 6TB; I care more about the space than the redundancy for what's going to be stored on it).</p>
+<p>Out of all the various consumer NAS boxes I've used, the Drobo is by far the most simplistic. But what it does, it does extremely well.  The QNAP is my second choice.  But since my Linux boxen take care of all the other extras that these things provide, the Drobo 5N and its more simplistic interface/feature-set really met my needs.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

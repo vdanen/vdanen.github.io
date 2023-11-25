@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Zend Studio vs. Komodo - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/zend-studio-vs-komodo.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Ok, as per my last entry, I&#39;m gonna do some comparisons between Komodo 3.5 and Zend Studio 5.0. Both have recently been released, both are &#34;heavy weight&#34; IDE&#39;s (Integrated Development Environments). Zend Studio deals particularly with PHP... that&#39;s Zend&#39;s bread and butter, so it makes sense. Komodo, on …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Zend Studio vs. Komodo"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/zend-studio-vs-komodo.html"/>
+        <meta property="og:description" content="Ok, as per my last entry, I&#39;m gonna do some comparisons between Komodo 3.5 and Zend Studio 5.0. Both have recently been released, both are &#34;heavy weight&#34; IDE&#39;s (Integrated Development Environments). Zend Studio deals particularly with PHP... that&#39;s Zend&#39;s bread and butter, so it makes sense. Komodo, on …"/>
+        <meta property="article:published_time" content="2005-11-09" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/zend-studio-vs-komodo.html"
+                       rel="bookmark"
+                       title="Permalink to Zend Studio vs. Komodo">
+                        Zend Studio vs. Komodo
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2005-11-09T19:00:00-07:00"> Wed 09 November 2005</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Ok, as per my last entry, I'm gonna do some comparisons between Komodo 3.5 and Zend Studio 5.0.  Both have recently been released, both are "heavy weight" IDE's (Integrated Development Environments).  Zend Studio deals particularly with PHP... that's Zend's bread and butter, so it makes sense.  Komodo, on the other hand, is more of a programmer's editor in that it does PHP, Python, Perl, Ruby, XSLT, and Tcl.  Of course, you can use either as an editor for other languages, but most of the IDE features beyond syntax highlighting would be, obviously, unavailable.  They both weigh in at about the same size, which is interesting... I actually thought that Zend would be bigger due to the inclusion of PHP, etc. but then again, Komodo does deal with a larger number of languages.  The proof:</p>
+<pre>
+vdanen@odin:/Applications/Tools/ >% du -sh Zend\ Studio\ 5
+82M     Zend Studio 5
+vdanen@odin:/Applications/Tools/ >% du -sh Komodo.app     
+93M     Komodo.app
+</pre>
+
+<p>Anyways, on with the comparison!</p>
+<p>The first thing is how they open.  Not a big deal, but Komodo has this neat "Start Page".  It shows you recently opened files and projects, links to help tutorials for the different languages it supports and demos.  This is something I always liked about Komodo.  Zend just opens up into a blank document.</p>
+<p>Each has a multi-pane view; by default Komodo's panels are off, but there are buttons to toggle them.  With Komodo, on the left you get the file tree view split into two tabs: Projects and Code.  Without a defined project, the Projects tab is empty.  The Code browser shows you currently opened files.  Clicking the triangle next to the file name will break down functions, variables, and whatnot.  Double-click on any of these will take you to where they are defined in the code.  There's even a little box below the code browser that shows you function comments if you defined them in the code.  There's a search box to help you find what you're looking for and the list is slimmed down as you type.  Nice feature.</p>
+<p>Zend, on the other hand, also uses the left panel to inspect files and projects.  It's inspector isn't quite as nice... it shows functions and included files, like Komodo, but doesn't show comments.  Double-clicking will take you to where the function is defined in the code.  Alas, unlike Komodo, it doesn't show variables.  One thing it does have that's kind of neat is a "PHP Inspector" that will let you look at all the defined functions and constants that PHP uses.  It's kind of goofy tho.. it needs to open the documentation with a browser, but the shell script it uses doesn't seem to work... when I pointed it to Safari directly (unfortunately, you can't just point it an app, but have to dig deep into it... for instance, to use Safari as the browser I used "/Applications/Safari.app/Contents/MacOS/Safari"... not very nice) it opened a second instance of Safari and made Saft think it had crashed.  Uh oh.  Good thing nothing happened to the first Safari process or I'd be re-typing all of this.</p>
+<p>It's irritating that the ./runBrowser.sh definition that's in there doesn't work... from the commandline, it works fine.  I'll have to file a bug about this.</p>
+<p>In Zend, the right pane is for debug output... this lets you see what your script is doing.  The bottom pane is for debug messages and there's also a debug window that will let you inspect variables, watches, stack, breakpoints, and the output buffer from the debug session.  If you're note debugging, a simple click on the window name will minimize them and allow you to see more of your code.</p>
+<p>In Komodo, the bottom pane is for various informational views; breakpoints, command output, and "SCC Output" (or the output of source code control stuff... cvs, subversion, etc.).  One neat thing with Komodo is the right pane... it's the Toolbox browser.  This was a new feature in Komodo 3, IIRC, and I never really got to play with it much although it seemed really cool.  The Toolbox contains snippets of code; the samples show HTML snippets that when you double-click get added to the code.  You can even configure URLs as snippets.. a quick way to get to some online documentation.  Defining a toolbox entry is easy... create a new snippet, add the code you want it to insert, give it a name, and you can even bind it to a hotkey.  This is actually an extremely slick feature... you can have it so that at the touch of a key (say ALT-CTRL-F) you could have it put in a function definition complete with a section for code comments, etc.  Zend needs to get a feature like this (man, I had completely forgotten about this feature!)</p>
+<p>Oh, wait!  It does have a feature like this... just not as prominent.  Nice thing to stumble across.  Zend has a feature called Code Snippets and it can update the snippets from Zend's website.  Damn!  I wish I had noticed this before.  Zend!  What's wrong with you?  Why not make this more obvious?!?  Looks like the code snippets are user-contributed to boot, so you can keep getting new code snippets and they're broken down into different categories.  Wow.  Now I'm impressed.  Go to <b>Edit-&gt;Show Snippets</b> to check this out.  I don't like the fact that it floats in another window... I much prefer how Komodo has their Toolbox laid out, but I'll take what I can get.  This is something I'm going to be exploring a lot more of soon.</p>
+<p>That's pretty much it for the interface.  The Komodo interface looks nicer, but it's Mozilla-based rather than some java thing.  Yes, that means that, like Zend, Komodo isn't very "OS X-ish", but it still looks clean.  I find the layout looks better than Zend's does.  You can always tell a java app... they all look kinda... ugly.  Komodo just looks like an app running under X11, which is ok with me.</p>
+<p>Hmmm... looks like Zend's Code Analyzer function has taken a step backwards with the final release, or they're being more picky.  BTW, the Code Analyzer is awesome... I find it extremely useful.  Not as good as debugging or profiling, but works really handy for looking at code and offering suggestions for things or letting you know if a defined variable is never used, etc.  Helps to make things more efficient and catches some stuff you might not otherwise notice.  But it seems a little wonky now...  for instance, it's telling me that there is an "Unused function argument: $md5 (line 384) in the following piece of code:</p>
+<pre>
+function mkmd5($md5)
+{
+    global $debug, $distar;
+    $marray = array();
+
+    foreach($md5 as $name => $val)
+    {
+</pre>
+
+<p>Ummm... yeah... $md5 is being used... it's right there in the foreach().  The RC didn't pick that one up.  Then it has the balls to tell me that the value of the variable was never used.  Well, sure... it's because it's an array silly.  That's why we're using a foreach.  The value of $md5, all on it's own, is "Array" and that wouldn't be overly useful now would it?</p>
+<p>Gripes aside, the code analyzer is extremely useful.  I really like it.  Komodo doesn't have anything like this... all it has is the debugger (which is ok, but I've never actually gotten it to work nicely for me in the past).</p>
+<p>Speaking of the debuggers... I can't speak for either of them.  I've tried to setup the Zend stuff in the past to make the debugger work but my firewalls keep getting in the way.  Apparently there is a way to tunnel debugging messages through an open port to work with firewalls, but I couldn't make that work either (although, in all fairness, I didn't try overly hard).  I do need to attempt to get that working, tho.</p>
+<p>Oh!  A new feature in Zend is code folding.  This is cool, but something Komodo has had forever (so I was natually excited to see it appear in Zend).  Now, when you edit a PHP file, there's a little +/- box next to the start of a function, click on this and the function folds.  Line number count stays accurate... ie. your function may start on line 302, fold it, and the next line below the folded function is 380, so line numbering is consistant.  This is great... but... Komodo has had it for way longer, and much better to boot.  You think "function folding" is cool?  Komodo's code folding smokes it.  You can fold functions, if statements, foreach, for, while, and so on.... in fact, anything you use curly braces for, you can fold.  I'm not sure why Zend didn't carry it further... granted, folding functions and getting them out of the way is awesome, but being able to fold if statements and such as well is extremely useful.</p>
+<p>One thing that Zend Studio has that I like is an SQL browser.  This allows you to connect to an SQL server (be it MySQL, Oracle, PostgreSQL, or whatever) from within Zend itself.  This is really useful when you're working on a script with database connectivity.  You can walk a tree view of the database server and look at different databases, tables, and so forth.  Now, it's just a <b>browser</b> mind you, not an editor, so it's not a replacement for something like phpMyAdmin, but it works in a pinch.  To me, this isn't a be-all end-all feature, so it doesn't disappoint that Komodo doesn't have it.</p>
+<p>One thing that Komodo has that Zend doesn't (and this lends itself more to the fact that Komodo deals with perl and other languages) is the regular expression toolkit.  This is really slick.. it helps you build regular expressions.  For someone like me who pretty much sucks with regexps, this is handy.</p>
+<p>In fact, Komodo has a lot of features that Zend doesn't have, such as a GUI builder.  You can use Komodo to build GUI applications, but only with Perl/Tk, Python/Tkinter, Ruby/Tk, and Tcl/Tk.  It also gives Perl, Python, and Tcl programmers an interactive shell which lets you type code and watch it being stepped through as you go.  Kinda neat, and I can see it being exceptionally useful for the perl/python types.</p>
+<p>Both IDE's can handle CVS and Subversion, which is great.  I've recently switched over from CVS to Subversion, so having the capability to commit from within the IDE is nice.  Zend's svn support works quite well.. Komodo, I'm not so sure of.  The only source control setting I seem to have with my script (which is in subversion and the working copy is in my local subversion copy) is to remove it.  That doesn't sound good at all.  Can't see anything I'd need to configure in the preferences tho.. bug maybe?  Wierd.  Using one of my old CVS files, the property inspector shows that it's update to date at revision 1.1 but the only SCC control I have is to add it.  That seems wrong too.  Methinks Komodo has some issues with SCC as it seems neither subversion nor CVS is working properly.</p>
+<p>I guess the bottom line, is they both have some quirks, they're both good and capable IDEs, and they both serve different purposes.  It's a fact that Komodo's main language support is perl and python; PHP is something that is supported, but it seems to lag a little behind the support for perl and python.. maybe lag isn't the right word... PHP doesn't have some of the more powerful features that perl and python support does; but that could also be due to the language itself and the interpretters.  Suffice it to say, Komodo is meant as an all-around IDE, and it does very well at it.  I've heard rave reviews from other beta testers who are more perl or python programmers.  Me... not so much.  I avoid perl if I can, and I've never tried python.  I like PHP.</p>
+<p>To that end, Zend seems to be a better fit for me.  Sure, I like some of the features Komodo has better... I like the way it looks and feels better.  But I think Zend has got a handle on what a PHP programmer wants, and Zend Studio delivers.  If you do programming with more than just one language, and/or you do PHP programming but it's not your main language you code in, Komodo is probably a better fit than Zend.  If I did more perl programming (or, rather, if I liked perl more), I'd probably end up using Komodo more just because if I used it for perl, got familiar with it, built up my code toolbox, I'd be more apt to use the same IDE to work with PHP than switch back to Zend just for PHP work.  Since almost all the coding I do is in PHP (and I can't see that letting up since I just converted a fairly hefty perl script to PHP and the dang thing runs twice as fast), I'll stick with Zend and it's arguably better PHP support.  Komodo, I'll keep it around and installed and probably play with it some more.  After all, it does syntax highlighting for almost every language out there (even my bash scripts).</p>
+<p>Well, to wrap this up (yes, my druid... I know you want to slaughter some furbolgs!) I feel sorry for the poor fellow you decided it wasn't worth his time to try out Zend because the installer failed so miserably (as he put it) and because it didn't conform to a nice Mac package.  His <b>total</b> loss (my entry earlier today noted that blog entry).  If he doesn't have time to install a new version of java to play with it, he probably wouldn't have time to explore and goof off in the IDE either, and he'd be missing a whole bunch of cool features.  He uses BBEdit, and granted, so do I, but rarely for PHP code (my wife does to edit some websites, but she's not doing very much there).  BBEdit's PHP syntax highlighting is not nearly as nice as what Zend or Komodo offer, and it doesn't have the great features that both IDE's have, like debugging.  Yup, it has subversion support (which is great), but BBEdit is just a glorified text editor.  A great one, don't get me wrong, but it's not an IDE.  If you type stuff wrong in BBEdit, it won't tell you that you did... it'll just let you do it.  Komodo and Zend both give visual cues when they detect syntax errors... something that can save a lot of time.</p>
+<p>Komodo vs. Zend... well, I'd have to say that if you're just doing PHP... Zend is a clear winner.  If you're a jack-of-all-languages, you'll probably be more interested in Komodo.  If you're a total geek (or loser, take your pick) like me, then you'll want both just for kicks.  =)  Personally, I'll stick with Zend.  I keep watching what the Komodo folks are doing... it's been a long time since I used Komodo for anything other than goofing off, but that's because I changed my main platform and they didn't follow.  It only took me a little over a year of begging for an OS X version to get it, and that's gotta count for something.  My kudos to the Komodo development team.  (I also like that Komodo is a Canadian product... too bad Vancouver's gonna get all soggy for the next few months).</p>
+<p>Oh, for what it's worth, this "review" is based on the OS X versions of the programs.  Both Zend Studio and Komdo are cross-platform, so if you work on OS X, Linux, Windows, Solaris, etc. you'll be pleased to note that you can use either program on any platform now (and I believe one license covers all platforms as well, which is nice).  For me, that's a must... being able to use the same program on my desktop, powerbook, or my libretto is really important to me.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

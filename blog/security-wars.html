@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>"Security wars"? - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/security-wars.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="I just read an amusing article on Government Computer News entitled Security wars: Novell SELinux killer rattles Red Hat. I find it amusing because now that Novell owns AppArmor, and has made it public (GPL), it&#39;s starting to rattle some SELinux-based cages (for those not in the know, Novell aquired …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="&#34;Security wars&#34;?"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/security-wars.html"/>
+        <meta property="og:description" content="I just read an amusing article on Government Computer News entitled Security wars: Novell SELinux killer rattles Red Hat. I find it amusing because now that Novell owns AppArmor, and has made it public (GPL), it&#39;s starting to rattle some SELinux-based cages (for those not in the know, Novell aquired …"/>
+        <meta property="article:published_time" content="2006-02-24" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/security-wars.html"
+                       rel="bookmark"
+                       title="Permalink to "Security wars"?">
+                        "Security wars"?
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2006-02-24T14:10:00-07:00"> Fri 24 February 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>I just read an amusing article on Government Computer News entitled <a href="http://www.gcn.com/vol1_no1/daily-updates/38330-1.html">Security wars: Novell SELinux killer rattles Red Hat</a>.  I find it amusing because now that Novell owns AppArmor, and has made it public (GPL), it's starting to rattle some SELinux-based cages (for those not in the know, Novell aquired AppArmor when it bought Immunix who originally developed it).  For that reason alone I like the idea of AppArmor... I have very high respect for the Immunix guys and the work they've done.</p>
+<p>What I find amusing is Red Hat's response to the release and GPL of AppArmor; from the article:</p>
+<p><i>“In my opinion, Novell wants to split the market,” said Dan Walsh, the principal software engineer of Red Hat Inc. of Raleigh, N.C. Both Red Hat and Novell offer enterprise class Linux distributions. “Rather than working with the open-source community [on SELinux], Novell has thrown out its own competing version.”</i></p>
+<p>Huh?  Are you trying to tell me that SELinux was the only MAC software for Linux?  Maybe you're trying to tell me it's the best.  In my opinion, neither is true.To understand my point of view, you need to understand that I don't like LSM (the Linux Security Modules) which is what stuff like AppArmor and SELinux take advantage of (and for this reason, I'm not too hugely keen on AppArmor either).  To explain why, just read this from the RSBAC site on <a href="http://www.rsbac.org/documentation/why_rsbac_does_not_use_lsm">Why RSBAC does not use LSM</a>.  I'm inclined to agree with a lot of their points.  From the day LSM was born I was leary of the idea.</p>
+<p>At any rate, what Red Hat (and journalists, apparently) seem to miss is that there are a lot more MAC-ish software out there, including RSBAC, GRsecurity, LIDS, and others (I think LIDS is still around... the last time I played with it was around the Mandrake 8.1 days and I loved running it, but it was too much for me to maintain).</p>
+<p>What they also don't get is that while SELinux is difficult to configure, it's also way too intrusive.  The kernel stuff might be fairly simplistic due to LSM, but it has to go out and touch user-land apps too.  MAC protection is great, but when I have to have specific patches in PAM, util-linux, etc. in order to make it work in the first place, all of a sudden I've lost my interest.  I shouldn't have to patch userland tools to run this stuff.  With RSBAC, you don't have to.  I'm pretty sure with AppArmor you don't either.  That's another reason I dislike SELinux.</p>
+<p>SELinux isn't the be-all and end-all and while it might be great for military setups, the end-user shouldn't have to deal with the headache.  I've read some of the implementation notes of AppArmor and find it much more suitable for the average joe than SELinux and, frankly, I'm glad Novell is going that route.  Maybe it'll make the SELinux guys look at making it a little easier to use.</p>
+<p>Of course, you have other idiots that completely don't understand things.  Dan Walsh seems to think that Linux is going to fragment over this and we'll have another <a href="http://danwalsh.livejournal.com/2006/02/09/">UNIX wars</a> over this.  Folks, SELinux wasn't the first MAC implementation, and it's probably not the best either.  Remember, choice is good and alternatives rock.  Did you dis Firefox when it came out, thinking it was the browser wars all over again?  And if it was, so what?  Maybe all the attention Firefox is getting will make IE7 better (I doubt it, but hey, you never know).  If the Mozilla folks decided that they didn't want to step on any toes, Firefox would have gone nowhere.  We wouldn't have Seamonkey now.  Maybe we shouldn't have supported the creation of the Evolution email client because it might have competed unfairly with Mozilla Mail?  Maybe the guys who developed Ruby should have sat back and decided to work on Python, PHP, or Perl in order to not fragment the scripting/development communities?</p>
+<p>Come on.</p>
+<p>Innovation is good.  New, competing software is good.  It weeds out the crap.  Maybe Novell disagreed with how SELinux worked and saw changing it to suit their vision as too much work or too much of an uphill battle, fighting with SELinux authors and maintainers.  Maybe they'll looked at Immunix's stuff and went "hey, that's what we like".  Remember, AppArmor wasn't recently developed; it came along with the Immunix staff and their other technology.  So this isn't a "new" thing.  They've just made it more publically available, they've given us choice.  It's not proprietary, it's not a lock-in (anyone who can recompile a kernel can use it).</p>
+<p>Oh, the other thing I find amusing is that Dan Walsh, who is bemoaning AppArmor and berating Novell for not contributing money and effort to SELinux is working on it himself: <i>"Three years ago, I was asked to work on the SELinux Team at Red Hat to bring Mandatory Access Control to a mainstream operating system (OS)."</i>  This isn't a neutral third-party.  Think about that.  Of course Red Hat is going to complain about AppArmor; they have a financial stake in SELinux after all.</p>
+<p>Anyways, I'd rather avoid both altogether, just because I don't like LSM.  Give me RSBAC any day.  It's just as hard as SELinux, has all the stuff in it you want, been around forever, and doesn't use LSM.  The SELinux junkies should love it.</p>
+<p>The same arguments folks make about AppArmor over SELinux could easily be made about SELinux over RSBAC.  End goals and implementation designs are the mitigating factors here and apparently Novell prefers the simplicty of AppArmor over SELinux.  For a guy who's briefly played with SELinux, I don't blame them at all.</p>
+<p>In fact, because Mandriva is using the 2.6 kernel, we may want to look at AppArmor as opposed to RSBAC.  For Annvix, I'm sticking with RSBAC because I can use it on both 2.4 and 2.6 kernels (which is important since Annvix still uses a 2.4 kernel).  Since Mandriva 2006, we've not had a 2.4 kernel even as a supported alternative, so we can pretty much use whatever we like (although, from a selfish standpoint, I'd rather Mandriva uses RSBAC too).</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

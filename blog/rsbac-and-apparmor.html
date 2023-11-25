@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>RSBAC and AppArmor - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/rsbac-and-apparmor.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="I&#39;ve taken the last week of June &#34;off&#34; from doing updates to look into RSBAC and AppArmor because I&#39;m not convinced that the Mandriva implementation of RSBAC will be user-friendly or transparent, nor very &#34;out-of-the-box&#34;. This was the result of my asking why we are persisting with RSBAC (which can …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="RSBAC and AppArmor"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/rsbac-and-apparmor.html"/>
+        <meta property="og:description" content="I&#39;ve taken the last week of June &#34;off&#34; from doing updates to look into RSBAC and AppArmor because I&#39;m not convinced that the Mandriva implementation of RSBAC will be user-friendly or transparent, nor very &#34;out-of-the-box&#34;. This was the result of my asking why we are persisting with RSBAC (which can …"/>
+        <meta property="article:published_time" content="2006-07-04" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/rsbac-and-apparmor.html"
+                       rel="bookmark"
+                       title="Permalink to RSBAC and AppArmor">
+                        RSBAC and AppArmor
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2006-07-04T09:40:00-06:00"> Tue 04 July 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>I've taken the last week of June "off" from doing updates to look into RSBAC and AppArmor because I'm not convinced that the Mandriva implementation of RSBAC will be user-friendly or transparent, nor very "out-of-the-box".  This was the result of my asking why we are persisting with RSBAC (which can be complicated and very intrusive for a desktop system) when AppArmor is available and it's a lot easier to configure and use.  The answer I got was "we have two months until betas approx and now is too late to change technologies".  Well, to be blunt, I don't buy this at all.  I know that Thierry is working on a drak tool for configuring RSBAC, but knowing how short-sighted we can be at Mandriva at times, I wanted more details.  The bottom line was there would be a tool to configure RSBAC, but no default policies shipped (which means no "out-of-the-box" RSBAC support nor, I'm suspecting, RSBAC being enabled by default).</p>
+<p>This poses two problems for me.  One, if we don't have sensible defaults, the end user has nothing to build up from... everything is done from scratch.  This is ok for the "hackers" who like to fiddle, but people like me who just want to <i>use</i> the computer will have to invest a few hours in learning how to configure RSBAC properly and then testing/debugging to make sure the policies don't break things.  The other problem is that if RSBAC isn't enabled by default, how many people will know it exists, and how many will actually enable it?  And once they find out they need to configure it themselves, how many will then promptly turn it off or, worst-case-scenario, enable it, not have it configured, and then not be able to log in?</p>
+<p>The following is my analysis of how we (Mandriva) should proceed with RSBAC and if or whether we should use AppArmor and what the TTD (Time To Deliver) would be for both technologies, and what would be involved, as well as the pro's and con's of both technologies.  Considering I've only taken a week (and can't really invest more time into this at the moment or risk the wrath of Stew), this may not be 100% accurate and it certainly isn't complete, but this is the findings I've found so far.</p>
+<p>And rather than post a long message for discussion on the maintainers@ mailing list, and cc'ing the kernel team, I decided to put this here to get a little more exposure and a reference point for everyone.</p>
+<p>First, let's look at a few of the issues that concern RSBAC and AppArmor independantly, without looking AT what we need to do as a distribution to successfully ship a "hardening technology", be it RSBAC, AppArmor, or both.  Then we'll get into the Mandriva-specific stuff.</p>
+<p>First off, there seems to be a misconception that AppArmor and RSBAC are similar technologies.  They are similar in some respects, true, but they are very different as well.  First off, RSBAC is an "overall" hardening solution.  It has a lot of very cool and very neat features, and the nice thing is that it's modular so it's not an "all or nothing" system.  RSBAC's AUTH, ACL, MAC, and other technologies are great for really restricting the capabilities of various programs and processes.  RSBAC even has an in-kernel authentication system that replaces traditional shadow password management, which is cool.  Obviously, I don't believe it is Mandriva's goal to enable and provide all of these features.  Even Annvix, which is security-oriented, has no plans to enable all of these features, so it stands to reason that Mandriva won't be going the extra mile to have a full RSBAC-provisioned system.  Which is fine.  RSBAC is an overall hardening and securing solution that is proven and reliable.  Unfortunately, the RSBAC docs are geared primarily to RSBAC developers.  In other words, RSBAC documentation is shit for the average joe.</p>
+<p>AppArmor, on the other hand, has a lot of really great docs.  And it isn't a "system-hardening" system.  AppArmor is more of an application firewall.  It restricts and allows certain capabilities of files and programs.  The documentation even suggests that AppArmor is not really useful for securing all applications, but primarily "forward-facing" programs, and by this I mean network-enabled services that interact with humans and have a high probability that if there is something wrong with the app, it can be contained to operating on certain levels.  For instance, if a problem exists in Apache that allows an attacker to view any file on the system that user apache has access to, using AppArmor we can prevent Apache from looking anywhere beyond it's configuration files and web data.  We can prevent it from looking randomly in /etc (like /etc/passwd, etc.) with some basic policies.</p>
+<p>One distinct disadvantage to RSBAC is the lack of easy-to-use tools, but this is where the drak tool comes in.  The drak tool will, presumably, make it easy to create, manipulate, and delete policies.  This is important because RSBAC's configuration is database-driven to the extent that it's not easily manipulated by "human hands".  On the other hand, AppArmor uses a series of text files to configure itself which can be edited by vim, or any other text editor on the system provided you have sufficient privilege to edit the file.  This does, of course, make the policies more susceptible to tampering, but good use of permissions and ACLs could reduce this probability.</p>
+<p>As well, with RSBAC, you can make root as privileged as user joe meaning that root can have as much, or as little, privilege as you like.  No such provision exists with AppArmor, meaning you need to realize root is still all-powerful and no amount of permission manipulation and ACLs will prevent someone who has gotten root privileges from borking your system.  The goal, then, is to make sure that no one can get root privs in the first place.  This is much easier to achieve if the system is a single-user system or a trusted multi-user system (like most desktops and/or home computers, and possibly office computers as well).  This is a little tricker to accomplish on a server, but it can be done.  RSBAC provides even better options to achieve this goal, but it doesn't mean it's impossible to do <i>without</i> RSBAC.  For instance, simple no-brainers like using SSH keys, appropriate firewall settings, etc. go a lot further to protect a system than some people realize.  None of them are silver-bullets on their own, but each add another defensive layer making it more difficult to appropriate unauthorized access or privilege on a system and, after all, there is no such thing as a fully secured system... everything we do is just adding layers to our "defense-in-depth" to make it as difficult as possible for someone to get anywhere they're not supposed to.</p>
+<p>Finally, as was pointed out to me by some kernel developers and some LKML messages I read, the big perceived disadvantage to AppArmor is that it is path-based whereas other solutions (the LKML context was SELinux, rather than RSBAC, but the points are the same) take an inode-based approach.  The concern here is that someone can take, say, /bin/foo which has some AppArmor policy applied to it, hardlink it, then execute the hardlinked copy without any policy protection.  This too can be avoided for the most part with some decent filesystem mount options.  I say for the most part... it may not be foolproof.  Using the inode, of course, presents it's own challenges which will look at in a bit.</p>
+<p>Now that we've had a brief look at both AppArmor and RSBAC, I'll address a few points.</p>
+<p>The first is the drak tool, and the TTD.  Apparently we have two months to deliver this.  Which is wierd considering the decision to use RSBAC was made last year, AFAIK RSBAC support has been in the kernel since last year, the rsbac-admin tools have been in cooker since last year (in fact, they're in the 2006 release), but the tool is "in the works".</p>
+<p>So if we use RSBAC, the assumption is we need a tool to configure it.  If we switched to AppArmor we'd need a tool too.  So either way, a tool needs to be written.  My understanding is it's currently being worked on, but isn't done.  So there might be a bit of a time-loss based on what's already been done, but I think the end result of a tool geared towards AppArmor versus one geared towards RSBAC would take less time.  For one, the RSBAC tool will be far more complicated due to how RSBAC handles it's configuration data.  With an AppArmor tool, you just need to manipulate plaintext files.  Easy.</p>
+<p>RSBAC, on the other hand, requires more work.  For one, you need to either obtain all the configuration data from the rsbac.dat database in realtime to allow the user to manipulate them or you need to maintain a private plaintext copy of this that the tool can read and write.  Also remember RSBAC privilege; if a user makes it so that root can't execute RSBAC-related commands, then presumably root won't even be able to configure RSBAC with our tool (the preferred method of configuring RSBAC is to use the secoff (or uid 400) user).  So then we need to make our tool run as user secoff, which means we at the <i>least</i> need an RSBAC policy to permit this, or use sudo/su to do it (but, again, a default policy would need to be in place to permit this).  Already the complexity is increasing.</p>
+<p>So let's assume for the moment that we maintain our own private text configuration for all RSBAC policies and commands.  The advantages are this is easy to parse, easy to write, and then a backend process could be used to take that data and apply all the policies appropriately.  This could be a good thing, but it also precludes the use of normal RSBAC CLI tools because if a user makes changes on their own, our configs will be out of sync.  FWIW, this is how MNF handles it's configuration and I think it's a piss-poor way of doing it because you force the user to either a) use the tool exclusively or b) use the CLI tool(s) exclusively.  There is no middle ground because if you configure something with the tool, make changes with the CLI, the next invocation of the tool overwrites everything.  Yuck.</p>
+<p>So for our tool to be effective it needs to read data out of the RSBAC database, something that I'm assuming can only be done by secoff.  (Note, a lot of this assumption, I haven't actually attempted to configure RSBAC in this way to test this theory, so some of this could be flat-out wrong, but I don't think it's too far off the mark).  So our root-executed tool then needs to have privileges to get the data from user secoff (default policies again), then needs to manipulate the configuration as the user is changing/adding/deleting stuff (probably using a temporary configuration file of some sort), and then the tool needs to take the final changed configuration set, hand it off to secoff which would then run another tool to reapply all the policies.</p>
+<p>If you're paying attention, you'll see that not only does there need to be multi-user interaction (root and secoff), but all of a sudden we're using two tools now.  One is the GUI configuration tool, the other is the "policy applicator" tool.  There would probably need to be a "policy extractor" tool as well.  Three tools.</p>
+<p>But here is where it becomes more interesting.  Remember the whole "inode is better than path-based" argument I noted above?  Remember the kernel developers telling me this was a good thing, trying to tout the whole "inode is better for security" drivel?  In theory this is great, and in practice for a well-supervised system this may be true.  But for a moving target (remember, RSBAC is to go into 2007, a desktop system, not Corporate Server 4 or a similar server/slightly-hardened system), like  a desktop, this isn't as useful, nor as easy to deal with.</p>
+<p>A little illustration should indicate my point:</p>
+<pre>
+[root@ares tmp]# echo foo >1; echo "1 is inode `ls -i 1`"; \
+echo bar >2; rm -f 1; echo cat >3; echo foo2 >1; \
+echo "1 is inode `ls -i 1`"; echo "2 is inode `ls -i 2`"; \
+echo "3 is inode `ls -i 3`"
+1 is inode 4349024 1
+1 is inode 4349026 1
+2 is inode 4349025 2
+3 is inode 4349024 3
+</pre>
+
+<p>What this little bit of silliness is doing is replicating what could/would happen during an RPM upgrade.  You'll notice we created "1" first then checked it's inode, then we created "2", deleted "1", created "3", then created "1" again.  You can see that the end result is that file "3" obtained the original file "1"'s inode.</p>
+<p>That's nice, but rather meaningless unless you put it into context.  Assume "1" is /bin/login.  You have a system-wide default to disallow the use of /bin/login by anyone, then an exception to allow user joe to use it.  If /bin/login is replaced and it's inode changes, then the policy on /bin/login is now applied to a different file (or an unclaimed inode).  So /bin/login has the system-wide default on it, which is to disallow logins.  Well now no one, including joe, can login.  This could be used for any single file with a specific capability, ACL, or other policy applied to it.  Note that AppArmor, with it's (ridiculed) path-based approach wouldn't care about this.  /bin/login is /bin/login, regardless of the inode.  The AppArmor policies would continue to apply.</p>
+<p>Speaking with the RSBAC developers and others on freenode, they indicated that in a situation like that, they just re-applied their policies.  Or, as one fellow said, he would reboot into a maintenance kernel, re-apply the policy (since he wasn't able to do it on his regular RSBAC-enabled kernel), then reboot again.</p>
+<p>I ask you... is this is a good thing to ask the user to do when, say, Evolution gets updated?  How about Firefox?  Hell, Windows doesn't even require a reboot when you upgrade firefox!</p>
+<p>This isn't really an option, as far as I'm concerned.  So the sensible thing would be to have a working copy of the policies (these fellows have a shellscript to apply policies... remember writing your own iptables/ipchains firewall rules in "firewall.sh"?  same idea applies).  With a copy of these policies we can hack rpm to, in some way, execute at the end of every single rpm installation transaction the policies.  I suppose it could be done after every installation (ie. urpmi install, so after a group of rpms), but that could possibly cause issues, even if they're temporary because polciies might be in flux and a package requiring a protected file may be invoked which was previously installed/upgraded and may have a misapplied policy).  Ideally, running the policy after every sole rpm installation would be good, but the overhead might not be appealing.  A trade off might be to hack urpmi instead, to have it run the "policy re-applicator" after every invocation.  But then the same hack needs to be done for apt, smart, rpmdrake, etc.  Either way, something needs to be done so that after an rpm transaction, the policies can be re-applied, automatically, so as to be transparent to the end user.  Now, this "policy re-applicator" could be the same app used by the drak tool to reapply policies after changes.</p>
+<p>But because here we don't have the advantage of runing drakbac (or whatever the tool will be called), we need to <i>get</i> those policies first.  This means that after every rpm or urpmi/smart/apt/rpmdrake invocation we would need to execute our policy extractor to get the policies, then use that to re-apply them with the policy re-applicator.  Or we're looking back to our private RSBAC configuration file again so we don't have to go through the process of extracting the policies each time.</p>
+<p>And don't forget that this stuff will need to be done via secoff, which means that (again) default policies need to be in place for rpm or urpmi/smart/apt/rpmdrake to be able to use secoff to a) get and b) apply the policies.</p>
+<p>My head is starting to hurt, so let's switch gears and look at AppArmor in this case.  With AppArmor, you run your tool, configure it (manipulating plaintext files as root), and then you issue a "service apparmor reload" to re-read the plaintext configs and apply the new policies.  Wait... that's it?  Everything can be done as root?  One tool?  One simple command to reload the policies?</p>
+<p>Yup.</p>
+<p>Think again to the TTD on all of this.  Remember we have 2 months.  Do you honestly think that in 2 months we can hack out a series of tools and changes to package managers to manage RSBAC?  Or do you think it more realistic to create one tool for AppArmor?  Seriously, if this would have been looked at when the decision was made to use RSBAC instead of SELinux, a lot of this could have been done by now.</p>
+<p>Now, in all fairness, I believe the RSBAC stuff is doable, even with all the goofiness I outlined above.  SELinux is inode based as well.  And it's being used in Fedora and RHAS or RHES or whatever RH calls their server product.  I suspect they came across these same (or similar) issues and managed them as well.  So it is probable that the same approach taken for SELinux support could be applied here.  For all I know, this capabilitity is available in SELinux or some user-land SELinux patches for rpm and/or other programs.  I don't know... I've never actually looked at SELinux before.</p>
+<p>I think a compromised solution could be done.  As I said, I've spent this week reading, playing, and looking around at this stuff.  Because I find the Mandriva kernel extremely painful to work on, I put 2.6.16.22 into Annvix, and added both RSBAC <i>and</i> AppArmor, together, in the kernel.  Because I don't much patch the Annvix kernel, these patches are the <i>only</i> patches for the kernel.  Both apply, together, without rejects.  So it should be possible to do the same thing with the Mandriva kernel.</p>
+<p>I've also been running this kernel for a few days, with AppArmor enabled and running, and with some RSBAC features enabled.  The features I disabled were UM (the user mangement stuff), the NET, AUTH, RC, ACL, MAC, PM, and PAX options.  I enabled the CAP, JAIL, DAZUKO, and FF features.  In other words, I'm using the more minor features of RSBAC and not the heavy lifting stuff that would interfere with me using the kernel without a lot of pre-configuration.  Some of the options I disabled could probably be enabled without conflict; I didn't try however.</p>
+<p>Now, my point here is that the two <i>can</i> co-exist.  We could let AppArmor do the "application firewall" work because, quite frankly, it's the easiest and most transparent solution to the end user.  It's also the easiest for the end-user to use.  And since Mandriva is not a rock-solid-ultra-secure distro, the fact that we're using AppArmor for this as opposed to RSBAC won't be a bad thing.  Honestly, I'll take common sense here.  We could enable AppArmor, with default profiles, and have it running on first boot.  Everyone would use it.  We could use RSBAC, likely not have it enabled in every kernel (kernel-secure perhaps?) and have maybe 20% of our users using it (probably a generous figure).  If, as was indicated, we have no default policies to begin with and essentially warn the users they have an investment of a few hours to a few days depending on their proficiency, how many of those users will then disable RSBAC?  I'm guessing at least 50%.</p>
+<p>That leaves us with, optimistically, 10% of our users who will a) enable and b) configure RSBAC then c) use it.  Makes you wonder if it's even worth it.</p>
+<p>The other thing to consider here is if, as I was told, we provide the RSBAC tool and RSBAC support in the kernel, but do not enable it out of the box and do not provide default policies, we can only consider ourselves a security technology <i>provider</i>.  We cannot, by any means, call ourselves a security technology <i>solution</i>.  Fedora and RH can call themselves a <i>solution</i> because SELinux is enabled, with default policies, out of the box (although I believe you can turn SELinux support off during install).  Novell can call itself a <i>solution</i> because AppArmor is running out of the box.</p>
+<p>We can call ourselves a <i>provider</i> or <i>enabler</i>, nothing more.  Which looks rather sad compared to the security <i>solutions</i> out there.  In fact, I was told that putting RSBAC into the kernel was a "value added service" (in the context of not having any default policies or "out-of-the-box"-ness to go with it).  I don't believe this is true at all.  There is no value to something that such a minority (the optimistic 10%) will use, but which we will have to maintain.  There is no value to pre-packaged rsbac-admin tools that are useless by themself.  Until I argued against it, the SELinux tools were provided in cooker with no SELinux support in the kernel.  This is like that.. we might as well say that providing the SELinux libraries and user-space tools is "value added" because the user only has to patch and recompile the kernel and not compile the userspace tools.  Unless the definition of "value added" has changed recently, this isn't it.</p>
+<p>At the end of the day, I've got RSBAC and AppArmor running together here.  I've got the AppArmor packages Annvix-ized (which means it would take me 5 minutes to adapt them for Mandriva).  The kernel team could probably apply the AppArmor patches, in conjunction with the RSBAC patches, fairly easily.  Default AppArmor policies could be generated for most important apps in a matter of days (and by important I'm talking about servers (forward-facing apps) and networking clients, such as web browsers, email clients... things that could potentially be abused by malicious remote servers).  I suspect the AppArmor tool would take half the amount of time to write than the equivalent RSBAC tool (nevermind the other backend/supporting tools also required).</p>
+<p>Is it really that difficult to believe that AppArmor could be fully deployed in cooker within 2 weeks?  Whereas we'd be <i>lucky</i> to have all the things in place for full RSBAC support within the required 2 months?</p>
+<p>Anyways, I've done my part and looked into this.  I'm used to being ignored when it comes to recomendations like this.  I hope this time I'm not.  If I am, however, this will be here for posterity, and if I'm not, well, I'm hoping this could serve as a good roadmap or bitbucket on what challenges would be involved to get full RSBAC support for Corporate Server 5.  =)</p>
+<p><b>EDIT</b>:  I've been told that we're working on default policies to use with RSBAC, and not necessarily a tool to configure it.  That changes my arguments somewhat about the viability of the out-of-boxness of RSBAC come Mandriva 2007 (if this is true), but then I'm hoping someone writes some good docs so the end user knows how to use the existing CLI tools.  Now, until I can talk to Thierry (I believe he's been on holidays the last week or two), we'll never know for sure whether the plan is for policies and no tool, or a tool and no policies.  Either way, my argument stands.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

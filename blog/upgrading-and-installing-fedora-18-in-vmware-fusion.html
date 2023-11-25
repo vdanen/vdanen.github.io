@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Upgrading and Installing Fedora 18 in VMware Fusion - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/upgrading-and-installing-fedora-18-in-vmware-fusion.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="fedora,ipa,vmware" />
+        <meta name="description" content="I was thoroughly excited about Fedora 18 until I actually went to install it. I use Fedora 17 on a laptop and a desktop, but I also have copies in virtual machines that I use for testing -- these virtual machines run in VMware Fusion on my Mac Pro. So never …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Upgrading and Installing Fedora 18 in VMware Fusion"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/upgrading-and-installing-fedora-18-in-vmware-fusion.html"/>
+        <meta property="og:description" content="I was thoroughly excited about Fedora 18 until I actually went to install it. I use Fedora 17 on a laptop and a desktop, but I also have copies in virtual machines that I use for testing -- these virtual machines run in VMware Fusion on my Mac Pro. So never …"/>
+        <meta property="article:published_time" content="2013-02-02" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="fedora" />
+            <meta property="article:tag" content="ipa" />
+            <meta property="article:tag" content="vmware" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/upgrading-and-installing-fedora-18-in-vmware-fusion.html"
+                       rel="bookmark"
+                       title="Permalink to Upgrading and Installing Fedora 18 in VMware Fusion">
+                        Upgrading and Installing Fedora 18 in VMware Fusion
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-02-02T10:00:00-07:00"> Sat 02 February 2013</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/fedora.html"> fedora</a></span>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/ipa.html"> ipa</a></span>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/vmware.html"> vmware</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>I was thoroughly excited about Fedora 18 until I actually went to install it.  I use Fedora 17 on a laptop and a desktop, but I also have copies in virtual machines that I use for testing -- these virtual machines run in VMware Fusion on my Mac Pro.  So never having used Fedora 18 during any of the betas or anything, first thing I did was try to install it in VMware.</p>
+<p>A few times.</p>
+<p>First I have to say that I'm not a big fan of the new Anaconda UI.  One of the things I appreciated about Anaconda in the past is that it was easy to use, but didn't prevent me from doing "power things", like partitioning disks the way I wanted to partition them.  This seems to no longer be the case, and Anaconda does a lot of hand-holding.  It has been a habit to go through the list of packages to be installed (select a group, then go through and weed out the stuff I don't want), so things I don't want don't even touch the disk.  Doesn't seem like I can do this anymore either.  I don't agree with some reviewers who seem to think the UI change is to make it look/feel more mobile or "touchscreen-like", but I do feel it's dumbed down quite a bit which makes me unhappy.  I lived with it, until trying to change the partition layout killed Anaconda.  Twice.  After that I decided to let it do what it wanted since it was just a VM and I didn't care enough to fight it.</p>
+<p>So Fedora gets installed and lo!  A nice blue screen where I can do absolutely <i>nothing</i>.  No icons, no text, no login box, nothing.  Afterwards I read this has to do with having 3D graphics enabled in VMware (but at that point I had already reinstalled to use LXDE rather than GNOME, so I've not tried anything regarding that, however I did find <a href="http://www.greebo.net/2013/01/18/installing-fedora-18-rtm-to-vmware-fusion-5-or-vmware-workstation-9/">this blog posting about Fedora 18 in VMware Fusion 5/VMware Workstation 9</a> which explains things a bit).</p>
+<p>On my home network I run IPA on Red Hat Enterprise Linux 6 to handle my Kerberos/LDAP auth duties.  This means when I install an operating system, no matter what it is, I don't create local users.  So when I installed Fedora 18, I only have the root user and the rest come from IPA.  A few problems with that:</p>
+<ul>
+<li> Setting up IPA in Anaconda does not work
+<li> Post-install, logging in as root at the GUI is not permitted
+<li> I have a grub error on tty2, not a login (and nothing on tty3 for that matter)
+<li> I have to reboot and edit grub to add <b>systemd.unit=multi-user.target</b> to boot into the console to get a tty (see <a href="http://fedoraproject.org/wiki/Systemd#Boot_Kernel_Command_Line">Systemd: Boot Kernel Command Line</a>)
+<li> After I install freeipa-client, I can enroll in the domain
+<li> SSSD is not enabled when you install it!  Once again I have to reboot to the console
+<li> Enable SSSD and reboot, only to find that once again I cannot login as a user in the GUI (that I could login as on the console)
+<li> Head-scratching moment when I realize I know next to nothing about systemd and can only conclude that perhaps NetworkManager starts upon login in the graphical boot and not at system start, which prevents SSSD from talking to IPA to confirm my login
+<li> Looking at <i>/etc/sysconfig/network-scripts/ifup-eth0</i> tells me that perhaps that is not the case
+<li> Big WTF moment and go to bed
+</ul>
+
+<p>Currently I am unhappy with Fedora 18.  I suppose that on bare metal it probably works better.  I also suppose that with a real user account it works better.  At this point I don't want to do yet another reinstall because then I have to remove the host from IPA and re-enroll, which is annoying (and I really don't want to revisit Anaconda either -- I'll get to do that when I create the 64bit Fedora 18 VM later).</p>
+<p>Ok, after a few days I tried a few other things.  The first was getting rid of NetworkManager thinking that perhaps it would only start when I login (which I can't, if there is no network, because my login is IPA-based).  So I had to do:</p>
+<pre>
+# systemctl disable NetworkManager.service
+# systemctl enable network.service
+</pre>
+
+<p>The most annoying thing, however, is that when I boot into graphical mode, I get no gettys.  I'm pretty sure I told systemd that I want three of them (I have three symlinks in /etc/systemd/system/getty.target.wants: getty@tty1.service through getty@tty3.service; sadly when I boot into graphical mode and switch to TTY2, I get a grub error message and nothing on TTY3... what the heck?)</p>
+<p>Another thing I did was disable SELinux.  In multi-user.target, I can login as my IPA-user no problem.  With LXDM, however, I never could (assuming, perhaps incorrectly, that network initialization was delayed).  But upon further inspection I see a lot of:</p>
+<pre>
+lxdm-binary: pam_selinux(lxdm:session): Setting key creation contect guest_u:guest_r:oddjob_mkhomedir_t:s0 failed: Permission denied
+</pre>
+
+<p>I have zero interest and zero time in making SELinux work with LXDM and since this is a virtual machine, I don't care if SELinux is disabled.</p>
+<p>Lo and behold, I can now log into LXDM.  In light of the SELinux thing, I'm thinking that NetworkManager is not to blame (silly me, I made two changes then rebooted -- it could be either one, but I strongly suspect SELinux).  Maybe it would have worked better with GNOME (will try that on the next VM I install).</p>
+<p>On another side note, since I use VMWare Fusion for the VM, for the tools install (probably the same for the latest VMware Workstation as well, etc.), you may want to check out <a href="http://communities.vmware.com/message/2178685">this thread</a>.  In particular, seems like linux/version.h is missing and makes the tools angry.  The fix is easy though:</p>
+<pre>
+# cd /usr/src/kernels/[current_version]/include
+# cp generated/uapi/linux/version.h linux/
+</pre>
+
+<p>Then you can compile the tools.  IIRC, you'll also <i>not</i> want to use the i686 PAE kernel (doesn't seem to work on older versions, I suspect the same may be true with F18).  Easy enough to yum remove the PAE kernels and install the regular kernel.  YMMV.</p>
+<p>Finally, the next day I installed Fedora 18 64-bit in VMWare Fusion.  With the lessons learned above, it was a lot less painful.  I still am not a big fan of Anaconda... I like the look of it, but the practical "working" bits of it definitely need some work.  I don't like that you can pick only one group of packages.  What if I want both GNOME desktop and a working web server?  Doesn't seem like it can be done.  I also like picking through individual packages and sorely miss that -- makes for having to install a bunch of stuff later.  Also not sure why vim isn't installed by default... I think this is the first time ever I've seen "vim: command not found".</p>
+<p>Also, despite getting the VMware tools installed, if you want GDM to present you with anything, you need to disable 3D graphics.  I have it enabled on my 32-bit VM (which is using LXDM, works fine), but on the 64-bit VM (using GDM), even with vmware-tools compiled and running, I needed to disable 3D graphic acceleration.  I suppose there is a bug in the driver and/or X there.  Not a big deal to disable since I've done "yum groupinstall 'MATE Desktop'" (what need do I have for 3D graphics?  BTW, MATE is <i>sweet</i>!) and now GDM loads.</p>
+<p>IPA still would not work to configure from Anaconda.  Definitely a bug to be filed there.</p>
+<p>Anyways, time to end this.  This entry has been in the works for about two weeks (sadly, I've not had time to finish it or get my Fedora VM's running until yesterday, and finished up the 64-bit install this morning).  So far the install of Fedora 18, in VMware, has been a bit of a PITA.  Next order of business is to see how the upgrade works... I've got a Fedora 17 install in Parallels to upgrade to make sure all my work-related bits work, before attempting to upgrade on bare metal.  I'm quite certain that a lot of this can be attributed to the virtual machines and it'll work better on bare metal.  I'm also happy that those won't be fresh installs, so I don't have to deal with Anaconda.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

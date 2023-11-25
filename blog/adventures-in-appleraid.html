@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Adventures in AppleRAID - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/adventures-in-appleraid.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="raid" />
+        <meta name="description" content="Actually, it&#39;s not much of an adventure so much as a reminder. I&#39;m used to doing software RAID on Linux with mdadm and am fully comfortable with the commandline tools -- in fact, I prefer them to any GUI tools that may or may not be out there (for example, if …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Adventures in AppleRAID"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/adventures-in-appleraid.html"/>
+        <meta property="og:description" content="Actually, it&#39;s not much of an adventure so much as a reminder. I&#39;m used to doing software RAID on Linux with mdadm and am fully comfortable with the commandline tools -- in fact, I prefer them to any GUI tools that may or may not be out there (for example, if …"/>
+        <meta property="article:published_time" content="2013-12-07" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:tag" content="raid" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/adventures-in-appleraid.html"
+                       rel="bookmark"
+                       title="Permalink to Adventures in AppleRAID">
+                        Adventures in AppleRAID
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-12-07T21:00:00-07:00"> Sat 07 December 2013</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/raid.html"> raid</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Actually, it's not much of an adventure so much as a reminder.  I'm used to doing software RAID on Linux with mdadm and am fully comfortable with the commandline tools -- in fact, I prefer them to any GUI tools that may or may not be out there (for example, if I were to have a choice of using mdadm on the commandline versus using Anaconda to setup a RAID array, I would take the commandline).</p>
+<p>Anyways, I use Apple's software RAID on OS X as well.  With mdadm I'm fully confident.  With Apple RAID I'm not as much, primarily because I've not had the opportunity to put it through it's paces, and also because Disk Utility is absolutely horrendous for dealing with setting the RAID arrays up.</p>
+<p>Anyways, I was unlucky enough in mid-2012 to buy a few of those Seagate drives that chirped.  Harmless, once I realized the drives were not going to die, but annoying nonetheless.  Suffice it to say, I've gotten used to it.  Anyways, 3TB drives are $130CAD a piece now which is pretty cheap, and these drives have been running for the last year and a half pretty much non-stop.  Between price, requiring some larger drives as offline archives (to which use I can put these chirpy drives), and really feeling like I should test the Apple RAID (last test I believe was in 10.7 and now the system is running 10.9), I figured it was a good time to give it a go.</p>
+<p>Simple procedure: shut down the computer, pull out one drive, pop in a new drive, fire it back up.  Because I have a RAID0+1 (so three RAID arrays, two RAID mirrors and one RAID stripe), I could pull two drives, one from each mirror array, and rebuild two at a time but I prefer to be cautious.</p>
+<p>Upon bootup I get the "you've inserted an uninitialized disk" notice (to which I tell it to ignore the drive), get a happy degraded RAID warning from SMARTReporter, and am ready to get it back up and running.  The required commands are surprisingly simple:</p>
+<pre>
+% <b>sudo diskutil list</b>
+Password:
+/dev/disk0
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *512.1 GB   disk0
+   1:                        EFI EFI                     209.7 MB   disk0s1
+   2:                  Apple_HFS fenris                  511.3 GB   disk0s2
+   3:                 Apple_Boot Recovery HD             650.0 MB   disk0s3
+<b>/dev/disk1
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:                                                   *3.0 TB     disk1</b>
+/dev/disk2
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *3.0 TB     disk2
+   1:                        EFI EFI                     209.7 MB   disk2s1
+   2:                 Apple_RAID                         3.0 TB     disk2s2
+   3:                 Apple_Boot Boot OS X               134.2 MB   disk2s3
+/dev/disk3
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *3.0 TB     disk3
+   1:                        EFI EFI                     209.7 MB   disk3s1
+   2:                 Apple_RAID                         3.0 TB     disk3s2
+   3:                 Apple_Boot Boot OS X               134.2 MB   disk3s3
+/dev/disk4
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *3.0 TB     disk4
+   1:                        EFI EFI                     209.7 MB   disk4s1
+   2:                 Apple_RAID                         3.0 TB     disk4s2
+   3:                 Apple_Boot Boot OS X               134.2 MB   disk4s3
+/dev/disk5
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *3.0 TB     disk5
+   1:                        EFI EFI                     209.7 MB   disk5s1
+   2:                  Apple_HFS G-DRIVE                 3.0 TB     disk5s2
+/dev/disk6
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:                  Apple_HFS Stuff                  *6.0 TB     disk6
+</pre>
+
+<p>In this case, we've removed the first physical drive in the Mac Pro's four bays (I have an SSD as a boot device in there as disk0), so it's disk1 we're interested in.  Make a note of the disk identifier (the one with no partitions on it).</p>
+<p>Next we want to see what our RAID information looks like because we need to know which array this drive needs to be added to, and we need to know the unique identifer (UUID) of the RAID array:</p>
+<pre>
+% <b>sudo diskutil appleraid list</b>
+AppleRAID sets (3 found)
+===============================================================================
+Name:                 Stuff_1
+Unique ID:            A50AAB2A-D2DE-44DD-BAF0-7577072C5937
+Type:                 Mirror
+Status:               Online
+Size:                 3.0 TB (3000248958976 Bytes)
+Rebuild:              automatic
+Device Node:          -
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+0  disk2s2   3BF8BC8C-CE09-447C-8A86-ED51E8515C3E  Online     3000248958976
+1  disk3s2   A117C08C-B375-469C-A654-EAA902E5A317  Online     3000248958976
+===============================================================================
+===============================================================================
+Name:                 Stuff
+Unique ID:            F2429656-695B-4F8C-B870-B7334DC3340D
+Type:                 Stripe
+Status:               Online
+Size:                 6.0 TB (6000497786880 Bytes)
+Rebuild:              manual
+Device Node:          disk6
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+0  -none-    C96F3052-8EBD-45D5-9A25-29EE23957CA9  Online     3000248893440
+1  -none-    A50AAB2A-D2DE-44DD-BAF0-7577072C5937  Online     3000248893440
+===============================================================================
+===============================================================================
+Name:                 Stuff_2
+Unique ID:            <b>C96F3052-8EBD-45D5-9A25-29EE23957CA9</b>
+Type:                 Mirror
+Status:               <b>Degraded</b>
+Size:                 3.0 TB (3000248958976 Bytes)
+Rebuild:              automatic
+Device Node:          -
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+<b>-  -none-    F3921C5D-0B94-4264-9619-0291A5147F4E  Missing/Damaged</b>
+1  disk4s2   12511D3B-A21C-4BB7-B68B-DAA5E2AC0277  Online     3000248958976
+===============================================================================
+</pre>
+
+<p>There's a few bits of info here.  The first is the uuid of our RAID mirror that it's in a degraded state (the RAID volume name is Stuff_2, above, with the uuid noted below the name).  The second bit of information we need is the uuid of the <i>failed</i> drive (in this case, the drive I removed).  We will need to remove this missing device from the array after we add the new one.</p>
+<pre>
+% <b>sudo diskutil appleraid add member disk1 C96F3052-8EBD-45D5-9A25-29EE23957CA9</b>
+Started RAID operation
+Unmounting disk
+Repartitioning disk1 so it can be in a RAID set
+Unmounting disk
+Creating the partition map
+Adding disk1s2 to the RAID Set
+Finished RAID operation
+% <b>sudo diskutil appleraid list</b>
+AppleRAID sets (3 found)
+===============================================================================
+Name:                 Stuff_1
+Unique ID:            A50AAB2A-D2DE-44DD-BAF0-7577072C5937
+Type:                 Mirror
+Status:               Online
+Size:                 3.0 TB (3000248958976 Bytes)
+Rebuild:              automatic
+Device Node:          -
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+0  disk2s2   3BF8BC8C-CE09-447C-8A86-ED51E8515C3E  Online     3000248958976
+1  disk3s2   A117C08C-B375-469C-A654-EAA902E5A317  Online     3000248958976
+===============================================================================
+===============================================================================
+Name:                 Stuff
+Unique ID:            F2429656-695B-4F8C-B870-B7334DC3340D
+Type:                 Stripe
+Status:               Online
+Size:                 6.0 TB (6000497786880 Bytes)
+Rebuild:              manual
+Device Node:          disk6
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+0  -none-    C96F3052-8EBD-45D5-9A25-29EE23957CA9  Online     3000248893440
+1  -none-    A50AAB2A-D2DE-44DD-BAF0-7577072C5937  Online     3000248893440
+===============================================================================
+===============================================================================
+Name:                 Stuff_2
+Unique ID:            C96F3052-8EBD-45D5-9A25-29EE23957CA9
+Type:                 Mirror
+Status:               Degraded
+Size:                 3.0 TB (3000248958976 Bytes)
+Rebuild:              automatic
+Device Node:          -
+-------------------------------------------------------------------------------
+#  DevNode   UUID                                  Status     Size
+-------------------------------------------------------------------------------
+-  -none-    F3921C5D-0B94-4264-9619-0291A5147F4E  Missing/Damaged
+1  disk4s2   12511D3B-A21C-4BB7-B68B-DAA5E2AC0277  Online     3000248958976
+<b>2  disk1s2   6A381F4D-759C-4CFB-BB38-1EA22C7D58B8  0% (Rebuilding)3000248958976</b>
+===============================================================================
+</pre>
+
+<p>Or, <b>sudo diskutil appleraid add member disk# [uuid-of-raid]</b>
+As you can see from the above, we added the new drive (disk1) to the RAID array named Stuff_2.  And after we did so, performed another list operation, and you can see three drives associated with that array -- one is online, one is missing, and one is rebuilding.  Now we need to remove the missing one as we won't be adding it back:</p>
+<pre>
+% <b>sudo diskutil appleraid remove F3921C5D-0B94-4264-9619-0291A5147F4E C96F3052-8EBD-45D5-9A25-29EE23957CA9</b>
+Started RAID operation
+Removing disk from RAID
+Finished RAID operation
+</pre>
+
+<p>Or, <b>sudo diskutil appleraid remove [uuid-of-failed-drive] [uuid-of-raid]</b>.</p>
+<p>And that's it.  Honestly, it took me longer to type this out than it did to rebuild the RAID array.  Sadly, in that time it's only progressed to 3% rebuilt.  The downside of such large drives is the reconstruction time is a little ridiculous.  Anyways, once you've run these commands in Terminal, if you were to fire up Disk Utility, you'd see a nice little GUI progress bar that, for me, indicates it will take 4hrs to rebuild.</p>
+<p>Honestly, for anyone who has fought with Disk Utility to manage anything RAID in OS X, you'll appreciate how simple the diskutil commandline tool makes things.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

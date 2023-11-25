@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>OS X on an MSI Wind - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/os-x-on-an-msi-wind.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="For kicks, this Christmas I decided to give myself something &#34;hackish&#34; to do, and noticed that the local Staples was selling the MSI Wind with SUSE on it for $299CAD. This little beast (the U90, model number MS-N811) is nice... a little bit bigger than my Eeepc, so the keys …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="OS X on an MSI Wind"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/os-x-on-an-msi-wind.html"/>
+        <meta property="og:description" content="For kicks, this Christmas I decided to give myself something &#34;hackish&#34; to do, and noticed that the local Staples was selling the MSI Wind with SUSE on it for $299CAD. This little beast (the U90, model number MS-N811) is nice... a little bit bigger than my Eeepc, so the keys …"/>
+        <meta property="article:published_time" content="2008-12-27" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/os-x-on-an-msi-wind.html"
+                       rel="bookmark"
+                       title="Permalink to OS X on an MSI Wind">
+                        OS X on an MSI Wind
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2008-12-27T09:39:00-07:00"> Sat 27 December 2008</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>For kicks, this Christmas I decided to give myself something "hackish" to do, and noticed that the local Staples was selling the MSI Wind with SUSE on it for $299CAD.  This little beast (the U90, model number MS-N811) is nice... a little bit bigger than my Eeepc, so the keys are bigger which is nice.  Comes with a 120GB HDD, only 512MB RAM ($40CAD later I'm at 1.5GB RAM).  I decided to give installing OS X a go on it (tried on the Eeepc last year when I got it and more or less failed miserably).</p>
+<p>The choice of the MSI Wind was prompted by some discussion on the Mac Ministry mailing list, and it seems like one of the best netbooks to use to install OS X on.  And for the price point, it seemed like a reasonable thing to try.  If all else failed, I could restore SUSE or stick Mandriva on it and give it to my daughter.</p>
+<p>I found <a href="http://blog.wired.com/gadgets/2008/12/gadget-lab-vide.html">this blog entry on Wired</a> that gave me a good starting point.  I won't post the links to the MSIwindosx.iso (which is hacked copy of Leopard updated to 10.5.4).  The blog entry does pretty good on covering that and the initial basics, and where to download the OSX86Tools program you'll need.  This is more of a supplement to that, which is where I got most of what I needed.  I did do things a wee bit differently, and the end result is that now I have the latest 10.5.6 running on my Wind, with my various applications working.  The only things that don't work, as of this point (and I only did this on the 23rd), is the wired ethernet (which, by all accounts, <i>should</i> work).  I haven't tried the built-in mic, the headphones, or bluetooth.  Wireless works tho, so I'm good to go.</p>
+<!--more-->
+
+<p>The Wired thing got me going, so I'm going to reiterate some of it here.  What you need is the MSIwindosx.iso, which you'll get from the Pirate Bay's torrents, and OSX86Tools.  Links to both are from the Wired blog.  You'll also want a 4GB USB key (much easier to work with than a DVD).</p>
+<p>The first thing you want to do is put your USB key into an existing mac and launch Disk Utility.  Partition it to make a single MBR partition, and format it as "Mac OS Extended (Journaled)".  When it's done, select the USB parition, click on the Restore tab, and drag MSIWindosx.iso to the Source field and select the USB partition as the Destination.  Click the Restore button.</p>
+<p>When that is done, unzip and launch OSX86Tools.  Click the "Install EFI/Run FDISK" button, then select "Run Script".  A Terminal window will pop up; type in your administrator password.  Type "4" to run Chameleon EFI, select the drive number, and then the partition to install.  It will look something like this:</p>
+<pre>
+% sudo '/Users/vdanen/Downloads/Applications/MSI Hackintosh/OSX86Tools.app/Contents/Resources/fdiskutils.sh'
+Password:
+Pick an option to carry out
+1) Fdisk_Partition         3) Install_EFI_V8
+2) Install_NON_EFI_Bootloader  4) Install_Chameleon_EFI
+#? 4
+/dev/disk0
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *931.5 Gi   disk0
+   1:                        EFI                         200.0 Mi   disk0s1
+   2:                  Apple_HFS Storage                 931.2 Gi   disk0s2
+/dev/disk1
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *931.5 Gi   disk1
+   1:                        EFI                         200.0 Mi   disk1s1
+   2:                  Apple_HFS Virtual Machines        931.2 Gi   disk1s2
+/dev/disk2
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *298.1 Gi   disk2
+   1:                        EFI                         200.0 Mi   disk2s1
+   2:                  Apple_HFS odin                    297.8 Gi   disk2s2
+/dev/disk3
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *465.8 Gi   disk3
+   1:                        EFI                         200.0 Mi   disk3s1
+   2:                  Apple_HFS Backup                  465.4 Gi   disk3s2
+/dev/disk7
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:     FDisk_partition_scheme                        *14.9 Gi    disk7
+   1:                  Apple_HFS Untitled 1              14.9 Gi    disk7s1
+Please enter only the number of the disk you wish to install EFI on. (e.g. for /dev/disk1, enter 1)
+7
+Please enter only the number of the partition. WARNING: Do not choose the partition_scheme or 200MB EFI partition!
+1
+Variables...
+Volume../Volumes/Untitled 1/
+INFO..disk7s1
+rdisks../dev/rdisk7s1
+rdisk../dev/rdisk7
+disks../dev/disk7s1
+disk../dev/disk7
+DD to install Chameleon...
+2+0 records in
+2+0 records out
+1024 bytes (1.0 kB) copied, 0.006656 s, 154 kB/s
+Fdisk to fix partition..
+Enter 'help' for information
+fdisk: 1> Partition 1 marked active.
+fdisk:*1> Machine code updated.
+fdisk:*1> Device could not be accessed exclusively.
+A reboot will be needed for changes to take effect. OK? [n] Writing MBR at offset 0.
+fdisk: 1> Chameleon installed!
+</pre>
+
+<p>Now, eject the USB drive, put it into the MSI Wind, turn it on and hold down F11 and select the USB device to boot from.  Now this is where I differed slightly from the Wired article... before doing anything, launch Disk Utility (from the menu bar at the top), select the HDD in the MSI Wind, and repartition the drive.  Make sure you use the GUID partition scheme, not MBR which should be what it is currently using.  Once you've done that and formatted the partition, exit Disk Utility and you'll be back at the installer.  Continue on to the Installation Summary screen, click the "Customize" button, select "Patches", and uncheck "Kernel".  Leave everything else.  Continue the install and when it's done, reboot.</p>
+<p>At this point, you'll have a hacked 10.5.4 install on your MSI Wind and it should boot without problems.  You'll want to transfer the Realtek wireless LAN driver using the USB key from your mac to the Wind.  I downloaded <a href="http://gadgets.boingboing.net/osxdrivers/Realtek_RTL8187SE_MacOS10.5_Driver_073_UI_1.6.2.zip">Realtek_RTL8187SE_MacOS10.5_Driver_073_UI_1.6.2.zip</a> and transferred it via the USB key and installed it.  You'll have to reboot again to get it active.  Now, this driver is a little strange... you can't use it like a regular airport card; it creates a "bridge" type connection so OS X thinks it's a wired connection, and the tool that comes with it manages the wireless settings.  It's definitely non-mac, the UI is a little bad, but it works which is the important part.  You can opt to get a new wireless card and install it, but this works well enough for me.  Make sure you press "Fn-F11" to turn the wireless on or you may end up looking at the tool for a few minutes wondering why the heck it isn't working.  Anyways, now you can connect to your wireless network.</p>
+<p>Download the 10.5.6 combo update.  I chose the combo update rather than the incremental update largely because that's all I ever use.  It's a bigger download, but since I keep these things around, I just threw it on a USB key and installed from there.</p>
+<p>Once you reboot into 10.5.6, you'll find a whole bunch of stuff doesn't work.  The keyboard and trackpad don't work, the screen resolution is off, etc.  Make sure you have a USB mouse and keyboard plugged in!  So what you need to do is pop in the USB key that still contains the MSIWindosx.iso contents and look for the /Volumes/USB/System/Installer/Patches/ directory (it may be a different root depending on what you've named the key).  Anyways, copy the Patches/ directory to somewhere convenient; I copied it to ~/Desktop/Patches/.</p>
+<p>Go into the directory and remove the update and kernel pkg files.  Delete them.  You don't want them at all.  What you do want to do is reinstall all of the other pkg files.  You could do them one at a time, which is a pain, or fire up Terminal and do the following:</p>
+<pre>
+$ cd ~/Desktop/Patches/
+$ for i in *.pkg; do sudo installer -pkg $i -target "/"; done
+</pre>
+
+<p>Once this is done, and it'll take a few minutes, reboot and voila!  You'll have a fully functional 10.5.6 install.</p>
+<p>I still have more monkeying around to do, but so far the wired Ethernet is still not working.  Sound works, the wireless works with the third-party driver, and everything else seems to work.  I haven't tried Bluetooth yet, or the headphones or mic.  The webcam is pretty crappy... not nearly as nice as the iSight built into my macbook.  The trackpad is also extremely irritating.  It's very jumpy and erratic.  I ended up hopping into System Preferences to put the Tracking Speed down to as slow as it would go (under Keyboard &amp; Mouse, then the Mouse tab).  This makes it moderately manageable.  I do need to find a way to disable the tap-is-a-click feature (I hate that at the best of times), and it doesn't do gestures or two-finger scrolling, etc.  It works moderately ok, but takes some getting used to.  I also haven't tried hooking it up to an external monitor yet.</p>
+<p>Other than that, this baby works quite well.  You have to get used to the small screen size, but that's part of the experience and if you can't work with small text and small resolutions, don't even bother.  But, to me, the fact that I can get OS X running on a small machine that cost me, all told, $350CAD... well, that’s pretty sweet.</p>
+<p>If anyone has figured out how to fix the trackpad, please leave a comment and let me know!  There might be a kernel extension out there or preference setting somehow that could be used to configure it, but so far I haven't found it.  Another good resource, if you have the patience to poke around in it, is the <a href="http://forums.msiwind.net/mac/">MSI Wind Forums</a>.  I'm sure some solutions for my issues may exist there, but there are so many posts that refer to methods (but without linking to them), it's moderately painful to wade through.</p>
+<p>A few people on MacMin have asked how I got this going, so here you go!  Hope this helps!</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

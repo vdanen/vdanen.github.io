@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Figuring out GPG, SSH and U2F with YubiKey 4 - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4.html">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="gpg,openssh,yubikey" />
+        <meta name="description" content="You know your wife is a keeper when she gets you a YubiKey 4 for your birthday! I was really excited about this YubiKey because of its support for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Figuring out GPG, SSH and U2F with YubiKey 4"/>
+        <meta property="og:url" content="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4.html"/>
+        <meta property="og:description" content="You know your wife is a keeper when she gets you a YubiKey 4 for your birthday! I was really excited about this YubiKey because of its support for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support …"/>
+        <meta property="article:published_time" content="2017-02-11" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:tag" content="gpg" />
+            <meta property="article:tag" content="openssh" />
+            <meta property="article:tag" content="yubikey" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://vdanen.github.io/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://vdanen.github.io/about.html">
+                             About
+                          </a></li>
+                         <li><a href="https://vdanen.github.io/documentation.html">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4.html"
+                       rel="bookmark"
+                       title="Permalink to Figuring out GPG, SSH and U2F with YubiKey 4">
+                        Figuring out GPG, SSH and U2F with YubiKey 4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-02-11T15:00:00-07:00"> Sat 11 February 2017</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/gpg.html"> gpg</a></span>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/openssh.html"> openssh</a></span>
+    <span class="label label-info"> <a href="https://vdanen.github.io/tag/yubikey.html"> yubikey</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="Image" src="https://vdanen.github.io/images/yubikey.jpg"></p>
+<p>You know your wife is a keeper when she gets you a YubiKey 4 for your birthday!  I was really excited about this YubiKey because of its support
+for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support.  I've been using
+earlier versions of the YubiKey for OTP (one-time password) and U2F, but the new version was especially interesting to me because of the GPG support.</p>
+<p>Plus it's a new toy to tinker with, and I like nerdy little things like this.</p>
+<p>When I got it, it was easy enough to associate it with the accounts I previously had my U2F-only YubiKey associated with and also others I previously had not and probably should have.</p>
+<p>However, when it came to getting this setup for GnuPG I ran into some interesting things.  First off, I used this <a href="https://github.com/drduh/YubiKey-Guide">YubiKey
+Guide</a> to get things setup (this is a great guide).  I did it on my Fedora laptop because from the things I
+read it seemed that using Linux for the setup would be easier.</p>
+<p>That guide is pretty Debian-specific when it comes to the software install, so on Fedora you want to use:</p>
+<div class="highlight"><pre><span></span><code>$ sudo dnf install ykpers libyubikey gnupg2 gnupg2-smime pcsc-list pcsc-lite-ccid
+</code></pre></div>
+
+<p>Creating the new key on the laptop was easy enough with the instructions provided but I ran into problems writing the keys to the YubiKey.  I could
+program the card as root, but as the user that generated the key I was unable to write the keys.  With a bit more hunting around, I found another
+blog post about using the <a href="http://stafwag.github.io/blog/blog/2015/06/16/using-yubikey-neo-as-gpg-smartcard-for-ssh-authentication/">YubiKey Neo as a GPG Smartcard for SSH Authentication</a> and realized I needed to give myself access to write to the card via udev.</p>
+<p>Editing the <code>/usr/lib/udev/rules.d/69-yubikey.rules</code> file to add myself as an owner of the device did the trick and now it looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ACTION</span><span class="o">!=</span><span class="ss">&quot;add|change&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">GOTO</span><span class="o">=</span><span class="ss">&quot;yubico_end&quot;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Udev</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">letting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Yubikey</span><span class="w"> </span><span class="n">USB</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">needed</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">challenge</span><span class="o">/</span><span class="n">response</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="n">correctly</span><span class="p">.</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Yubico</span><span class="w"> </span><span class="n">Yubikey</span><span class="w"> </span><span class="n">II</span><span class="w"></span>
+<span class="n">ATTRS</span><span class="err">{</span><span class="n">idVendor</span><span class="err">}</span><span class="o">==</span><span class="ss">&quot;1050&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ATTRS</span><span class="err">{</span><span class="n">idProduct</span><span class="err">}</span><span class="o">==</span><span class="ss">&quot;0010|0110|0111|0114|0116|0401|0403|0405|0407|0410&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="n">OWNER</span><span class="o">=</span><span class="ss">&quot;[me]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ENV</span><span class="err">{</span><span class="n">ID_SECURITY_TOKEN</span><span class="err">}</span><span class="o">=</span><span class="ss">&quot;1&quot;</span><span class="w"></span>
+
+<span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;yubico_end&quot;</span><span class="w"></span>
+</code></pre></div>
+
+<p>Then reloading the configuration using:</p>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">udevadm</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="o">--</span><span class="n">reload</span><span class="w"></span>
+<span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">udevadm</span><span class="w"> </span><span class="n">trigger</span><span class="w"></span>
+</code></pre></div>
+
+<p>Now I could finish with the original tutorial and get the keys written to the card.  Success!</p>
+<p>Or so I thought.  Once this was done, the U2F logins were no longer working.  Plugging the YubiKey into my mac and trying to use it as the
+second factor with some of the sites it previously worked with was no longer possible.</p>
+<p>Given this was already a few hours of work, I went off to eat dinner and watch a show with the family.  When that was done, as often happens when
+you give your mind something else to think about, it occurred to me that the command in the original tutorial about changing the mode of the YubiKey might have had something to do with it.  The original tutorial indicates that to configure the YubiKey you needed to do:</p>
+<div class="highlight"><pre><span></span><code>$ ykpersonalize -m82
+</code></pre></div>
+
+<p>Checking out the manpage, it seems that this mode of 82 sets:</p>
+<ul>
+<li>MODE_FLAG_EJECT (which is the 80)</li>
+<li>OTP/CCID composite device (which is the 2)</li>
+</ul>
+<p>I guess earlier YubiKeys did not enable CCID which is what we need for GPG support.  But guess what's missing?  Right, the U2F support.  We need mode 6, which is for OTP/CCID/U2F.  So running:</p>
+<div class="highlight"><pre><span></span><code>$ ykpersonalize -m86
+</code></pre></div>
+
+<p>fixed the problem and now U2F works again (as does GPG).</p>
+<p>The next problem I had was that, while GPG worked fine on my Fedora laptop, when I tried to do <code>gpg2 --list-secret-keys</code> on my mac, it was telling me there were no secret keys.  Using <code>gpg2 --card-status</code> or <code>gpg2 --card-edit</code> worked fine, and they even showed those card slots occupied.</p>
+<p>What the heck?!?</p>
+<p>Well, it turns out GPG 2.1 uses a different format for storing key information that GPG 1.x and 2.0 don't support or understand.  And MacGPG2 for the mac is currently providing 2.0.30 which didn't understand this stuff.  And it turns out that fink (which I use for all the extra Linux-like commands and updated CLI tools that I like) did not provide GnuPG 2.1.  As a result I switched from fink to HomeBrew because it provides GnuPG 2.1, which I found from <a href="https://www.rempe.us/blog/yubikey-gnupg-2-1-and-ssh/">Yubikey, GnuPG 2.1 Modern, and SSH on macOS</a>.</p>
+<p>There's still some work to be done to clean a few things up.  I need to publish my new GPG key once I'm confident with it, and have signed it with
+my existing key, and revoked the old key.  Then I need to put the new SSH pubkey on those servers that are critical and I want the higher security on.</p>
+<p>Most of what I had to do to get this setup was already out there (thank you citizens of the internet!) but there were a few gotchas that others may
+stumble on and since I couldn't easily find any answers (maybe I'm the only one that tripped over the ykpersonalize, or maybe most people use these for GPG/SSH and not also U2F, I have no idea).  Hopefully this will be helpful for anyone stuck in the same boat.</p>
+<p>Quick notes on some macOS-specific things:</p>
+<p>I'm a MailMate user (awesome email client) but the suggestion of using a command-line pinentry program causes it to crash because it can't get input from anywhere.  You want to <code>brew install pinentry-mac</code> first, and then use that as the pinentry program for the gpg-agent.  My <code>~/.gnupg/gpg-agent.conf</code> file now looks like this:</p>
+<div class="highlight"><pre><span></span><code>enable-ssh-support
+use-standard-socket
+pinentry-program /usr/local/bin/pinentry-mac
+default-cache-ttl 600
+max-cache-ttl 7200
+</code></pre></div>
+
+<p>You will also want to uninstall MacGPG2 if you have it installed.  You can re-install it if you want, as it does have some nice tools, but if you do be sure to select "Customize" on the installer and de-select "GPGMail" and "MacGPG2" (basically install "GPGServices", "GPGKeychain", and "GPGPreferences" only).  I don't know if the GPGMail plugin will work with GnuPG 2.1 (I don't use Apple Mail and MailMate doesn't need it) so maybe you don't need to remove it (and I can't be bothered to find out).</p>
+<p>As a final note, I had this working fine with two macs and my Fedora laptop, but when I tried it on another mac a day or two later it did not want to work.  I finally figured out that it was because when I started fiddling with this, on the first two macs I had gnupg 2.1.17 but on the other mac it pulled the new version (2.1.18) from homebrew.  This new version does not play well with the YubiKey.  I filed <a href="https://github.com/Homebrew/homebrew-versions/issues/1522">this bug</a> against homebrew but then after some more digging I found it was actually <a href="https://bugs.gnupg.org/gnupg/issue2933">this upstream bug</a> so hopefully 2.1.19 will fix the problem.  I note it here only because it had me scratching my head for a few days going through my setups wondering if I had done something wrong on the last mac.  Once I installed 2.1.17 on that one, everything worked peachy.  Talk about whacky timing!</p>
+<p>Thanks Ang for this awesome birthday present!  =)</p>
+<p><strong>EDIT</strong>: see <a href="https://annvix.com/blog/replaced-gpg-key">Replaced GPG Key</a> for details on the new key.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

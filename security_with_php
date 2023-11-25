@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Security with PHP - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/security_with_php">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It&#39;s popularity has increased to the point that any web-hosting service worth it&#39;s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Security with PHP"/>
+    <meta property="og:url" content="https://annvix.com/security_with_php"/>
+    <meta property="og:description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It&#39;s popularity has increased to the point that any web-hosting service worth it&#39;s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Security with PHP</h1>
+        
+        <div class="entry-content">
+            <p><a rel="nofollow" class="external text" href="http://www.php.net/">PHP</a> is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It's popularity has increased to the point that any web-hosting service worth it's salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment, if configured incorrectly. Because PHP is server-side, and because it can interact with the filesystem of the host environment, it can be used to obtain data that should otherwise remain confidential from the client. For instance, a web hosting company may do appropriate checks to disallow CGI scripts for their clients, or wrap them in suexec so that they have no privilege than the user who owns them. They may limit shell access, or disallow it entirely, and they may chroot FTP users who connect to the site to maintain web pages. But unless they chroot the web server itself, which is almost impossible to do on a client-by-client basis (unless you run one web server per client, run as that client), chances are if PHP is permitted, a client can write a PHP program, upload it, and use it to traverse the filesystem. They may even be able to get access to other client's web data, a very dangerous thing.
+</p>
+<p>Fortunately, PHP allows us to restrict a lot of this if configured properly. Out of the box, a lot of vendors who ship PHP do not do this type of enforcement. A lot of PHP applications do not respect or work with this type of enforcement. Your best bet is to reconfigure PHP for maximal security, and then find software that works with it, or reduce some of these security settings only if you need to, and only if you know the risks involved.
+</p>
+<p>Some of PHP's security is built in and one doesn't need to think about it. For instance, if PHP is compiled as a CGI binary, it will not interpret commandline arguments. This is a good thing. Unfortunately, you can use another type of attack, such as interpretting any file on the file system. One means of avoiding this type of attack is to compile PHP with the <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure.">enable-force-cgi-redirect --enable-force-cgi-redirect</a> configure directive. This is, of course, only really necessary if you use PHP as a CGI binary. If you use Apache as your webserver, chances are you are using PHP as an Apache module. The other option, if you must use PHP as a CGI binary, is to have the PHP parser outside of the web tree; for instance, install it as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/local/bin/php</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin/php</span>. Don't include it as a binary in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/cgi-bin</span> directory for a given host.
+</p>
+<p>The more popular method of using PHP is as an Apache module, and for the rest of this document we will assume it is installed as such. The benefits to using PHP in this manner is that you can take advantage of Apache's access controls and security features as well. The drawback is the inheritence of the script being run as the same user Apache, typically "nobody" or "apache". This gives the script the same user to run as as everyone else on the system, which could cause issues when database access, file access, etc. are involved.
+</p>
+<p>The following are various points on some methods of securing PHP:
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Error_Reporting"><span class="tocnumber">1</span> <span class="toctext">Error Reporting</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Register_Globals"><span class="tocnumber">2</span> <span class="toctext">Register Globals</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Safe_Mode"><span class="tocnumber">3</span> <span class="toctext">Safe Mode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Additional_Directives"><span class="tocnumber">4</span> <span class="toctext">Additional Directives</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Setting_PHP_Configuration_Settings"><span class="tocnumber">5</span> <span class="toctext">Setting PHP Configuration Settings</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#A_VirtualHost_Example"><span class="tocnumber">6</span> <span class="toctext">A VirtualHost Example</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Error_Reporting">Error Reporting</span></h2>
+<p>When PHP encounters an error on a site, it reports the error to the browser. This is great for development, but poor for a live site. It can expose the value of variables, file locations, etc. There are two ways this can be done. The first, and best, is to modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> (usually found in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc</span>) as follows:
+</p>
+<pre>
+register_globals Off
+log_errors On
+display_errors Off
+error_log /var/log/php/errors
+</pre>
+<p>This will log errors to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php/errors</span> (make sure the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php</span> directory exists first!) instead of to the client viewing the page. The other option, which is not advisable (because many programmers do not do it, so unless you only use PHP scripts you wrote (impossible in a virtual hosting environment), you may not even want to consider this), is to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting()</span> function in PHP. You can set it to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_ALL)</span> during development and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_NONE)</span> during deployment.
+</p>
+<h2><span class="mw-headline" id="Register_Globals">Register Globals</span></h2>
+<p>In the code above, we turned Register Globals off (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span>). This disables the ability for any user-submitted variable to be injected directly into PHP code. This reduces the amount of variable poisoning that may occur, and internal variables are pretty much isolated from user-submitted data. For instance, assume the URL <a rel="nofollow" class="external free" href="http://localhost/script.php?user_val=1">http://localhost/script.php?user_val=1</a>. With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals</span> on the variable <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> has a value of 1. If <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is an internal variable that permits access to secret documents, an attacker can give themself access without providing any credentials.
+</p>
+<p>With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span> this cannot be done. You have to explicitly request the value of a variable; it cannot be injected in the manner above. For instance, in the above example, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is likely an internal variable that gets set depending upon certain conditions. Let's assume one of these conditions is a username that is obtained via a form. You would use something like the following:
+</p>
+<pre>
+&lt;?
+if($_REQUEST['username']) {
+  $username = $_REQUEST['username'];
+} else {
+  $username = &quot;&quot;;
+}
+?&gt;
+</pre>
+<p>The above could be considered transitional code. For instance, if you make reference to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> throughout your code, changing each instance of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$_REQUEST['username']</span> may be troublesome. Of course, with the above, someone cannot simply manually call a script and inject any variable they want, or change the value of known internal variables.
+</p>
+<p>You can also turn <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals</span> on or off on a virtualhost-by-virtualhost basis. You can do this by modifying your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> and setting <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_value register_globals 0</span> in your VirtualHost directive for a specific site, or using the Apache <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> file and specifying <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_flag register_globals 0</span> (0 for off, 1 for on). If you use the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> route, ensure your VirtualHost has a Directory stanza that enables Overrides (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">AllowOverride Options</span> (or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">All</span>)).
+</p>
+<h2><span class="mw-headline" id="Safe_Mode">Safe Mode</span></h2>
+<p>PHP comes with a feature called "Safe Mode" which tries to ease security implications of virtual hosting or shared-server instances. Things like being able to read other user's datafiles and scripts is part of what Safe Mode guards against. There are a few <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> directives related to Safe Mode:
+</p>
+<ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode</span> <i>(0|1)</i> - whether or not to enable Safe Mode.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span> <i>(string)</i> - allows to set directories for including files (with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">include()</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">require()</span>, etc.). This can be more than one path, separated by colons. This restriction is by prefix, not complete path, unless you add a trailing slash at the end of the path.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_exec_dir</span> <i>(string)</i> - only allow programs in this directory to be called using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">system()</span> and other similar functions.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_allowed_env_vars</span> <i>(string)</i> - allows to define a comma-delimited list of what environment variables can be altered by users; string here is the prefix of the environment variables. By default, PHP only allows users to set environment variables that begin with PHP_ (ie. PHP_FOO=BAR).</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_protected_env_vars</span> <i>(string)</i> - allows to define a comma-delimited list of what environment variables a user cannot change, even if it should be allowed by <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_allowed_env_vars</span>.</li></ul>
+<h2><span class="mw-headline" id="Additional_Directives">Additional Directives</span></h2>
+<p>There are two more directives that can be set in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> that are very useful:
+</p>
+<ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">disable_functions</span> <i>(string)</i> - this allows you disable certain functions. It is a comma-delimited list of function names to disable. It is not affected by whether Safe Mode is on or off, and can only be set in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> <i>(string)</i> - this limits the files that can be opened by PHP to the specified directory tree, including the file itself. It is also not affected by whether or not Safe Mode is enabled. Like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, the string here is a prefix; to make it absolute, include the trailing slash of the directory path.</li></ul>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> is extremely useful because it can effectively "jail" scripts from operating on their own directories. It is essential to a web-sharing or virtual hosting system. For instance, assume you had the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com/html</span> as the base directory for the website somewhere.com. The user may wish to put files outside of the web tree, such as configuration files, etc. (for added security or to prevent casual exposure). You chroot them, via FTP, to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com</span> and they've created the subdirectory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">includes/</span>.
+</p>
+<pre>
+open_basedir /home/www/somewhere.com
+</pre>
+<p>This will allow the user to include files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">html/</span> (where the PHP scripts would live), and includes/ (where configuration data may live). Unlike <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openbase_dir</span> not only limits included files, but all files; it resolves symlinks and if they point to a file outside of the specified directory tree, it cannot be opened. This will work with system-type functions like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">fopen()</span> and others; essentially any function that tries to open a file on the local file system. You can make this a comma-delimited list so that you can have more than one directory specified.
+</p>
+<h2><span class="mw-headline" id="Setting_PHP_Configuration_Settings">Setting PHP Configuration Settings</span></h2>
+<p>There are a few ways you can set PHP configuration settings outside of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> is the global file to cover the entire system, so it should contain sane defaults, however some administrative options can be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> file or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files (for Apache).
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_value</span> <i>(name value)</i> directive will set the directive <i>name</i> to <i>value</i>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_flag</span> <i>(name on|off)</i> directive will set a boolean configuration directive, on or off. Both of these directives can be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files.
+</p>
+<p>The administrative equivalents, which can only be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> files, are <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_value</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_flag</span>, which take the same arguments and do the same thing except that they cannot be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files, and they cannot be overriden by <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> or virtualhost directives.
+</p>
+<h2><span class="mw-headline" id="A_VirtualHost_Example">A VirtualHost Example</span></h2>
+<p>Taking the following information, a reasonable template for an Apache VirtualHost directive may look like this:
+</p>
+<pre>
+&lt;VirtualHost 127.0.0.1&gt;
+DocumentRoot /home/www/somewhere.com/html
+ServerName somewhere.com
+ServerAlias www.somewhere.com
+php_admin_value open_basedir /home/www/somewhere.com/
+&lt;/VirtualHost&gt;
+</pre>
+<p>Then you may set something like the following in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>:
+</p>
+<pre>
+safe_mode On
+register_globals Off
+log_errors On
+display_errors Off
+error_log /var/log/php/errors
+</pre>
+<p>Also see the PHP manual for <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php">Functions restricted/disabled by safe mode</a> to see what else is affected when you enable Safe Mode.
+</p>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.php.net/">PHP Home</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure.">enable-force-cgi-redirect http://www.php.net/manual/en/install.configure. php#install.configure.enable-force-cgi-redirect</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php">Functions restricted/disabled by safe mode</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

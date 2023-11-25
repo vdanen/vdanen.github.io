@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Secure IRC: Authentication and Encryption - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/secure_irc_authentication_and_encryption">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="IRC (Internet Relay Chat) is an awesome means of real-time chat between individuals who share a common interest. There are many IRC servers on the internet; lots of places to find people to talk to. IRC clients exist for every operating system out there; IRC is universal. Unfortunately, it&#39;s also …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Secure IRC: Authentication and Encryption"/>
+    <meta property="og:url" content="https://annvix.com/secure_irc_authentication_and_encryption"/>
+    <meta property="og:description" content="IRC (Internet Relay Chat) is an awesome means of real-time chat between individuals who share a common interest. There are many IRC servers on the internet; lots of places to find people to talk to. IRC clients exist for every operating system out there; IRC is universal. Unfortunately, it&#39;s also …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Secure IRC: Authentication and Encryption</h1>
+        
+        <div class="entry-content">
+            <p>IRC (Internet Relay Chat) is an awesome means of real-time chat between individuals who share a common interest. There are many IRC servers on the internet; lots of places to find people to talk to. IRC clients exist for every operating system out there; IRC is universal.
+</p>
+<p>Unfortunately, it's also insecure. A company may decide to use IRC as a means for developers to communicate with each other, but if done improperly, communication will be transmitted on the internet in the clear. Things that may have been thought to have been said in private could very well make the next day's headlines on slashdot. Another problem is lack of authentication; while one can password-protect channels on an IRC server, it's difficult to entirely prevent access to an IRC server. Someone may not be able to get into any channels, but they can still connect to the server. Worse yet, if a channel is not password protected and no authentication mechanisms are in place, someone can sneak into a channel and silently eavesdrop on everything going on, without anyone knowing.
+</p>
+<p>Fortunately, the swiss-army knife that is known as SSH can come to the rescue even here. Using port forwarding in SSH, one can encrypt all traffic between client and server. Using ssh keys, the administrator of the server has complete control over who is able to connect to the server. Using some server-side configuration, this can all be done without the clients ever being able to connect and interact with a shell.
+</p>
+<p>The idea behind this came from the <a rel="nofollow" class="external text" href="http://www.ircsnet.net/">IRCS network</a>. The IRCS network uses IRC over SSL, which is certainly an option. The idea of using SSH came from a need to authenticate who was connecting to a server.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Compiling_the_IRC_Server"><span class="tocnumber">1</span> <span class="toctext">Compiling the IRC Server</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_the_IRC_Server"><span class="tocnumber">2</span> <span class="toctext">Configuring the IRC Server</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Setting_up_the_chroot_Environment"><span class="tocnumber">3</span> <span class="toctext">Setting up the chroot Environment</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Setting_up_the_SSH_Forwarder_Account"><span class="tocnumber">4</span> <span class="toctext">Setting up the SSH Forwarder Account</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Using_SSL"><span class="tocnumber">5</span> <span class="toctext">Using SSL</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#sslwrap"><span class="tocnumber">5.1</span> <span class="toctext">sslwrap</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#stunnel"><span class="tocnumber">5.2</span> <span class="toctext">stunnel</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Configuration_and_SSL_Keys"><span class="tocnumber">5.3</span> <span class="toctext">Configuration and SSL Keys</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#References"><span class="tocnumber">6</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Compiling_the_IRC_Server">Compiling the IRC Server</span></h2>
+<p>Download the IRC software from <a rel="nofollow" class="external free" href="ftp://ftp.irc.org/irc/server">ftp://ftp.irc.org/irc/server</a> (download <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">irc2.10.3p1.tgz</span>). You will also need the patch file: <a rel="nofollow" class="external text" href="http://ircs.segfault.net/ircs/irc2.10.3p1-sky01.diff">ircs.segfault. net/ircs/irc2.10.3p1-sky01.diff</a>.
+</p>
+<p>Once these are downloaded, untar the IRC server software into whatever directory you build source code in (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/src</span>). Apply the patch.
+</p>
+<pre>
+# cd /usr/local/src
+# tar xvzf irc2.10.3p1.tgz
+# cd irc2.10.3p1
+# patch -p1 &lt;../irc2.10.3p1-sky01.diff
+</pre>
+<p>What we will do here is setup the IRC server in a chroot environment to maximize security. The end result will be a chroot environment in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/chrooted/ircd</span>. Now configure it:
+</p>
+<pre>
+# ./configure --prefix=/home/chrooted/ircd
+</pre>
+<p>The next step is to add a user called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ircd</span> to the system, as well as a group by the same name. The default uid and gid the ircd software wants it 39, but you can change this if you have a pressing need to do so. Most individuals will be able to use that uid/gid pair withour problems.
+</p>
+<pre>
+# groupadd -g 39 ircd
+# mkdir /home/chrooted
+# useradd -u 39 -g 39 -d /home/chrooted/ircd -s /bin/sh -c &quot;chroot irc daemon&quot; ircd
+</pre>
+<p>Now you need to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">config.h</span> file that was generated during the configure stage. A new subdirectory will be in the current directory; on an Athlon running Mandrakelinux this directory was <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/src/irc2.10.3p1/i686-pc-linux-gnu/</span>. Change to this directory and use your favorite text editor to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">config.h</span>. This is basically the configuration file for your IRC server. The following are the important settings that should be modified (we show what they should be changed <b><i>to</i></b>). Be sure to go through the rest of the file to set any other preferences you wish.
+</p>
+<pre>
+#define CRYPT_OPER_PASSWORD
+#undef CRYPT_LINK_PASSWORD
+#define CHROOTDIR
+#if defined(CHROOTDIR)
+      #define ROOT_PATH   &quot;/home/chrooted/ircd&quot;
+#endif
+#define IRC_UID 39
+#define IRC_GID 39
+#define CLIENT_FLOORD   8000
+#define USE_SYSLOG
+#define NO_IDENT
+#define NO_PREFIX
+</pre>
+<p>The first define, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">CRYPT_OPER_PASSWORD</span> indicates that crypted passwords for operators will be used in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ircd.conf</span> file.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">CRYPT_LINK_PASSWORD</span> define (which, using undef, disables) indicates that encrypted passwords should not be stored in N-lines for server links.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">CHROOTDIR</span> define, and subsequent <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ROOT_PATH</span> define indicate that we want ircd chrooted to the specified path, in this case <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/chrooted/ircd</span>.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">IRC_UID</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">IRC_GID</span> defines indicate that the uid of ircd is 39, and the gid of ircd is 39.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">CLIENT_FLOOD</span> define tells the server to allow 8000 bytes allowed from the client to the server without processing before disconnecting the client for flooding it.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">USE_SYSLOG</span> define tells ircd to log to syslog. This should only be done if you actually run the host the ircd will be running on, or if you ask the sysadmin's permission. You can also fine-tune what gets sent to syslog with some additional defines (we won't go into that detail here, but it is documented in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">config.h</span>).
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">NO_IDENT</span> define indicates we don't want to support ident. By using SSH forwarding, all clients will appear to come from the localhost anyways, so this is not important.
+</p>
+<p>Finally, edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">Makefile</span> file and change the following:
+</p>
+<pre>
+LDFLAGS = -static
+</pre>
+<p>This indicates to the compiler that we want a statically compiled binary (a must in our chroot environment).
+</p>
+<p>Now you can compile the software. Do so by executing:
+</p>
+<pre>
+# make server
+# make install-server
+</pre>
+<p>The ircd server software is now installed in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/chrooted/ircd</span>.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_IRC_Server">Configuring the IRC Server</span></h2>
+<p>The next step is to configure ircd. This is done by the configuration file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/chrooted/ircd/etc/ircd.conf</span>. The following is an example configuration file; a file called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">example.conf</span> is installed with detailed explanations of all the fields.
+</p>
+<pre>
+M:irc.linsec.vx::irc.linsec.vx:6667
+A:irc.linsec.vx:admin@linsec.vx:linsec.vx server::
+P:127.0.0.1:::40200:
+Y:2:90:300:1:4000000
+Y:10:90::1000:512000:1024.1024:1024.1024
+Y:11:90::1000:512000:1024.1024:1024.1024
+Y:12:90::1000:512000:1024.1024:1024.1024
+Y:13:90::1000:512000:1024.1024:1024.1024
+I:127.0.0.1::::10
+I:127.0.0.1::::11
+I:127.0.0.1::::12
+O:127.0.0.1:mJQ3tS4XlFsbM:vdanen::10
+</pre>
+<p>Read the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">example.conf</span> file for an explanation of all fields. The above is a minimalistic setup that works (no, there is no such irc.linsec.vx IRC server). Of note, this indicates the server name is irc.linsec.vx, the administrator's email address is admin@linsec.vx and that it listens to port 40200 on the loopback interface (127.0.0.1). It also indicates that only clients coming from 127.0.0.1 are permitted to connect (the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">I:</span> lines).
+</p>
+<p>Finally the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">O:</span> line sets the IRC server operator. You can have as many of these lines as you like.
+</p>
+<h2><span class="mw-headline" id="Setting_up_the_chroot_Environment">Setting up the chroot Environment</span></h2>
+<p>The next step is to setup the chroot environment. Essentially, you need a mini "filesystem" in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/chrooted/ircd</span> for ircd to live in.
+</p>
+<p>The following is a step-by-step set of commands to build your chroot environment.
+</p>
+<pre>
+# cd /home/chrooted/ircd
+# ln -s . chrooted
+# ln -s . home
+# ln -s . ircd
+# ln -s . ircd-hybrid
+# ln -s . usr
+# mkdir bin
+# cd bin
+# ln -s ../sbin/ircd .
+# cd ..
+# mkdir dev
+# cd dev
+# mknod null c 1 3
+# chmod 666 null
+# cd ../etc
+# cp /etc/host.conf .
+# cp /etc/hosts .
+# cp /etc/nsswitch.conf .
+# cp /etc/resolv.conf .
+# ln -s ../var/run/ircd.pid .
+# cd ..
+# mkdir lib
+# cd lib
+# cp -av /lib/ld-* .
+# cp -av /lib/libc{-2,.so,rypt}* .
+# cp -av /lib/libdl* .
+# cp -av /lib/libm* .
+# cp -av /lib/libncurses.so.5* .
+# cp -av /lib/libnsl* .
+# cp -av /lib/libnss_* .
+# cp -av /lib/libresolv* .
+</pre>
+<p>A few notes: On a BSD system, when calling mknod to make the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">null</span> device, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">mknod null c 2 2</span> instead of that noted above, which is what you would use on a Linux system. Likewise, the libraries might be slightly different depending on your host operating system and the libraries installed on it. The above list is from a Mandrakelinux 9.0 system. To see a list of the typical files you will need, IRCS has a chrooted files list available (<a rel="nofollow" class="external text" href="http://ircs.segfault.net/ircs/chrooted_files.txt">chrooted_files.txt</a>). When copying files from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/lib</span>, you can do it wholesale, as illustrated, provided you use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-a</span> switch with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">cp</span>, which preserves symlinks. Doing a straight copy will follow the symlink and end up taking more room than necessary in the chroot.
+</p>
+<p>At this point, you should be able to start the ircd server. You can start the server many different ways, but one way is to throw it at the end of something like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.d/rc.local</span>; an initscript on Linux that starts last and is used for local system services. At the end of this file, start ircd by adding:
+</p>
+<pre>
+/home/chrooted/ircd/sbin/ircd -h `hostname` -q -c -s
+</pre>
+<p>The argument to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-h</span> is the hostname of the server; in this case we use the command <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">hostname</span> (included between back-ticks) to supply the server with the hostname of the machine we are running on.
+</p>
+<p>At this point, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">netstat</span> to make sure that it has started and is listening to the right port and interface:
+</p>
+<pre>
+# netstat -l --tcp -p|grep ircd
+tcp        0      0 localhost.localdo:40200 *:*                     LISTEN    962/ircd
+</pre>
+<p>This definitely indicates that ircd is listening only on the loopback interface and to port 40200, the very port we defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ircd.conf</span> earlier.
+</p>
+<h2><span class="mw-headline" id="Setting_up_the_SSH_Forwarder_Account">Setting up the SSH Forwarder Account</span></h2>
+<p>This is extremely simple. Create a new user account on the system, perhaps ircgroup. For a shell, you may wish to use something like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/bin/rbash</span> (restricted bash). It is not the be-all and end-all of secure shells, but it's a good start considering we really don't intend to let anyone get a shell prompt to begin with.
+</p>
+<p>The premise here is that the system does not accept password authentication. So before doing anything else, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh/sshd_config</span> and set:
+</p>
+<pre>
+PasswordAuthentication no
+</pre>
+<p>Now restart sshd. At this point, the only someone can connect to your server is by using ssh keys. Perhaps before restarting the server, ensure you've created a keypair for yourself and have properly installed it on the server.
+</p>
+<p>Edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~ircgroup/.ssh/authorized_keys</span>; this file will contain the ssh public keys of the users we wish to allow to connect to the IRC server. The file should look like this for each key:
+</p>
+<pre>
+command=&quot;sleep 20&quot; ssh-dss [key]
+</pre>
+<p>The command here is to call the program <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sleep</span>, which will hold the connection open for 20 seconds. More than long enough for someone to connect with an IRC client. The [key] is the public key of the user you are authorizing to connect.
+</p>
+<p>In ircgroup's home directory, copy <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/bin/sleep</span>. This is the file that will be called by the command string in our <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">authorized_keys</span> file.
+</p>
+<p>On the client side, the end user who will be connecting to the system should modify their <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.ssh/config</span> file. This isn't necessary, but adds a level of convenience for the end user. Their file may look something like this:
+</p>
+<pre>
+Host privateirc
+  Hostname irc.linsec.vx
+  User ircgroup
+  LocalForward 6667 localhost:40200
+</pre>
+<p>Finally, for the end user to connect to our protected IRC server, they should have their IRC client open and define a new server as "localhost:6667", giving it whatever name they prefer. Essentially, you want the client to connect to port 6667 on the localhost, which is our side of the SSH tunnel. To start the tunnel, the user should execute:
+</p>
+<pre>
+$ ssh -f privateirc foo
+</pre>
+<p>In the above, "foo" is some arbitrary text. No matter what they type, the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sleep</span> command will always be executed, provided that you, as the administrator, ensure that each key is prefixed with that command. So here, the user is opening up a connection to "privateirc", an alias in their <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.ssh/config</span> file, which in turn creates an encrypted tunnel from port 6667 on the localhost to port 40200 on the remote system's localhost. At this point, the user has 20 seconds to connect to port 6667 on the localhost before ssh closes the tunnel.
+</p>
+<p>Once the user has done so, they will be successfully connected to your IRC server, protected via an encrypted tunnel, and authenticated via their private SSH key.
+</p>
+<p>The really nice thing about this method, as opposed to using strictly SSL encryption, is that the administrator of the server has full control over who obtains access in the first place. If a user is no longer wanted on the server, the admin simply has to remove their SSH public key from the ircgroup user's <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">authorized_keys</span> file and that individual will have no access to the system at all. And by using keys, you're not handing out a password for the ircgroup system user. Not that they would be able to use it even if you did as password authentication <b><i>really</i></b> should be turned off.
+</p>
+<h2><span class="mw-headline" id="Using_SSL">Using SSL</span></h2>
+<p>If you do not need the authentication aspect of a secure IRC server, you can also wrap everything in SSL. There are two ways this can be accomplished. One is to wrap the service in SSL using a program called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sslwrap</span>, however this method is primarily useful if you plan to run your IRC from inetd, a perhaps unefficient way to do it. The other is to use a program called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">stunnel</span> which will run standalone, and listen for incoming connections to hand off to ircd, all the while encrypting traffic. Stunnel is the better choice, but we'll cover both.
+</p>
+<h3><span class="mw-headline" id="sslwrap">sslwrap</span></h3>
+<p>To use sslwrap, you will need to download the source code from <a rel="nofollow" class="external text" href="http://www.quiltaholic.com/rickk/sslwrap/">www.quiltaholic.com/rickk/ sslwrap/</a> and build it. On a Mandrakelinux 9.1 system, some changes were required to make it compile; other systems may or may not require these steps:
+</p>
+<pre>
+# cd /usr/local/src
+# tar xvzf sslwrap.tar.gz
+# cd sslwrap206
+# perl -pi -e 's/OPENSSL\&quot;/\&quot;openssl\//g;' *
+# make
+</pre>
+<p>The end result is the binary <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sslwrap</span> file in the current directory. The above bit of perl magic changed the define location for OpenSSL&lt;/noop&gt; as the define did not properly work on a Mandrakelinux 9.1 system. Again, on others you may be able to do this without change. It also assumes that your OpenSSL&lt;/noop&gt; libraries and header files are either in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/include/openssl</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/lib/openssl</span> or else in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/ssl/include/openssl</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/ssl/lib/openssl</span>. If this is not the case, modify the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">Makefile</span> to suit your system. Now install the binary somewhere in your path; ie:
+</p>
+<pre>
+# install -m755 sslwrap /usr/bin
+</pre>
+<h3><span class="mw-headline" id="stunnel">stunnel</span></h3>
+<p>If you've chosen to use stunnel, download the source from <a rel="nofollow" class="external text" href="http://www.stunnel.org/">www.stunnel.org</a> and build it:
+</p>
+<pre>
+# cd /usr/local/src
+# tar xvzf stunnel-4.04.tar.gz
+# cd stunnel-4.04
+# ./configure --prefix=/usr/local/stunnel
+# make
+# make install
+</pre>
+<p>This will install stunnel into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/stunnel</span>. During the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">make install</span> stage you will be asked for information to create an initial certificate file.
+</p>
+<h3><span class="mw-headline" id="Configuration_and_SSL_Keys">Configuration and SSL Keys</span></h3>
+<p>Everything that follows is common for stunnel and sslwrap.
+</p>
+<p>Once this installed, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/services</span> and add the line:
+</p>
+<pre>
+ircs            994/tcp
+ircs            994/udp
+</pre>
+<p>if it is not already in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/services</span> file.
+</p>
+<p>You will now need to create an SSL certificate file to be used with your IRC server. If you don't already have an RSA key, you can create one using:
+</p>
+<pre>
+# openssl genrsa -out newkey.pem 2048
+</pre>
+<p>The next step is to create a certificate request:
+</p>
+<pre>
+# openssl req -new -key newkey.pem -out newreq.pem -days 9999
+</pre>
+<p>At this point you can send the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">newreq.pem</span> to an official Certificate Authority to be signed, or you can use your own CA to sign it.
+</p>
+<p>Assuming the returned, signed, certificate file is called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">newcert.pem</span> use the following to create your final server key:
+</p>
+<pre>
+# cat newkey.pem newreq.pem newcert.pem &gt;/usr/local/ssl/certs/ircs_myserver.pem
+</pre>
+<p>This of course assumes you want your certificate stored in the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/ssl/certs</span>; you are free to use any directory you wish. Just ensure that you use the appropriate path in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">inetd.conf</span> configuration, as illustrated above, and in your stunnel commandline, illustrated below.
+</p>
+<p>Next, if you've chosen to use sslwrap, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inetd.conf</span> and add:
+</p>
+<pre>
+ircs stream tcp nowait  nobody.nogroup /usr/sbin/tcpd /usr/bin/sslwrap -cert /usr/local/ssl/certs/ircs_myserver.pem -port 40200
+</pre>
+<p>If you plan to use stunnel, you will be running it standalone. You will want to add the following to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.d/rc.local</span> (or similar) file prior to the line that starts ircd:
+</p>
+<pre>
+/usr/local/stunnel/sbin/stunnel /usr/local/stunnel/etc/stunnel/ircs.conf
+</pre>
+<p>There are a few more steps to take before you can launch stunnel. You will need to create a directory for it to write it's PID (Process ID) file; we'll use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/stunnel/var</span>:
+</p>
+<pre>
+# mkdir /usr/local/stunnel/var
+# chown nobody.nogroup /usr/local/stunnel/var
+</pre>
+<p>You will also need to create a configuration file for stunnel to use. We'll create a new file called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/stunnel/etc/stunnel/ircs.conf</span> and it should have the following contents:
+</p>
+<pre>
+cert = /usr/local/stunnel/etc/stunnel/ircs_myserver.pem
+pid = /usr/local/stunnel/var/stunnel-ircs.pid
+
+setuid = nobody
+setgid = nogroup
+
+service = ircs
+
+[ircs]
+accept  = 994
+connect = 40200
+</pre>
+<p>This tells stunnel the location of our certificate file, the location of our PID file, who to run the service as (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nobody.nogroup</span>), that the service we are offering is ircs and that we are to accept incoming connections on port 994 and connect to port 40200 on the localhost (the port we chose when configuring ircd).
+</p>
+<p>In our illustration, we are running both sslwrap and stunnel as the user <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nobody</span> and the group <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nogroup</span>. You can certainly change this (ie. use a user/group of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ssl</span> or something similar). Modify the above illustrations to suit your setup. Be sure that <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">ircs_myserver.pem</span> (your SSL key) is owned by the user and group that will be running sslwrap or stunnel. Also ensure the permissions on the key file are mode 0600.
+</p>
+<p>In both cases, the end client will have to connect to port 994 on your server. You should firewall off port 40200 (in our example, normally IRC runs on port 6667) so they cannot connect to the server without the benefit of using SSL. Some IRC clients understand SSL and connect to port 994 without any help, others will require that the client first establish a tunnel using stunnel on the client side.
+</p>
+<p>At this point, you should restart inetd or fire up stunnel and test your setup. If all is well, you'll have SSL-wrapped IRC conversations that are more difficult to eavesdrop on. However, for the best protection, using SSH as a "frontend" to IRC should be used as it provides both encryption and authentication, whereas SSL only provides encryption.
+</p>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.ircsnet.net/">IRCS homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="ftp://ftp.irc.org/irc/server">ftp.irc.org/irc/server</a></li>
+<li> <a rel="nofollow" class="external text" href="http://ircs.segfault.net/ircs/irc2.10.3p1-sky01.diff">ircs.segfault.net/ircs/irc2.10.3p1-sky01.diff</a></li>
+<li> <a rel="nofollow" class="external text" href="http://ircs.segfault.net/ircs/chrooted_files.txt">ircs.segfault.net/ircs/chrooted_files.txt</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.quiltaholic.com/rickk/sslwrap/">sslwrap homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.stunnel.org/">stunnel homepage</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

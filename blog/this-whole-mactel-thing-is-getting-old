@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>This whole "MacTel" thing is getting old... - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/blog/this-whole-mactel-thing-is-getting-old">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="I hate to add to the noise that&#39;s going on about Apple&#39;s move from PPC to x86, but it&#39;s just starting to irritate me so much. I can&#39;t believe that people are so stupid and/or blind! The death of Linux? Come on. Microsoft might like us to believe that …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="This whole &#34;MacTel&#34; thing is getting old..."/>
+        <meta property="og:url" content="https://annvix.com/blog/this-whole-mactel-thing-is-getting-old"/>
+        <meta property="og:description" content="I hate to add to the noise that&#39;s going on about Apple&#39;s move from PPC to x86, but it&#39;s just starting to irritate me so much. I can&#39;t believe that people are so stupid and/or blind! The death of Linux? Come on. Microsoft might like us to believe that …"/>
+        <meta property="article:published_time" content="2005-06-20" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://annvix.com/blog/this-whole-mactel-thing-is-getting-old"
+                       rel="bookmark"
+                       title="Permalink to This whole "MacTel" thing is getting old...">
+                        This whole "MacTel" thing is getting old...
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://annvix.com/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2005-06-20T20:01:00-06:00"> Mon 20 June 2005</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>I hate to add to the noise that's going on about Apple's move from PPC to x86, but it's just starting to irritate me so much.  I can't believe that people are so stupid and/or blind!  The death of Linux?  Come on.  Microsoft might like us to believe that, but it's just more FUD.  Will Apple steal marketshare from Linux now that OS X will run on x86?  Puhlease.  Only an idiot would think so.  Want to know why?  Because Linux on the desktop doesn't have that much marketshare to steal!  And OS X for servers?  Come on, that's only for the clueless who need Apple's (albeit very very nice) hand-holding administration software (yes, the Linux crowd could do well to emulate some of the tools found in OS X Server).  Anyone who has read any performance benchmarks on any apps requiring threading is likely to run screaming in the other direction.</p>
+<p>So where will Apple be stealing marketshare from?  Well, the obvious answer is Windows.  I don't think it'll steal marketshare from Linux because a) there isn't a lot there to begin with (IIRC, I read somewhere not to long ago that Linux is estimated to have 6% of the desktop market), and b) the people who use Linux on the desktop have chosen to for a reason and likely won't be swayed over to OS X.  They <i>might</i> be moved from their Dell PC to an Apple desktop machine, sure, but unless Apple lowers it's prices some, I doubt that unless it's for the geeks who like shiny toys, not the zealous who prefer free beer <i>and</i> free speach.</p>
+<p>The "MacTel" (what a stupid name) will be a nice system, absolutely.  Apple has refinements to their hardware that makes other PC makers drool.  I saw in a London Drugs flyer not too long ago Sony's attempt at an iMac-like system which essentially looked like a goofy LCD screen slapped onto a sideways-slanting compaq desktop (you know the old thin(ish) ones meant to sit on the desk).  It looked absolutely ridiculous.  It amazes me that Apple can come up with this stuff and the people who try to emulate it do such a crappy job.  I mean, Apple has some really smart folks there doing their hardware design, but I can't believe that the people who have the same job at Sony can dish out cobbled-together looking junk and think it's good enough to sell, much less compete.</p>
+<p>Anyways, wandering...  Oh yeah.  The beautiful thing about the new x86 mac machines is that you'll be able to triple boot OS X, Windows, and Linux.  I don't blame Apple for locking OS X to their hardware... they are a hardware manufacturer after all.  Moving to the x86 platform is almost guaranteed to double their hardware sales at a <i>minimum</i>.  I know too many people who have drooled over mac hardware but were put off because of the "bubblegum" look of OS X, or they just didn't like OS X as an OS.  And that's fine.  But now these people can buy the mac hardware they've dreamed of and still run their favourite OS, no matter <i>what</i> it is... could be Windows, Linux, FreeBSD, OpenBSD, heck even BeOS.  The choice is limitless.</p>
+<p>The conjecture about Apple restricting their machines from booting Windows is equally silly.  Do people not realize that by making an "open" (sorta) system that will boot Windows, they'll sell tonnes more hardware?  Absolutely OS X is a killer desktop system, but that doesn't change the fact that sometimes I need to boot into Windows to get my EQ fix, or that someone has spent a few thousand dollars in software required for work or play that just would be too costly to re-purchase as an OS X-native app, <i>if</i> that's even an option.  But now these people can continue to run Windows, but run it on a mac.  How cool is that?  And how many more sales is that going to put under Apple's belt since that will be a viable (if unsupported) option?</p>
+<p>I think the last straw was reading this opinion piece here: <a href="http://www.xyzcomputing.com/index.php?option=content&task=view&id=366&Itemid=26&limit=1&limitstart=0">MacTel: A Disaster for Linux?</a>.  The guy has a few decent points, but he still doesn't get it.  I think the problem is that too many journalists just don't understand Linux, or the whole OSS movement.  He disagrees with the fact that people will stop developing OSS for Linux and instead develop it for OS X, to some extent, but he by and large doesn't seem to get the fact that stuff is rarely developed "for Linux".  The things that make Linux popular weren't written "for Linux".  The OSS developers out there don't develop "for Linux".  There aren't any Linux developers to steal because they weren't there in the first place!  The only "Linux developers" are the folks working on the kernel and those developers of proprietary software specifically targetted at Linux (and even then, many of those apps are cross-platform).</p>
+<p>These Linux developers that people are afraid Apple is going to steal don't exist, so there's nothing to steal.  Was Apache written for Linux?  Nope.  Samba?  Nope.  KDE?  Not really.  All of these programs run on FreeBSD, OpenBSD, they even already run on OS X!  So what is all this worry?  That people are going to stop writing QT or GTK apps because they can write for Aqua now?  I have news for people... Apple's X11 exists, works quite well, and projects like Fink provide a large number of desktop packages written "for Linux" in the OS X environment.  Yes, sometimes there is a challenge writing code portable enough to run on x86, x86_64, PPC, PPC64... but this is nothing new... this has been happening with Sparc, Alpha, and many other platforms long before OS X came around.  Most OSS software is already cross-platform... more often than not, a few tweaks and a recompile and it's running on a different platform than what the author wrote it for.  And PPC isn't going to be forgotten by any Linux developers.  Remember who's sinking millions into Linux?  Yup, the same guys selling the POWER chips.  That's all PPC as well.  You think IBM is going to stop selling POWER-based systems now that Apple isn't using their CPUs?  Get a grip.  Yellowdog is still committed to the PPC platform.  Linux on PPC/POWER is viable and has support.  It isn't going away.  Anyone know about the Linux for XBOX projects?  Yup, it will probably carry on with the XBOX 360 (that is such a <i>sweet</i> target to hack!), and it's also PPC-based.  Linux for PPC is going absolutely <i>nowhere</i>.</p>
+<p>I don't get it.  All this conjecture, all this really silly speculation, and it boils down to a few essential things.  Will Apple steal marketshare now that it's going to be running on x86 software?  Absolutely.  But it'll be people fed up with Windows and viruses and spyware and adware and all the other junk that makes Windows an absolute hell to use.  It's not going to be people who already use a Linux desktop that is free from all of these problems and that provides literally thousands of applications.  These apps can't be taken away from us, and if a developer stops working on it, someone else can pick it up.  And you know what?  They won't be stopping working on it because they all of a sudden have an urge to write an Aqua app because they bought a new "MacTel" because the first thing they will do is modify their program to work on OS X <i>in addition to the other OS's and platforms it already supports</i>.  Do I see more OS X native software to work in conjunction with these apps?  Sure.  More Aqua frontends?  Absolutely.  But they won't replace what's already there, and it won't stifle new innovation and programs.  Projects like KDE aren't just going to up and die because people are using macs now.  With Fink, they can still develop KDE and use it <i>with</i> Aqua.  It can be done... I've done it.</p>
+<p>This is all just so irritating...  we have no idea what will happen, but every day someone comes out with a new idea or thought that is just as ludicrous as yesterday's brain fart of the day.  People just don't get it and it's almost enough to make you scream!  =)</p>
+<p>Frankly, I just think it's going to rock that I can have one powerbook to carry around running XP, Mandriva, Annvix (for testing), and OS X rather than carrying around both my current powerbook and my compaq x86_64 laptop.  I'm all for this move and can't wait for some faster, more powerful, and most importantly 64bit laptops to roll out of Cuppertino.  I use what I use when I need it and where I need it, and in some cases Linux does a better job, in most (for me, for my desktop) OS X does a better job, and in one case (EQ) Windows does it best.  It's called the right tool for the right job and I love that in two years I will have so much flexibility I won't know what do with myself.</p>
+<p>They're going to have to start coming out with some much larger-sized laptop hard drives.  <i>That</i> is what people should be worrying about.</p>
+<p>Oh, and the one seriously huge plus about OS X running on x86?  VMware.  None of this VirtualPC slow-as-slugs stuff.  I am dying for the day to get an OS X-native VMware that I can fire up my two dozen virtual machines (Linux, *BSD, Windows) and work with it on a mac.  It gives me shivers just thinking about it.</p>
+<p>Did I mention we're going to need much larger-sized laptop drives?</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

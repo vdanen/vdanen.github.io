@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using djbdns with Mandrakelinux - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/using_djbdns_with_mandrakelinux">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Like qmail, djbdns is open source but has a restrictive license which makes distributing it a trifle difficult for many vendors. However, it is distributable in binary form if you follow the license and the packager assures to the best of their ability that the binary package works well and …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using djbdns with Mandrakelinux"/>
+    <meta property="og:url" content="https://annvix.com/using_djbdns_with_mandrakelinux"/>
+    <meta property="og:description" content="Like qmail, djbdns is open source but has a restrictive license which makes distributing it a trifle difficult for many vendors. However, it is distributable in binary form if you follow the license and the packager assures to the best of their ability that the binary package works well and …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Using djbdns with Mandrakelinux</h1>
+        
+        <div class="entry-content">
+            <p>Like qmail, <a rel="nofollow" class="external text" href="http://cr.yp.to/djbdns.html">djbdns</a> is open source but has a restrictive <a rel="nofollow" class="external text" href="http://cr.yp.to/distributors.html">license</a> which makes distributing it a trifle difficult for many vendors. However, it is distributable in binary form if you follow the license and the packager assures to the best of their ability that the binary package works well and conforms to the default and recommended installation instructions from the main site.
+</p>
+<p>Because of this, MandrakeSoft is unable to ship djbdns directly. However, I have been maintaining a djbdns RPM package since March of 2001 that will run under Mandrakelinux. This does not mean that djbdns is any more difficult to install than any other package for Mandrakelinux. In fact, if you download a special RPM called <b>djbsupport</b>, you will be able to easily install djbdns and other DJB software with a single command.
+</p>
+<p>For those not sure of what djbdns is, it is a DNS server similar to <a rel="nofollow" class="external text" href="http://www.isc.org/products/BIND/">BIND</a> which is distributed as part of the Mandrakelinux distribution, and many other distributions as well. It is a drop-in replacement for BIND that is much more secure. With the recent and not-so-recent vulnerabilities persistent in the BIND software, many people are looking for alternatives. As well, many others believe that no alternatives exist. They are resigned to running buggy and broken software falsely believing that they don't have a choice. For the longest time perhaps this was the case, but it isn't anymore. The djbdns packages provide a full DNS server (like BIND), and also a caching nameserver (djbdns-extcache and djbdns-localcache) which are replacements for the caching-nameserver package for Mandrakelinux which act as an external or local caching DNS server. If you're not convinced about djbdns' security, you should know that there has never been a verified security hole in djbdns and the author even offers a reward if you find one with his <a rel="nofollow" class="external text" href="http://cr.yp.to/djbdns/guarantee.html">security guarantee</a>.
+</p>
+<p>The djbdns package is built and maintained by Vincent Danen for use on Mandrakelinux systems. I assure you, the packages were built with a few things in mind: stability, easy configuration, and conforming to the license.
+</p>
+<p><b>NOTE:</b> I changed <i>one</i> thing in the package that is not standard to the install instructions on the djbdns website. On the website, the default standard location for service files is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc</span> (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/dnscachex</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tinydns</span>, etc.). To make <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc</span> (or the service monitor, which is a part of the daemontools packages) aware of these services, you must symlink <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tinydns</span> to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/tinydns</span>. I did not think this was appropriate because logging information, configuration information, and so forth is stored in sub-directories beneath these files. It's fine for configuration, but not good for variable and logging data. As a result, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tinydns</span> (and the other services like dnscachex and axfrdns) were re-located to a special directory called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/tinydns</span> (and so on). This makes more sense because <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var</span> is a good place for transient data like logs. Because of this, if you are looking at instructions on the djbdns website, keep in mind that when they talk about <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tinydns</span>, if you install the RPMs, you should be using <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/tinydns</span>. Likewise, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> directory is located in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/service</span>. This was to make it easier to control djbdns as a separate process from other programs using svc, like qmail. However, to retain compatability with the author's distribution license, symlinks are created in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> for djbdns control, and symlinks are created in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc</span> that point to the appropriate location.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installing_djbdns"><span class="tocnumber">1</span> <span class="toctext">Installing djbdns</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_djbdns-extcache"><span class="tocnumber">2</span> <span class="toctext">Configuring djbdns-extcache</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_djbdns-localcache"><span class="tocnumber">3</span> <span class="toctext">Configuring djbdns-localcache</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_djbdns"><span class="tocnumber">4</span> <span class="toctext">Configuring djbdns</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Resources"><span class="tocnumber">5</span> <span class="toctext">Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installing_djbdns">Installing djbdns</span></h2>
+<p>The first step is to decide what you need. There are three djbdns packages available: djbdns is the full DNS server; djbdns-localcache is a caching nameserver for the local machine only; djbdns-extcache is a caching nameserver for external machines. If you want to run an external caching nameserver (ie. use one DNS server for your LAN), you will want to install djbdns-extcache. If you want a caching nameserver for the local host only, then you should install djbdns-localcache. If you want to setup a full DNS server, you will want to install both djbdns and djbdns-localcache. The djbdns package itself does not do any DNS lookups, so the DNS server you are setting up will either have to use an external server for DNS lookups, or a local-only caching nameserver. The reasoning behind this is the author's belief that a full DNS server should never double as an external caching nameserver (unlike BIND and some other DNS server packages). The djbdns and djbdns-extcache packages intentionally conflict because they cannot be used together unless you bind the nameserver to one interface (ie. eth0) and the external caching nameserver to another interface (ie. eth1). Because they are two different services, they will compete for the same interface if you attempt it, and only one service will be able to bind to it.
+</p>
+<p>The easiest way to install djbdns is to use the <b>djbsupport</b> package that is a simple wrapper for urpmi. You can obtain it from ftp.rpmhelp.net/pub/[version]/djbsupport/. Packages are provided for 7.2, 8.0, 8.0/ppc, and 8.1.
+</p>
+<p>You don't have to install <b>djbsupport</b> if you don't want to. All it does is execute the following as root:
+</p>
+<pre>
+# urpmi.addmedia qmail ftp://ftp.rpmhelp.net/pub/Mandrake/djbware/[ver]/RPMS \
+ with ../base/hdlist.cz
+</pre>
+<p>Replace [ver] with the version of Mandrakelinux you are using (7.2, 8.0, ppc/8.0, or 8.1). Cooker users can use 8.1.
+</p>
+<p>Once you have <b>djbsupport</b> installed or have used the above commandline to add ftp.rpmhelp.net to your urpmi mediums, execute:
+</p>
+<pre>
+# rpm -e bind caching-nameserver
+# urpmi djbdns
+</pre>
+<p>Replace djbdns with djbdns-extcache or djbdns-localcache, depending on your needs. This will remove BIND and the caching-nameserver package from your system and will install your selected djbdns package, along with daemontools and ucspi-tcp, which are required to run djbdns.
+</p>
+<h2><span class="mw-headline" id="Configuring_djbdns-extcache">Configuring djbdns-extcache</span></h2>
+<p>The installer should configure djbdns-extcache to work properly on your system. You should only have to start djbdns (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/djbdns start</span>) and point <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/resolv.conf</span> to your IP address to have a fully-functioning caching nameserver. Note that by default it allows connections to any IP addresses in your network (ie. if your IP address is 192.168.5.10, it will allow connections from any 192.168.5.* IP address).
+</p>
+<p>If you want to change this to further restrict or allow access to your external caching nameserver, you can do so by creating 0 byte files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/dnscachex/root/ip</span>. For instance, to allow the 192.168.25.* network you would do: <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">touch /var/djbdns/dnscachex/root/ip/192.168.25</span>. If you wanted to allow a single host (let's say 152.12.34.21), you would do: <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">touch /var/djbdns/dnscachex/root/ip/152.12.34.21</span>. You will need to restart djbdns after making this kind of change.
+</p>
+<h2><span class="mw-headline" id="Configuring_djbdns-localcache">Configuring djbdns-localcache</span></h2>
+<p>If you installed djbdns-localcache, you will have a local-only caching nameserver that is pre-configured. All you need to do is edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/resolv.conf</span> and tell it to use 127.0.0.1 as the nameserver and then start djbdns.
+</p>
+<h2><span class="mw-headline" id="Configuring_djbdns">Configuring djbdns</span></h2>
+<p>When you install djbdns for the full DNS server, the installer makes a few educated guesses to configure your system. It will not work right out of the box, however! You will need to configure it further on your own to ensure it works properly. We will take a look at those steps and how to accomplish them with these RPMs. The instructions are basically the same as the <a rel="nofollow" class="external text" href="http://cr.yp.to/djbdns/frombind.html">Upgrading from BIND</a> pages written by the author.
+</p>
+<p>The installer will set your system up with some defaults. It will try to obtain your system's internet IP address from eth0 and configure tinydns with it. If this is not correct, you will need to remove the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/tinydns</span> directory and re-create it with the proper IP address by using:
+</p>
+<pre>
+# /usr/bin/tinydns-conf tinydns dnslog
+# /var/djbdns/tinydns [your_IP_address]
+</pre>
+<p>You will need to do the same for axfrdns (which negotiates zone transfers) by removing the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/axfrdns</span> directory and re-creating it with the proper IP address by using:
+</p>
+<pre>
+# /usr/bin/axfrdns-conf axfrdns dnslog /var/djbdns/axfrdns
+# /var/djbdns/tinydns [your_IP_address]
+</pre>
+<p>You can also define what systems are allowed to perform zone transfers on your system. This is accomplished by editing the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/axfrdns/tcp</span> file. By default it looks something like this:
+</p>
+<pre>
+192.168.1.12.:allow
+:allow,AXFR=
+</pre>
+<p>The installer uses the IP address of eth0 in the place of the 192.168.1.12 address noted in the example. If that IP address is incorrect, you will need to modify the file and then recompile the hash database by issuing:
+</p>
+<pre>
+# cd /var/djbdns/axfrdns
+# make
+</pre>
+<p>If you are running a network and replacing two BIND servers (a primary and secondary), you can do the same with djbdns. Install the RPMs on both systems and chose which will be the primary. On the primary nameserver, edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/tinydns/root/Makefile</span> file. By default, the commands to perform zone transfers from the primary to secondary servers is disabled. djbdns uses rsync over ssh to perform the transfer. This is odd, but efficient. Uncomment the following lines in the Makefile and change the IP address as appropriate:
+</p>
+<pre>
+remote: data.cdb
+       rsync -az -e ssh data.cdb 192.168.1.13:/var/djbdns/tinydns/root/data.cdb
+</pre>
+<p>Change the above example 192.168.1.13 IP address to that of your secondary DNS server. Now, whenever you run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">make remote</span> it will transfer the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">data.cdb</span> file (which is the compiled data file) to your secondary server. To automate this, edit your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/cron.daily/djbdns</span> cronjob file and uncomment the following line:
+</p>
+<pre>
+#make remote &gt;/dev/null
+</pre>
+<p>Now every day the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">data.cdb</span> file will be sent to your secondary nameserver.
+</p>
+<p>On the secondary nameserver system, edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/djbdns/tinydns/root/Makefile</span> file and make sure it contains only the "9" number in the file. This tells make to exit. You need to do this to ensure make doesn't change the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">data.cdb</span> file since it is generated on the primary system.
+</p>
+<p>The final step is to start djbdns itself. For more configuration techniques, refer to the djbdns web resources.
+</p>
+<p>Finally, you can start djbdns by using:
+</p>
+<pre>
+# /etc/rc.d/init.d/djbdns start
+</pre>
+<p>After configuration, you should have a fully working DNS server. At this point, you should have removed BIND from your system and are able to enjoy a nice and secure DNS server instead, without the fear of compromise usually attributed to those running BIND. =) Man pages are included in the package and are located in the standard man page locations (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/share/man</span>).
+</p>
+<h2><span class="mw-headline" id="Resources">Resources</span></h2>
+<p>Here are a few resources to help you configure DNS data with djbdns (as the configuration files are quite different from BIND):
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://cr.yp.to/djbdns.html">djbdns homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://cr.yp.to/djbdns/tinydns-data.html">tinydns data structure</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.djbdns.org/">A third-party djbdns homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.lifewithdjbdns.org/">Life with djbdns</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

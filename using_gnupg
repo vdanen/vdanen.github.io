@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using GnuPG - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/using_gnupg">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="NOTE: This section was originally written by Vincent Danen as a piece for the MandrakeSecure website. GnuPG, the GNU Privacy Guard, is the open source equivalent to PGP, or Pretty Good Privacy, which has been available for Windows, DOS, and some other operating systems for many years. It has all …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using GnuPG"/>
+    <meta property="og:url" content="https://annvix.com/using_gnupg"/>
+    <meta property="og:description" content="NOTE: This section was originally written by Vincent Danen as a piece for the MandrakeSecure website. GnuPG, the GNU Privacy Guard, is the open source equivalent to PGP, or Pretty Good Privacy, which has been available for Windows, DOS, and some other operating systems for many years. It has all …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Using GnuPG</h1>
+        
+        <div class="entry-content">
+            <p><i><b>NOTE:</b> This section was originally written by Vincent Danen as a piece for the MandrakeSecure website.</i>
+</p>
+<p>GnuPG, the GNU Privacy Guard, is the open source equivalent to PGP, or Pretty Good Privacy, which has been available for Windows, DOS, and some other operating systems for many years. It has all the same features, based on the OpenPGP standard. The uses for GnuPG (or GPG) are varied: It can be used to encrypt email messages and files, or to digitally sign email messages and files. The first use is obvious, encrypting emails or files on your hard drive maintains the privacy and integrity of sensitive messages or documents. The latter is extremely useful to maintain the integrity of messages and files, especially when transmitting over insecure networks. It certifies that a) the email was sent by whomever claims to have sent it, and b) that a file has not been tampered with.
+</p>
+<p>Using GPG is very easy and straightforward. It is a text-based command line tool, but there are frontends to GPG that make it even easier to use. The whole premise of GPG is PKI, or Public Key Infrastructure. What this means is that GPG is based upon a two-key system, a private key used to sign and encrypt, and a public key used to decrypt and verify.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Generating_a_Key"><span class="tocnumber">1</span> <span class="toctext">Generating a Key</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_GnuPG_to_Sign.2FEncrypt"><span class="tocnumber">2</span> <span class="toctext">Using GnuPG to Sign/Encrypt</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Using_GnuPG_to_Digitally_Sign_Files"><span class="tocnumber">3</span> <span class="toctext">Using GnuPG to Digitally Sign Files</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Importing_and_Managing_GPG_Keys"><span class="tocnumber">4</span> <span class="toctext">Importing and Managing GPG Keys</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Creating_a_Web_of_Trust"><span class="tocnumber">5</span> <span class="toctext">Creating a Web of Trust</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Revoking_a_GPG_Key"><span class="tocnumber">6</span> <span class="toctext">Revoking a GPG Key</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#GPG_Signatures_in_RPM_Files"><span class="tocnumber">7</span> <span class="toctext">GPG Signatures in RPM Files</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#References"><span class="tocnumber">8</span> <span class="toctext">References</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Public_Keyservers"><span class="tocnumber">8.1</span> <span class="toctext">Public Keyservers</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Generating_a_Key">Generating a Key</span></h2>
+<p>To begin using GPG, you must generate a key-pair. This is extremely easy to do. On the command line, execute:
+</p>
+<pre>
+$ gpg --gen-key
+</pre>
+<p><br />
+If you've never used GPG before, the first thing it will do is create a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg</span> directory with a default <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg/options</span> file. You will need to re-run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">--gen-key</span> command to generate the key. On the subsequent run, it will create your two keyrings: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg/secring.gpg</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg/pubring.gpg</span>. You will then be asked for what kind of key you want: DSA and ElGamal, DSA, or ElGamal. The first is the default, and makes use of every feature of GPG. The DSA key is used to sign only, and ElGamal can be used to sign and encrypt. In almost every case, you will want to select DSA and ElGamal.
+</p>
+<p>You will then be asked for what keysize you want. The default keysize is 1024 bits, which is a pretty good encryption size, and is generally the most commonly used. You can select any size you like: 2048 for some added security (makes it virtually impossible to crack or fake), you can even select a keysize of 4096 although it isn't listed. A key size that large makes GPG slower to use and your public key very large. I recommend selecting 1024 or 2048; the choice is entirely up to you.
+</p>
+<p>The next step is to set an expiry on your key. Some people prefer to have their key never expire and select 0. Others like to generate a new key every year, and will select a value of "1y". This is also a matter of personal preference. Some people think it doesn't matter, others think that generating a new key every year or two is more secure. This way, if someone steals your key, they have a limited amount of time in which to use it. Expiring keys also offer you a little more flexibility... if after some time you decide you want a larger or smaller key, you can wait for the current key to expire without revoking a non-expiring key and causing other difficulties for people. The option is entirely up to you.
+</p>
+<p>Now you will be able to enter your personal information for this key. The User ID is constructed from three input fields: Real Name, Comment, and Email Address. You will be asked for each, and the User ID will be constructed thus: "Real Name (Comment) &lt;Email Address&gt;". You should use your real name and your primary email address, with any comment you like.
+</p>
+<p>Once you have created your User ID, you will be asked for a passphrase. This passphrase will be used every time you wish to encrypt or sign something, and will also be used to decrypt data sent to you using your public key. This passphrase is very important; it should be something very difficult or impossible to guess, a combination of upper and lowercase letters and numbers. The longer, the better. Once you have entered your passphrase twice, GPG will generate your key. It needs a lot of random data, so you will be asked to move your mouse, type on the keyboard, use the hard drive, etc. All of this creates entropy which helps to randomize the bytes used and create a truly unique key.
+</p>
+<p>When you are done, you can use GPG to list the information of your new key and you should see something like this:
+</p>
+<pre>
+$ gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+-------------------------------
+pub  1024D/9B1386E2 2002-04-07 Joe User (My First GPG Key!) &lt;user@mdk.host&gt;
+sub  1024g/7F72A50F 2002-04-07
+</pre>
+<p>This gives you the public and private information on your key. You should immediately take note of your key fingerprint; each key's fingerprint is a unique identifier to the key. When you pass out your key, people can compare the fingerprint provided by the key to one that you physically give them so they can ensure that the key is the proper key. To do this, execute:
+</p>
+<pre>
+$ gpg --fingerprint user@mdk.host
+pub  1024D/9B1386E2 2002-04-07 Joe User (My First GPG Key!) &lt;user@mdk.host&gt;
+     Key fingerprint = 88A9 166B 13E6 516A 87C8  F127 5CA9 2D9E 9B13 86E2
+sub  1024g/7F72A50F 2002-04-07
+</pre>
+<p>The fingerprint for this key is <b>88A9 166B 13E6 516A 87C8 F127 5CA9 2D9E 9B13 86E2</b>. You should print this out and keep it somewhere safe. You can also append this to your email messages as part of your signature. People can then use this to verify that a message signed by you is valid if the key used to sign the message has the same fingerprint as that in your signature. Of course, this should not be considered "trusted" when you are building your web of trust, but we'll get to that a little later.
+</p>
+<h2><span class="mw-headline" id="Using_GnuPG_to_Sign.2FEncrypt">Using GnuPG to Sign/Encrypt</span></h2>
+<p>Now that you have a key-pair, you can begin to digitally sign your email messages or files, and encrypt data. Many email clients support encrypting and signing email messages; they are typically configurable in a "security" menu option or part of the configuration file. It is very easy to use GPG with email. Let's take a look at using GPG to encrypt and sign a straight text file first. To encrypt a text file, use:
+</p>
+<pre>
+$ gpg -ea -r Joe test.file
+</pre>
+<p>This will encrypt the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">test.file</span> using Joe's public key. This means that only Joe will be able to decrypt the file; or in your case, you yourself will be the only person ever able to decrypt it. This is extremely useful when you want to protect sensitive documents. The "-e" option tells GPG to encrypt, and the "-a" option tells GPG to use ASCII armor. This makes the encrypted file suitable for emails and viewing in a text viewer. Without using ASCII armor, the file is encrypted in binary form and will not be viewable. The "-r" option indicates the recipient; in this case we used just "Joe" because at this point, Joe User is the only key on the keyring. You can use a full name (enclosed in quotes), or an email address to specify the recipient. A new file will be created containing the encrypted data called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">test.file.asc</span>.
+</p>
+<p>Now, if you want to decrypt this data, you would use:
+</p>
+<pre>
+$ gpg -d test.file.asc &gt;test.file
+</pre>
+<p>The "-d" option tells GPG to decrypt the data contained in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">test.file.asc</span>. By default, GPG will write the unencrypted data to stdout, so we redirect it to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">test.file</span>. You will be asked for your passphrase when decrypting the data and when you have successfully entered it, the data will be decrypted and details on the encrypting key will be printed to the screen. For instance, you will see something like this:
+</p>
+<pre>
+$ gpg -d test.file.asc &gt;test.file
+
+You need a passphrase to unlock the secret key for
+user: &quot;Joe User (My First GPG Key!) &lt;user@mdk.host&gt;&quot;
+1024-bit ELG-E key, ID 7F72A50F, created 2002-04-07 (main key ID 9B1386E2)
+
+gpg: encrypted with 1024-bit ELG-E key, ID 7F72A50F, created 2002-04-07
+      &quot;Joe User (My First GPG Key!) &lt;user@mdk.host&gt;&quot;
+</pre>
+<p>Here you can see the GPG prompts you for the passphrase for the secret key belonging to Joe User, and also shows you that the data was encrypted with Joe User's secret key.
+</p>
+<h2><span class="mw-headline" id="Using_GnuPG_to_Digitally_Sign_Files">Using GnuPG to Digitally Sign Files</span></h2>
+<p>If you just want to apply a digital signature to a file, you can do it in two ways. You can embed the signature in the file itself, which is useful for text documents. You can also create a detached signature which is useful for binary files. For instance, assume you have a text file that just contains "This is a text document.". If you wanted to sign this file, you could use:
+</p>
+<pre>
+$ gpg --clearsign -a test.file
+</pre>
+<p>This will create a new file called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">test.file.asc</span> which looks like this:
+</p>
+<pre>
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+This is a text document.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE8r8scXKktnpsThuIRAksEAJ9nziWMquPWD2GH57Oyr9LaXIMJLgCcCi3J
+uN8rDO8WOBK3GDp69lvi8Co=
+=lz2x
+-----END PGP SIGNATURE-----
+</pre>
+<p>As you can see, the text of the document is there, surrounded by the signature information. Now, if you were to modify even the smallest part of this message, like inserting a space at the beginning of the sentence, and then tried to verify the file, GPG would indicate an invalid signature. To verify that the signature is intact, use:
+</p>
+<pre>
+$ gpg --verify test.file.asc
+</pre>
+<p>GPG will tell you if the signature is good, and who signed the file. If it has been tampered with, GPG will warn you that the signature is bad. Most email clients use clearsigning to sign email messages, and as you can see, you will be able to tell immediately if the email has been tampered with or not.
+</p>
+<p>You can also sign messages in a non-clearsigned manner. This makes another .asc file, but it looks encrypted. It isn't really encrypted. Anyone can use the "-d" option to "decrypt" the file and read it's contents, or use "--verify" on the file to determine if it has been tampered with. To sign a file in this manner, use "-s" instead of "--clearsign".
+</p>
+<p>If you want to create a digital signature for a binary file, you must use yet another option. This is the "-b" option, which creates a detached signature. Let's assume you created an archive called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">somefile-0.01.tar.gz</span> and you wanted to create a detached signature so that people downloading the file would know that it was entirely how you intended it to be with no modifications (protection against trojans, etc.). You would use:
+</p>
+<pre>
+$ gpg -ba somefile-0.01.tar.gz
+</pre>
+<p>The detached signature will be stored in the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">somefile-0.01.tar.gz.asc</span>. Now, if someone were to download your file, and the detached signature file (both are required), they could execute:
+</p>
+<pre>
+$ gpg --verify somefile-0.01.tar.gz.asc
+</pre>
+<p>GPG will compare the signature in the .asc file to the actual file and report as to whether the signature is good. If the signature file or the binary file has been tampered with, GPG will return a bad signature. If you were to download, for example, the openssh tarball, you can also download the GPG signature file for it and execute this command against that signature file to know whether or not the openssh tarball was valid.
+</p>
+<h2><span class="mw-headline" id="Importing_and_Managing_GPG_Keys">Importing and Managing GPG Keys</span></h2>
+<p>Now that you understand how to encrypt, decrypt, sign, and verify GPG data, it's time to learn how to obtain other people's public keys. The whole premise of GPG is to hand out your public key to all the people that you converse with on a regular basis, or anyone else interested in your key. Public keys are safe to exchange, it's your private key that you must absolutely keep private and safe. Public keys are exchanged through a number of means; there are public PGP/GPG keyservers on the internet that you can upload your GPG key to so that others can easily search and import your key. You can email it directly to people, or place it somewhere on your own website. Using your entire GPG key as part of your signature is discouraged due to the size of the key.
+</p>
+<p>To export your public key so that you can pass it around, execute:
+</p>
+<pre>
+$ gpg --export -a user@mdk.host &gt;user.asc
+</pre>
+<p>This will export the public key belonging to user@mdk.host (aka you) and redirect it to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.asc</span>. This is the file that you would pass out to others to give them your public key. You can also export directly to a keyserver by using:
+</p>
+<pre>
+$ gpg --send-keys --keyserver wwwkeys.pgp.net user@mdk.host
+</pre>
+<p>This will send your public key to the keyserver wwwkeys.pgp.net. You can substitute the keyserver address for any valid PGP/GPG keyserver. If you go to this site now, you will be able to find your key on the server.
+</p>
+<p>If someone sends you their GPG public key, or you find it on their website, you can import it using:
+</p>
+<pre>
+$ gpg --import user.asc
+</pre>
+<p>where <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.asc</span> is the file containing their public key. This will add their public key to your public keyring. You can also download keys directly from a keyserver by using:
+</p>
+<pre>
+$ gpg --recv-keys --keyserver wwwkeys.pgp.net someuser@somedomain.com
+</pre>
+<p>This will import the public key belonging to someuser@somedomain.com from the server wwwkeys.pgp.net. You can also use the key ID instead of the email address; for example, Joe User's key ID is 9B1386E2. If you look above at the output of "--list-keys" you will see that string associated with Joe User's public key (the string "pub 1024D/9B1386E2" indicates public key, 1024 bits, DSA, and the key ID).
+</p>
+<p>To list the keys on your public keyring, use "gpg --list-keys". If you want to list the keys on your secret keyring, use "gpg --list-secret-keys". If you want to list the public key for a particular user, just include the user you are interested in after the command (ie. "gpg --list-keys someuser@somedomain.com").
+</p>
+<p>When you download keys, you can modify how your copy of GPG treats them. To do this, you need to edit a key. You can edit keys that do not belong to you, although obviously some things cannot be done because you do not have the private key. To edit a key, execute:
+</p>
+<pre>
+$ gpg --edit-key someuser@somedomain.com
+</pre>
+<p>This will bring you into an interactive menu system where you can modify certain aspects of the key. To get a list of the commands available, type "<b>help</b>" at the "Command&gt;" prompt. There are some general informational commands, such as "<b>fpr</b>" which will list the key's fingerprint and "<b>check</b>" which will list the key's signatures. The rest are more administrative type commands, but this is where you will do most of your key management. Many of the options here will be discussed in the next few sections.
+</p>
+<p>You can also edit your own key to add aliases, or subkeys, to your key. This can be useful if you want to use the same key with two or more email addresses that you have. To do this, go into the command menu while editing your own key. Then use the "<b>adduid</b>" command. You will be asked for the same three pieces of information you were when you initially generated the key: Real Name, Email Address, and Comment. After entering your passphrase, you will see the new user id on the key (each user ID will be prefixed by a number). If you want to delete a uid, use the "<b>deluid</b>" command followed by the number associated with the uid you wish to delete.
+</p>
+<p>In versions of GnuPG prior to and including 1.0.6, the primary uid is based upon the the most recently signed ID, which usually means the most recently created. Currently there is no way to change this, however the forthcoming 1.0.7 version will have a "<b>primary</b>" command that can select the primary key. In the key listing (obtained with the "<b>list</b>" command), you will see a "." character after the key number to indicate the primary key.
+</p>
+<h2><span class="mw-headline" id="Creating_a_Web_of_Trust">Creating a Web of Trust</span></h2>
+<p>A "web of trust" is a concept that deserves a little explanation. The basic premise of the web of trust is based on people signing each other's keys for people that they know. The idea is that a key will automatically be trusted if two conditions are met:
+</p>
+<ol><li> It is signed by enough valid keys; ie:
+<ul><li> You have personally signed it</li>
+<li> It is signed by one fully trusted key</li>
+<li> It has been signed by three marginally trusted keys</li></ul></li>
+<li> The path of signed keys leading from the key back to your own key is five steps or shorter</li></ol>
+<p>The last requires a little explaining. A "path" is like a flowchart of how key trust is assigned. For instance, you sign Joe's key. Joe signs Bob's key. Bob signs Jim's key. Jim signs Barb's key. Barb signs Pat's key. Finally, Pat signs Cathy's key. If you full trust all of the keys leading up to Cathy's key, that level of trust is not sufficient to validate Cathy's key because it is beyond five steps (ie. Joe is step 1, Bob is step 2, Jim is step 3, Barb is step 4, Pat is step 5, and Cathy is step 6).
+</p>
+<p>Ok, so while that may have been confusing, rest assured that the system works very well and the concept is sound. So now you need to learn how to adjust ownertrust values of a key and how to sign a key to indicate that you trust it.
+</p>
+<p>To edit the ownertrust value of a key, you need to edit the key. Once you are in the command mode, use the "<b>trust</b>" command. This is a very important feature to GPG and it must be treated carefully. There are four different trust levels:
+</p>
+<ol><li> Don't know (no opinion of the person behind the key)</li>
+<li> I do NOT trust (you don't trust the person)</li>
+<li> I trust marginally (you know the person, and trust him, but haven't gone through the steps to make sure that he is indeed the owner of the key)</li>
+<li> I trust fully (you know the person and have validated his key personally)</li></ol>
+<p>Some people may assume some level of paranoia here, and this is a good thing. Due to the nature of the web of trust, if you start trusting keys that you are not sure of, and people trust your key, you can affect the trust of keys on <i>their</i> keyring. So this affects more than just you. So how do you validate a key? Typically, you would do this in person. It is not uncommon for people to have "keysigning parties" where everyone brings their key and signs each other's keys. This is probably the best way to build a web of trust. It is recommended that you only mark a key as fully trusted if you meet the person <i>in</i> person, physically exchange the key (ie. on floppy or CD), check the fingerprint, and make sure the person is who they say they are (some people like to check driver's licenses and/or passports if you do not personally know the person). Others take a little less paranoid approach and are willing to assign full trust values to a key validated over the phone. Of course, this has the danger that if you don't know the person and have never spoken to them before, you don't know that the person on the other end of the phone is the person you think it is. How you want to validate keys is entirely up to you, but err on the side of paranoia. This will ensure that your web of trust, and others who trust you, don't end up trusting a bad person's key.
+</p>
+<p>Once you have decided what trust level to assign the key, using the "<b>trust</b>" command, select the number corresponding to the trust level you wish to assign. When you look at a key now, you will see the new trust value (a newly imported key will have a trust value of "-/q". You will see a letter corresponding to the trust value now: "q" for unknown, "n" for none (no trust), "m" for marginal, and "f" for full.
+</p>
+<p>To sign a key (and you should <i>only</i> do this if you fully trust the key in the first place!), use the "<b>sign</b>" command. This will ask you if you are sure you want to sign the key with the active secret key. If you select yes, you will be asked for your passphrase. At this point, the key is signed, and your key is listed as a signature on this key. Because signing a key is of benefit to the key owner, you will need to export their public key from your keyring and send it to them. This is similar to exporting your own public key, so use:
+</p>
+<pre>
+$ gpg --export -a someuser@somedomain.com &gt; someuser.asc
+</pre>
+<p>Now take <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">someuser.asc</span> and send it to the owner of the key. He will import the key just as he would with any other public key. Upon importing the key, GPG will report that a new signature was added to the key. Now the owner of the key would export their key again and send it to the keyservers, post it on their website, etc. At this point, their public key that others will download will have your signature attached to it so anyone downloading the key will see your name on the key; this indicates that you trust this key fully. If they trust you fully, they will, by proxy, fully trust the key. If they marginally trust you, and two others that have signed the same key, they will, by proxy, fully trust the key. This is how the web of trust works.
+</p>
+<p>To see what signatures are associated with a key, use:
+</p>
+<pre>
+$ gpg --list-sigs someuser@somedomain.com
+</pre>
+<p>This will display the key information and the signatures assigned to the key. For instance, this is what my key looks like (the actual email addresses are removed from this listing to sanitize it and prevent spammers from harvesting good people's email addresses):
+</p>
+<pre>
+pub  1024D/FE6F2AFD 2000-01-22 Vincent Danen
+sig        FE6F2AFD 2002-01-10  Vincent Danen
+sig        641E358B 2002-04-09  Ben Reser
+uid                            Vincent Danen
+sig        FE6F2AFD 2001-04-05  Vincent Danen
+sig        9B4A4024 2001-03-21  MandrakeSoft (MandrakeSoft official keys)
+sig        22458A98 2001-03-21  Mandrakelinux Security Team
+sig        1C55200B 2001-04-05  Vincent Danen (root-1)
+sig        27269202 2001-04-05  Vincent Danen (root-2)
+sig        96F699B3 2001-04-05  Vincent Danen
+sig        40BEBEFF 2001-10-09  Yoann Vandoorselaere
+sig        124DB94E 2001-12-02  Stephen Olesen (Slepp Lukwai)
+sig        641E358B 2002-04-09  Ben Reser
+uid                            Vincent Danen
+sig        FE6F2AFD 2001-04-05  Vincent Danen
+sig        9B4A4024 2001-03-21  MandrakeSoft (MandrakeSoft official keys)
+sig        22458A98 2001-03-21  Mandrakelinux Security Team
+sig        1C55200B 2001-04-05  Vincent Danen (root-1)
+sig        27269202 2001-04-05  Vincent Danen (root-2)
+sig        96F699B3 2001-04-05  Vincent Danen
+sig        40BEBEFF 2001-10-09  Yoann Vandoorselaere
+sig        124DB94E 2001-12-02  Stephen Olesen (Slepp Lukwai)
+sig        641E358B 2002-04-09  Ben Reser
+uid                            Vincent Danen
+sig        FE6F2AFD 2001-04-05  Vincent Danen
+sig        9B4A4024 2001-03-21  MandrakeSoft (MandrakeSoft official keys)
+sig        22458A98 2001-03-21  Mandrakelinux Security Team
+sig        1C55200B 2001-04-05  Vincent Danen (root-1)
+sig        27269202 2001-04-05  Vincent Danen (root-2)
+sig        96F699B3 2001-04-05  Vincent Danen
+sig        124DB94E 2001-12-02  Stephen Olesen (Slepp Lukwai)
+sig        348E29D8 2001-03-25  Jerome Dumonteil
+sig        40BEBEFF 2001-10-09  Yoann Vandoorselaere
+sig        641E358B 2002-04-09  Ben Reser
+sub  1024g/7A788C85 2000-01-22
+sig        FE6F2AFD 2000-01-22  Vincent Danen
+</pre>
+<p>As you can see, there are a number of signatures on my public key. This is the start of a good web of trust. The challenge to building a good web of trust is getting to meet and know people who would be willing to sign your key. Look at it like you would a reference on a resume. No one will allow you to use them as a reference for you getting a job because they are, in essence, sponsoring you for the job. If you aren't good for the job, or they do not know you well enough, they will decline being your reference. The same principle should apply for GPG keys.
+</p>
+<h2><span class="mw-headline" id="Revoking_a_GPG_Key">Revoking a GPG Key</span></h2>
+<p>There may come a time when you need to revoke a key. This could be due to the key being compromised (ie. someone steals your laptop with your private key on it, someone gets root access or your access on your computer, etc.). Basically, any scenario that could conceivably allow someone access to your secret key, regardless of how strong your passphrase may be, should be considered serious enough to revoke your key and generate a new one. There could even be other, less sinister reasons, such as just losing your secret key (ie. accidentally formatting the drive it was on). Whatever the reason, you will need to generate a revocation certificate. In the interests of foresight, you should generate the revocation certificate immediately after generating your new key. Since you will need the private key to create the certificate, if it's a matter of losing the key, you will be unable to generate the certificate, thus it will never be revoked.
+</p>
+<p>To create the certificate, execute:
+</p>
+<pre>
+$ gpg --gen-revoke user@mdk.host
+</pre>
+<p>GPG will ask you if you truly want to create the certificate. Answer yes. It will then ask you for a reason for the revocation; the key has been compromised, the key is superseded (ie. you're using a new key instead), or the key is no longer used. You may want to create a certificate for each instance and just name them appropriately... just in case. After you select the reason, you can include an optional description which will give more information on the reason for the revocation. If your key was compromised, you could put something like "On April 2, 2002 my computer was hacked, and personal files were altered so in the interest of safety I'm revoking the key", or if you are making an "in-case" key, you could put something like "I probably lost the key and have a new one now". It's entirely up to you.
+</p>
+<p>After this, you will be asked for your passphrase, and then the certificate will be printed to stdout. You will need to do a cut-n-paste to a text file; name the file something descriptive, like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user-lostkey-revokecert.gpg</span>. Once you have created all of the "in-case" certificates you want, you should take them all and burn them to CD, then place the CD somewhere <i>very</i> safe, like a safety deposit box or some other equally safe place. While having a revocation certificate is good, it can also cause problems if someone gets a hold of it, and puts it on the keyservers. You may find your key revoked without meaning to, which will invalidate your key and force you to create a new one.
+</p>
+<p>If you need to use a revocation certificate, import it to your public keyring just as you would any other public key. Then you can send it to the keyservers so others can get the updated key with the revocation; for instance:
+</p>
+<pre>
+$ gpg --import user-lostpasswordrevokecert.gpg
+$ gpg --send-keys --keyserver wwwkeys.pgp.net user@mdk.host
+</pre>
+<h2><span class="mw-headline" id="GPG_Signatures_in_RPM_Files">GPG Signatures in RPM Files</span></h2>
+<p>RPM packages can also have GPG signatures assigned to them. This is usually done during the build process, or by resigning the RPM package after it has been built. RPM, by default, only assigns a MD5 signature to a package.
+</p>
+<p>MandrakeSoft has been signing RPM packages for many years. Packages provided in cooker, on the distribution CDs, and via security updates, are all signed with one key or another. In later versions of Mandrakelinux, the root user gets the official MandrakeSoft keys imported to their keyring during the installation or upgrade of the gnupg package.
+</p>
+<p>To check to see what signatures an RPM package has, you can use:
+</p>
+<pre>
+$ rpm -K gnupg-1.0.6-5mdk.i586.rpm
+gnupg-1.0.6-5mdk.i586.rpm: md5 gpg OK
+</pre>
+<p>This indicates that the file is fine and both the MD5 and GPG signatures are correct and intact. An unsigned RPM package will only show "md5 OK" if the MD5 signature is ok, but no GPG signature is present. To see what key has signed the package, you would use:
+</p>
+<pre>
+$ rpm -Kv gnupg-1.0.6-5mdk.i586.rpm
+gnupg-1.0.6-5mdk.i586.rpm:
+MD5 sum OK: 80014f77015b1a58c6cf684e57295998
+gpg: Signature made Wed 13 Mar 2002 02:27:27 PM MST using DSA key ID 70771FF3
+gpg: Good signature from &quot;Mandrakelinux &lt;mandrake@mandrakesoft.com&gt;&quot;
+</pre>
+<p>If you do not have the public key on your keyring, you will see the following instead; this will prompt you to go out and get a copy of the key specified so you can ensure that the GPG signature is intact.
+</p>
+<pre>
+$ rpm -K gnupg-1.0.6-5mdk.i586.rpm
+gnupg-1.0.6-5mdk.i586.rpm: md5 (GPG) OK (MISSING KEYS: GPG#70771FF3)
+$ rpm -Kv gnupg-1.0.6-5mdk.i586.rpm
+gnupg-1.0.6-5mdk.i586.rpm:
+MD5 sum OK: 80014f77015b1a58c6cf684e57295998
+gpg: Signature made Wed 13 Mar 2002 02:27:27 PM MST using DSA key ID
+70771FF3
+gpg: Can't check signature: public key not found
+</pre>
+<p>If you download an RPM package that indicates that the MD5 or GPG signature is <i>NOT</i> ok, do not install it. It could very well be a trojan RPM package. Currently, MandrakeUpdate/rpmdrake can be configured to check for RPM signatures prior to installing, but urpmi currently does not have any support for checking RPM signatures prior to installation.
+</p>
+<p>GPG may seem confusing, and yes, sometimes it can be, but more often than not GPG is very straightforward to use. It does require you to be somewhat paranoid, and it does require you to be meticulous when assigning your name to someone else's key. Remember, this is <i>your</i> reputation on the line when you sign other keys. However, don't let this prevent you from doing so as signing keys is the whole premise for the web of trust, and a web of trust is, in my personal opinion, very important and extremely useful.
+</p>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.gnupg.org/">GnuPG Home</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.gnupg.org/faq.html">GnuPG FAQ</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.gnupg.org/gph/en/manual.html">GnuPG Handbook</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.mandrakeuser.org/docs/secure/sgpg.html">MandrakeUser.org's two part GPG article</a></li></ul>
+<h3><span class="mw-headline" id="Public_Keyservers">Public Keyservers</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://pgpkeys.mit.edu">MIT PGP Public Key Server</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.keyserver.net">Keyserver.net</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

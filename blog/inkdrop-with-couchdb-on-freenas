@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Inkdrop with CouchDB on FreeNAS - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/blog/inkdrop-with-couchdb-on-freenas">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="freenas,couchdb,inkdrop" />
+        <meta name="description" content="I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things. This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Inkdrop with CouchDB on FreeNAS"/>
+        <meta property="og:url" content="https://annvix.com/blog/inkdrop-with-couchdb-on-freenas"/>
+        <meta property="og:description" content="I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things. This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet …"/>
+        <meta property="article:published_time" content="2020-02-23" />
+            <meta property="article:section" content="Macos" />
+            <meta property="article:tag" content="freenas" />
+            <meta property="article:tag" content="couchdb" />
+            <meta property="article:tag" content="inkdrop" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://annvix.com/blog/inkdrop-with-couchdb-on-freenas"
+                       rel="bookmark"
+                       title="Permalink to Inkdrop with CouchDB on FreeNAS">
+                        Inkdrop with CouchDB on FreeNAS
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://annvix.com/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-02-23T19:00:00-07:00"> Sun 23 February 2020</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://annvix.com/tag/freenas.html"> freenas</a></span>
+    <span class="label label-info"> <a href="https://annvix.com/tag/couchdb.html"> couchdb</a></span>
+    <span class="label label-info"> <a href="https://annvix.com/tag/inkdrop.html"> inkdrop</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="Image" src="https://annvix.com/images/inkdrop.png"></p>
+<p>I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things.  This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet my ever-changing needs.</p>
+<p>For the last two years I've been using <a href="https://happenapps.com/">Quiver</a> to categorize and keep notes.  These are notes for myself of people, projects, interesting things, escalations, etc.  These are also notes on nearly every meeting I attend.  For obvious reasons, these are sensitive and need to be kept under my own control.  Prior to Quiver, I was using <a href="https://c-command.com/eaglefiler/">EagleFiler</a> (incidentally, I still use EagleFiler, just not for note keeping -- it's a great way to organize and collect files).</p>
+<p>While Quiver worked quite well, it has limitations.  As I try to do more work from my iPad rather than my laptop, the companion Quiver iOS app was showing it's limitations.  I could share the notes via my own internal WebDAV server, but it was read-only.  That is great if I only want a reference, but to fully move to my iPad for the "normal day to day" stuff I needed something where I could review and edit notes.</p>
+<p>I recently came across <a href="https://inkdrop.app/">Inkdrop</a> which is a note-taking application similar to Quiver with a more robust set of features, including iOS applications that will edit, and a better way of synchronizing those notes.  While Inkdrop does provide a server to store the data (which is no good for me since I want to retain full control of my data), it does allow you to use a local CouchDB server.  It also has a subscription of $5/mo which, if it can do what I need it to do, is worth it to me (particularly with the travel I've been doing of late).</p>
+<p>The big things for me were standing up a CouchDB server (never played with it before) and being able to convert my Quiver library into a format that Inkdrop can use.  Fortunately, both Quiver and Inkdrop use JSON files for the metadata so with a little bit of elbow grease I figured I could make it work.  This post covers a few things: standing up the CouchDB server, getting Inkdrop to sync to it, and finally converting the data I already had in Quiver (nearly 1800 notes).</p>
+<h2>CouchDB in a FreeNAS jail</h2>
+<p>The first step was to create the FreeNAS jail in which I was going to run CouchDB.  This needed to be running on my local network and not accessible to the internet.  It also needed to use HTTPS.  The first step was to create a new jail named <code>inkdrop</code> in FreeNAS (using the web UI).  Once that was done, I logged into the FreeNAS server, entered the jail, and installed the <code>pkg</code> tool to install what I needed for CouchDB:</p>
+<div class="highlight"><pre><span></span><code>$ sudo iocage console inkdrop
+<span class="c1"># pkg</span>
+<span class="c1"># pkg install couchdb2 curl</span>
+<span class="c1"># cd /usr/local/etc/couchdb2</span>
+<span class="c1"># vi local.ini</span>
+</code></pre></div>
+
+<p>At this point we need to assign the admin user a password and note it in the <em>local.ini</em> file.  There are other files to edit as well:</p>
+<div class="highlight"><pre><span></span><code># vi vm.args
+</code></pre></div>
+
+<p>In <em>vm.args</em>, change the <code>setcookie</code> option from its default.</p>
+<div class="highlight"><pre><span></span><code># vi /etc/rc.conf
+</code></pre></div>
+
+<p>In <em>rc.conf</em> set <code>coudchdb2_enable</code> to <strong>YES</strong>.  Now we can start the service and initialize our database.  The database will be named <code>inkdrop</code> and the admin user's password is <strong>passwd</strong> in the following examples.</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># service couchdb2 start</span>
+<span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_users</span>
+<span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_replicator</span>
+<span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_global_changes</span>
+<span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/inkdrop</span>
+</code></pre></div>
+
+<h2>Install nginx as the CouchDB proxy</h2>
+<p>The next step is to use nginx as the proxy for CouchDB so that we can have HTTPS requests rather than HTTP.</p>
+<div class="highlight"><pre><span></span><code># pkg install nginx
+# cd /usr/local/etc/nginx
+# vi nginx.conf
+</code></pre></div>
+
+<p>At this point you want to follow the <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#how-to-set-up-your-own-sync-server">Inkdrop instructions for setting up your own sync server</a>.  That should get nginx nicely configured.  The next step is to use Let's Encrypt in the FreeNAS jail.  I've blogged about this in the past here, with <a href="https://annvix.com/blog/using-letsencrypt-on-freenas">Using LetsEncrypt on FreeNAS</a> and <a href="https://annvix.com/blog/using-letsencrypt-with-plex">Using LetsEncrypt with Plex</a> so I won't go into a lot of detail, but will simply note the commands used:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># pkg install git</span><span class="w"></span>
+<span class="c1"># cd /root</span><span class="w"></span>
+<span class="c1"># git clone https://github.com/Neilpang/acme.sh.git</span><span class="w"></span>
+<span class="c1"># cd acme.sh</span><span class="w"></span>
+<span class="c1"># ./acme.sh --install</span><span class="w"></span>
+<span class="c1"># cd /root/.acme.sh</span><span class="w"></span>
+<span class="c1"># export CF_Key=&quot;api_key&quot;</span><span class="w"></span>
+<span class="c1"># export CF_Email=&quot;email_addr&quot;</span><span class="w"></span>
+<span class="c1"># ./acme.sh --issue --dns dns_cf -d inkdrop.hostname --fullchain-file /usr/local/etc/nginx/fullchain.pem --key-file /usr/local/etc/nginx/privkey.pem</span><span class="w"></span>
+<span class="c1"># crontab -l</span><span class="w"></span>
+<span class="mi">12</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="s2">&quot;/root/.acme.sh&quot;</span><span class="o">/</span><span class="n">acme</span><span class="o">.</span><span class="n">sh</span><span class="w"> </span><span class="o">--</span><span class="n">cron</span><span class="w"> </span><span class="o">--</span><span class="n">home</span><span class="w"> </span><span class="s2">&quot;/root/.acme.sh&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nb nb-Type">null</span><span class="w"></span>
+</code></pre></div>
+
+<p>With our SSL certificate setup and making sure the cronjob is set as well, we can now start nginx and test if we can connect to our CouchDB server over HTTPS:</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># vi /etc/rc.conf</span>
+<span class="cp"># service nginx start</span>
+<span class="cp"># curl -X GET https:</span><span class="c1">//127.0.0.1:6984/_all_dbs</span>
+<span class="p">{</span><span class="s">&quot;error&quot;</span><span class="o">:</span><span class="s">&quot;unauthorized&quot;</span><span class="p">,</span><span class="s">&quot;reason&quot;</span><span class="o">:</span><span class="s">&quot;You are not a server admin.&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="cp"># curl -X GET https:</span><span class="c1">//admin:passwd@127.0.0.1:6984/_all_dbs</span>
+<span class="p">[</span><span class="s">&quot;_global_changes&quot;</span><span class="p">,</span><span class="s">&quot;_replicator&quot;</span><span class="p">,</span><span class="s">&quot;_users&quot;</span><span class="p">,</span><span class="s">&quot;inkdrop&quot;</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+
+<p>In <em>rc.conf</em> you want to set <code>nginx_enable</code> to <strong>YES</strong>.</p>
+<p>If you intend to use Inkdrop on your mobile device, you now need to create the mobile design document as per <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#support-mobile-sync">Inkdrop's mobile sync documentation</a>, which is effectively running:</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># curl -X PUT https:</span><span class="c1">//admin:passwd@127.0.0.1:6984/inkdrop -d &#39;{ &quot;_id&quot;: &quot;_design/mobile&quot;, &quot;filters&quot;: { &quot;sync&quot;: &quot;function (doc) { return doc._id.indexOf(&#39;file:&#39;) === -1 }&quot; } }&#39;</span>
+</code></pre></div>
+
+<h2>Mobile Sync</h2>
+<p>At this point you should have a fully functional CouchDB running behind nginx in a FreeNAS jail.  Now you can point Inkdrop to your server for syncing.  You can set this up to be accessible from anywhere, or you can leave it accessible only internally.  That's the way I chose to do it since you can edit documents while disconnected and it will sync back to the server when the client is able to connect.  This allows for complete privacy by not making it available outside of your own network, but makes it portable enough that you can take your notes with you so you can add and edit as you're out and about.</p>
+<p>The only thing that would make this even better for me would be for Inkdrop to have PIN or TouchID/FaceID protection on the mobile device.</p>
+<h2>Converting from Quiver to Inkdrop</h2>
+<p>Now if you're like me and you've used Quiver in the past, there is good news!  You <em>can</em> convert from Quiver to Inkdrop.  I had to scratch my own itch here as there was no conversion tool available.  Thankfully, Quiver uses JSON files that can be parsed and, for Inkdrop, I can talk directly to the CouchDB server.  Because of this I could see the content/format of what I had in Quiver, and what Inkdrop expected in CouchDB.  It wasn't terribly difficult to figure out, just took a bit of trial and error. </p>
+<p>My script for the conversion is available on GitHub: <a href="https://github.com/vdanen/quiver-to-inkdrop">quiver-to-inkdrop</a>.</p>
+<p>This was a nice amusement for me, to be honest.  I always enjoy playing with new software, something I don't get to do as often as I used to (when I wrote for TechRepublic years ago I was playing with new things all the time).  Everything here aside from FreeNAS was new for me and I'd never played with CouchDB before, and I always enjoy doing a bit of Python and hacking things to make them work.  Hopefully there is something interesting or useful here for others to use as well!</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using Kerberos 5 for Single Sign-On Authentication - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/using_kerberos_5_for_single_sign-on_authentication">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="Contents 1 Using Kerberos 5 for Single Sign-On Authentication 1.1 Configuring the Kerberos Server 1.1.1 Use modprinc to modify defaults 1.2 Creating the Kerberos Database 1.3 Kerberos Principals and Instances 1.4 The Access Control List 1.5 Testing the Install 1.6 Setting up …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using Kerberos 5 for Single Sign-On Authentication"/>
+    <meta property="og:url" content="https://annvix.com/using_kerberos_5_for_single_sign-on_authentication"/>
+    <meta property="og:description" content="Contents 1 Using Kerberos 5 for Single Sign-On Authentication 1.1 Configuring the Kerberos Server 1.1.1 Use modprinc to modify defaults 1.2 Creating the Kerberos Database 1.3 Kerberos Principals and Instances 1.4 The Access Control List 1.5 Testing the Install 1.6 Setting up …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">Using Kerberos 5 for Single Sign-On Authentication</h1>
+        
+        <div class="entry-content">
+            <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Using_Kerberos_5_for_Single_Sign-On_Authentication"><span class="tocnumber">1</span> <span class="toctext">Using Kerberos 5 for Single Sign-On Authentication</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Configuring_the_Kerberos_Server"><span class="tocnumber">1.1</span> <span class="toctext">Configuring the Kerberos Server</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Use_modprinc_to_modify_defaults"><span class="tocnumber">1.1.1</span> <span class="toctext">Use modprinc to modify defaults</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-4"><a href="#Creating_the_Kerberos_Database"><span class="tocnumber">1.2</span> <span class="toctext">Creating the Kerberos Database</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Kerberos_Principals_and_Instances"><span class="tocnumber">1.3</span> <span class="toctext">Kerberos Principals and Instances</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#The_Access_Control_List"><span class="tocnumber">1.4</span> <span class="toctext">The Access Control List</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Testing_the_Install"><span class="tocnumber">1.5</span> <span class="toctext">Testing the Install</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Setting_up_Client_Realm_Systems"><span class="tocnumber">1.6</span> <span class="toctext">Setting up Client Realm Systems</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Adding_New_Users_and_Hosts_to_the_Database"><span class="tocnumber">1.6.1</span> <span class="toctext">Adding New Users and Hosts to the Database</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Setting_up_a_Mac_OS_X_Client_.28.3C.3D_10.6.29"><span class="tocnumber">1.6.2</span> <span class="toctext">Setting up a Mac OS X Client (&lt;= 10.6)</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="#Enabling_auto-renewing_Tickets"><span class="tocnumber">1.6.2.1</span> <span class="toctext">Enabling auto-renewing Tickets</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-12"><a href="#Setting_up_a_Mac_OS_X_Client_.2810.7.29"><span class="tocnumber">1.6.3</span> <span class="toctext">Setting up a Mac OS X Client (10.7)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Configuring_OpenSSH_to_use_Kerberos"><span class="tocnumber">1.7</span> <span class="toctext">Configuring OpenSSH to use Kerberos</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Configuring_a_Subversion_client_to_use_Kerberos"><span class="tocnumber">1.8</span> <span class="toctext">Configuring a Subversion client to use Kerberos</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Configure_Firefox_to_use_Kerberos"><span class="tocnumber">1.9</span> <span class="toctext">Configure Firefox to use Kerberos</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Changing_Kerberos_Passwords"><span class="tocnumber">1.10</span> <span class="toctext">Changing Kerberos Passwords</span></a></li>
+
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Revision_History"><span class="tocnumber">2</span> <span class="toctext">Revision History</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Using_Kerberos_5_for_Single_Sign-On_Authentication">Using Kerberos 5 for Single Sign-On Authentication</span></h1>
+<p>The purpose of this article is to detail the configuration of a Kerberos realm for single sign-on authentication.  In particular, the document will cover installation and configuration on Red Hat Enterprise Linux 5.3, however it should be relevant enough for any recent Linux distribution or UNIX variant, provided they're using a recent enough version of Kerberos (this revision refers to version 1.6.1).  Although the document deals with Red Hat Enterprise Linux specifically, it largely does so for the server-side (i.e.. the KDC, etc.) and will cover general Linux, Windows, and OS X Kerberos client configuration.
+</p>
+<p>Kerberos is a program that authenticates workstations against a server.  It was developed at MIT and is named after the three-headed watchdog from Greek mythology.  This watchdog guarded the entrance to Hades, or the underworld, and was a fearsome beast indeed.  Kerberos is aptly named.
+</p>
+<p>Using Kerberos, a client (which is generally a user or host), sends a request for a ticket to the Kerberos server, or Key Distribution Center (KDC).  The KDC creates a Ticket-Granting Ticket (TGT) for the client and encrypts is using the client's password as the key.  It then sends the encrypted ticket back to the client.  At this point, the client attempts to decrypt the TGT using its password.  If the client successfully decrypts the TGT (which means it provided the correct password), it keeps the decrypted TGT as proof of it's identity.
+</p>
+<p>TGT's are not indefinite; they expire at a specified time.  However, having the TGT allows the client to obtain additional tickets, which give permission to access specific services.  These additional tickets are transparent to the users and require no additional work on their behalf.
+</p>
+<p>Kerberos negotiates the communication between any two points on the internet or an intranet.  It can also encrypt communication between these two points.  Because of this, it provides a layer of security that is independent of either side of any firewall.
+</p>
+<p>Sounds a little daunting, doesn't it?  Well, it doesn't have to be.  Kerberos was designed to be (relatively) easy to use.  Most of the commands it provides are nearly identical to the Linux network programs you already use.  It is a single sign-on system, which means that you only need to type your password once per session.  Everything else is transparent.  After you have entered your password, Kerberos handles all of the authentication and encryption itself.
+</p>
+<p>Kerberos can be installed by downloading the source and compiling it from the MIT website <a rel="nofollow" class="external text" href="http://web.mit.edu/kerberos/www/">web.mit.edu/kerberos/www/</a> or by installing it via your Linux vendor; most Linux distributions come with Kerberos pre-packaged already.  On RHEL5, to install the server components of Kerberos, execute:
+</p>
+<pre>
+# yum install krb5-server
+</pre>
+<p>This will install the Kerberos client and server components.  More specifically, the following packages will be installed (the same is true for Mandriva; other distributions may have slightly differing package names):
+</p>
+<ul><li> krb5-libs (possibly libkrb5x depending on the distribution)</li>
+<li> krb5-workstation</li>
+<li> krb5-server</li></ul>
+<p>This is all you need to get started on RHEL5.  Other distributions may have separate packages for the kerberized telnet and ftp client/servers, so you may need to install additional packages for that (i.e. on Mandriva you would want telnet-server-krb5 and telnet-client-krb5).  You will want to install the telnet server/client to test the setup.
+</p>
+<h2><span class="mw-headline" id="Configuring_the_Kerberos_Server">Configuring the Kerberos Server</span></h2>
+<p>Once Kerberos is installed on one or more machines (we'll get to the non-Linux clients shortly), it is time to configure it.  For the purpose of this document we will assume that you are using Kerberos within your own network and that it is installed on two separate computers; one to be a client, the other to be the KDC server.
+</p>
+<p>The first step is to setup the KDC, or Key Distribution Center.  The KDC will issue Kerberos tickets.  You can optionally have more than one KDC; each KDC containing a copy of the Kerberos database.  There is one master KDC that holds the master copy of the database, and that data is then propagated to the slave KDCs at regular intervals.  All changes to the database must be made on the master KDC, as the master is the only KDC that allows database administration.  The slave KDCs can provide ticket-granting services, which allows clients to obtain tickets when and if the master KDC is unavailable.  You really only need to setup slave KDCs if you want a little more redundancy on your network and it provides a good fail-safe should anything go wrong with the master KDC (i.e. it will still permit users to login, etc.).  For the time being, we'll assume you are not setting up any slave KDCs; we'll get to that later.
+</p>
+<p>On the system that will be the master KDC, you need to edit the configuration files, specifically <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.conf</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/kerberos/krb5kdc/kdc.conf</span>.  By default, Kerberos itself (and thus many Linux distributions and UNIX variants) will use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/kerberos/</span> rather than <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/kerberos/</span>; some distributions such as Mandriva use the latter because configuration files really don't belong in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/</span>.
+</p>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.conf</span> file will look similar to this:
+</p>
+<pre>
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+ default_realm = LINSEC.CA
+ dns_lookup_realm = false
+ dns_lookup_kdc = false
+ ticket_lifetime = 24h
+ forwardable = yes
+
+[realms]
+ LINSEC.CA = {
+  kdc = kerberos.linsec.ca
+  admin_server = kerberos.linsec.ca
+  default_domain = linsec.ca
+ }
+
+[domain_realm]
+ .linsec.ca = LINSEC.CA
+ linsec.ca = LINSEC.CA
+
+[appdefaults]
+ pam = {
+   debug = false
+   ticket_lifetime = 36000
+   renew_lifetime = 36000
+   forwardable = true
+   krb4_convert = false
+ }
+</pre>
+<p>This basically sets up a few rules for your Kerberos realm. The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[libdefaults]</span> section deals with the defaults on ticket generation.  This indicates that tickets have a lifetime of 24000 seconds, or 400 minutes.  It indicates the default realm, in this case LINSEC.CA (realms are always specified upper-case).  You can think of a realm as your domain name within Kerberos.  Then it specifies some ticket encryption types.
+</p>
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[realms]</span> section defines your realm.  Here we define the realm LINSEC.CA and list our KDCs (in this case kerberos.linsec.ca).  We also define the master (admin) server, which is also kerberos.linsec.ca.  We specify the default domain, which is linsec.ca.  The next section, <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[domain_realm]</span>, merely specifies that all systems matching the domain linsec.ca belong to the LINSEC.CA realm.
+</p>
+<p>The next sections deal with pointing out the KDC configuration file and is only needed on the KDCs themselves.  The next two sections deal with login settings; the first with PAM settings (if you use pam_krb5), and the final section (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[login]</span>) deals with Kerberos IV compatibility which we are turning off (Kerberos IV should not be used.. period).
+</p>
+<p>The next configuration file to edit on the KDC is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/kerberos/krb5kdc/kdc.conf</span>, which was specified in the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[kdc]</span> section with the profile keyword in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">krb5.conf</span>.  The file should have contents similar to the following:
+</p>
+<pre>
+kdcdefaults]
+ v4_mode = nopreauth
+ kdc_tcp_ports = 88
+
+[realms]
+ LINSEC.CA = {
+  #master_key_type = des3-hmac-sha1
+  acl_file = /var/kerberos/krb5kdc/kadm5.acl
+  dict_file = /usr/share/dict/words
+  admin_keytab = /var/kerberos/krb5kdc/kadm5.keytab
+  supported_enctypes = des3-hmac-sha1:normal arcfour-hmac:normal des-hmac-sha1:normal des-cbc-md5:normal des-cbc-crc:normal des-cbc-crc:v4 des-cbc-crc:afs3
+ }
+</pre>
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[kdcdefaults]</span> section defines some defaults for the KDC and is fairly self-explanatory.  The kdc_ports keyword defines the port that the KDC listens to which, by default, is port 88.  The rest are locations of various files required by the KDC.
+</p>
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[realms]</span> section specifies more detailed information about the realm that was previously defined, LINSEC.CA.  This specifies where the database is kept, the ACL (Access Control List) file, the keytab file (more on this later), and various other options dealing with supported encryption types, listening ports, etc.  More information is available on this configuration file, and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">krb5.conf</span> configuration file by viewing the manpages (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kdc.conf.5</span> and <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">krb5.conf.5</span> respectively).
+</p>
+<h3><span class="mw-headline" id="Use_modprinc_to_modify_defaults">Use modprinc to modify defaults</span></h3>
+<p>If you want to change the behaviour of the realm, such as renewable tickets or ticket lifetime, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin</span> to change principle options.  Use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">getprinc</span> to get the settings for the realm's TGT:
+</p>
+<pre>
+kadmin.local:  getprinc krbtgt/LINSEC.CA
+Principal: krbtgt/LINSEC.CA@LINSEC.CA
+Expiration date: [never]
+Last password change: [never]
+Password expiration date: [none]
+Maximum ticket life: 1 day 00:00:00
+Maximum renewable life: 0 days 00:00:00
+Last modified: Wed Jun 17 09:25:46 MDT 2009 (db_creation@LINSEC.CA)
+Last successful authentication: [never]
+Last failed authentication: [never]
+Failed password attempts: 0
+Number of keys: 5
+Key: vno 1, Triple DES cbc mode with HMAC/sha1, no salt
+Key: vno 1, ArcFour with HMAC/md5, no salt
+Key: vno 1, DES with HMAC/sha1, no salt
+Key: vno 1, DES cbc mode with RSA-MD5, no salt
+Key: vno 1, DES cbc mode with CRC-32, no salt
+Attributes:
+Policy: [none]
+</pre>
+<p>You can now change these settings use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">modprinc</span>:
+</p>
+<pre>
+kadmin.local:  modprinc -maxlife 2days -maxrenewlife 14days +allow_renewable krbtgt/LINSEC.CA
+Principal &quot;krbtgt/LINSEC.CA@LINSEC.CA&quot; modified.
+kadmin.local:  getprinc krbtgt/LINSEC.CA
+Principal: krbtgt/LINSEC.CA@LINSEC.CA
+Expiration date: [never]
+Last password change: [never]
+Password expiration date: [none]
+Maximum ticket life: 2 days 00:00:00
+Maximum renewable life: 14 days 00:00:00
+Last modified: Wed Oct 21 13:08:58 MDT 2009 (root/admin@LINSEC.CA)
+Last successful authentication: [never]
+Last failed authentication: [never]
+Failed password attempts: 0
+Number of keys: 5
+Key: vno 1, Triple DES cbc mode with HMAC/sha1, no salt
+Key: vno 1, ArcFour with HMAC/md5, no salt
+Key: vno 1, DES with HMAC/sha1, no salt
+Key: vno 1, DES cbc mode with RSA-MD5, no salt
+Key: vno 1, DES cbc mode with CRC-32, no salt
+Attributes:
+Policy: [none]
+</pre>
+<p>Here we used <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">modprinc -maxlife 2days -maxrenewlife 14days +allow_renewable krbtgt/LINSEC.CA</span> to change the Kerberos realm LINSEC.CA's krbtgt principle to allow for 2 day tickets with a maximum renewable lifetime of 14 days, and to allow renewable tickets.  You may also have to use a similar command for any users that need the new settings; change <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">krbtgt/LINSEC.CA</span> to <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">user@LINSEC.CA</span> in that case.
+</p>
+<p>(I only mention this here as, from what my testing has shown, setting non-default renewable/initial ticket lifetimes in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kdc.conf</span> don't seem to actually work when the client <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span>'s).
+</p>
+<h2><span class="mw-headline" id="Creating_the_Kerberos_Database">Creating the Kerberos Database</span></h2>
+<p>The next step is to create the Kerberos database on the master KDC.  Using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kdb5_util</span> program on the master KDC, we need to create the database and a stash file.  The stash file is a local copy of the master key that resides in encrypted form on the KDC's hard drive.  The stash file is used to authenticate the KDC to itself automatically before starting the Kerberos daemons and as a result is a very important file that can be a very large security hole if not secured correctly.  This file should exist only on a local hard drive, should have mode 0600 permissions, and should be owned by root.  Essentially, no one other than root should have any kind of access to this file.  Finally, the stash file should not be part of any backup routine unless the backups are physically secured as well.  It is for this reason that most people chose and advise that the master KDC should be it's own system without any services other than running the KDC, that it should be physically secure, and disallow any interaction other than, perhaps, ssh access.
+</p>
+<p>As the administrator, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kdb5_util</span> should exist in your path already (typically being installed <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/kerberos/sbin/</span>), however if you installed Kerberos from source you may need to add <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/kerberos/sbin</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/kerberos/bin</span> to your PATH.
+</p>
+<pre>
+# kdb5_util create -r LINSEC.CA -s
+Loading random data
+Initializing database '/etc/kerberos/krb5kdc/principal' for realm 'LINSEC.CA',
+master key name 'K/M@LINSEC.CA'
+You will be prompted for the database Master Password.
+It is important that you NOT FORGET this password.
+Enter KDC database master key:
+Re-enter KDC database master key to verify:
+</pre>
+<p>You will then be asked to provide the KDC with a database master key.  This key can be any string and should be as difficult to guess as possible (like any other good password).  Once this is done, you will have a number of new files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/kerberos/krb5kdc/</span>, specifically the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">principal</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">principal.kadm5</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">principal.kadm5.lock</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">principal.ok</span>, and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.k5.LINSEC.CA</span> files (the latter's file name is based on the kerberos realm name).  If you do not want the stash file created, run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kdb5_util</span> without the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-s</span> command switch, and remove the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">key_stash_file</span> keyword from the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kdc.conf</span> file.  If you do this, however, you will be required to enter the database master key (password) every time you start the Kerberos daemons.  Great for security, but of little practical use and a huge nuisance if the lights go out in the middle of the night and you need to rush into the office to bring the KDC back up.
+</p>
+<h2><span class="mw-headline" id="Kerberos_Principals_and_Instances">Kerberos Principals and Instances</span></h2>
+<p>Before moving on to creating the ACLs, you need to understand what a Kerberos principal is as everything we will do after this point deals with principals and instances.
+</p>
+<p>Kerberos uses the term "principals" to identify users or hosts so that Kerberos can properly assign tickets.  A principal is typically divided into three parts:  The primary, the instance, and the realm.  The format for a Kerberos principal is <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">primary/instance@REALM</span>.  You can think of principals as advanced user names for your Kerberos realm.
+</p>
+<p>The primary is the first part of the principal.  In the case of a user, it is the same as the user's username.  In the case of a host, the primary is the word <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">host</span>.
+</p>
+<p>The "instance" is an optional string that qualifies the primary.  The instance is separated from the primary by the slash (/) character.  In the case of a user, the instance is usually non-existent, but it may exist if the user has an additional principal.  For instance, you may have a user with one principal of their username which is used for every day operations, and another principal with an instance of "admin" which may be used to administrate a database.  For example, the principal joe@LINSEC.CA is very different from joe/admin@LINSEC.CA.  Each has a separate password and separate permissions.  In the case of a host, the instance is the fully qualified domain name (FQDN) of the host, for example <i>kerberos.linsec.ca</i>.
+</p>
+<p>Finally, the realm is the defined Kerberos realm.  For the purposes of this document, the realm is LINSEC.CA.  Kerberos realms are typically the network's domain name in upper-case letters.
+</p>
+<p>Two example principals are:
+</p>
+<pre>
+root/admin@LINSEC.CA
+host/kerberos.linsec.ca@LINSEC.CA
+</pre>
+<h2><span class="mw-headline" id="The_Access_Control_List">The Access Control List</span></h2>
+<p>The next step is to create an Access Control List (ACL) file and put the Kerberos principal of at least one of the administrators in it.  The file we are going to create is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/kerberos/krb5kdc/kadm5.acl</span>, which is specified as such in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kdc.conf</span> file.  The syntax for the ACL file is:
+</p>
+<pre>
+Kerberos principal  permissions     optional_target_principal
+</pre>
+<p>Kerberos principals (which include the principal and optional target principal) can contain the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> wildcard, so you can define an administrator with full permissions.  Insert the following into your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kadm5.acl</span> file (on Annvix and Mandriva system, this is already pre-configured for the default "out-of-the-box" realm so all you should need to change is the realm name):
+</p>
+<pre>
+*/admin@LINSEC.CA *
+</pre>
+<p>To give another quick example, suppose you wanted a principal called fred@LINSEC.CA to be able to add, list, and inquire about any principals with the instance "root".  You would add the following to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kadm5.acl</span>:
+</p>
+<pre>
+fred@LINSEC.CA      ali     */root@LINSEC.CA
+</pre>
+<p>There are a number of different ACL's you can define, and in larger organizations, it makes sense to be able to delegate administrative privilege.  Perhaps you want a user to be able to view the principals without changing them, or perhaps you want one user able to administrate all non-admin instance accounts.  Understanding the ACLs is key to manipulating user access to the Kerberos database.  The following ACLs can be used to specify strict access to the database:
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> ACL
+</th>
+<th style="background:#efefef;"> Description
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">a</span> </td>
+<td> allows the addition of principals or policies in the database
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">A</span> </td>
+<td> prohibits the addition of principals or policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">d</span> </td>
+<td> allows the deletion of principals or policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">D</span> </td>
+<td> prohibits the deletion of principals or policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">m</span> </td>
+<td> allows the modification of principals or policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">M</span> </td>
+<td> prohibits the modification of principals or policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">c</span> </td>
+<td> allows the changing of passwords for principals
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">C</span> </td>
+<td> prohibits the changing of passwords for principals
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">i</span> </td>
+<td> allows inquiries to the database
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">I</span> </td>
+<td> prohibits inquiries
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">l</span> </td>
+<td> allows the listing of principals and policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">L</span> </td>
+<td> prohibits the listing of principals and policies
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> </td>
+<td> all privileges (admcil)
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">x</span> </td>
+<td> all privileges (admcil)
+</td></tr></table>
+<p>By making good use of ACLs and principals, you can allow some people to manage certain groups of users.  For instance, if you were the head administrator of the network and you used the principal <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">fredadmin</span> you would give yourself access to all aspects of the database using:
+</p>
+<pre>
+fredadmin@LINSEC.CA *
+</pre>
+<p>Now suppose you had a principal, cathy@LINSEC.CA who acts as an administrator when Fred is away.  Fred trusts Cathy to some degree, so he gives her access to change principals and policies, but doesn't want her to change passwords for principals.  Because he also doesn't want Cathy using her cathy@LINSEC.CA principal for this, he creates a new principal for her called cathy/admin@LINSEC.CA.  To allow Cathy to do what she may need to do in his absence, Fred adds the following line to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kadm5.acl</span> file:
+</p>
+<pre>
+cathy/admin@LINSEC.CA admilC
+</pre>
+<p>Cathy has been given an ACL of "admilC", but Fred could have just as easily written it "admil" and just omitted the "c" ACL.  Either ACL acts the same, but when you start building ACLs, Cathy might be able to change passwords for one group of users but not for another.  In that case, Cathy would be explicitly denied (with the "C" ACL) the ability to change passwords for the second group while given it for the first.  As a result, it's usually best to write the ACLs clearly and specify each ACL, whether it is enabled or not.  For example:
+</p>
+<pre>
+cathy/admin@LINSEC.CA admilc */sales@LINSEC.CA
+cathy/admin@LINSEC.CA admilC */admin@LINSEC.CA
+</pre>
+<p>Here Cathy can change passwords for users with the "sales" instance, but not for users with the "admin" instance.
+</p>
+<p>Now that you understand have possibly defined a few ACLs, the next step is to add an administrative principal and some policies to the Kerberos database.  This must also be done on the master KDC.  The administrative principal that you add should be the one listed in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kadm5.acl</span> file above, which in the initial example was <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*/admin@LINSEC.CA</span>.  To do this, the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin.local</span> program is used:
+</p>
+<pre>
+# kadmin.local
+Authenticating as principal root/admin@LINSEC.CA with password.
+kadmin.local: addpol users
+kadmin.local: addpol admin
+kadmin.local: addpol hosts
+kadmin.local: ank -policy users fred
+Enter password for principal &quot;fred@LINSEC.CA&quot;:
+Re-enter password for principal &quot;fred@LINSEC.CA&quot;:
+Principal &quot;fred@LINSEC.CA&quot; created.
+kadmin.local: ank -policy admin fred/admin
+Enter password for principal &quot;fred/admin@LINSEC.CA&quot;:
+Re-enter password for principal &quot;fred/admin@LINSEC.CA&quot;:
+Principal &quot;fred/admin@LINSEC.CA&quot; created.
+kadmin.local: ank -randkey -policy hosts host/kerberos.linsec.ca
+Principal &quot;host/kerberos.linsec.ca@LINSEC.CA&quot; created.
+kadmin.local: ktadd -k /etc/krb5.keytab host/kerberos.linsec.ca
+Entry for principal host/kerberos.linsec.ca with kvno 3, encryption type Triple DES cbc mode with HMAC/sha1 added
+to keytab WRFILE:/etc/krb5.keytab.
+Entry for principal host/kerberos.linsec.ca with kvno 3, encryption type DES cbc mode with CRC-32 added to
+keytab WRFILE:/etc/krb5.keytab.
+kadmin.local: ktadd -k /etc/kerberos/krb5kdc/kadm5.keytab kadmin/admin kadmin/changepw
+kadmin.local: quit
+Entry for principal kadmin/admin with kvno 4, encryption type Triple DES cbc mode with HMAC/sha1 added to keytab
+WRFILE:/etc/kerberos/krb5kdc/kadm5.keytab.
+Entry for principal kadmin/admin with kvno 4, encryption type DES cbc mode with CRC-32 added to keytab
+WRFILE:/etc/kerberos/krb5kdc/kadm5.keytab.
+Entry for principal kadmin/changepw with kvno 4, encryption type Triple DES cbc mode with HMAC/sha1 added to keytab
+WRFILE:/etc/kerberos/krb5kdc/kadm5.keytab.
+Entry for principal kadmin/changepw with kvno 4, encryption type DES cbc mode with CRC-32 added to keytab
+WRFILE:/etc/kerberos/krb5kdc/kadm5.keytab.
+</pre>
+<p>Here we are doing a number of things to setup the database.  The first step is to create policies for "users", "admin", and "hosts".  While this isn't absolutely necessary, it's a good idea to get into the habit of using policies in case you want to use them later.  Policies allow for a lot of fine-tuning of parameters and restrictions of accounts.
+</p>
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ank</span> command adds a new principal (you can also use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">addprinc</span>).  User principles require a password; you will have to assign the passwords when you create them.  Host principles do not require passwords, so the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-randkey</span> option is used to generate a random key instead of a password.  Hosts have credentials, just like users, but they cannot supply a password on their own, so the secret key for the host is stored in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.keytab</span> file with the first <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ktadd</span> command.
+</p>
+<p>Finally, the keytab for <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmind</span> is also created with the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ktadd</span> command.  This is the key that <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmind</span> will use to decrypt the administrator's Kerberos tickets to determine whether or not access will be granted to the database.  This keytab needs to be created with entries for the principles "kadmin/admin" and "kadmin/changepw".  The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-k</span> parameter specifies the keytab file to write to and it must be the same as that specified in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">kdc.conf</span> file.
+</p>
+<p>At this point you are ready to start the Kerberos daemons on the master KDC.  Start the Kerberos services using:
+</p>
+<pre>
+# service krb5kdc start
+# service kadmin start
+</pre>
+<p>If you built from source or don't have a system to manage the start and stop of the Kerberos daemons, you can use:
+</p>
+<pre>
+# /usr/kerberos/sbin/krb5kdc
+# /usr/kerberos/sbin/kadmind
+</pre>
+<p>Of course, change the locations of the binaries to where they were installed; they may be in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/</span> instead.  If started in this manner, the daemons will fork in the background and do their thing.
+</p>
+<h2><span class="mw-headline" id="Testing_the_Install">Testing the Install</span></h2>
+<p>For a basic setup, Kerberos is now up and running and ready to go.  The time has come to test and make sure everything is configured properly.  The first step is to use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> to ensure the KDC can be contacted and you can properly provide your password and receive credentials.
+</p>
+<pre>
+$ kinit
+Password for fred@LINSEC.CA:
+</pre>
+<p>Provide the password for Fred that you had previously defined when you added the principle to the database.  When you have succeeded, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> to examine your credentials:
+</p>
+<pre>
+$ klist
+Ticket cache: FILE:/tmp/krb5cc_1001
+Default principal: fred@LINSEC.CA
+
+Valid starting     Expires            Service principal
+07/15/05 11:39:07  07/15/05 21:39:07  krbtgt/LINSEC.CA@LINSEC.CA
+        renew until 07/16/05 11:39:07
+
+
+Kerberos 4 ticket cache: /tmp/tkt1001
+klist: You have no tickets cached
+</pre>
+<p>The next step is to test the administrative system, using the separate administrative principle you previously defined:
+</p>
+<pre>
+$ /usr/sbin/kadmin
+Authenticating as principal fred/admin with password.
+Password for fred/admin@LINSEC.CA:
+kadmin:  listprincs
+K/M@LINSEC.CA
+host/kerberos.linsec.ca@LINSEC.CA
+kadmin/admin@LINSEC.CA
+kadmin/changepw@LINSEC.CA
+kadmin/history@LINSEC.CA
+krbtgt/LINSEC.CA@LINSEC.CA
+fred/admin@LINSEC.CA
+fred@LINSEC.CA
+kadmin: quit
+</pre>
+<p>The next step is to make services work properly.  Kerberos comes with Kerberized-telnet client and server, on RHEL5 they are included in the krb5-workstation package.  Other distributions may or may not ship the Kerberos versions of telnet and telnetd; if they don't you can build and install them from the Kerberos source but it is most likely that if a distribution ships Kerberos, they will include the Kerberized telnet as well either as a replacement for traditional telnet or in addition to.  To start the telnetd on RHEL5 you must edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/xinetd.d/ekrb5-telnet</span> and set "disable = no".  This will let xinetd know to start that service when it starts.  To start xinetd, use:
+</p>
+<p>Annvix use:
+</p>
+<pre>
+# service xinetd start
+</pre>
+<p>or use "restart" if xinetd was already running.  Once telnetd is running, try to telnet to the localhost on the KDC master system.  Note that you cannot use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">telnet localhost</span> because "localhost" is not defined anywhere in Kerberos (nor would you want it to be).  Instead, telnet to the FQDN domain name and include the username on the commandline:
+</p>
+<pre>
+$ telnet -l fred -x kerberos.linsec.ca
+Trying 192.168.10.100...
+Connected to kerberos.linsec.ca (192.168.10.100).
+Escape character is '^]'.
+Waiting for encryption to be negotiated...
+[ Kerberos V5 accepts you as ``fred@LINSEC.CA'' ]
+done.
+Last login: Sat Jul 16 09:39:11 from foofoo.linsec.ca
+
+[fred@kerberos ~]$ exit
+Connection closed by foreign host.
+$ klist
+Ticket cache: FILE:/tmp/krb5cc_1001
+Default principal: fred@LINSEC.CA
+
+Valid starting     Expires            Service principal
+07/16/05 09:39:13  07/16/05 19:39:13  krbtgt/LINSEC.CA@LINSEC.CA
+        renew until 07/17/05 09:39:13
+07/16/05 09:45:06  07/16/05 19:39:13  host/kerberos.linsec.ca@LINSEC.CA
+        renew until 07/17/05 09:39:13
+
+
+Kerberos 4 ticket cache: /tmp/tkt1001
+klist: You have no tickets cached
+</pre>
+<p>Although there was a lot here to demonstrate that telnetting with Kerberos works, there's actually a fair amount going on here that we'll explain.  The first step is to telnet to the KDC using it's FQDN (kerberos.linsec.ca in this instance).  We pass the username on the commandline so we don't get a login prompt, and we also pass <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-x</span> in order to force encryption of the telnet session.  As you can see, the first step is for encryption to be established before anything else happens.  After this, you see a note from Kerberos saying it accepted the login as fred@LINSEC.CA, which is the Kerberos principal for user fred.
+</p>
+<p>The connection is established and you're logged in.  Exit the telnet session and issue the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> command and you will see that not only do you have a TGT ticket, but you also have a ticket for the host kerberos.linsec.ca.  This ticket was granted when you successfully logged into the host.
+</p>
+<p>If you were to run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> inside the telnet session, you would see you have no credentials; no tickets are assigned to you.  In order to move past the system to use another Kerberos server, you would have to run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> again.  However, you can pass the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-f</span> command to telnet in order to forward your credentials to the remote host, which isn't done by default.  For instance:
+</p>
+<pre>
+$ telnet -l fred -x kerberos.linsec.ca
+Trying 192.168.10.100...
+Connected to kerberos.linsec.ca (192.168.10.100).
+Escape character is '^]'.
+Waiting for encryption to be negotiated...
+[ Kerberos V5 accepts you as ``fred@LINSEC.CA'' ]
+done.
+Last login: Sat Jul 16 09:45:06 from kerberos
+
+[fred@kerberos ~]$ klist
+klist: No credentials cache found (ticket cache FILE:/tmp/krb5cc_p7351)
+
+
+Kerberos 4 ticket cache: /tmp/tkt1001
+klist: You have no tickets cached
+</pre>
+<p>As you can see, you have no tickets cached on the telnet system.  If you were to telnet with <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">-f</span> however, this changes:
+</p>
+<pre>
+$ telnet -l fred -x -f kerberos.linsec.ca
+Trying 192.168.10.100...
+Connected to kerberos.linsec.ca (192.168.10.100).
+Escape character is '^]'.
+Waiting for encryption to be negotiated...
+[ Kerberos V5 accepts you as ``fred@LINSEC.CA'' ]
+done.
+Last login: Sat Jul 16 10:08:29 from kerberos
+
+[fred@kerberos ~]$ klist
+Ticket cache: FILE:/tmp/krb5cc_p7378
+Default principal: vdanen@LINSEC.CA
+
+Valid starting     Expires            Service principal
+07/16/05 10:09:59  07/16/05 19:39:13  krbtgt/LINSEC.CA@LINSEC.CA
+        renew until 07/17/05 09:39:13
+
+
+Kerberos 4 ticket cache: /tmp/tkt1001
+klist: You have no tickets cached
+</pre>
+<p>Here you see that your TGT has been forwarded so you obtain your credentials.  The manpage for the Kerberized telnet contains more information on the various options you can pass to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">telnet</span>.
+</p>
+<p>Congratulations!  Kerberos is setup and successfully configured!  You can now use the Kerberized telnet and even the Kerberized FTP client and server that also come with Kerberos.
+</p>
+<h2><span class="mw-headline" id="Setting_up_Client_Realm_Systems">Setting up Client Realm Systems</span></h2>
+<p>Now that Kerberos is configured and setup on the KDC, you need to extend this to other systems.  This is extremely easy to do.  All that is needed is to ensure that Kerberos client software is installed on the other hosts by having krb5-workstation installed on them (I believe this may be a default in Red Hat Enterprise Linux 5).  Once this is done, copy the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.conf</span> file from the KDC to the client system.  Now you can use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin</span> from the client to administer the database.
+</p>
+<h3><span class="mw-headline" id="Adding_New_Users_and_Hosts_to_the_Database">Adding New Users and Hosts to the Database</span></h3>
+<p>Maintaining the Kerberos database is just as important as using it, so we'll figure out how to add more client systems to the realm and how to make those users and hosts known to Kerberos.
+</p>
+<p>Once Kerberos is completely configured, you can use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin</span> program from any realm host to add a new user or host:
+</p>
+<pre>
+$ /usr/sbin/kadmin
+Authenticating as principal fred/admin@LINSEC.CA with password.
+Password for fred/admin@LINSEC.CA:
+kadmin: ank -policy users joe
+Enter password for principal &quot;joe@LINSEC.CA&quot;:
+Re-enter password for principal &quot;joe@LINSEC.CA&quot;:
+Principal &quot;joe@LINSEC.CA&quot; created.
+kadmin: quit
+</pre>
+<p>By the same token, you can create an administrative principal for the same user by using <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ank</span> again but give it the instance <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">admin</span> and the principal name <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">joe/admin</span>.  You do not need to use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin.local</span> as we did when initially setting up the database; <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin.local</span> is a bootstrapping program used only when the database hasn't been initially setup.
+</p>
+<p>Likewise, you can setup new hosts in a similar fashion:
+</p>
+<pre>
+$ /usr/sbin/kadmin
+Authenticating as principal fred/admin@LINSEC.CA with password.
+Password for fred/admin@LINSEC.CA:
+kadmin: ank -randkey -policy hosts host/foofoo.linsec.ca
+kadmin: ktadd -k /etc/krb5.keytab host/foofoo.linsec.ca
+kadmin: quit
+</pre>
+<p>These commands should be run on the host are you adding to the realm.  In the above example, we would run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kadmin</span> on the host foofoo.linsec.ca.  This is because the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ktadd</span> command creates the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.keytab</span> file for the host foofoo.linsec.ca and it is only useful if this file exists on that particular host; it must belong to that hosts's keytab file.
+</p>
+<p>Once the host is setup, you can test the setup in a similar manner we previously showed, using telnet or ssh, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span>.
+</p>
+<h3><span class="mw-headline" id="Setting_up_a_Mac_OS_X_Client_.28.3C.3D_10.6.29">Setting up a Mac OS X Client (&lt;= 10.6)</span></h3>
+<p>Configuring Mac OS X as a Kerberos client is a little more difficult than setting up a Linux client.  As with the Linux client, you need a copy of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.conf</span> file from the Kerberos server.  On OS X, however, the file must be copied to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/Preferences/edu.mit.Kerberos</span>.  For instance:
+</p>
+<pre>
+[domain_realm]
+    .linsec.ca = &quot;LINSEC.CA&quot;
+    linsec.ca = &quot;LINSEC.CA&quot;
+
+[libdefaults]
+    default_realm = &quot;LINSEC.CA&quot;
+
+[realms]
+    LINSEC.CA = {
+        admin_server = kerberos.linsec.ca
+        kdc = kerberos.linsec.ca
+    }
+
+[logging]
+    kdc = FILE:/var/log/krb5kdc/kdc.log
+    admin_server = FILE:/var/log/krb5kdc/kadmin.log
+</pre>
+<p>Once this file is created, you must change the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span> file.  This will provide the SSO functionality we are looking for, provided the local user's username and password are identical to their Kerberos username and password (with the exception of the realm in the username).  I.e. to authenticate joe@LINSEC.CA, the local user's name must be "joe".
+</p>
+<p>In <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span>, search for the string <b>system.login.console</b>  you want to change the string "builtin:authenticate,privileged" to "builtin:krb5authnoverify,privileged", as shown below:
+</p>
+<pre>
+&lt;array&gt;
+    &lt;string&gt;builtin:smartcard-sniffer,privileged&lt;/string&gt;
+    &lt;string&gt;loginwindow:login&lt;/string&gt;
+    &lt;string&gt;builtin:reset-password,privileged&lt;/string&gt;
+    &lt;string&gt;builtin:auto-login,privileged&lt;/string&gt;
+--&gt;  &lt;string&gt;builtin:krb5authnoverify,privileged&lt;/string&gt;  &lt;--
+    &lt;string&gt;loginwindow:success&lt;/string&gt;
+    &lt;string&gt;HomeDirMechanism:login,privileged&lt;/string&gt;
+    &lt;string&gt;HomeDirMechanism:status&lt;/string&gt;
+    &lt;string&gt;MCXMechanism:login&lt;/string&gt;
+    &lt;string&gt;loginwindow:done&lt;/string&gt;
+</pre>
+<p>(emphasis shown for the line in question)
+</p>
+<p>The above will work for Mac OS X 10.5 and 10.6.  For 10.4, the string you want to change is "authinternal" instead of "builtin:authenticate", however the end result must look the same (in other words, on 10.4 the resulting line must still read "&lt;string&gt;builtin:krb5authnoverify,privileged&lt;/string&gt;".
+</p>
+<p>Once the above is done, reboot the system and when you login you will obtain a Kerberos ticket provided the local username/password match that in the Kerberos database.
+</p>
+<h4><span class="mw-headline" id="Enabling_auto-renewing_Tickets">Enabling auto-renewing Tickets</span></h4>
+<p>In Mac OS X 10.6, there is a Launch Agent called com.apple.Kerberos.renew.plist that is supposed to renew tickets automatically.  Unfortunately, it doesn't work.  This can be edited to use the documented <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kinit -R</span> rather than the default <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kinit -B</span> that it is using by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/LaunchAgents/com.apple.Kerberos.renew.plist</span> as root (so <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">sudo vim</span> or something).  In the file change <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">&lt;string&gt;-B&lt;/string&gt;</span> to <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">&lt;string&gt;-R&lt;/string&gt;</span> then save the file.  You then need to unload and reload the file using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">launchctl</span>:
+</p>
+<pre>
+$ launchctl unload /System/Library/LaunchAgents/com.apple.Kerberos.renew.plist
+$ launchctl load /System/Library/LaunchAgents/com.apple.Kerberos.renew.plist
+</pre>
+<p>If you then look at the output of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> you will see that the ticket is being renewed (if you have a renewable ticket -- this will only work if you can obtain renewable tickets).  Unfortunately, there doesn't seem to be a way that I have found to specify obtaining a renewable ticket at login, so you will need to open a terminal to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> manually regardless of any changes to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span>.  It seems that the ticket obtained by logging in is not renewable, so there is nothing to renew even with the above changes (but using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> directly will obtain a renewable ticket).
+</p>
+<p>For reference:
+</p>
+<pre>
+$ launchctl list com.apple.Kerberos.renew.plist
+{
+    &quot;Label&quot; = &quot;com.apple.Kerberos.renew.plist&quot;;
+    &quot;LimitLoadToSessionType&quot; = &quot;Background&quot;;
+    &quot;OnDemand&quot; = true;
+    &quot;LastExitStatus&quot; = 0;
+    &quot;TimeOut&quot; = 30;
+    &quot;ProgramArguments&quot; = (
+        &quot;/usr/bin/kinit&quot;;
+        &quot;-R&quot;;
+    );
+};
+</pre>
+<p>Without the "-R" change (from "-B") noted earlier, the LastExitStatus noted in the output above will likely be 256.  Likewise, the output from below will show an exit status of "1" (error) rather than "0" (success):
+</p>
+<pre>
+$ launchctl list|grep -i kerb
+-   0   edu.mit.Kerberos.KerberosAgent
+-   0   com.apple.Kerberos.renew.plist
+263 -   edu.mit.Kerberos.CCacheServer
+-   0   com.apple.KerberosHelper.LKDCHelper
+</pre>
+<p>The second column is the exit status.
+</p>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Setting_up_a_Mac_OS_X_Client_.2810.7.29">Setting up a Mac OS X Client (10.7)</span></h3>
+<p>Mac OS X changed from using MIT Kerberos to using Heimdal, and how Kerberos is configured has changed quite a bit as well.  This section illustrates the differences in setting up an OS X computer as a Kerberos client using Mac OS X 10.7 (Lion).
+</p>
+<p>Typically, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/Preferences/edu.mit.Kerberos</span> settings will be similar, however you must make certain that none of the variables are enclosed in quotes.  A working example will look like:
+</p>
+<pre>
+[domain_realm]
+    .linsec.ca = LINSEC.CA
+    linsec.ca = LINSEC.CA
+
+[libdefaults]
+    default_realm = LINSEC.CA
+    allow_weak_crypto = yes
+    dns_lookup_realm = false
+    dns_lookup_kdc = false
+    ticket_lifetime = 36000
+    renewable = true
+
+[realms]
+    LINSEC.CA = {
+        admin_server = kerberos.linsec.ca
+        kdc = kerberos.linsec.ca
+    default_domain = linsec.ca
+    }
+
+[logging]
+    kdc = FILE:/var/log/krb5kdc/kdc.log
+    admin_server = FILE:/var/log/krb5kdc/kadmin.log
+</pre>
+<p>The one thing to note is that you will almost definitely need to set "allow_weak_crypto = yes", unfortunately.
+</p>
+<p>The next step is to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span>.  This is done instead of editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span> as was done in the past.  OS X now uses PAM to handle Kerberos authentication, and has the required pam_krb5 module already noted.  You will, however, need to add the "default_principal" string to the pam_krb5.so line for auth.  A working <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span> file follows:
+</p>
+<pre>
+# authorization: auth account
+auth       optional       pam_krb5.so use_first_pass use_kcminit default_principal
+auth       optional       pam_ntlm.so use_first_pass
+auth       required       pam_opendirectory.so use_first_pass nullok
+account    required       pam_opendirectory.so
+</pre>
+<p>Next, if you want to allow kerberized access to this system (i.e. for SSH logins), you will need to create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.keytab</span> file and edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sshd_config</span> as noted elsewhere in this article.
+</p>
+<p>The final step is to reboot the computer.  When you next login, if you open terminal and type <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> you should see that a ticket-granting ticket has been obtained.
+</p>
+<h2><span class="mw-headline" id="Configuring_OpenSSH_to_use_Kerberos">Configuring OpenSSH to use Kerberos</span></h2>
+<p>OpenSSH 4.0 and higher provides support for GSSAPI (Generic Security Services Application Programming Interface) with allows for the use of Kerberos with SSH2 protocols.  On Red Hat Enterprise Linux 5, OpenSSH is configured by default with the appropriate GSSAPI options.  On other distributions, you may need to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sshd_config</span> on the server and comment out all of the Kerberos* options and enable some GSSAPI options.  The appropriate sections of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sshd_config</span> would look like:
+</p>
+<pre>
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+</pre>
+<p>Essentially, you can leave the Kerberos options commented out, but enable the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">GSSAPIAuthentication</span> and <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">GSSAPICleanupCredentials</span> options.  Restart sshd once the file is saved.
+</p>
+<p>On the client system (in this case, the same system) you can either modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.ssh/options</span> to specify the exact hosts to use Kerberos (GSSAPI) authentication with, or you can modify the system-wide <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh/ssh_config</span> file.  Either way, the options you want to enable are:
+</p>
+<pre>
+GSSAPIAuthentication yes
+GSSAPIDelegateCredentials yes
+</pre>
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">GSSAPIDelegateCredentials</span> option isn't necessary for this to work, but what it does is allow you to forward your Kerberos credentials to the server.  By default this is "no", and you can leave it as such if you like.  The real magic is to set <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">GSSAPIAuthentication</span> to yes.  This tells the client to allow GSSAPI user authentication.  The OpenSSH default is set to no, so even if the server allows GSSAPI authentication, the client will not try to negotiate it if this option is not enabled.  <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">GSSAPIDelegateCredentials</span> is not enabled by default on Red Hat Enterprise Linux 5.
+</p>
+<p>Once both the server and client(s) allow GSSAPI authentication, you can now ssh to your server using your Kerberos credentials.  However, if for some reason you cannot authenticate to the KDC (i.e. it is down), you will be locked out unless you permit password (keyboard-based) authentication or public key authentication.  At a <i>minimum</i> you should use public key authentication on the KDC itself (unless you have physical access to it) in order to deal with that machine if the KDC ever goes down; if you don't you will be effectively locked out.  Using GSSAPI and public key authentication together makes the most sense; you can use one and fallback to the other if required.  Either way, you'll still be able to log in.  On a personal aside, I would completely disable password-based authentication entirely and rely strictly on public key and GSSAPI authentication, or public key authentication alone.
+</p>
+<h2><span class="mw-headline" id="Configuring_a_Subversion_client_to_use_Kerberos">Configuring a Subversion client to use Kerberos</span></h2>
+<p>Subversion understands GSSAPI authentication without any work, provided the server is using HTTPS.  If you are connecting to an HTTP server (unencrypted), the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svn</span> program will instead prompt for a password.  To correct this, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.subversion/servers</span> and edit the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">[global]</span> section so it looks like this:
+</p>
+<pre>
+[global]
+http-auth-types = Negotiate
+</pre>
+<p>This will allow <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svn</span> to use GSSAPI credentials with a subversion server that understands them.
+</p>
+<p>(Supposedly it is possible to have <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svnserve</span> work with GSSAPI using SASL, but I have not tried this as I prefer using apache.)
+</p>
+<h2><span class="mw-headline" id="Configure_Firefox_to_use_Kerberos">Configure Firefox to use Kerberos</span></h2>
+<p>By default, Firefox does not enable the ability to view Kerberos-protected sites.  To change this, you need to type <b>about:config</b> in the address field.  Once there, in the filter field, type <b>network.negotiate</b> and look for the <b>network.negotiate-auth.trusted-uris</b> option.  Double-click it and type in the kerberos domain name in the pop up box.  At this point, you can use kerberos credentials on any site within that domain.
+</p>
+<h2><span class="mw-headline" id="Changing_Kerberos_Passwords">Changing Kerberos Passwords</span></h2>
+<p>You can change your Kerberos password on any system that is a part of the Kerberos realm (in other words, any system you can kinit from).  Use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kpasswd</span> command to change your Kerberos password.  You will be prompted for your existing password, and then will have to enter your new password twice.  If you need to change the password for another principal, you can specify it as an option:
+</p>
+<pre>
+$ kpasswd joe/admin
+</pre>
+<p>This will change the Kerberos password for the principal <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">joe/admin</span>.
+</p>
+
+<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
+<ul><li> 01/09/2012: add section on setting OS X Lion clients, based on <a rel="nofollow" class="external text" href="http://linsec.ca/blog/2011/07/26/kerberos-on-os-x-10-7-lion/">my blog post</a></li>
+<li> 02/25/2011: add section on changing Kerberos passwords</li>
+<li> 11/02/2009: add LaunchAgent and renewable ticket notes for OS X clients (refer to <a rel="nofollow" class="external text" href="http://linsec.ca/blog/2009/09/03/kerberos-support-in-10-6-is-a-huge-step-backward/comment-page-1/">blog comments</a> for more details</li>
+<li> 10/21/2009: add some info re using modprinc to change ticket/renewable lifetimes</li>
+<li> 10/19/2009: add info on configuring Firefox</li>
+<li> 9/7/2009: add info on configuring OS X clients</li>
+<li> 7/16/2009: add info on svn clients</li>
+<li> 6/17/2009: revise to remove Annvix references and update to be relevant for CentOS/RHEL 5.3</li>
+<li> 12/25/2007: initial article</li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

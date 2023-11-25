@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>DansGuardian: A Content Filtering System - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/dansguardian_a_content_filtering_system">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="description" content="One feature many firewall appliances have been pushing recently is content filtering proxies, whether transparent or authenticated. These content filtering proxies are a boon to individuals with young children in the house, but many of them are extremely basic. Without pointing any fingers, I had purchased a content filtering firewall …" />
+
+    <meta property="og:site_name" content="Annvix" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="DansGuardian: A Content Filtering System"/>
+    <meta property="og:url" content="https://annvix.com/dansguardian_a_content_filtering_system"/>
+    <meta property="og:description" content="One feature many firewall appliances have been pushing recently is content filtering proxies, whether transparent or authenticated. These content filtering proxies are a boon to individuals with young children in the house, but many of them are extremely basic. Without pointing any fingers, I had purchased a content filtering firewall …" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content" class="body">
+        <h1 class="entry-title">DansGuardian: A Content Filtering System</h1>
+        
+        <div class="entry-content">
+            <p>One feature many firewall appliances have been pushing recently is content filtering proxies, whether transparent or authenticated. These content filtering proxies are a boon to individuals with young children in the house, but many of them are extremely basic. Without pointing any fingers, I had purchased a content filtering firewall appliance that promised content filtering and was sorely disappointed. The content filtering was extremely basic and was solely word-based. Unfortunately, this word list was something the end user had to enter in by hand. So if you're looking to keep your children from stumbling across some pornographic web pages, you have to get pretty creative to populate your word list. The other drawback to this particular appliance was that port forwarding didn't work. Eventually it was this drawback that convinced me to sell it; my daughter is only a year and a half and won't be surfing solo anytime soon.
+</p>
+<p>As a result, I took an unused desktop computer and installed MandrakeSoft's Multi-Network Firewall 8.2 on it, to replace the now removed firewall appliance. While the end result may have been more expensive, you can't put a price on flexibility. And by using a Linux-based firewall operating system, I get all the flexibility I want.
+</p>
+<p>One way you can configure MNF is to use <a rel="nofollow" class="external text" href="http://www.squid-cache.org/">Squid</a> as a transparent proxy, which is ideal. No reconfiguration of the LAN to point everything to a proxy. Cached web pages. And the ability to use <a rel="nofollow" class="external text" href="http://www.dansguardian.org/">DansGuardian</a> as a content filter. MNF also comes with <a rel="nofollow" class="external text" href="http://www.squidguard.org/">squidGuard</a> which is nice, but doesn't seem to be as flexible as DansGuardian when it comes to content filtering.
+</p>
+<p>DansGuardian has a few requirements. It requires Squid for the web proxy, and it requires a web server like Apache. It does not require MNF, and while this was written to use DansGuardian on MNF, it will run on a variety of operating systems including any Linux, FreeBSD, OpenBSD, and even OS X (although at the time of this writing, the OS X support is alpha quality).
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Configuring_DansGuardian"><span class="tocnumber">1</span> <span class="toctext">Configuring DansGuardian</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_Squid"><span class="tocnumber">2</span> <span class="toctext">Configuring Squid</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#A_Word_On_Apache"><span class="tocnumber">3</span> <span class="toctext">A Word On Apache</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#PICS_Filtering"><span class="tocnumber">4</span> <span class="toctext">PICS Filtering</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Weighted_Phrases"><span class="tocnumber">4.1</span> <span class="toctext">Weighted Phrases</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#References"><span class="tocnumber">4.2</span> <span class="toctext">References</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Configuring_DansGuardian">Configuring DansGuardian</span></h2>
+<p>Building DansGuardian is very straightforward. For the purpose of this tutorial, we will assume DansGuardian is installed in the system so the binary is in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin</span> and the configuration files are in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/dansguardian</span>. DansGuardian comes with a logrotation script that is installed into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/dansguardian</span>, called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">logrotation</span>. This should be executed weekly, so you should add the following to your crontab (as root):
+</p>
+<pre>
+59 23 * * sat /etc/dansguardian/logrotation
+</pre>
+<p>You can modify your system crontab by executing <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">crontab -e</span>. Another alternative, for systems that use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">logrotate</span> is to create a file called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian</span> in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/logrotate.d</span> directory that looks like this:
+</p>
+<pre>
+/var/log/dansguardian/access.log {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+}
+</pre>
+<p>If you do choose to use the script that comes with DansGuardian make sure you <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chmod 0700</span> the script to make it executable.
+</p>
+<p>To start DansGuardian you can use the SysV-style initscript (ie. Mandrakelinux packages come with <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/dansguardian</span> which can be started by using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service dansguardian start</span>), or you can just execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dansguardian</span> on the commandline. If you start DansGuardian in this way, you can use the typical "kill" method of stopping it, or use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dansguardian -q</span>.
+</p>
+<p>The main configuration file for DansGuardian is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/dansguardian/dansguardian.conf</span>. There are a number of other files included, these are the banned lists and exception lists. These files all reside in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/dansguardian</span> directory as well. Every time you make a change to any of these files, you will need to restart DansGuardian, and this can be accomplished by executing <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dansguardian -r</span> as root.
+</p>
+<p>The following files make up the overall configuration of DansGuardian:
+</p>
+<table border="0">
+<tr>
+<th style="background:#efefef;"> File
+</th>
+<th style="background:#efefef;"> Description
+</th></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exceptioniplist</span> </td>
+<td> This file contains a list of client IP addresses that you wish to allow unrestricted access (no filtering).
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exceptionphraselist</span> </td>
+<td> This file contains a list of phrases that, if they appear in a web page, will bypass filtering. You may want to use the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">weightedphraselist</span> instead, as this can result in a lot of pages not being blocked.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exceptionsitelist</span> </td>
+<td> This file contains a list of domain endings that if found in the requested URL, will not be filtered.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exceptionurllist</span> </td>
+<td> This file contains a list of URL parts for sites where filtering should be turned off.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exceptionuserlist</span> </td>
+<td> This file contains a list of usernames that will not be filtered (you must use basic authentication or ident must be enabled for this to work).
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedextensionlist</span> </td>
+<td> This file contains a list of file extensions that will be banned. This can be used to restrict users from downloading screen savers, executable files, viruses, and so forth.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannediplist</span> </td>
+<td> This file contains a list of client IP addresses that will not get web access at all.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedmimetypelist</span> </td>
+<td> This file contains a list of MIME-types that will be banned. If a URL request returns a MIME-type in this list, DansGuardian will block it. This can be used to block movies, but shouldn't be used to graphic image files or text/html, etc.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedphraselist</span> </td>
+<td> This file contains a list of phrases that will result in banning a page. Each phrase must be enclosed between &lt; and &gt; characters, and they may contain spaces. You can also use a combination of phrases that, if all are found in a page, will result in it being blocked.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedregexpurllist</span> </td>
+<td> This file contains a list of regular expression URLs that will be banned. that will be banned. This can be used to restrict users from downloading screen savers, executable files, viruses, and so forth.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedsitelist</span> </td>
+<td> This file contains a list of sites that are to be banned. You can use IP addreses here as well as domain names, and can even include stock SquidGuard blacklists as well.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedurllist</span> </td>
+<td> This file contains a list of URL parts to block, which allows you to block parts of a site rather than the entire site. You can also use SquidGuard lists here as well.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">banneduserlist</span> </td>
+<td> This file contains a list of usernames to whom, if basic proxy authentication is enabled, access will be denied automatically.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">weightedphraselist</span> </td>
+<td> This file contains a list of phrases with a corresponding positive or negative value. As phrases are encountered in a page, the total "value" of the page will be calculated based on these values; good phrases will have negative values and bad phrases will have positive values. One the Naughtiness Limit has been reached (defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.conf</span>, the page will be blocked.
+</td></tr>
+<tr>
+<td> <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">pics</span> </td>
+<td> This file contains a number of PICS sections that allow you to fine-tune your PICS filtering. The defaults for DansGuardian are for young children (mild profanity, artistic nudity, etc.).
+</td></tr></table>
+<p>Each of these configuration files are very straightforward and are basically one item per line (ie. a URL or IP address, etc.).
+</p>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.conf</span> file is the primary configuration file for DansGuardian. It is here that you will configure things like logging, where to redirect users when attempting to access a denied page, and so forth. The file is heavily commented and fairly straightforward.
+</p>
+<p>An example <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.conf</span> file without comments follows:
+</p>
+<pre>
+reportinglevel = 2
+htmltemplate = '/etc/dansguardian/template.html'
+accessdeniedaddress = http://10.0.5.1:8444/cgi-bin/dansguardian.pl
+
+loglevel = 3
+
+filterip =
+filterport = 3328
+proxyport = 3128
+proxyip = 10.0.5.1
+
+bannedphraselist = '/etc/dansguardian/bannedphraselist'
+exceptionphraselist = '/etc/dansguardian/exceptionphraselist'
+weightedphraselist = '/etc/dansguardian/weightedphraselist'
+bannedsitelist = '/etc/dansguardian/bannedsitelist'
+exceptionsitelist = '/etc/dansguardian/exceptionsitelist'
+exceptionurllist = '/etc/dansguardian/exceptionurllist'
+bannedurllist = '/etc/dansguardian/bannedurllist'
+bannedregexpurllist = '/etc/dansguardian/bannedregexpurllist'
+bannedextensionlist = '/etc/dansguardian/bannedextensionlist'
+bannedmimetypelist = '/etc/dansguardian/bannedmimetypelist'
+bannediplist = '/etc/dansguardian/bannediplist'
+exceptioniplist = '/etc/dansguardian/exceptioniplist'
+banneduserlist = '/etc/dansguardian/banneduserlist'
+exceptionuserlist = '/etc/dansguardian/exceptionuserlist'
+picsfile = '/etc/dansguardian/pics'
+
+weightedphrasemode = 1
+naughtynesslimit = 50
+showweightedfound = on
+
+reverseaddresslookups = off
+createlistcachefiles = on
+maxuploadsize = -1
+
+username_id_method_proxyauth = off
+username_id_method_ntlm = off # **NOT IMPLEMENTED**
+username_id_method_ident = on
+
+forwarded_for = off
+maxchildren = 120
+log_connection_handling_errors = on
+</pre>
+<p>This is a fairly standard configuration one might have; you can even use it verbatim provided you change IP addreses and port settings to match your own system.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">reportinglevel</span> setting tells DansGuardian to fully report why access was denied (ie. give the denied phrase). You may choose to use a level of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">1</span> instead, or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">3</span> to use the HTML template file. If you use the HTML template file, then the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">htmltemplate</span> file needs to be set to the full path and filename of the template file you wish to use. If you use a setting of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span> through <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">2</span> you will need to set the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">accessdeniedaddress</span> keyword. In this case, it's pointing to the internal IP address of our firewall (10.0.5.1), and the port it listens to (in this case port 8444). It also contains the full path to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.pl</span> CGI script.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">loglevel</span> keyword is to determine what gets logged to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/dansguardian/access.log</span> logfile.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">filterip</span> determines what IP address that DansGuardian will listen on. If left blank, all IPs will be listened on. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">filterport</span> keyword is the port that DansGuardian will bind to. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">proxyip</span> is the IP address of the proxy; usually the localhost. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">proxyport</span> is the port to use to connect to the proxy (in this case, 3128, which is the port that Squid is listening on).
+</p>
+<p>The keywords following are all related to the various configuration files discussed earlier, and simply include them to be a part of the configuration.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">weightedphrasemode</span> determines how weighted phrases are used. A setting of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">1</span> is for normal operation. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">naughtynesslimit</span> keyword sets the limit over which a page will be blocked. This is based on the values of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">weightedphraselist</span> file and each "hit" on a page will modify the naughtyness of the page. The higher the rating, the "naughtier" the page. As a general rule of thumb, with the default settings, a limit of 50 is suitable for young children, 100 for older children, and 160 for young adults.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">showweightedfound</span> keyword determines whether the phrases found that made up the total that exceeds the naughtyness limit will be logged, and if <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">reportinglevel</span> is set to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">2</span>, reported.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">reverseaddresslookups</span> keyword determines whether or not DansGuardian will look up the forward DNS for an IP URL address and search for both the banned site and URL lists. This is useful for preventing a user from simply entering the IP address for a banned site. It can also have an impact on the searching speed, however.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">createlistcachefiles</span> keyword determines whether or not the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedsitelist</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">bannedurl</span> files will be cached. Fast computers do not need this, but on slower computers this could result in a significant process start speed increase.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">maxuploadsize</span> keyword is used for POST protection on web upload forms. A setting of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-1</span> disables, a setting of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span> blocks completely, and any other value sets the file upload size in kilobytes (after MIME encoding and headers).
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">forward_for</span> keyword, if enabled, will add an X-Forwarded-For to the HTTP request header. This may be required for some sites that need to know the source IP.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">maxchildren</span> keyword sets the maximum number of processes to spawn to handle incoming connections. This can be used to prevent DoS attacks from killing the server by maxing out spawned processes.
+</p>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">log_connection_handling_errors</span> keyword is used to determine if DansGuardian will log debug info to syslog.
+</p>
+<h2><span class="mw-headline" id="Configuring_Squid">Configuring Squid</span></h2>
+<p>No real special configuration needs to be done with Squid, although the use of Squid is required. DansGuardian will appear to Squid to be a normal web browser. However, the system must be configured in such a way that users cannot bypass DansGuardian, just as they should not be able to bypass Squid. You can do this either with an authenticated proxy (ie. users must log into the proxy to be able to access the network andprovide valid credentials), or you can use a transparent proxy, one where outbound web traffic is routed through the proxy without the end user even knowing it's there; it's all done at the firewall level.
+</p>
+<p>For instance, on a system with just Squid doing web proxying, you might have the firewall redirect all request to outbound port 80 (HTTP) to localhost port 3328 (the proxy). With this method, the end user does not need to reconfigure their browser, and isn't even aware of the proxy at all... until it is unable to connect to a website on their behalf or blocks a site due to DansGuardian.
+</p>
+<p>Taking this further, there is a certain process that needs to be followed. What you want to accomplish is the following:
+</p>
+<pre>
+lan -&gt; fw -&gt; fw -&gt; wan
+</pre>
+<p>Or, looking at it a different way:
+</p>
+<pre>
+client -&gt; DansGuardian -&gt; Squid -&gt; server
+</pre>
+<p>On the Multi Network Firewall system I use, Squid is configured to list on port 3328; the port that DansGuardian listens to by default. Changing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/squid/squid.conf</span> so that Squid listens now on port 3128, DansGuardian can be activated. DansGuardian will always connect to Squid on this port, so you must have Squid listening there. It's a simple matter of modifying one file and restarting Squid, then starting DansGuardian. The firewall rules for the transparent proxy don't even need to be changed as the firewall will have previously forwarded HTTP requests to port 3328 on the localhost.
+</p>
+<h2><span class="mw-headline" id="A_Word_On_Apache">A Word On Apache</span></h2>
+<p>The Apache configuration is extremely straightforward and not really worth mentioning, however for the sake of completeness, here it is. Apache must be running on the firewall, and your firewall rules should ensure that the outside world cannot access it. You could also configure Apache to listen to some non-standard port, perhaps port 8000 or some other un-used port. The installation of DansGuardian should have placed the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.pl</span> into your web server's cgi-bin directory. This is all that Apache really needs to serve, so you can lock down Apache to only serve this one particular CGI.
+</p>
+<p>When DansGuardian blocks a page, it will redirect the client to the specified server to view the reasons why the page was blocked, or simply that access was denied (depending upon how you configured it). The Apache server should listen only on the internal interface (LAN-side). You can do this by setting the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">BindAddress</span> keyword in your Apache configuration files.
+</p>
+<h2><span class="mw-headline" id="PICS_Filtering">PICS Filtering</span></h2>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">pics</span> file contains information for PICS filtering. The first keyword in the file is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">enablePICS</span> and this determines whether PICS filtering will be used. If it is disabled, all other PICS-related settings are ignored.
+</p>
+<p>PICS stands for Platform for Internet Content Selection. This specification allows for metadata to be associated with internet content. It was designed to help control what children access on the internet, and is used in this capacity in DansGuardian.
+</p>
+<p>Building on PICS is the ICRA, or Internet Content Rating Association. This also provides a rating system for websites (one may often see "We rated with RSAC" slogans on adult websites). The ICRA used to be RSAC (Recreational Software Advisory Council). A number of keywords in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">pics</span> file deal with ICRA ratings, to allow you to tailor DansGuardian to your needs. For instance, the keyword <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ICRAnuditygraphic</span> would allow (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">1</span>) or disallow (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span>) graphic nudity. You may want to disallow that, yet allow <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ICRAnudityeducational</span>. It's entirely up to you. There are RSAC keywords, because many sites still use RSAC instead of using the newer ICRA rating system. The RSAC keywords have a range of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span> (none) to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">4</span> (wanton and gratuitous). A setting of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">2</span> is default.
+</p>
+<p>Yet another rating system is the evaluWEB rating system, which is similar to the British Film classifcation system. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">evaluWEBrating</span> keyword can take the following ratings:
+</p>
+<ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">U</span> - universal; suitable for children unattended</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">1</span> - PG; Parental Guidance recommended</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">2</span> - 18+; only suitable for adults</li></ul>
+<p>CyberNOT is another rating system, and there are two keywords that deal with it; each keyword can be a value of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span> (none) to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">8</span> (lots). The default is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">3</span>.
+</p>
+<p>SafeSurf is similar to RSAC, but contains a larger range of categories that can be set from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">0</span> (none) to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">9</span> (wanton and gratuitos). You can set the age of the viewer by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">SafeSurferagerange</span> keyword to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">1</span> (all ages), <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">3</span> (early teens, the default), to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">9</span>, explicitly for adults.
+</p>
+<p>Weburbia is a similar rating system to evaluWEB.
+</p>
+<p>Finally, Vancouver Webpages is another PICS-based rating system. There are a number of keywords dealing with it, each one is commented as they take different values. The general rule of thumb is that a low number is good, a high number is bad.
+</p>
+<p>To really fine-tune DansGuardian you should spend a little time in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">pics</span> file adjusting it for your needs. The PICS, and similar, rating systems can help with a number of sites, but they are all voluntary. In other words, the webmaster of an adult site must voluntarily place the appropriate metadata for rating on their pages; not all webmasters do this. For some it's a matter of being lazy, for others they simply don't care. The (more or less) ethical adult sites will use one or more of these rating systems to protect children from viewing content not suitable for them.
+</p>
+<p>In other words, PICS is a helpful addition to your arsenal, but you will likely see better results using weighted phrases. For instance, to include the stock weighed phrase list on pornography, you would use:
+</p>
+<h3><span class="mw-headline" id="Weighted_Phrases">Weighted Phrases</span></h3>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">weightedphraselist</span> file contains instructions on how to use weighted phrases, and includes a number of files dealing with various topics.
+</p>
+<pre>
+.Include&lt;/etc/dansguardian/phraselists/pornography/weighted&gt;
+</pre>
+<p>Feel free to add your own weighted phrases to this file or create your own and have it included in a similar manner.
+</p>
+<p>This is used by the naughtiness limit that is configured in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dansguardian.conf</span>. Adding a positive weight increases the naughtiness rating, while adding a negative weight decreases it. For instance:
+</p>
+<pre>
+&lt;slut&gt;&lt;10&gt;
+&lt; slut &gt;&lt;10&gt;
+&lt;slut&gt;,&lt;horny&gt;&lt;50&gt;
+&lt;breast&gt;,&lt;medical&gt;&lt;-30&gt;
+&lt;education&gt;&lt;-25&gt;
+</pre>
+<p>The first adds 10 to the count on any occurance of the string "slut" in a page (ie. sluts, slut!, abslutxyz).
+</p>
+<p>The second adds 10 the count on any occurance of the <i>word</i> "slut" (ie. Sally is a slut that visits...).
+</p>
+<p>The third adds 50 to the count when the strings "slut" and "horny" are found on the same page.
+</p>
+<p>The forth subtracts 30 from the count when the strings "breast" and "medical" are found on the same page.
+</p>
+<p>Finally, if the string education is found on the page, 25 is subtracted from the count.
+</p>
+<p>You can find a number of tailored files for various age ranges and situations at the DansGuardian homepage in the <a rel="nofollow" class="external text" href="http://www.dansguardian.org/?page=extras">Extras</a> section.
+</p>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.dansguardian.org/">DansGuardian homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.squid-cache.org/">Squid homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.squidguard.org/">squidGuard homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.apache.org/">Apache homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.w3.org/PICS/">PICS specification</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.icra.org/">ICRA homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.safesurf.com/">SafeSurf homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.weburbia.com/safe/index.shtml">Weburbia homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://vancouver-webpages.com/VWP1.0/">Vancouver Webpages homepage</a></li>
+<li> <a rel="nofollow" class="external text" href="http://www.dansguardian.org/?page=extras">DansGuardian Extras</a></li></ul>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

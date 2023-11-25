@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/vdanen
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://annvix.com
+  * I am vdanen (https://keybase.io/vdanen) on keybase.
+  * I have a public key ASDG77r3yhPltGoII3zD4ycODbUCCSLS7U2QdtIIkQia9Ao
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120e9880b1246585eb173e42061aaec8d41623f5dd330830180de945f88da5ed1cf0a",
+      "host": "keybase.io",
+      "kid": "0120c6efbaf7ca13e5b46a08237cc3e3270e0db5020922d2ed4d9076d20891089af40a",
+      "uid": "74a9ebd87c90232c30c197aa5d319319",
+      "username": "vdanen"
+    },
+    "merkle_root": {
+      "ctime": 1520529814,
+      "hash": "89187a0c94121e38554fddc9fda96cd3d112cf2c51b3bde780d8c4a5cdcaf3fd54a62a6dfce611762c37513573010f3ef57590ecc5f8f8acc2d82cc5ed6336e6",
+      "hash_meta": "ae71efbdfee94f64e9a144d2176bcd197e2121f1c602fa1fcac53d78b09c8893",
+      "seqno": 2203547
+    },
+    "service": {
+      "hostname": "annvix.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.45"
+  },
+  "ctime": 1520529829,
+  "expire_in": 504576000,
+  "prev": "4d5626672fdefc617138c25e960227ac2d5d87b6efb1864702cc9e5c6fc2afbf",
+  "seqno": 14,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgxu+698oT5bRqCCN8w+MnDg21Agki0u1NkHbSCJEImvQKp3BheWxvYWTFA0F7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwZTk4ODBiMTI0NjU4NWViMTczZTQyMDYxYWFlYzhkNDE2MjNmNWRkMzMwODMwMTgwZGU5NDVmODhkYTVlZDFjZjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYzZlZmJhZjdjYTEzZTViNDZhMDgyMzdjYzNlMzI3MGUwZGI1MDIwOTIyZDJlZDRkOTA3NmQyMDg5MTA4OWFmNDBhIiwidWlkIjoiNzRhOWViZDg3YzkwMjMyYzMwYzE5N2FhNWQzMTkzMTkiLCJ1c2VybmFtZSI6InZkYW5lbiJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUyMDUyOTgxNCwiaGFzaCI6Ijg5MTg3YTBjOTQxMjFlMzg1NTRmZGRjOWZkYTk2Y2QzZDExMmNmMmM1MWIzYmRlNzgwZDhjNGE1Y2RjYWYzZmQ1NGE2MmE2ZGZjZTYxMTc2MmMzNzUxMzU3MzAxMGYzZWY1NzU5MGVjYzVmOGY4YWNjMmQ4MmNjNWVkNjMzNmU2IiwiaGFzaF9tZXRhIjoiYWU3MWVmYmRmZWU5NGY2NGU5YTE0NGQyMTc2YmNkMTk3ZTIxMjFmMWM2MDJmYTFmY2FjNTNkNzhiMDljODg5MyIsInNlcW5vIjoyMjAzNTQ3fSwic2VydmljZSI6eyJob3N0bmFtZSI6ImFubnZpeC5jb20iLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC40NSJ9LCJjdGltZSI6MTUyMDUyOTgyOSwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiI0ZDU2MjY2NzJmZGVmYzYxNzEzOGMyNWU5NjAyMjdhYzJkNWQ4N2I2ZWZiMTg2NDcwMmNjOWU1YzZmYzJhZmJmIiwic2Vxbm8iOjE0LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQO/dmlZ5Rn/OaBAxPRDAcXGzVTk/B8jYmYlZbq52px/0Y2UVq+GxAb7f4scQr36ol+zgYbdSpWVF2Zwh/BV4Cwuoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCCebA2jK7eOfUpPjflHDMtbsTcwRfGwxZD0b9BR1SpN4KN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/vdanen
+
+==================================================================

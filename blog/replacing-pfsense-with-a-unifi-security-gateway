@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Replacing pfSense with a Unifi Security Gateway - Annvix</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://annvix.com/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://annvix.com/blog/replacing-pfsense-with-a-unifi-security-gateway">
+
+        <meta name="author" content="Vincent Danen" />
+        <meta name="keywords" content="dnsmasq,pfsense,usg" />
+        <meta name="description" content="I&#39;ve had a Unifi Security Gateway for over a year now but never had the time or patience to make it work properly. Turns out my ISP really likes to cache MAC addresses so getting the USG to present the pfSense MAC address solved the problem pretty quick. The rest …" />
+
+        <meta property="og:site_name" content="Annvix" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Replacing pfSense with a Unifi Security Gateway"/>
+        <meta property="og:url" content="https://annvix.com/blog/replacing-pfsense-with-a-unifi-security-gateway"/>
+        <meta property="og:description" content="I&#39;ve had a Unifi Security Gateway for over a year now but never had the time or patience to make it work properly. Turns out my ISP really likes to cache MAC addresses so getting the USG to present the pfSense MAC address solved the problem pretty quick. The rest …"/>
+        <meta property="article:published_time" content="2019-12-25" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="dnsmasq" />
+            <meta property="article:tag" content="pfsense" />
+            <meta property="article:tag" content="usg" />
+            <meta property="article:author" content="Vincent Danen" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://annvix.com/theme/css/bootstrap.slate.min.css" type="text/css"/>
+    <link href="https://annvix.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://annvix.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://annvix.com/theme/css/style.css" type="text/css"/>
+
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate"
+              title="Annvix ATOM Feed"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://annvix.com/" class="navbar-brand">
+<img class="img-responsive pull-left gap-right" src="https://annvix.com/images/annvix.png" width="100"/>             </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://annvix.com/about">
+                             About
+                          </a></li>
+                         <li><a href="https://annvix.com/documentation">
+                             Documentation
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://annvix.com/blog/replacing-pfsense-with-a-unifi-security-gateway"
+                       rel="bookmark"
+                       title="Permalink to Replacing pfSense with a Unifi Security Gateway">
+                        Replacing pfSense with a Unifi Security Gateway
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+            <a href="https://annvix.com/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-12-25T15:00:00-07:00"> Wed 25 December 2019</time> &nbsp;&nbsp; // &nbsp;&nbsp;
+    </span>
+
+
+        <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
+
+
+<i class="fa fa-tags"></i>
+    <span class="label label-info"> <a href="https://annvix.com/tag/dnsmasq.html"> dnsmasq</a></span>
+    <span class="label label-info"> <a href="https://annvix.com/tag/pfsense.html"> pfsense</a></span>
+    <span class="label label-info"> <a href="https://annvix.com/tag/usg.html"> usg</a></span>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="Image" src="https://annvix.com/images/usg-pro4-hero-mobile-01-2x.png"></p>
+<p>I've had a Unifi Security Gateway for over a year now but never had the time or patience to make it work properly.  Turns out my ISP <em>really</em> likes to cache MAC addresses so getting the USG to present the pfSense MAC address solved the problem pretty quick.  The rest of my gear is all Unifi (48 port switch, 3 APs, Cloud Key Gen 2, 4 video cameras) and I love it.  Probably the most reliable network gear I have.</p>
+<p>The configuration of the USG is a bit of a PITA though and finding information is hard because they have <em>so much</em> networking gear out there and it seems they're all configured in different ways.</p>
+<p>This post will share the two important things I needed: first, how to change the MAC address for the WAN1 port and secondly, restoring similar behaviour to pfSense's pfBlockerNG utility which blocks all ad-serving systems by replacing their IP address with 0.0.0.0.  Reading a page on macworld.com this morning on my phone made me really sad because of all the ads.  I do some surfing outside my home network, rarely... mostly I notice that the weather network app has ads when I'm <em>not</em> home that aren't present when I <em>am</em> home.  But loading that page this morning was an intolerable regression from what I'm accustomed to.</p>
+<h2>Custom MAC address</h2>
+<p>This is what I needed to do to get my USG to even talk to the internet and this is what stumped me the few times I had tried before.  I probably would have figured it out sooner if I'd had more time and/or patience.  At any rate, you need to create a <code>/usr/lib/unifi/data/sites/default/config.gateway.json</code> file with contents similar to the following (assuming you're using the Cloud Key; if you run the controller software on a different system you'll have to find the right spot):</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;interfaces&quot;: {
+        &quot;ethernet&quot;: {
+            &quot;eth2&quot;: {
+                &quot;mac&quot;: &quot;00:00:00:00:00:00&quot;
+            }
+        }
+    }
+}
+</code></pre></div>
+
+<p>Change that MAC address to whatever you need it to be.  Depending on the port, <code>eth2</code> may not be correct.  On my USG 4 Pro, eth2 is the WAN1 port which is what is connected to my cable modem.  eth0 is LAN1.  Note that this <code>config.gateway.json</code> file goes on the Cloud Key and once there you need to force-provision the USG and it will get copied over to it.</p>
+<p>You can ssh into the USG and double-check by grepping for that interface:</p>
+<div class="highlight"><pre><span></span><code><span class="k">admin</span><span class="nv">@ubnt</span><span class="err">:</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="k">user</span><span class="o">-</span><span class="k">data</span><span class="err">$</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="n">addr</span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">A2</span><span class="w"> </span><span class="nl">eth2</span><span class="p">:</span><span class="w"></span>
+<span class="mi">4</span><span class="err">:</span><span class="w"> </span><span class="nl">eth2</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mtu</span><span class="w"> </span><span class="mi">1500</span><span class="w"> </span><span class="n">qdisc</span><span class="w"> </span><span class="n">noqueue</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">UP</span><span class="w"></span>
+<span class="w">    </span><span class="n">link</span><span class="o">/</span><span class="n">ether</span><span class="w"> </span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="n">ff</span><span class="w"></span>
+<span class="w">    </span><span class="n">inet</span><span class="w"> </span><span class="mf">1.1.1</span><span class="p">.</span><span class="o">/</span><span class="mi">22</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="mf">255.255.255.255</span><span class="w"> </span><span class="k">scope</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">eth2</span><span class="w"></span>
+</code></pre></div>
+
+<p>If it shows your external IP (1.1.1.1 in the above) and the right MAC address (00:00:00:00:00:00 in the above) then you're good.</p>
+<h2>pfBlockerNG-like ad blocking</h2>
+<p>This one is easy enough and the credit comes from this article: <a href="https://medium.com/server-guides/how-to-integrate-ad-blocking-using-a-unifi-usg-a165dc2233c1">How to integrate ad blocking using a Unifi USG</a>.</p>
+<p>You can get the instructions from there, but the <code>update-adblock-dnsmasq.sh</code> script I'll include below has been updated to suit me better.   For one, it's using an old URL for the block list.  Secondly, I don't like the idea of calling out to the internet with curl as root so I changed that.  Finally, I also made sure it validates the dnsmasq configuration before it restarts.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1">#</span>
+<span class="c1"># original writeup: https://medium.com/server-guides/how-to-integrate-ad-blocking-using-a-unifi-usg-a165dc2233c1</span>
+<span class="c1">#</span>
+
+<span class="c1"># note this script needs to run as root, but that doesn&#39;t mean everything</span>
+<span class="c1"># has to run as root</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;root&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Script must be run as root&quot;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nv">ad_list_url</span><span class="o">=</span><span class="s2">&quot;https://pgl.yoyo.org/adservers/serverlist.php?hostformat=dnsmasq&amp;amp;showintro=0&amp;amp;mimetype=plaintext&quot;</span>
+<span class="c1">#The IP address below should point to the IP of your router or to 0.0.0.0</span>
+<span class="nv">pixelserv_ip</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span>
+<span class="nv">ad_file</span><span class="o">=</span><span class="s2">&quot;/etc/dnsmasq.d/dnsmasq.adlist.conf&quot;</span>
+<span class="nv">temp_ad_file</span><span class="o">=</span><span class="k">$(</span>su -c <span class="s2">&quot;mktemp /tmp/nobody.XXXXXX&quot;</span> nobody<span class="k">)</span>
+
+<span class="c1">#temp_ad_file=&quot;/etc/dnsmasq.d/dnsmasq.adlist.conf.tmp&quot;</span>
+sudo -u nobody curl -s <span class="s2">&quot;</span><span class="si">${</span><span class="nv">ad_list_url</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> sed <span class="s2">&quot;s/127\.0\.0\.1/</span><span class="si">${</span><span class="nv">pixelserv_ip</span><span class="si">}</span><span class="s2">/&quot;</span> &gt; <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span>
+
+<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    sed -i -e <span class="s1">&#39;/googleadservices\.com/d&#39;</span> <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span>
+    sed -i -e <span class="s1">&#39;/doubleclick\.net/d&#39;</span> <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span>
+    sed -i -e <span class="s1">&#39;/awin1\.com/d&#39;</span> <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span>
+    cp -f  <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span> <span class="si">${</span><span class="nv">ad_file</span><span class="si">}</span>
+    chmod <span class="m">644</span> <span class="si">${</span><span class="nv">ad_file</span><span class="si">}</span>
+
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Error building the ad list, please try again.&quot;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+rm -f <span class="si">${</span><span class="nv">temp_ad_file</span><span class="si">}</span>
+
+<span class="c1"># before restarting, test the validation so we can remove the ad file if</span>
+<span class="c1"># it&#39;s going to cause problems</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span>dnsmasq --test &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$?</span><span class="k">)</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    /etc/init.d/dnsmasq force-reload
+<span class="k">else</span>
+    rm -f <span class="si">${</span><span class="nv">ad_file</span><span class="si">}</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Removing ad configuration due to validation errors&quot;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<p>As the article notes, this should be placed in <code>/config/user-data/</code> where you can run it the first time using <code>sudo sh -x update-adblock-dnsmasq.sh</code> so you can see what it does and if it spits out any errors.  When that's done, I added it to root's crontab: <code>sudo crontab -e</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">admin</span><span class="nv">@ubnt</span><span class="err">:</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="k">user</span><span class="o">-</span><span class="k">data</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">crontab</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="o">*/</span><span class="mi">24</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">unifi</span><span class="o">/</span><span class="n">ips</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">getsig</span><span class="p">.</span><span class="n">sh</span><span class="w"></span>
+<span class="mi">56</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="k">user</span><span class="o">-</span><span class="k">data</span><span class="o">/</span><span class="k">update</span><span class="o">-</span><span class="n">adblock</span><span class="o">-</span><span class="n">dnsmasq</span><span class="p">.</span><span class="n">sh</span><span class="w"></span>
+</code></pre></div>
+
+<p>The final question is why change from pfSense to USG?  Honestly, I <em>love</em> pfSense.  It is one of the best firewalls out there and arguably better than the USG.  But the USG ties in so nicely with the UI and dashboards with the rest of my Unifi gear.  With the USG I can get deep packet inspection and threat monitoring and it's all in one spot.  Yeah, I can get a lot of the same with pfSense but it's disjointed and as I'm getting, ahem, older and with much less time on my hands (as evident through the fact that I really only blog around Christmas and my other times off!) I don't want to fiddle as much.  My fiddle time is reserved for LEGO these days =) </p>
+<p>Not firewalls.</p>
+<p>However, now that I have this thing working more or less the way that I want to, I'm sure I'll be making more time to fiddle... at least in the next week and a half!  Hopefully this is helpful to others thinking about either switching or standing up a USG of their own.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
+    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
+    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://annvix.com/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://annvix.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ads.html">ads</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aide.html">aide</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/aidegpg.html">AIDE+gpg</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/annvix.html">annvix</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/apache.html">apache</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/backup.html">backup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/blocking.html">blocking</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/bugzilla.html">bugzilla</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/christianity.html">christianity</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/christmas.html">christmas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/ci.html">ci</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/containers.html">containers</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/couchdb.html">couchdb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/cvss.html">cvss</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dash.html">dash</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/deception.html">deception</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dns.html">dns</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/dnsmasq.html">dnsmasq</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/documentation.html">documentation</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/egypt.html">egypt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/email.html">email</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/facebook.html">facebook</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/faith.html">faith</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/fedora.html">fedora</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/fink.html">fink</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/firewall.html">firewall</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/firewalld.html">firewalld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/freenas.html">freenas</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/git-notifier.html">git-notifier</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gitlab.html">gitlab</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/gmail.html">gmail</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gpg.html">gpg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/grub.html">grub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/gtd.html">gtd</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/halloween.html">halloween</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/heartbleed.html">heartbleed</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/inkdrop.html">inkdrop</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iohyve.html">iohyve</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ipa.html">ipa</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/iptables.html">iptables</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/israel.html">israel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/jordan.html">jordan</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/komodo.html">komodo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/kvm.html">kvm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/launchbar.html">launchbar</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ldap.html">ldap</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/leadership.html">leadership</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mailmate.html">mailmate</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mandriva.html">mandriva</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mod_rewrite.html">mod_rewrite</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/mutt.html">mutt</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/mysql.html">mysql</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nagios.html">nagios</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/named.html">named</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/nfs.html">nfs</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/openssf.html">openssf</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssh.html">openssh</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/openssl.html">openssl</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/openvpn.html">openvpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/pfsense.html">pfsense</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/plex.html">plex</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/raid.html">raid</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/redhat.html">redhat</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/relationship.html">relationship</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/religion.html">religion</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/remotee.html">remotee</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/rpm.html">rpm</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/samba.html">samba</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/screen.html">screen</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/security.html">security</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/selinux.html">selinux</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/shell.html">shell</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssd.html">ssd</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/ssl.html">ssl</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/subversion.html">subversion</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/sudo.html">sudo</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/supplychain.html">supplychain</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/tattoo.html">tattoo</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="https://annvix.com/tag/techmail.html">techmail</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/theology.html">theology</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/truenas.html">truenas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/twitter.html">twitter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/usg.html">usg</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/video.html">video</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vim.html">vim</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vmware.html">vmware</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/vpn.html">vpn</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/whiskeyjack.html">whiskeyjack</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://annvix.com/tag/yearend.html">yearend</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="https://annvix.com/tag/yubikey.html">yubikey</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://annvix.com/tag/yum.html">yum</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="https://christcity.com/" target="_blank">Christcity</a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2023 Vincent Danen
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://annvix.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://annvix.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://annvix.com/theme/js/respond.min.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5JGVD90SKJ');
+    </script>
+
+
+</body>
+</html>

@@ -12,7 +12,7 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …
+        <meta name="description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
@@ -20,12 +20,12 @@
 
 <meta property="og:title" content="Common Security Mistakes "/>
 <meta property="og:url" content="https://annvix.com/common_security_mistakes" />
-<meta property="og:description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …" />
+<meta property="og:description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-02-26T15:00:00-07:00" />
 <meta name="twitter:title" content="Common Security Mistakes ">
-<meta name="twitter:description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …">
+<meta name="twitter:description" content="There are a few common mistakes, or bad assumptions, made with regards to security. Here we identify these common mistakes and what can be done to avoid them. This is the very basic premise of security; avoiding these will avoid a large number of problems that may occur. Weak Passwords …">
 
         <title>Common Security Mistakes  · Annvix
 </title>
@@ -97,94 +97,87 @@
         <div class="span8 offset2 article-content">
 
             <p>There are a few common mistakes, or bad assumptions, made with regards to security.  Here we identify these common mistakes and what can be done to avoid them.  This is the very basic premise of security; avoiding these will avoid a large number of problems that may&nbsp;occur.</p>
-<h2>Weak&nbsp;Passwords</h2>
-
+<h1 id="weak-passwords">Weak Passwords<a class="headerlink" href="#weak-passwords" title="Permanent link"> </a></h1>
 <p>Having weak passwords on your system is perhaps one of the largest security flaws, and one of the most easily avoided. An astute sysadmin will have a very good password for the root account, but likely will not enforce good passwords for users. If you&#8217;re able, you should attempt to run a program like <code>crack</code> against your password file to see how many passwords can be quickly found. You may be surprised, and distressed, by what you find. The problem here is if an unauthorized person obtains access to your system as a legitimate user, by cracking their password, your system is up for grabs. Having access, even as an unprivileged user, can allow an attacker to wreak all kinds of havoc on your&nbsp;system.</p>
 <p>Luckily, most Linux distributions make use of <span class="caps">PAM</span> (Pluggable Authentication Modules), which we can utilize to protect users from themselves. If a system uses <span class="caps">PAM</span>, one can make use of the <b>cracklib</b> library, which analyzes passwords to see if they are easily crackable. To make use of cracklib, you must modify your <code>/etc/pam.d/passwd</code> file (or <code>/etc/pam.d/system-auth</code> if you&#8217;re using a system-auth -enabled <span class="caps">PAM</span>) and insert the&nbsp;following:</p>
-<pre>
-passwd     required     /lib/security/pam_cracklib.so retry=3 minlen=4
-</pre>
+<div class="highlight"><pre><span></span>passwd     required     /lib/security/pam_cracklib.so retry=3 minlen=4
+</pre></div>
+
 
 <p>With the above, any <span class="caps">PAM</span>-enabled passwd program will make use of the cracklib&nbsp;library.</p>
 <p>Unfortunately, Mac <span class="caps">OS</span> X, while using <span class="caps">PAM</span>, does not have the cracklib library installed.  Also, most Linux distributions place the <span class="caps">PAM</span> libraries in <code>/lib/security</code> or <code>/usr/lib/security</code>, whereas <span class="caps">OS</span> X places them in <code>/usr/lib/pam</code>.</p>
 <p>A good place of information on all that you can do with cracklib is&nbsp;here:</p>
 <ul>
-<li> <a href="http://www.kernel.org/pub/linux/libs/pam/Linux-PAM-html/pam-6.html#ss6.3">http://www.kernel.org/pub/linux/libs/pam/Linux-<span class="caps">PAM</span>-html/pam-6.html#ss6.3</a>
+<li>[http://www.kernel.org/pub/linux/libs/pam/Linux-<span class="caps">PAM</span>-html/pam-6.html#ss6.3]</li>
 </ul>
-
-<h2>Old or Unused&nbsp;Accounts</h2>
-
+<h1 id="old-or-unused-accounts">Old or Unused Accounts<a class="headerlink" href="#old-or-unused-accounts" title="Permanent link"> </a></h1>
 <p>In an organization with a lot of people, or even small organizations that experience a lot of employee turn-over, any given server may have accounts that are no longer necessary or used. These accounts are potential gateways into the system for others to use, or ex-employees to use. Perhaps you notice the system has been compromised and you inform all users that they must change their passwords. They do, but the accounts that are inactive retain the same password because there is no one there to change them. If a password file were stolen, and the passwords compromised, these stale accounts can still lead to unauthorized&nbsp;access.</p>
 <p>I recall working for a Collections company where each employee used a <span class="caps">WYSE</span> terminal to connecto a <span class="caps">HP</span>-<span class="caps">UX</span> server. All employees had a login on the server in order to log into the collections software, over telnet. This server also had a phone line with an unpublished number so that the sysadmins could remotely log into the server in the event of a problem (employees here were encouraged to work late hours and weekends, although the <span class="caps">IT</span> staff did not). Any one of these employees could have found the phone number and obtained direct access to the server using nothing more than a terminal dialler, such as those used to connect to a <span class="caps">BBS</span> system, to obtain access to the server. If the accounts were not removed upon their dismissal, a disgruntled ex-employee could have logged directly into the server and modified critical data regarding the accounts that needed to be collected. Even if no data had been modified, the ability to access the data stored on the server, which contained personal information on millions of people, including addresses, phone numbers, and credit information, would have been incentive enough to attempt it. By removing the accounts for employees that no longer exist, those who made the attempt would have been forced to attempt brute-force attacks, instead of being able to simply waltz in with their old user <span class="caps">ID</span> and&nbsp;password.</p>
 <p>Similarly, system accounts that may have been added during the installation of software you later deemed unnecessary, may still exist. These accounts also provide yet another way into the system, and it would be wise to remove them upon the removal of the software that required them. For accounts that need to remain on the system, but do not require an active login, you can edit the /etc/passwd file and replace the user&#8217;s password field with the &#8220;*&#8221; or &#8220;!!&#8221; characters to disable&nbsp;them.</p>
-<h2>Un-used server&nbsp;software</h2>
-
+<h1 id="un-used-server-software">Un-used server software<a class="headerlink" href="#un-used-server-software" title="Permanent link"> </a></h1>
 <p>One other big problem, especially with a lot of distributions that make assumptions as to the end use for the system, is software being installed (and enabled) that is not being used. For instance, a user who perhaps doesn&#8217;t know what each selected package does (which is likely most people other than sysadmins), and installs it on the recommendation of the operating system. These can be daemons like Apache, an <span class="caps">FTP</span> server, squid, and so forth. For an end-user using their system as a desktop machine to have Apache installed, and active, could be a very large problem, especially if the user is unaware. Assume for a moment Joe User on a Cable or <span class="caps">DSL</span> connection, installing their favourite (or recommended) Linux distribution. Many will install such server software and enable it by default. This means Joe User, while downloading software, reading email, and so forth, has an active daemon on the system listening for incoming requests. If there is a security hole in this particular daemon, someone can obtain unauthorized access to the system by exploiting it, all without the user even being aware the problem software was installed and running in the first&nbsp;place!</p>
 <p>To limit this, one must identify what software is installed on the system, especially network-enabled services listening to the ethernet interface. To some extent, having un-used software installed, that isn&#8217;t actively running, is not as much of a problem. So while Joe User may want to learn about and play with Apache, he may not necessarily need to have it running all of the time, and probably shouldn&#8217;t unless he plans to actively serve web pages with&nbsp;it.</p>
 <p>On many Linux systems, one can use the <code>chkconfig</code> tool to determine what system services will start with the system. This may not be an accurate way to determine what is currently running, but it&#8217;s a start, and will allow the user a way to see what is being started when the system is turned on. As the root user&nbsp;execute:</p>
-<pre>
-# chkconfig --list|grep :on
-</pre>
+<div class="highlight"><pre><span></span># chkconfig --list|grep :on
+</pre></div>
+
 
 <p>You will likely get a listing similar to the following (somewhat&nbsp;abridged):</p>
-<pre>
-ntpd              0:off   1:off   2:on   3:on   4:on   5:on   6:off
+<div class="highlight"><pre><span></span>ntpd              0:off   1:off   2:on   3:on   4:on   5:on   6:off
 cups              0:off   1:off   2:on   3:on   4:on   5:on   6:off
 qmail             0:off   1:off   2:off  3:on   4:on   5:on   6:off
-</pre>
+</pre></div>
+
 
 <p>This indicates, in the above, that in runlevels 2 through 5, ntpd and cups will start, while in runlevels 3 through 5, qmail will start. One can then ask themselves questions such as &#8220;Do I have a printer that I&#8217;m sharing, or will I be using a shared printer?&#8221; If the answer is no, cups should be turned off. Likewise, &#8220;Will I be receiving email directly on my machine from other mail servers?&#8221; or &#8220;will I be downloading mail and then re-injecting it into the local system?&#8221; If the answer to this is no, then qmail should be turned off. If, in the case of a <span class="caps">SMTP</span> server, the answer is no to the former and yes to the latter, consider binding qmail (or whatever mail server is installed) the localhost interface instead of the external&nbsp;interface.</p>
 <p>At any rate, to disable a service using chkconfig, you would execute, as&nbsp;root:</p>
-<pre>
-# chkconfig qmail off
-</pre>
+<div class="highlight"><pre><span></span># chkconfig qmail off
+</pre></div>
+
 
 <p>Replace &#8220;qmail&#8221; with the name of the service in the chkconfig&nbsp;output.</p>
 <p>Another means of determining what is running and actively listening to the network on your system is to use the <code>netstat</code> tool. There are some variations of netstat around so the command line options might be different, but under Mandrakelinux,&nbsp;using:</p>
-<pre>
-# netstat -l --tcp --udp -p
-</pre>
+<div class="highlight"><pre><span></span># netstat -l --tcp --udp -p
+</pre></div>
+
 
 <p>will obtain a list of all <span class="caps">UDP</span> and <span class="caps">TCP</span> ports being listened to, and by what program (and the <span class="caps">PID</span> (Process <span class="caps">ID</span>) the program has). An example output might look like&nbsp;this:</p>
-<pre>
-tcp        0      0 *:sunrpc                *:*                     LISTEN  696/portmap         
-tcp        0      0 *:http                  *:*                     LISTEN  1960/httpd          
-tcp        0      0 *:x11                   *:*                     LISTEN  1055/X              
-tcp        0      0 *:ssh                   *:*                     LISTEN  1086/sshd           
-</pre>
+<div class="highlight"><pre><span></span>tcp        0      0 <span class="gs">*:sunrpc                *</span>:*                     LISTEN  696/portmap         
+tcp        0      0 <span class="gs">*:http                  *</span>:*                     LISTEN  1960/httpd          
+tcp        0      0 <span class="gs">*:x11                   *</span>:*                     LISTEN  1055/X              
+tcp        0      0 <span class="gs">*:ssh                   *</span>:*                     LISTEN  1086/sshd           
+</pre></div>
 
-<p>This tells us that portmap (with <span class="caps">PID</span> 696) is listening to the sunrpc port (port 111), that httpd (with <span class="caps">PID</span> 1960) is listening to the http port (port 80), that X (with <span class="caps">PID</span> 1055) is listening to the x11 port (port 6000), and that sshd (<span class="caps">PID</span> 1086) is listening to the ssh port (port 22). It also indicates what address it is listening to. A &#8220;<em>&#8221; or 0.0.0.0 address means all available interfaces (ie. lo and eth0); if it indicates &#8220;localhost.localdomain&#8221; or &#8220;127.0.0.1&#8221; then that service is listening only to the loopback interface (lo). If you wish to see numbers as opposed to words (ie. 80 instead of http, 0.0.0.0 instead of &#8220;</em>&#8220;), you can do so by specifying the &#8220;-n&#8221; command&nbsp;option.</p>
+
+<p>This tells us that portmap (with <span class="caps">PID</span> 696) is listening to the sunrpc port (port 111), that httpd (with <span class="caps">PID</span> 1960) is listening to the http port (port 80), that X (with <span class="caps">PID</span> 1055) is listening to the x11 port (port 6000), and that sshd (<span class="caps">PID</span> 1086) is listening to the ssh port (port 22). It also indicates what address it is listening to. A &#8220;*&#8221; or 0.0.0.0 address means all available interfaces (ie. lo and eth0); if it indicates &#8220;localhost.localdomain&#8221; or &#8220;127.0.0.1&#8221; then that service is listening only to the loopback interface (lo). If you wish to see numbers as opposed to words (ie. 80 instead of http, 0.0.0.0 instead of &#8220;*&#8221;), you can do so by specifying the &#8220;-n&#8221; command&nbsp;option.</p>
 <p>In Mac <span class="caps">OS</span> X, you can do a similar thing with the netstat tool provided, but it doesn&#8217;t display the Program/<span class="caps">PID</span> information. A similar command-line to the above would&nbsp;be:</p>
-<pre>
-# netstat -a -p tcp; netstat -a -p udp
-</pre>
+<div class="highlight"><pre><span></span># netstat -a -p tcp; netstat -a -p udp
+</pre></div>
 
-<h2>Neglecting&nbsp;Updates</h2>
 
+<h1 id="neglecting-updates">Neglecting Updates<a class="headerlink" href="#neglecting-updates" title="Permanent link"> </a></h1>
 <p>One issue that is just as damaging to system security is neglecting system updates. Many vendors, such as Mandrakesoft, Red Hat, Apple, the OpenBSD team, and so on release updated packages to vulnerable software they ship. Many, but not all, vendors also provide tools to help users keep up to date with software (ie. Mandrakesoft provides urpmi and Software Manager, Red Hat provides up2date, Apple provides Software Update, Debian provides apt, and so on). However, the tools are next to useless if you either do not execute them on a regular basis to check for updates, or don&#8217;t keep informed on what you should be updating&nbsp;otherwise.</p>
 <p>If your vendor has a security announcements mailing list or web site, it would be a good idea to be subscribed. If not, you can subscribe to a general mailing list such as Bugtraq or Full-disclosure, which will give you an overview of not only the software provided by your vendor, but other software you may have installed along the way. In Mac <span class="caps">OS</span> X, you can tell Software Update when to check online for new updates (System Preferences -&gt; Software Update; select Daily, Weekly, or Monthly). With Mandrakelinux, whenever you fire up Software Manager, it will check for new updates or, if you prefer using <code>urpmi</code>, you can use something Ben Reser pointed out to&nbsp;me:</p>
-<pre>
-# echo "urpmi.update updates && urpmq -r --media updates --auto-select" >urpmicheck
+<div class="highlight"><pre><span></span># echo &quot;urpmi.update updates &amp;&amp; urpmq -r --media updates --auto-select&quot; &gt;urpmicheck
 # chmod 755 urpmicheck
-</pre>
+</pre></div>
+
 
 <p>The above assumes your updates source is called &#8220;updates&#8221; (if you use Software Manager to install the source, it may be called &#8220;updates_source&#8221; or have another name; execute <code>urpmi.update</code> alone and look for a name that corresponds to updates). Other operating systems have other tools that should be looked at and learned, to ensure that your system remain in top&nbsp;shape.</p>
 <p>It cannot be stressed enough that keeping up with updates will correct a goodly number of problems that may exist in your operating systems. Vendors do not do this for their own good; they do it for their&nbsp;users.</p>
 <p>If you like, you can send an email to bugtraq-subscribe@securityfocus.com to subscribe to the Bugtraq mailing list. For the Full-disclosure list, email full-disclosure-request@lists.netsys.com?subject=subscribe to subscribe. Visit your operating system vendor&#8217;s website to see if they have a special mailing list for errata or security announcements; on such a list you will be receiving advisories tailored specific to your operating&nbsp;system.</p>
-<h2>Physical&nbsp;Security</h2>
-
+<h1 id="physical-security">Physical Security<a class="headerlink" href="#physical-security" title="Permanent link"> </a></h1>
 <p>One big problem is poor physical security for servers. Locking down network access can be a wonderful thing, preventing unauthorized people from the outside getting in &#8220;over the wire&#8221;. But what about the person who wanders into your server room and plants themself at the keyboard? It can&nbsp;happen.</p>
 <p>The physical console is a privileged console, and root can almost always log in there. Even if they are barred, a person can use <span class="caps">CTRL</span>-<span class="caps">ALT</span>-<span class="caps">DEL</span> to reboot a system (unless specifically disabled in <code>/etc/inittab</code> on a Linux system), and failing that, pushing the reboot or power button will accomplish the same thing, even if it may be a little more destructive to the&nbsp;filesystem.</p>
 <p>The only way to secure this is to secure the room in which your servers are kept. Whether it be a cabinet, closet, or room, you will want to secure it physically, whether it be with something as simple as a locked door requiring a key, or a full-blown alarm system. Data stored near a computer, such as tapes or <span class="caps">CD</span>-ROMs containing backups can be easily stolen if they are not secured, allowing for an individual to obtain complete access to your data, all without even attempting to break into the server&nbsp;itself.</p>
-<h2>Procrastination</h2>
-
+<h1 id="procrastination">Procrastination<a class="headerlink" href="#procrastination" title="Permanent link"> </a></h1>
 <p>Perhaps one of the biggest problems is procrastination on the part of the sysadmin, whether it be delaying the implementation of a security update, physically securing a system, or removing old user accounts. A good sysadmin will know what needs to be done to keep their responsibility (aka servers) secure, and a good sysadmin will do it quickly. Many vulnerabilities are exploited daily because a sysadmin knew to update some software, but never got around to it. Recall the <span class="caps">MS</span> <span class="caps">SQL</span> worm Saphire which made it&#8217;s rounds in early 2003. The particular vulnerability it exploited had been patched over a half year previous. A dilligent sysadmin would have applied the updates when they were made available, mid-2002. Unfortunately, many sysadmins did not which resulted in the wildfire spread of the worm and several days of sluggish internet access. This applies not only to security updates, but other means of security (ie. configuring a firewall, installing a lock on a closet door, and so forth). Procrastination is your&nbsp;enemy!</p>
-<p></h2>References</h2></p>
+<p>References</p>
 <ul>
-<li> <a href="http://www.kernel.org/pub/linux/libs/pam/Linux-PAM-html/pam-6.html#ss6.3">http://www.kernel.org/pub/linux/libs/pam/Linux-<span class="caps">PAM</span>-html/pam-6.html#ss6.3</a>
-<li> <a href="mailto:bugtraq-subscribe@securityfocus.com">bugtraq-subscribe@securityfocus.com</a>
-<li> <a href="mailto:full-disclosure-request@lists.netsys.com?subject=subscribe">full-disclosure-request@lists.netsys.com?subject=subscribe</a>
-<li> <a href="http://www.sans.org/top20/">http://www.sans.org/top20/</a>
+<li>[http://www.kernel.org/pub/linux/libs/pam/Linux-<span class="caps">PAM</span>-html/pam-6.html#ss6.3]</li>
+<li><a href="mailto:bugtraq-subscribe@securityfocus.com">bugtraq-subscribe@securityfocus.com</a></li>
+<li><a href="mailto:full-disclosure-request@lists.netsys.com?subject=subscribe">full-disclosure-request@lists.netsys.com</a></li>
+<li>[http://www.sans.org/top20/]</li>
 </ul>
             
 

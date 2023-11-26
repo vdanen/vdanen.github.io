@@ -1,813 +1,207 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
-<head>
-    <title>Annvix</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/custom.css" media="screen">
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 
-
-    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
-
-<link rel="canonical" href="https://vdanen.github.io">
         <meta name="author" content="Vincent Danen" />
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="Annvix" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Annvix"/>
-        <meta property="og:url" content="https://vdanen.github.io"/>
-        <meta property="og:description" content="Annvix"/>
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta property="og:title" content="Annvix"/>
+<meta name="twitter:title" content="Annvix">
+<meta property="og:url" content="https://vdanen.github.io" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta name="keywords" content=" ads,  aide,  AIDE+gpg,  annvix,  apache,  apparmor,  authentication,  backup,  blocking,  bugzilla,  centos,  christianity,  christmas,  ci,  containers,  couchdb,  cvss,  dash,  deception,  dns,  dnsmasq,  docker,  documentation,  drobo,  egypt,  email,  facebook,  faith,  fedora,  fink,  firewall,  firewalld,  flask,  freenas,  git,  git-notifier,  gitlab,  gmail,  gpg,  grub,  gtd,  halloween,  heartbleed,  inkdrop,  iohyve,  ipa,  iptables,  israel,  jordan,  kerberos,  komodo,  kvm,  launchbar,  ldap,  leadership,  linux,  mailmate,  mandriva,  mod_rewrite,  mutt,  mysql,  nagios,  named,  nas,  nfs,  openldap,  openssf,  openssh,  openssl,  openvpn,  pam,  pfsense,  plex,  postgresql,  python,  raid,  redhat,  relationship,  religion,  remotee,  rhel,  rpm,  samba,  screen,  security,  selinux,  shell,  sqlite,  ssd,  ssl,  subversion,  sudo,  supplychain,  swupd,  systemd,  tattoo,  techmail,  theology,  truenas,  twitter,  usb3,  usg,  video,  vim,  vmware,  vpn,  webdav,  whiskeyjack,  yearend,  yubikey,  yum,  Bsd,  Christianity,  Life,  Linux,  Macos, " />
+        <title>Annvix
+</title>
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
 
-    <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
-    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://vdanen.github.io/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li  class="active">
+                                    <a href=
+                                       https://vdanen.github.io
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
 
-    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
 
-        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
-              title="Annvix ATOM Feed"/>
+<div class="row-fluid">
 
+    <div class="row-fluid">
 
-</head>
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="https://vdanen.github.io/" class="navbar-brand">
-<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                         <li><a href="https://vdanen.github.io/about.html">
-                             About
-                          </a></li>
-                         <li><a href="https://vdanen.github.io/documentation.html">
-                             Documentation
-                          </a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-</div> <!-- /.navbar -->
 
-<!-- Banner -->
-<!-- End Banner -->
-
-<!-- Content Container -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-9">
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/mandriva-2007-ati-radeon-xpress-200-and-xgl.html">Mandriva 2007, ATI Radeon Xpress 200, and Xgl</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-10-02T12:22:00-06:00"> Mon 02 October 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Well, wow, if I didn't expect to get the "anti-Mandriva" coverage based on a previous post.  So, as a result, I determined to get the ATI drivers working.  The big difference here is that this time I'm using the 32bit Mandriva rather than 64bit; no idea if that's making a …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/mandriva-2007-ati-radeon-xpress-200-and-xgl.html">more ...</a>
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <header>
+            <h1 id="recent-posts">Recent Posts <a id="allposts" href="https://vdanen.github.io/archives.html">all posts</a></h1>
+            </header>
+        <div class="recent-posts">
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/relocated-to-github-pages.html">
+                    Relocated to GitHub pages
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#life-ref">Life</a>
+                    <time itemprop="dateCreated" datetime="2023-11-24T10:26:00-07:00">Fri 24 November 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/mandriva-development-wiki-conversion.html">Mandriva development wiki conversion</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-30T20:47:00-06:00"> Sat 30 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>On Thursday I brought up, on the maintainers@ mailing list, the question that had been dicussed a few months ago and discussed <a href="http://marc.theaimsgroup.com/?l=mandrake-cooker&w=2&r=3&s=mediawiki&q=b">on the cooker list</a> from about April-June, regarding the restructing of the <a href="http://qa.mandriva.com/twiki/bin/view/Main/MandrivaLinux">Mandriva Linux Development Community wiki</a> with the possibility of moving if from that hideous POS TWiki …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/mandriva-development-wiki-conversion.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/rh-summit-2023.html">
+                    Red Hat Summit 2023
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2023-06-04T08:00:00-06:00">Sun 04 June 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/of-bugzilla-clients.html">Of Bugzilla Clients</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-28T22:35:00-06:00"> Thu 28 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Michael Scherer <A href="http://archives.mandrivalinux.com/cooker/2006-09/msg08080.php">posted to cooker@</a> a few days ago about putting <a href="http://www.liquidx.net/pybugz/">PyBugz</a> a devilishly cool python app for querying a bugzilla database into cooker.  He also emailed me because a while ago I had tried the GUI <a href="http://almworks.com/deskzilla/overview.html">Deskzilla</a> product with the Mandriva bugzilla and it didn't work, so he mentioned …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/of-bugzilla-clients.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/oss-summit-2023.html">
+                    OSS Summit 2023
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2023-05-13T09:00:00-06:00">Sat 13 May 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/why-ill-never-use-linux-for-my-main-desktop.html">Why I'll never use Linux for my main desktop</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-25T21:58:00-06:00"> Mon 25 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This might sound a little harsh coming from a guy who's worked for a Linux company for over six years, but things never seem to get easier.  Oh sure, the stuff that was hard to deal with <i>last</i> time is easier, but the new features and the stuff you want …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/why-ill-never-use-linux-for-my-main-desktop.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/sboms-cves-cvss-and-more.html">
+                    SBOMs, CVEs, CVSS and more
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2023-04-07T09:00:00-06:00">Fri 07 April 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/one-week-without-wisdom-teeth.html">One week without wisdom teeth...</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-22T09:58:00-06:00"> Fri 22 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open-o"></i> Life</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Well, it's been over a week since I got my wisdom teeth yanked (last Wed, the 13th).  That was just about the most fun I've ever had.  First off they put me completely out (and I've never been under anisthetic before) which was... wierd.  I didn't have any real reaction …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/one-week-without-wisdom-teeth.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/joplin-server-on-truenas-scale.html">
+                    Joplin server on TrueNAS Scale
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2023-03-05T16:42:00-07:00">Sun 05 March 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/bbedit-codeless-language-module-for-rpm-spec-files.html">BBEdit Codeless Language Module for RPM Spec Files</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-07T21:58:00-06:00"> Thu 07 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>The news is out and any OS X-using developers out there are probably aware that BareBones provided a new major update of <a href="http://www.barebones.com/products/bbedit/index.shtml">BBEdit</a> today.  I downloaded it and was playing around with it (this is a paid upgrade so I've got some time to evaluate it although the upgrade cost …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/bbedit-codeless-language-module-for-rpm-spec-files.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/openssf-spotlight.html">
+                    OpenSSF spotlight
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2023-02-15T11:55:00-07:00">Wed 15 February 2023</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/limestone-work-in-the-backyard.html">Limestone work in the backyard</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-04T11:20:00-06:00"> Mon 04 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open-o"></i> Life</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>I've got a lot of trees in my backyard... specifically, about 6 really huge pine trees that I'd love to get rid of.  Unfortunately, do to how they are and how the layout of my place is, I can't pull them down easily... either they'll go into power lines or …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/limestone-work-in-the-backyard.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/2022-a-retrospective.html">
+                    2022: A Retrospective
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#life-ref">Life</a>
+                    <time itemprop="dateCreated" datetime="2022-12-28T15:50:00-07:00">Wed 28 December 2022</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/sudo-rules.html">Sudo rules</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-09-04T11:12:00-06:00"> Mon 04 September 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>A friend sent me a link to <a href="http://xkcd.com/c149.html">cartoon</a> about the powers of sudo.  All hail sudo!</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/sudo-rules.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/and-a-pelican-in-a-pear-tree.html">
+                    ... And a pelican in a pear tree
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#life-ref">Life</a>
+                    <time itemprop="dateCreated" datetime="2022-12-22T14:00:00-07:00">Thu 22 December 2022</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/david-eddings-disappoints.html">David Eddings Disappoints</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-08-29T21:41:00-06:00"> Tue 29 August 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open-o"></i> Life</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>I'm a huge fantasy nut... one of my biggest hobbies is reading.  I love reading fantasy books; I have for years.  I own a few hundred fantasy books and buy at least 1-2 books a month.</p>
-<p>One author that I've always found interesting is David Eddings.  He's not the most …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/david-eddings-disappoints.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/a-new-generation-of-tools-for-open-source-vulnerability-management.html">
+                    A new generation of tools for open source vulnerability management
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2022-12-18T07:00:00-07:00">Sun 18 December 2022</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/availability-of-info-shadow-vs-tcb.html">Availability of info: shadow vs tcb</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2006-08-25T09:00:00-06:00"> Fri 25 August 2006</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>The web cracks me up.  I've been writing for <a href="http://www.techrepublic.com/">TechRepublic</a> for about 6-7 years now, and every month I write these little tips called "TechMails".  They don't pay a whole lot, but I enjoy doing it as it gives me a reason to look at new and different things, which …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/availability-of-info-shadow-vs-tcb.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/interview-when-is-it-secure-enough.html">
+                    Interview: When is it secure enough?
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2022-12-05T13:00:00-07:00">Mon 05 December 2022</time>
                 </div>
-            </article>
-            <hr/>
-
-        <ul class="pagination">
-                <li class="prev"><a href="https://vdanen.github.io/index54.html">&laquo;</a>
-                </li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index.html">1</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index2.html">2</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index3.html">3</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index4.html">4</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index5.html">5</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index6.html">6</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index7.html">7</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index8.html">8</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index9.html">9</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index10.html">10</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index11.html">11</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index12.html">12</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index13.html">13</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index14.html">14</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index15.html">15</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index16.html">16</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index17.html">17</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index18.html">18</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index19.html">19</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index20.html">20</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index21.html">21</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index22.html">22</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index23.html">23</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index24.html">24</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index25.html">25</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index26.html">26</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index27.html">27</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index28.html">28</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index29.html">29</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index30.html">30</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index31.html">31</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index32.html">32</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index33.html">33</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index34.html">34</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index35.html">35</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index36.html">36</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index37.html">37</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index38.html">38</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index39.html">39</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index40.html">40</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index41.html">41</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index42.html">42</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index43.html">43</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index44.html">44</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index45.html">45</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index46.html">46</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index47.html">47</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index48.html">48</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index49.html">49</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index50.html">50</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index51.html">51</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index52.html">52</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index53.html">53</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index54.html">54</a></li>
-                    <li class="active"><a
-                            href="https://vdanen.github.io/index55.html">55</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index56.html">56</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index57.html">57</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index58.html">58</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index59.html">59</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index60.html">60</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index61.html">61</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index62.html">62</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/index63.html">63</a></li>
-                <li class="next"><a
-                        href="https://vdanen.github.io/index56.html">&raquo;</a></li>
-        </ul>
+            </div>
         </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-<!-- Sidebar -->
-<section class="well well-sm">
-  <ul class="list-group list-group-flush">
-
-<!-- Sidebar/Social -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
-  <ul class="list-group" id="social">
-    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
-    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
-    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
-    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
-    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
-  </ul>
-</li>
-<!-- End Sidebar/Social -->
-
-<!-- Sidebar/Categories -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
-  <ul class="list-group" id="categories">
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Categories -->
-
-<!-- Sidebar/Tag Cloud -->
-<li class="list-group-item">
-  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
-  <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/email.html">email</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/git.html">git</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/named.html">named</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/python.html">python</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/security.html">security</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
-    </li>
-    <li class="list-group-item tag-1">
-      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/video.html">video</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Links -->
-<li class="list-group-item">
-  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
-  <ul class="list-group" id="links">
-    <li class="list-group-item">
-      <a href="https://christcity.com/" target="_blank">Christcity</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Links -->
-  </ul>
-</section>
-<!-- End Sidebar -->            </aside>
         </div>
     </div>
 </div>
-<!-- End Content Container -->
-
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
 <footer>
-   <div class="container-fluid">
-      <hr>
-      <div class="row">
-         <div class="col-xs-10">&copy; 2023 Vincent Danen
-            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
-            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
-         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
-      </div>
-   </div>
-</footer>
-<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
-
-<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
 
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-5JGVD90SKJ');
-    </script>
 
 
-</body>
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://vdanen.github.io/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
 </html>

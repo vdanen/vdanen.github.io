@@ -1,758 +1,206 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
-<head>
-    <title>techmail - Annvix</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/custom.css" media="screen">
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Vincent Danen" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta property="og:title" content="Annvix"/>
+<meta name="twitter:title" content="Annvix">
+<meta property="og:url" content="https://vdanen.github.io" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta name="keywords" content=" ads,  aide,  AIDE+gpg,  annvix,  apache,  apparmor,  authentication,  backup,  blocking,  bugzilla,  centos,  christianity,  christmas,  ci,  containers,  couchdb,  cvss,  dash,  deception,  dns,  dnsmasq,  docker,  documentation,  drobo,  egypt,  email,  facebook,  faith,  fedora,  fink,  firewall,  firewalld,  flask,  freenas,  git,  git-notifier,  gitlab,  gmail,  gpg,  grub,  gtd,  halloween,  heartbleed,  inkdrop,  iohyve,  ipa,  iptables,  israel,  jordan,  kerberos,  komodo,  kvm,  launchbar,  ldap,  leadership,  linux,  mailmate,  mandriva,  mod_rewrite,  mutt,  mysql,  nagios,  named,  nas,  nfs,  openldap,  openssf,  openssh,  openssl,  openvpn,  pam,  pfsense,  plex,  postgresql,  python,  raid,  redhat,  relationship,  religion,  remotee,  rhel,  rpm,  samba,  screen,  security,  selinux,  shell,  sqlite,  ssd,  ssl,  subversion,  sudo,  supplychain,  swupd,  systemd,  tattoo,  techmail,  theology,  truenas,  twitter,  usb3,  usg,  video,  vim,  vmware,  vpn,  webdav,  whiskeyjack,  yearend,  yubikey,  yum,  Bsd,  Christianity,  Life,  Linux,  Macos, " />
+        <title>Annvix - techmail tag</title>
+        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
-    <link href="https://vdanen.github.io/images/favicon.ico" rel="icon">
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://vdanen.github.io/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://vdanen.github.io
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
 
 
-    <meta name="author" content="Vincent Danen" />
-    <meta name="keywords" content="techmail" />
+<div class="row-fluid">
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="Annvix" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Annvix"/>
-        <meta property="og:url" content="https://vdanen.github.io"/>
-        <meta property="og:description" content="Annvix"/>
+    <div class="row-fluid">
 
-
-
-    <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://vdanen.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
-    <link href="https://vdanen.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
-
-    <link href="https://vdanen.github.io/theme/css/pygments/native.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://vdanen.github.io/theme/css/style.css" type="text/css"/>
-
-        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate"
-              title="Annvix ATOM Feed"/>
-
-
-</head>
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="https://vdanen.github.io/" class="navbar-brand">
-<img class="img-responsive pull-left gap-right" src="https://vdanen.github.io/images/annvix.png" width="100"/>             </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                         <li><a href="https://vdanen.github.io/about.html">
-                             About
-                          </a></li>
-                         <li><a href="https://vdanen.github.io/documentation.html">
-                             Documentation
-                          </a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-</div> <!-- /.navbar -->
 
-<!-- Banner -->
-<!-- End Banner -->
-
-<!-- Content Container -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-9">
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/increase-download-speed-with-aria2-utility.html">Increase download speed with Aria2 utility</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-30T09:18:00-06:00"> Wed 30 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Last week's techmail was <a href="http://blogs.techrepublic.com/opensource/?p=1622">Increase download speed with Aria2 utility</a> which looks at an incredibly useful and cool file download client.  Aria2 is unique because it can grab the same file from multiple sources: http, ftp, bittorrent.  It can do it at the same time and then munge the resulting …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/increase-download-speed-with-aria2-utility.html">more ...</a>
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <header>
+            <h1 id="recent-posts">Recent Posts <a id="allposts" href="https://vdanen.github.io/archives.html">all posts</a></h1>
+            </header>
+        <div class="recent-posts">
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring.html">
+                    Nagios XI wizards make setup a snap for network monitoring
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-07-08T20:57:00-06:00">Fri 08 July 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/send-instant-messages-between-macs-on-a-lan.html">Send instant messages between Macs on a LAN</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-16T22:40:00-06:00"> Wed 16 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Last week's mac techmail was <a href="http://blogs.techrepublic.com/mac/?p=536">Send instant messages between Macs on a LAN</a> which discusses using Growl and growlnotify, along with a little help from Automator, to send instant messages between macs on a LAN, without requiring any instant messaging clients.  Useful for sending quick little notifications from one mac …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/send-instant-messages-between-macs-on-a-lan.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins.html">
+                    Two-factor SSH authentication via Google secures Linux logins
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-06-25T08:35:00-06:00">Sat 25 June 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/simplify-terminal-usage-on-mac-os-x-with-visor.html">Simplify Terminal usage on Mac OS X with Visor</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-16T22:09:00-06:00"> Wed 16 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This week's mac techmail is <a href="http://blogs.techrepublic.com/mac/?p=549">Simplify Terminal usage on Mac OS X with Visor</a>.  Visor is a really neat plugin for the OS X Terminal that allows you to hide and re-open the Terminal with a keystroke.  For someone like me who has multiple tabs open, uses mutt and irssi …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/simplify-terminal-usage-on-mac-os-x-with-visor.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/chromium-on-fedora-linux-is-closing-in-on-firefox.html">
+                    Chromium on Fedora Linux is closing in on Firefox
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-06-24T23:00:00-06:00">Fri 24 June 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/dns-querying-with-dig.html">DNS querying with dig</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-16T22:03:00-06:00"> Wed 16 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Last week's techmail was <a href="http://blogs.techrepublic.com/opensource/?p=1589">DNS querying with dig</a> which is a little bit of a primer on an indispensable tool called dig.  dig is a DNS querying tool that can look up all kinds of handy DNS-related information, and is useful for helping to diagnose networking issues.</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/dns-querying-with-dig.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/practical-selinux-port-contexts-and-handling-access-alerts.html">
+                    Practical SELinux: Port contexts and handling access alerts
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-05-25T14:57:00-06:00">Wed 25 May 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/learn-more-about-how-you-can-use-sqlite.html">Learn more about how you can use SQLite</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-16T22:00:00-06:00"> Wed 16 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/sqlite.html"> sqlite</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This week's techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1607">Learn more about how you can use SQLite</a> which is a bit of a primer on how you can use SQLite to create your own little SQL databases, or how you can use it to manipulate the data stored in SQLite databases found in other programs …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/learn-more-about-how-you-can-use-sqlite.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/two-ssh-clients-to-consider-for-the-ipad.html">
+                    Two SSH clients to consider for the iPad
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+                    <time itemprop="dateCreated" datetime="2011-05-25T14:00:00-06:00">Wed 25 May 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/transmit-ftp-client-for-mac-os-x-gets-updated-to-version-4.html">Transmit FTP client for Mac OS X gets updated to version 4</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-05T10:08:00-06:00"> Sat 05 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This past week's mac techmail was <a href="http://blogs.techrepublic.com/mac/?p=530">Transmit FTP client for Mac OS X gets updated to version 4</a> which looks at the new version of Panic's <a href="http://www.panic.com/transmit/">Transmit</a> FTP/SFTP/WebDAV/S3 client.  Transmit is pretty good; I've been using it for years and the new version is a nice upgrade …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/transmit-ftp-client-for-mac-os-x-gets-updated-to-version-4.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/work-some-project-management-magic-with-merlin.html">
+                    Work some project management magic with Merlin
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+                    <time itemprop="dateCreated" datetime="2011-05-17T15:42:00-06:00">Tue 17 May 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/how-to-pre-upgrade-fedora-13.html">How to pre-upgrade Fedora 13</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-06-02T16:00:00-06:00"> Wed 02 June 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/fedora.html"> fedora</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This week's TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=1577">How to pre-upgrade Fedora 13</a> which shows how to use PreUpgrade (great tool).  I used it to upgrade an F12 box and it worked flawlessly, despite the small /boot size.  More information on how to use it is also on the <a href="http://fedoraproject.org/wiki/PreUpgrade">Fedora wiki</a>.</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/how-to-pre-upgrade-fedora-13.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/practical-selinux-for-the-beginner-contexts-and-labels.html">
+                    Practical SELinux for the beginner: Contexts and labels
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-05-10T11:30:00-06:00">Tue 10 May 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/fun-tricks-with-growl-and-geektool.html">Fun tricks with Growl and GeekTool</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-05-27T12:58:00-06:00"> Thu 27 May 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This week's mac techmail is <a href="http://blogs.techrepublic.com/mac/?p=514">Fun tricks with Growl and GeekTool</a> which looks at a (probably rather unique) scenario of running an IRC client in a virtual machine (running Linux) and having alerts show up on the OS X desktop.  The tip, while relatively specific to one function, should provide …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/fun-tricks-with-growl-and-geektool.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/finding-uses-for-the-ipad-2-a-skeptic-gives-it-another-shot.html">
+                    Finding uses for the iPad 2: A skeptic gives it another shot
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+                    <time itemprop="dateCreated" datetime="2011-04-28T13:00:00-06:00">Thu 28 April 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/monitoring-mysql-with-mytop.html">Monitoring MySQL with mytop</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-05-27T12:00:00-06:00"> Thu 27 May 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open-o"></i> Linux</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/mysql.html"> mysql</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This week's techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1560">Monitoring MySQL with mytop</a> which looks at the mytop perl tool that can help monitor and diagnose problems with MySQL (mytop is essentially a top for MySQL).</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/monitoring-mysql-with-mytop.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/introduction-to-selinux-dont-let-complexity-scare-you-off.html">
+                    Introduction to SELinux: Don't let complexity scare you off
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+                    <time itemprop="dateCreated" datetime="2011-04-26T09:55:00-06:00">Tue 26 April 2011</time>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://vdanen.github.io/blog/get-increased-password-protection-on-the-iphone.html">Get increased password protection on the iPhone</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-            <a href="https://vdanen.github.io/author/vincent-danen.html"><i class="fa fa-user"></i> Vincent Danen</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2010-05-23T08:30:00-06:00"> Sun 23 May 2010</time> &nbsp;&nbsp; // &nbsp;&nbsp;
-    </span>
-
-
-        <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open-o"></i> Macos</a> &nbsp;&nbsp; // &nbsp;&nbsp;
-
-
-<i class="fa fa-tags"></i>
-    <span class="label label-info"> <a href="https://vdanen.github.io/tag/techmail.html"> techmail</a></span>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>Last week's mac techmail was <a href="http://blogs.techrepublic.com/mac/?p=499">Get increased password protection on the iPhone</a> which looks at using the iPhone configuration utility to create security profiles.  While this isn't a pure and perfect security solution, it's another layer in the onion that will keep casual folks off your phone and getting at …</p>
-                    <a class="btn btn-default btn-xs" href="https://vdanen.github.io/blog/get-increased-password-protection-on-the-iphone.html">more ...</a>
+            </div>
+            <div itemscope class="recent-posts-article">
+                <a href="https://vdanen.github.io/blog/enhance-security-on-your-mac-with-hands-off.html">
+                    Enhance security on your Mac with Hands Off!
+                </a>
+                <div class="recent-posts-posted">
+                    posted in
+                    <a href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+                    <time itemprop="dateCreated" datetime="2011-04-23T21:46:00-06:00">Sat 23 April 2011</time>
                 </div>
-            </article>
-            <hr/>
-
-        <ul class="pagination">
-                <li class="prev"><a href="https://vdanen.github.io/tag/techmail6.html">&laquo;</a>
-                </li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail.html">1</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail2.html">2</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail3.html">3</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail4.html">4</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail5.html">5</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail6.html">6</a></li>
-                    <li class="active"><a
-                            href="https://vdanen.github.io/tag/techmail7.html">7</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail8.html">8</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail9.html">9</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail10.html">10</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail11.html">11</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail12.html">12</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail13.html">13</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail14.html">14</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail15.html">15</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail16.html">16</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail17.html">17</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail18.html">18</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail19.html">19</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail20.html">20</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail21.html">21</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail22.html">22</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail23.html">23</a></li>
-                    <li class=""><a
-                            href="https://vdanen.github.io/tag/techmail24.html">24</a></li>
-                <li class="next"><a
-                        href="https://vdanen.github.io/tag/techmail8.html">&raquo;</a></li>
-        </ul>
+            </div>
         </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-<!-- Sidebar -->
-<section class="well well-sm">
-  <ul class="list-group list-group-flush">
-
-<!-- Sidebar/Social -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
-  <ul class="list-group" id="social">
-    <li class="list-group-item"><a href="https://twitter.com/vdanen"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
-    <li class="list-group-item"><a href="https://github.com/vdanen"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
-    <li class="list-group-item"><a href="https://www.linkedin.com/in/vdanen/"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a></li>
-    <li class="list-group-item"><a href="https://www.flickr.com/photos/wulfheart"><i class="fa fa-flickr fa-lg"></i> Flickr</a></li>
-    <li class="list-group-item"><a href="https://infosec.exchange/@vdanen"><i class="fa fa-mastodon-square fa-lg"></i> Mastodon</a></li>
-  </ul>
-</li>
-<!-- End Sidebar/Social -->
-
-<!-- Sidebar/Categories -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
-  <ul class="list-group" id="categories">
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/bsd.html"><i class="fa fa-folder-open fa-lg"></i>Bsd</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/christianity.html"><i class="fa fa-folder-open fa-lg"></i>Christianity</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/life.html"><i class="fa fa-folder-open fa-lg"></i>Life</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://vdanen.github.io/category/macos.html"><i class="fa fa-folder-open fa-lg"></i>Macos</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Categories -->
-
-<!-- Sidebar/Tag Cloud -->
-<li class="list-group-item">
-  <a href="https://vdanen.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
-  <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/ads.html">ads</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/aide.html">aide</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/aidegpg.html">AIDE+gpg</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/annvix.html">annvix</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/apache.html">apache</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/authentication.html">authentication</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/backup.html">backup</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/blocking.html">blocking</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/bugzilla.html">bugzilla</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/centos.html">centos</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/christianity.html">christianity</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/christmas.html">christmas</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/ci.html">ci</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/containers.html">containers</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/couchdb.html">couchdb</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/cvss.html">cvss</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dash.html">dash</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/deception.html">deception</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dns.html">dns</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/dnsmasq.html">dnsmasq</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/docker.html">docker</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/documentation.html">documentation</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/egypt.html">egypt</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/email.html">email</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/facebook.html">facebook</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/faith.html">faith</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/fedora.html">fedora</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/fink.html">fink</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/firewall.html">firewall</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/firewalld.html">firewalld</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/flask.html">flask</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/freenas.html">freenas</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/git.html">git</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/git-notifier.html">git-notifier</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/gitlab.html">gitlab</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/gmail.html">gmail</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/gpg.html">gpg</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/grub.html">grub</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/gtd.html">gtd</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/halloween.html">halloween</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/heartbleed.html">heartbleed</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/inkdrop.html">inkdrop</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/iohyve.html">iohyve</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ipa.html">ipa</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/iptables.html">iptables</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/israel.html">israel</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/jordan.html">jordan</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/kerberos.html">kerberos</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/komodo.html">komodo</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/kvm.html">kvm</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/launchbar.html">launchbar</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ldap.html">ldap</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/leadership.html">leadership</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/linux.html">linux</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mailmate.html">mailmate</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/mandriva.html">mandriva</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mod_rewrite.html">mod_rewrite</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/mutt.html">mutt</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/mysql.html">mysql</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/nagios.html">nagios</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/named.html">named</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/nfs.html">nfs</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/openssf.html">openssf</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/openssh.html">openssh</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/openssl.html">openssl</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/openvpn.html">openvpn</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/pfsense.html">pfsense</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/plex.html">plex</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/python.html">python</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/raid.html">raid</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/redhat.html">redhat</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/relationship.html">relationship</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/religion.html">religion</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/remotee.html">remotee</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/rhel.html">rhel</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/rpm.html">rpm</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/samba.html">samba</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/screen.html">screen</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/security.html">security</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/selinux.html">selinux</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/shell.html">shell</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ssd.html">ssd</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/ssl.html">ssl</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/subversion.html">subversion</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/sudo.html">sudo</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/supplychain.html">supplychain</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/tattoo.html">tattoo</a>
-    </li>
-    <li class="list-group-item tag-1">
-      <a href="https://vdanen.github.io/tag/techmail.html">techmail</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/theology.html">theology</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/truenas.html">truenas</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/twitter.html">twitter</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/usg.html">usg</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/video.html">video</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vim.html">vim</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vmware.html">vmware</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/vpn.html">vpn</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/whiskeyjack.html">whiskeyjack</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="https://vdanen.github.io/tag/yearend.html">yearend</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="https://vdanen.github.io/tag/yubikey.html">yubikey</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="https://vdanen.github.io/tag/yum.html">yum</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Links -->
-<li class="list-group-item">
-  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
-  <ul class="list-group" id="links">
-    <li class="list-group-item">
-      <a href="https://christcity.com/" target="_blank">Christcity</a>
-    </li>
-    <li class="list-group-item">
-      <a href="https://www.redhat.com/" target="_blank">Red Hat</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Links -->
-  </ul>
-</section>
-<!-- End Sidebar -->            </aside>
         </div>
     </div>
 </div>
-<!-- End Content Container -->
-
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
 <footer>
-   <div class="container-fluid">
-      <hr>
-      <div class="row">
-         <div class="col-xs-10">&copy; 2011 Vincent Danen
-            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
-            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
-         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
-      </div>
-   </div>
-</footer>
-<script src="https://vdanen.github.io/theme/js/jquery.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://vdanen.github.io/theme/js/bootstrap.min.js"></script>
-
-<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="https://vdanen.github.io/theme/js/respond.min.js"></script>
 
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-5JGVD90SKJ');
-    </script>
 
 
-</body>
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://vdanen.github.io/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
 </html>

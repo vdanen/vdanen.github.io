@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Well, I have a definite need to have virtual machine support for 64bit guests so imagine how pleased I was when vmware indicated that the new version of workstation (5.5.0) would have support for 64bit guests. Fantastic! Then, reading the fine print, discovered that I would need to …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="64bit guest emulation... enter QEMU "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/64bit-guest-emulation-enter-qemu.html" />
+<meta property="og:title" content="64bit guest emulation… enter QEMU "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/64bit-guest-emulation-enter-qemu" />
 <meta property="og:description" content="Well, I have a definite need to have virtual machine support for 64bit guests so imagine how pleased I was when vmware indicated that the new version of workstation (5.5.0) would have support for 64bit guests. Fantastic! Then, reading the fine print, discovered that I would need to …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2005-11-08T09:57:00-07:00" />
-<meta name="twitter:title" content="64bit guest emulation... enter QEMU ">
+<meta name="twitter:title" content="64bit guest emulation… enter QEMU ">
 <meta name="twitter:description" content="Well, I have a definite need to have virtual machine support for 64bit guests so imagine how pleased I was when vmware indicated that the new version of workstation (5.5.0) would have support for 64bit guests. Fantastic! Then, reading the fine print, discovered that I would need to …">
 
-        <title>64bit guest emulation... enter QEMU  · Annvix
+        <title>64bit guest emulation… enter QEMU  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/64bit-guest-emulation-enter-qemu.html">
-                64bit guest emulation... enter QEMU
+            <a href="https://vdanen.github.io/blog/64bit-guest-emulation-enter-qemu">
+                64bit guest emulation&#8230; enter <span class="caps">QEMU</span>
             </a>
         </h1>
     </header>
@@ -80,16 +93,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Well, I have a definite need to have virtual machine support for 64bit guests so imagine how pleased I was when vmware indicated that the new version of workstation (5.5.0) would have support for 64bit guests.  Fantastic!  Then, reading the fine print, discovered that I would need to buy a new CPU (won't work with older AMD64 CPUs) and then a new motherboard to go with it, and the extras... new RAM and probably a new video card.  Unimpressed, I'm looking at an alternative called QEMU.</p>
-<p>QEMU virtualizes a lot more than just a 32bit PC; it can also emulate x86_64, sparc, ppc, and a few others I think.  My only real interest is in virtualizing x86_64.</p>
-<p>Well, nice as that sounds in theory (and most of the people I've talked to use it to virtualize a 32bit OS... something I'm not interested in because vmware does that quite nicely).  Well, trying to load Mandriva 2006/x86_64 in QEMU is a bit of a bummer... not only does lilo and grub both segfault, but I can't get past the bloody bootloader during install!  So three times I've tried now and three times I've been unable to complete the installation.  Not happy in the slightest.  I remember older Mandrake releases would let you skip past stuff, but apparently not anymore (bad idea, in my opinion... we need a "skip" button on some stuff like crashing bootloaders).</p>
-<p>Trying with LE2005 now...  if I can get most of the supported distros running in QEMU, that just means one less distro to chroot for security testing.</p>
-<p>Does seem like pretty cool software tho.</p>
+            <p>Well, I have a definite need to have virtual machine support for 64bit guests so imagine how pleased I was when vmware indicated that the new version of workstation (5.5.0) would have support for 64bit guests.  Fantastic!  Then, reading the fine print, discovered that I would need to buy a new <span class="caps">CPU</span> (won&#8217;t work with older <span class="caps">AMD64</span> CPUs) and then a new motherboard to go with it, and the extras&#8230; new <span class="caps">RAM</span> and probably a new video card.  Unimpressed, I&#8217;m looking at an alternative called <span class="caps">QEMU</span>.</p>
+<p><span class="caps">QEMU</span> virtualizes a lot more than just a 32bit <span class="caps">PC</span>; it can also emulate x86_64, sparc, ppc, and a few others I think.  My only real interest is in virtualizing&nbsp;x86_64.</p>
+<p>Well, nice as that sounds in theory (and most of the people I&#8217;ve talked to use it to virtualize a 32bit <span class="caps">OS</span>&#8230; something I&#8217;m not interested in because vmware does that quite nicely).  Well, trying to load Mandriva 2006/x86_64 in <span class="caps">QEMU</span> is a bit of a bummer&#8230; not only does lilo and grub both segfault, but I can&#8217;t get past the bloody bootloader during install!  So three times I&#8217;ve tried now and three times I&#8217;ve been unable to complete the installation.  Not happy in the slightest.  I remember older Mandrake releases would let you skip past stuff, but apparently not anymore (bad idea, in my opinion&#8230; we need a &#8220;skip&#8221; button on some stuff like crashing&nbsp;bootloaders).</p>
+<p>Trying with <span class="caps">LE2005</span> now&#8230;  if I can get most of the supported distros running in <span class="caps">QEMU</span>, that just means one less distro to chroot for security&nbsp;testing.</p>
+<p>Does seem like pretty cool software&nbsp;tho.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=64bit%20guest%20emulation%E2%80%A6%20enter%20QEMU&url=https%3A//vdanen.github.io/blog/64bit-guest-emulation-enter-qemu" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/64bit-guest-emulation-enter-qemu&title=64bit%20guest%20emulation%E2%80%A6%20enter%20QEMU&summary=Well%2C%20I%20have%20a%20definite%20need%20to%20have%20virtual%20machine%20support%20for%2064bit%20guests%20so%20imagine%20how%20pleased%20I%20was%20when%20vmware%20indicated%20that%20the%20new%20version%20of%20workstation%20%285.5.0%29%20would%20have%20support%20for%2064bit%20guests.%20%20Fantastic%21%20%20Then%2C%20reading%20the%20fine%20print%2C%20discovered%20that%20I%20would%20need%20to%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/64bit-guest-emulation-enter-qemu" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -100,13 +117,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/komodo-35-for-os-x-is-out-now" title="Previous: Komodo 3.5 for OS X is out now">Komodo 3.5 for OS X is out now</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/zend-studio-50-released" title="Next: Zend Studio 5.0 released">Zend Studio 5.0 released</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2005-11-08T09:57:00-07:00">Tue 08 November 2005</time>
+            <time itemprop="dateCreated" datetime="2005-11-08T09:57:00-07:00">Nov 08, 2005</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -207,6 +232,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

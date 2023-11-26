@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It’s not the easiest thing to manage from the commandline… a …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Macos, " />
 
-<meta property="og:title" content="LDAP Editor for OS X: Found! "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/ldap-editor-for-os-x-found.html" />
-<meta property="og:description" content="I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It&#39;s not the easiest thing to manage from the commandline... a GUI …" />
+<meta property="og:title" content="LDAP Editor for OS X: Found! "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/ldap-editor-for-os-x-found" />
+<meta property="og:description" content="I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It’s not the easiest thing to manage from the commandline… a …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2005-04-06T12:00:00-06:00" />
-<meta name="twitter:title" content="LDAP Editor for OS X: Found! ">
-<meta name="twitter:description" content="I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It&#39;s not the easiest thing to manage from the commandline... a GUI …">
+<meta name="twitter:title" content="LDAP Editor for OS X: Found! ">
+<meta name="twitter:description" content="I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It’s not the easiest thing to manage from the commandline… a …">
 
-        <title>LDAP Editor for OS X: Found!  · Annvix
+        <title>LDAP Editor for OS X: Found!  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/ldap-editor-for-os-x-found.html">
-                LDAP Editor for OS X: Found!
+            <a href="https://vdanen.github.io/blog/ldap-editor-for-os-x-found">
+                <span class="caps">LDAP</span> Editor for <span class="caps">OS</span> X:&nbsp;Found!
             </a>
         </h1>
     </header>
@@ -80,16 +93,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I use LDAP for authentication on my LAN (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with LDAP to be a serious PITA. It's not the easiest thing to manage from the commandline... a GUI or web-based interface is almost required or you'll end up ripping off facial hair.</p>
-<p>Today I went hunting for an OS X-based client in order to manage the LDAP directory because my main desktop is an OS X machine. On the Linux side things are easy enough to find... A program called DirectoryAdministrator works remarkably well. Doing a search for "ldap" on versiontracker came up with about four entries... four! That's disgusting! The only one that seemed close to what I needed would only let you edit mail entries... I have a lot more in my LDAP database than an address book, thank you very much.</p>
-<p>Hunting on Google had me finding a program called <a href="http://www-unix.mcs.anl.gov/~gawor/ldap/">LDAP Browser/Editor</a> (written in Java tho). I'm not keen on Java to begin with, but Java apps seem to run at a decent speed on my machine... I use the Zend editor quite a bit and it's written in Java... no Aqua niceness, but whatever. Anyways, this program rocks. It allows me to edit, add, make templates from, etc. for my LDAP database. This is exactly the tool I needed!</p>
-<p>Just felt like sharing in case anyone else is looking for the same kind of tool. I did notice in my Googling that OS X server seems to come with a nice looking tool called Workgroup Manager... why can't they put something like that in mainline OS X? Heck, I'd even pay a few bucks to have it as a separate app. I mean, really, how often will you log into the server in order to admin the database? The beauty of LDAP is that I can have the server tucked away and connect to it from my desktop machine and make changes to the directory without ever actually logging into the server.</p>
-<p>On a side note, the article I saw mentioning Workgroup Manager is from the O'Reilly MacDevCenter entitled "<a href="http://www.macdevcenter.com/pub/a/mac/2004/05/25/ldap.html">LDAP in Mac OS X Server </a>". I don't really want to pony up for OS X Server to run that tool on my desktop, but dangit, those screen shots look pretty sharp.</p>
+            <p>I use <span class="caps">LDAP</span> for authentication on my <span class="caps">LAN</span> (I wrote one of the earliest and definitive articles available on the internet for MandrakeSecure quite a while back), but I find dealing with <span class="caps">LDAP</span> to be a serious <span class="caps">PITA</span>. It&#8217;s not the easiest thing to manage from the commandline&#8230; a <span class="caps">GUI</span> or web-based interface is almost required or you&#8217;ll end up ripping off facial&nbsp;hair.</p>
+<p>Today I went hunting for an <span class="caps">OS</span> X-based client in order to manage the <span class="caps">LDAP</span> directory because my main desktop is an <span class="caps">OS</span> X machine. On the Linux side things are easy enough to find&#8230; A program called DirectoryAdministrator works remarkably well. Doing a search for &#8220;ldap&#8221; on versiontracker came up with about four entries&#8230; four! That&#8217;s disgusting! The only one that seemed close to what I needed would only let you edit mail entries&#8230; I have a lot more in my <span class="caps">LDAP</span> database than an address book, thank you very&nbsp;much.</p>
+<p>Hunting on Google had me finding a program called <a href="http://www-unix.mcs.anl.gov/~gawor/ldap/"><span class="caps">LDAP</span> Browser/Editor</a> (written in Java tho). I&#8217;m not keen on Java to begin with, but Java apps seem to run at a decent speed on my machine&#8230; I use the Zend editor quite a bit and it&#8217;s written in Java&#8230; no Aqua niceness, but whatever. Anyways, this program rocks. It allows me to edit, add, make templates from, etc. for my <span class="caps">LDAP</span> database. This is exactly the tool I&nbsp;needed!</p>
+<p>Just felt like sharing in case anyone else is looking for the same kind of tool. I did notice in my Googling that <span class="caps">OS</span> X server seems to come with a nice looking tool called Workgroup Manager&#8230; why can&#8217;t they put something like that in mainline <span class="caps">OS</span> X? Heck, I&#8217;d even pay a few bucks to have it as a separate app. I mean, really, how often will you log into the server in order to admin the database? The beauty of <span class="caps">LDAP</span> is that I can have the server tucked away and connect to it from my desktop machine and make changes to the directory without ever actually logging into the&nbsp;server.</p>
+<p>On a side note, the article I saw mentioning Workgroup Manager is from the O&#8217;Reilly MacDevCenter entitled &#8220;<a href="http://www.macdevcenter.com/pub/a/mac/2004/05/25/ldap.html"><span class="caps">LDAP</span> in Mac <span class="caps">OS</span> X Server </a>&#8220;. I don&#8217;t really want to pony up for <span class="caps">OS</span> X Server to run that tool on my desktop, but dangit, those screen shots look pretty&nbsp;sharp.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=LDAP%20Editor%20for%20OS%20X%3A%C2%A0Found%21&url=https%3A//vdanen.github.io/blog/ldap-editor-for-os-x-found" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/ldap-editor-for-os-x-found&title=LDAP%20Editor%20for%20OS%20X%3A%C2%A0Found%21&summary=I%20use%20LDAP%20for%20authentication%20on%20my%20LAN%20%28I%20wrote%20one%20of%20the%20earliest%20and%20definitive%20articles%20available%20on%20the%20internet%20for%20MandrakeSecure%20quite%20a%20while%20back%29%2C%20but%20I%20find%20dealing%20with%20LDAP%20to%20be%20a%20serious%20PITA.%20It%E2%80%99s%20not%20the%20easiest%20thing%20to%20manage%20from%20the%20commandline%E2%80%A6%20a%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/ldap-editor-for-os-x-found" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -100,13 +117,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/linsecca-changeover-complete" title="Previous: linsec.ca changeover complete">linsec.ca changeover complete</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/windows-like-os-x" title="Next: Windows like OS X">Windows like OS X</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2005-04-06T12:00:00-06:00">Wed 06 April 2005</time>
+            <time itemprop="dateCreated" datetime="2005-04-06T12:00:00-06:00">Apr 06, 2005</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -207,6 +232,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

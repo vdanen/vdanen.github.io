@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Apache is probably the most widely used web server currently available. It can be used on any form of UNIX and derivatives (Linux, *BSD, etc.) as well as other operating systems such as Windows and OS/2. It is freely available and open source, scalable, extremely configurable, and stable. All …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using Apache and SSL for Security and Authentication (incomplete) "/>
-<meta property="og:url" content="https://vdanen.github.io/using_apache_and_ssl_for_security_and_authentication.html" />
+<meta property="og:title" content="Using Apache and SSL for Security and Authentication (incomplete) "/>
+<meta property="og:url" content="https://vdanen.github.io/using_apache_and_ssl_for_security_and_authentication" />
 <meta property="og:description" content="Apache is probably the most widely used web server currently available. It can be used on any form of UNIX and derivatives (Linux, *BSD, etc.) as well as other operating systems such as Windows and OS/2. It is freely available and open source, scalable, extremely configurable, and stable. All …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T15:02:00-06:00" />
-<meta name="twitter:title" content="Using Apache and SSL for Security and Authentication (incomplete) ">
+<meta name="twitter:title" content="Using Apache and SSL for Security and Authentication (incomplete) ">
 <meta name="twitter:description" content="Apache is probably the most widely used web server currently available. It can be used on any form of UNIX and derivatives (Linux, *BSD, etc.) as well as other operating systems such as Windows and OS/2. It is freely available and open source, scalable, extremely configurable, and stable. All …">
 
-        <title>Using Apache and SSL for Security and Authentication (incomplete)  · Annvix
+        <title>Using Apache and SSL for Security and Authentication (incomplete)  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,56 +80,61 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_apache_and_ssl_for_security_and_authentication.html"> Using Apache and SSL for Security and Authentication (incomplete)  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_apache_and_ssl_for_security_and_authentication"> Using Apache and <span class="caps">SSL</span> for Security and Authentication&nbsp;(incomplete)  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p><a rel="nofollow" class="external text" href="http://httpd.apache.org">Apache</a> is probably the most widely used web server currently available. It can be used on any form of UNIX and derivatives (Linux, *BSD, etc.) as well as other operating systems such as Windows and OS/2. It is freely available and open source, scalable, extremely configurable, and stable. All of these factors make Apache a tough choice to beat. It also provides a number of security extensions, including SSL (or HTTPS (HTTP over SSL)) support. While SSL can be used to keep data transferred over the internet secure (things such as login information, banking, online purchasing, etc.) it can also be used to form a means of authentication. With Apache, you can dispense with a traditional login mechanism and use client certificates, signed by a specific Certification Authority, in place of providing a username and password. With Apache, you can verify client certificates by depth, to ensure that a specific CA did in fact sign the client certificate. If you have complete and secure control over the CA, and sign the client cert, you can ensure that you control who gains access.
-</p>
-<p>Of course, something like this cannot be used for everything and for everyone. This is useful if you're setting up a site that a limited number of people will be accessing and you want to control who gains access.
-</p>
-<p>There are a few steps to take before we can begin to deal with Apache. First, you must have a CA at your disposal. They are quite simple to setup and manage and are covered in the [selfca.php Creating and Maintaining Your Own Certification Authority] topic. Then we have to create client certificates, or provide the instructions to our users who will be using the service to generate their own and send a CSR (Certificate Signing Request) to you to sign with your CA.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Creating_the_Client_Certificate"><span class="tocnumber">1</span> <span class="toctext">Creating the Client Certificate</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Importing_Client_Certificates_Into_Your_Browser"><span class="tocnumber">2</span> <span class="toctext">Importing Client Certificates Into Your Browser</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Configuring_Apache"><span class="tocnumber">3</span> <span class="toctext">Configuring Apache</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_the_Client_Certificate"><span class="tocnumber">1</span> <span class="toctext">Creating the Client Certificate</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Importing_Client_Certificates_Into_Your_Browser"><span class="tocnumber">2</span> <span class="toctext">Importing Client Certificates Into Your Browser</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_Apache"><span class="tocnumber">3</span> <span class="toctext">Configuring Apache</span></a></li>
 <li class="toclevel-1 tocsection-4"><a href="#References"><span class="tocnumber">4</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h1><span class="mw-headline" id="Creating_the_Client_Certificate">Creating the Client Certificate</span></h1>
-<p>The client cert is quite easy to create. The user must have OpenSSL installed on their system and would then use the following commands:
+            <p><a class="external text" href="http://httpd.apache.org" rel="nofollow">Apache</a> is probably the most widely used web server currently available. It can be used on any form of <span class="caps">UNIX</span> and derivatives (Linux, *<span class="caps">BSD</span>, etc.) as well as other operating systems such as Windows and <span class="caps">OS</span>/2. It is freely available and open source, scalable, extremely configurable, and stable. All of these factors make Apache a tough choice to beat. It also provides a number of security extensions, including <span class="caps">SSL</span> (or <span class="caps">HTTPS</span> (<span class="caps">HTTP</span> over <span class="caps">SSL</span>)) support. While <span class="caps">SSL</span> can be used to keep data transferred over the internet secure (things such as login information, banking, online purchasing, etc.) it can also be used to form a means of authentication. With Apache, you can dispense with a traditional login mechanism and use client certificates, signed by a specific Certification Authority, in place of providing a username and password. With Apache, you can verify client certificates by depth, to ensure that a specific <span class="caps">CA</span> did in fact sign the client certificate. If you have complete and secure control over the <span class="caps">CA</span>, and sign the client cert, you can ensure that you control who gains access.
+</p>
+<p>Of course, something like this cannot be used for everything and for everyone. This is useful if you’re setting up a site that a limited number of people will be accessing and you want to control who gains access.
+</p>
+<p>There are a few steps to take before we can begin to deal with Apache. First, you must have a <span class="caps">CA</span> at your disposal. They are quite simple to setup and manage and are covered in the [selfca.php Creating and Maintaining Your Own Certification Authority] topic. Then we have to create client certificates, or provide the instructions to our users who will be using the service to generate their own and send a <span class="caps">CSR</span> (Certificate Signing Request) to you to sign with your <span class="caps">CA</span>.
+</p>
+
+<h1><span class="mw-headline" id="Creating_the_Client_Certificate">Creating the Client Certificate</span></h1>
+<p>The client cert is quite easy to create. The user must have OpenSSL installed on their system and would then use the following commands:
 </p>
 <pre>
 $ openssl genrsa -out user.key 1024
 $ openssl req -new -key user.key -out user.csr
 </pre>
-<p>Fields such as tthe Organization Name and Organizational Unit should be standard across your user's client certifications. For example, if the service you are setting up is for development of a software package called Package, you might want to use an Organization Name of "Package" and an Organizational Unit of "Package Developer" or something similar. This uniquely identifies this certificate as being used for one exclusive purpose.
+<p>Fields such as tthe Organization Name and Organizational Unit should be standard across your user’s client certifications. For example, if the service you are setting up is for development of a software package called Package, you might want to use an Organization Name of “Package” and an Organizational Unit of “Package Developer” or something similar. This uniquely identifies this certificate as being used for one exclusive purpose.
 </p>
-<p>Once the CSR is created, the user sends the CSR (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.csr</span>) to you to sign with your CA.
+<p>Once the <span class="caps">CSR</span> is created, the user sends the <span class="caps">CSR</span> (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.csr</span>) to you to sign with your <span class="caps">CA</span>.
 </p>
-<p>To sign the CSR, use:
+<p>To sign the <span class="caps">CSR</span>, use:
 </p>
 <pre>
 $ openssl x509 -req -days 365 -CA /path/to/ca.crt -CAkey /path/to/ca.key -in user.csr -out user.crt
 </pre>
-<p>Send the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.crt</span> file back to the user. At this point, the user must combine the certificate you just signed and sent back to them, and their key, to form a P12 file. The user accomplishes this by using:
+<p>Send the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.crt</span> file back to the user. At this point, the user must combine the certificate you just signed and sent back to them, and their key, to form a P12 file. The user accomplishes this by using:
 </p>
 <pre>
 $ openssl pkcs12 -export -clcerts -in user.crt -inkey user.key -out user.p12
 </pre>
-<p>The user then has to import <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.p12</span> into their browser of choice. Depending upon the browser, this is done in different ways, and some browsers do not support importing P12 files.
+<p>The user then has to import <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">user.p12</span> into their browser of choice. Depending upon the browser, this is done in different ways, and some browsers do not support importing P12 files.
 </p>
-<h1><span class="mw-headline" id="Importing_Client_Certificates_Into_Your_Browser">Importing Client Certificates Into Your Browser</span></h1>
-<p>...TODO...
+<h1><span class="mw-headline" id="Importing_Client_Certificates_Into_Your_Browser">Importing Client Certificates Into Your Browser</span></h1>
+<p>…<span class="caps">TODO</span>…
 </p>
-<h1><span class="mw-headline" id="Configuring_Apache">Configuring Apache</span></h1>
-<p>...TODO...
+<h1><span class="mw-headline" id="Configuring_Apache">Configuring Apache</span></h1>
+<p>…<span class="caps">TODO</span>…
 </p>
 <h1><span class="mw-headline" id="References">References</span></h1>
             
@@ -201,6 +219,9 @@ $ openssl pkcs12 -export -clcerts -in user.crt -inkey user.key -out user.p12
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

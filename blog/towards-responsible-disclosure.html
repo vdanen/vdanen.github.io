@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week was interesting, dealing with the supposed “OpenSSH 0day” vulnerability stuff… rumours, innuendo, strange logs and packet capture files… it made for a long week trying to keep an eye on this and sort fact from fiction. Instead of focusing on the issue itself like other blogs and news …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="security, openssh, Linux, " />
 
-<meta property="og:title" content="Towards responsible disclosure "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/towards-responsible-disclosure.html" />
-<meta property="og:description" content="This week was interesting, dealing with the supposed &#34;OpenSSH 0day&#34; vulnerability stuff... rumours, innuendo, strange logs and packet capture files... it made for a long week trying to keep an eye on this and sort fact from fiction. Instead of focusing on the issue itself like other blogs and news …" />
+<meta property="og:title" content="Towards responsible disclosure "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/towards-responsible-disclosure" />
+<meta property="og:description" content="This week was interesting, dealing with the supposed “OpenSSH 0day” vulnerability stuff… rumours, innuendo, strange logs and packet capture files… it made for a long week trying to keep an eye on this and sort fact from fiction. Instead of focusing on the issue itself like other blogs and news …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2009-07-09T18:11:00-06:00" />
-<meta name="twitter:title" content="Towards responsible disclosure ">
-<meta name="twitter:description" content="This week was interesting, dealing with the supposed &#34;OpenSSH 0day&#34; vulnerability stuff... rumours, innuendo, strange logs and packet capture files... it made for a long week trying to keep an eye on this and sort fact from fiction. Instead of focusing on the issue itself like other blogs and news …">
+<meta name="twitter:title" content="Towards responsible disclosure ">
+<meta name="twitter:description" content="This week was interesting, dealing with the supposed “OpenSSH 0day” vulnerability stuff… rumours, innuendo, strange logs and packet capture files… it made for a long week trying to keep an eye on this and sort fact from fiction. Instead of focusing on the issue itself like other blogs and news …">
 
-        <title>Towards responsible disclosure  · Annvix
+        <title>Towards responsible disclosure  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/towards-responsible-disclosure.html">
-                Towards responsible disclosure
+            <a href="https://vdanen.github.io/blog/towards-responsible-disclosure">
+                Towards responsible&nbsp;disclosure
             </a>
         </h1>
     </header>
@@ -80,24 +93,28 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week was interesting, dealing with the supposed "OpenSSH 0day" vulnerability stuff... rumours, innuendo, strange logs and packet capture files... it made for a long week trying to keep an eye on this and sort fact from fiction.  Instead of focusing on the issue itself like other blogs and news sites are doing, I thought it might be interesting to look at some general resources to aid in the responsible disclosure of issues.  I won’t focus on whether or not this issue is fact, or fiction, or who caused it, who furthered it, who took advantage of it, or why it was done in the first place.  I'm more thinking of the fallout and the general panic it caused in a lot of people.  The problem with pegging OpenSSH as vulnerable is that it is a service used on most servers, and is a service that, more importantly, is perhaps one of the most <em>vital</em> on servers.  As seen with one hosting company that preemptively shut SSH accessibility off entirely, a lot of people just couldn't get things done.  Other services, like DNS, are equally vital, so the fallout can be quite brutal -- even when something is not substantiated.</p>
-<p>Another thing that makes this a problem today is the how fast information spreads, and how quickly something posted online is taken as gospel.  For instance, starting a rumour like this is extremely simple and can be done by one person with a bunch of email addresses and a little bit of knowledge.  This kind of social engineering can be used for a lot of things beyond just phishing (money, passwords, whatever).  It can be used to sow confusion, which could be used as a smoke-screen to cover other nefarious deeds and redirect attention from the truly nasty things going on, and it can also be used to perpetrate such fear that people are essentially causing a Denial of Service against themselves and/or their customers simply because of rumours spreading like wildfire.</p>
-<p>Either way, half the battle here is dealing with this stuff smarter and better, and more responsibly.  Outfits that claim inside information but aren't willing to share it are not being responsible.  I'm not saying to necessarily share it with the public at large (right away, at least), as that may not serve the public's best interest.  But to provide crucial information to affected vendors (who can then take that and develop fixes to help a much larger audience) or upstream is absolutely the responsible thing to do.</p>
-<p>To that end, I'd like to share a few links that can help people disclose issues they are aware of, or suspect, in a more responsible fashion.  Holding info tight to your chest like a bag of sour gummies doesn't help anyone but you, and even then, it can harm more than help.  Individuals or companies that claim to have inside info and are working on a fix may not be the appropriate people to work on a fix in the first place.  After all, who knows code better than the folks who wrote it?  It makes more sense to take the issue and all the information you have and open up communication with the vendor/upstream in order to facilitate an appropriate fix that helps <em>everyone</em>, not just yourself.  Quite often the fix you suggest is quite a ways from that which the vendor or upstream would use, and may cause more problems than it corrects.  So getting appropriate people involved just makes sense, and peer review is an asset that the open source community understands -- and views as necessity.</p>
-<p>So here are a few links:</p>
+            <p>This week was interesting, dealing with the supposed &#8220;OpenSSH 0day&#8221; vulnerability stuff&#8230; rumours, innuendo, strange logs and packet capture files&#8230; it made for a long week trying to keep an eye on this and sort fact from fiction.  Instead of focusing on the issue itself like other blogs and news sites are doing, I thought it might be interesting to look at some general resources to aid in the responsible disclosure of issues.  I won’t focus on whether or not this issue is fact, or fiction, or who caused it, who furthered it, who took advantage of it, or why it was done in the first place.  I&#8217;m more thinking of the fallout and the general panic it caused in a lot of people.  The problem with pegging OpenSSH as vulnerable is that it is a service used on most servers, and is a service that, more importantly, is perhaps one of the most <em>vital</em> on servers.  As seen with one hosting company that preemptively shut <span class="caps">SSH</span> accessibility off entirely, a lot of people just couldn&#8217;t get things done.  Other services, like <span class="caps">DNS</span>, are equally vital, so the fallout can be quite brutal &#8212; even when something is not&nbsp;substantiated.</p>
+<p>Another thing that makes this a problem today is the how fast information spreads, and how quickly something posted online is taken as gospel.  For instance, starting a rumour like this is extremely simple and can be done by one person with a bunch of email addresses and a little bit of knowledge.  This kind of social engineering can be used for a lot of things beyond just phishing (money, passwords, whatever).  It can be used to sow confusion, which could be used as a smoke-screen to cover other nefarious deeds and redirect attention from the truly nasty things going on, and it can also be used to perpetrate such fear that people are essentially causing a Denial of Service against themselves and/or their customers simply because of rumours spreading like&nbsp;wildfire.</p>
+<p>Either way, half the battle here is dealing with this stuff smarter and better, and more responsibly.  Outfits that claim inside information but aren&#8217;t willing to share it are not being responsible.  I&#8217;m not saying to necessarily share it with the public at large (right away, at least), as that may not serve the public&#8217;s best interest.  But to provide crucial information to affected vendors (who can then take that and develop fixes to help a much larger audience) or upstream is absolutely the responsible thing to&nbsp;do.</p>
+<p>To that end, I&#8217;d like to share a few links that can help people disclose issues they are aware of, or suspect, in a more responsible fashion.  Holding info tight to your chest like a bag of sour gummies doesn&#8217;t help anyone but you, and even then, it can harm more than help.  Individuals or companies that claim to have inside info and are working on a fix may not be the appropriate people to work on a fix in the first place.  After all, who knows code better than the folks who wrote it?  It makes more sense to take the issue and all the information you have and open up communication with the vendor/upstream in order to facilitate an appropriate fix that helps <em>everyone</em>, not just yourself.  Quite often the fix you suggest is quite a ways from that which the vendor or upstream would use, and may cause more problems than it corrects.  So getting appropriate people involved just makes sense, and peer review is an asset that the open source community understands &#8212; and views as&nbsp;necessity.</p>
+<p>So here are a few&nbsp;links:</p>
 <ul>
-<li> <a href="http://oss-security.openwall.org/wiki/mailing-lists">OSS Security wiki: Security-related mailing lists</a> contains a list of mailing lists you can use to get in touch with people who care and sincerely want to help.  Many vendors are represented on both public and private lists, suitable for discussing issues that are currently public (oss-security) or those that are currently private (vendor-sec)
+<li> <a href="http://oss-security.openwall.org/wiki/mailing-lists"><span class="caps">OSS</span> Security wiki: Security-related mailing lists</a> contains a list of mailing lists you can use to get in touch with people who care and sincerely want to help.  Many vendors are represented on both public and private lists, suitable for discussing issues that are currently public (oss-security) or those that are currently private (vendor-sec)
 <li> <a href="http://oss-security.openwall.org/wiki/whattodo">What to do if I encounter a security issue</a> is a page that documents how to deal with a security or suspected security issue and how to make sure it gets to the right people
-<li> <a href="http://www.redhat.com/security/updates/backporting/">Backporting of Security Fixes</a>  talks about why many vendors, including Red Hat, backport fixes to packages rather than just updating to new ones (I'm including this because there was a lot of misinformation about OpenSSH versions being out-of-date and presumably insecure because they aren't the latest-and-greatest)
-<li> <a href="http://www.redhat.com/security/team/contact/">Red Hat Security Contacts and Procedures</a> is the contact page for the Red Hat Security Response Team; please use it if you think you have something as we absolutely want and love to help with this sort of stuff and if you don't know who to contact, chances are we can take care of that on your behalf
+<li> <a href="http://www.redhat.com/security/updates/backporting/">Backporting of Security Fixes</a>  talks about why many vendors, including Red Hat, backport fixes to packages rather than just updating to new ones (I&#8217;m including this because there was a lot of misinformation about OpenSSH versions being out-of-date and presumably insecure because they aren&#8217;t the latest-and-greatest)
+<li> <a href="http://www.redhat.com/security/team/contact/">Red Hat Security Contacts and Procedures</a> is the contact page for the Red Hat Security Response Team; please use it if you think you have something as we absolutely want and love to help with this sort of stuff and if you don&#8217;t know who to contact, chances are we can take care of that on your&nbsp;behalf
 </li>
 
-Responsible disclosure is really important, and everyone needs to do their part when it comes to this stuff.  Irresponsible disclosure, or no disclosure, hurts more people than it helps and has been the source of many a headache for a whole lot of people over the years.
+Responsible disclosure is really important, and everyone needs to do their part when it comes to this stuff.  Irresponsible disclosure, or no disclosure, hurts more people than it helps and has been the source of many a headache for a whole lot of people over the&nbsp;years.
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Towards%20responsible%C2%A0disclosure&url=https%3A//vdanen.github.io/blog/towards-responsible-disclosure&hashtags=security,openssh" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/towards-responsible-disclosure&title=Towards%20responsible%C2%A0disclosure&summary=This%20week%20was%20interesting%2C%20dealing%20with%20the%20supposed%20%E2%80%9COpenSSH%200day%E2%80%9D%20vulnerability%20stuff%E2%80%A6%20rumours%2C%20innuendo%2C%20strange%20logs%20and%20packet%20capture%20files%E2%80%A6%20it%20made%20for%20a%20long%20week%20trying%20to%20keep%20an%20eye%20on%20this%20and%20sort%20fact%20from%20fiction.%20%20Instead%20of%20focusing%20on%20the%20issue%20itself%20like%20other%20blogs%20and%20news%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/towards-responsible-disclosure" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -108,22 +125,41 @@ Responsible disclosure is really important, and everyone needs to do their part 
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/find-and-fix-weak-opensslopenssh-keys-debian-based-linux-vulnerability" title="Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability">Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://vdanen.github.io/blog/sboms-cves-cvss-and-more" title="SBOMs, CVEs, CVSS and more">SBOMs, CVEs, CVSS and more</a></li>
+<li><a href="https://vdanen.github.io/blog/oss-summit-2023" title="OSS Summit 2023">OSS Summit 2023</a></li>
+<li><a href="https://vdanen.github.io/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/hacking-vim-covers-the-basics-and-reveals-tips-for-power-users" title="Previous: Hacking Vim covers the basics and reveals tips for power users">Hacking Vim covers the basics and reveals tips for power users</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/kerberos-fun" title="Next: Kerberos fun">Kerberos fun</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-07-09T18:11:00-06:00">Thu 09 July 2009</time>
+            <time itemprop="dateCreated" datetime="2009-07-09T18:11:00-06:00">Jul 09, 2009</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#openssh-ref">openssh
+                <li><a href="https://vdanen.github.io/tags#openssh-ref">openssh
                     <span class="superscript">14</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#security-ref">security
+                <li><a href="https://vdanen.github.io/tags#security-ref">security
                     <span class="superscript">34</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -224,6 +260,9 @@ Responsible disclosure is really important, and everyone needs to do their part 
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

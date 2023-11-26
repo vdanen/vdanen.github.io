@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="NOTE: All referenced scripts are available at https://github.com/vdanen/mutt-scripts. I’ve been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink. I’m coming from a background where on Linux …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using mutt on OS X "/>
-<meta property="og:url" content="https://vdanen.github.io/using_mutt_on_os_x.html" />
-<meta property="og:description" content="NOTE: All referenced scripts are available at https://github.com/vdanen/mutt-scripts. I&#39;ve been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink. I&#39;m coming from a background where on Linux I&#39;ve always …" />
+<meta property="og:title" content="Using mutt on OS X "/>
+<meta property="og:url" content="https://vdanen.github.io/using_mutt_on_os_x" />
+<meta property="og:description" content="NOTE: All referenced scripts are available at https://github.com/vdanen/mutt-scripts. I’ve been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink. I’m coming from a background where on Linux …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2016-01-16T17:00:00-07:00" />
-<meta name="twitter:title" content="Using mutt on OS X ">
-<meta name="twitter:description" content="NOTE: All referenced scripts are available at https://github.com/vdanen/mutt-scripts. I&#39;ve been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink. I&#39;m coming from a background where on Linux I&#39;ve always …">
+<meta name="twitter:title" content="Using mutt on OS X ">
+<meta name="twitter:description" content="NOTE: All referenced scripts are available at https://github.com/vdanen/mutt-scripts. I’ve been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink. I’m coming from a background where on Linux …">
 
-        <title>Using mutt on OS X  · Annvix
+        <title>Using mutt on OS X  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,95 +80,99 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_mutt_on_os_x.html"> Using mutt on OS X  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_mutt_on_os_x"> Using mutt on <span class="caps">OS</span>&nbsp;X  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p><b>NOTE:</b> All referenced scripts are available at <a href="https://github.com/vdanen/mutt-scripts">https://github.com/vdanen/mutt-scripts</a>.</p>
-
-<p>I've been using OS X on my desktop for a number of years now and unfortunately, the availability of email clients for OS X, while numerous, all stink.  I'm coming from a background where on Linux I've always used the <a rel="nofollow" class="external text" href="http://www.mutt.org/">mutt</a> email client.  To be honest, I'm not a big fan of any of the GUI email clients on Linux either.
-</p>
-<p>I was happy with Mail.app in Panther, but with Tiger, it quickly turned into a painful experience, especially for someone who deals with thousands of emails per month and keeps an archive of each and every one of them.  Mail.app simply couldn't handle that load to my liking, so as a result I decided to go back to mutt.  Of course, mutt by itself doesn't have nearly the same nice integration with the system that something like Mail.app does.  I have a few requirements for an email client that simply must be adhered to:
-</p>
-<ul><li> Address Book integration</li>
-<li> GnuPG support</li>
-<li> <b>good</b> threading support</li></ul>
-<p>Other than this, I just like "power-user" features, same as any other good geek.  Needs to be fast, stable, and reliable.  Too many email clients, while nice looking, fall flat here.  So it was back to good-old mutt.
-</p>
-<p><b>NOTE:</b> The current version as of this writing is 1.5.21 and is the recommended version of mutt to use.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
 <li class="toclevel-1 tocsection-1"><a href="#Installing_mutt"><span class="tocnumber">1</span> <span class="toctext">Installing mutt</span></a>
 <ul>
-<li class="toclevel-2 tocsection-2"><a href="#Applying_the_sidebar_patch"><span class="tocnumber">1.1</span> <span class="toctext">Applying the sidebar patch</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="#Compiling_mutt"><span class="tocnumber">1.2</span> <span class="toctext">Compiling mutt</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Applying_the_sidebar_patch"><span class="tocnumber">1.1</span> <span class="toctext">Applying the sidebar patch</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Compiling_mutt"><span class="tocnumber">1.2</span> <span class="toctext">Compiling mutt</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-4"><a href="#Configuring_fetchmail"><span class="tocnumber">2</span> <span class="toctext">Configuring fetchmail</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Configuring_procmail"><span class="tocnumber">3</span> <span class="toctext">Configuring procmail</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_fetchmail"><span class="tocnumber">2</span> <span class="toctext">Configuring fetchmail</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Configuring_procmail"><span class="tocnumber">3</span> <span class="toctext">Configuring procmail</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#Setting_up_some_nice_extras"><span class="tocnumber">4</span> <span class="toctext">Setting up some nice extras</span></a>
 <ul>
 <li class="toclevel-2 tocsection-7"><a href="#MailtoMutt"><span class="tocnumber">4.1</span> <span class="toctext">MailtoMutt</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#lbdb:_The_Little_Brother.27s_Database"><span class="tocnumber">4.2</span> <span class="toctext">lbdb: The Little Brother's Database</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#lbdb:_The_Little_Brother.27s_Database"><span class="tocnumber">4.2</span> <span class="toctext">lbdb: The Little Brother’s Database</span></a></li>
 <li class="toclevel-2 tocsection-9"><a href="#urlview"><span class="tocnumber">4.3</span> <span class="toctext">urlview</span></a></li>
 <li class="toclevel-2 tocsection-10"><a href="#Mairix"><span class="tocnumber">4.4</span> <span class="toctext">Mairix</span></a></li>
 </ul>
 </li>
 <li class="toclevel-1 tocsection-11"><a href="#mailcap"><span class="tocnumber">5</span> <span class="toctext">mailcap</span></a></li>
-<li class="toclevel-1 tocsection-12"><a href="#Setting_up_SMTP_Support"><span class="tocnumber">6</span> <span class="toctext">Setting up SMTP Support</span></a>
+<li class="toclevel-1 tocsection-12"><a href="#Setting_up_SMTP_Support"><span class="tocnumber">6</span> <span class="toctext">Setting up <span class="caps">SMTP</span> Support</span></a>
 <ul>
-<li class="toclevel-2 tocsection-13"><a href="#Configure_postfix"><span class="tocnumber">6.1</span> <span class="toctext">Configure postfix</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Configure_postfix"><span class="tocnumber">6.1</span> <span class="toctext">Configure postfix</span></a></li>
 <li class="toclevel-2 tocsection-14"><a href="#Using_exim_instead_of_postfix"><span class="tocnumber">6.2</span> <span class="toctext">Using exim instead of postfix</span></a>
 <ul>
-<li class="toclevel-3 tocsection-15"><a href="#Create_the_exim_system_account"><span class="tocnumber">6.2.1</span> <span class="toctext">Create the exim system account</span></a></li>
-<li class="toclevel-3 tocsection-16"><a href="#Compile_and_install_exim"><span class="tocnumber">6.2.2</span> <span class="toctext">Compile and install exim</span></a></li>
-<li class="toclevel-3 tocsection-17"><a href="#Telling_OS_X_to_start_exim_at_boot"><span class="tocnumber">6.2.3</span> <span class="toctext">Telling OS X to start exim at boot</span></a></li>
-<li class="toclevel-3 tocsection-18"><a href="#Configure_exim"><span class="tocnumber">6.2.4</span> <span class="toctext">Configure exim</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Create_the_exim_system_account"><span class="tocnumber">6.2.1</span> <span class="toctext">Create the exim system account</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Compile_and_install_exim"><span class="tocnumber">6.2.2</span> <span class="toctext">Compile and install exim</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Telling_OS_X_to_start_exim_at_boot"><span class="tocnumber">6.2.3</span> <span class="toctext">Telling <span class="caps">OS</span> X to start exim at boot</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Configure_exim"><span class="tocnumber">6.2.4</span> <span class="toctext">Configure exim</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-19"><a href="#Configuring_Terminal.27s_Meta_Key_Support"><span class="tocnumber">7</span> <span class="toctext">Configuring Terminal's Meta Key Support</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Configuring_Terminal.27s_Meta_Key_Support"><span class="tocnumber">7</span> <span class="toctext">Configuring Terminal’s Meta Key Support</span></a></li>
 <li class="toclevel-1 tocsection-20"><a href="#Configuring_mutt"><span class="tocnumber">8</span> <span class="toctext">Configuring mutt</span></a>
 <ul>
-<li class="toclevel-2 tocsection-21"><a href="#Sourcing_external_configuration_files"><span class="tocnumber">8.1</span> <span class="toctext">Sourcing external configuration files</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Sourcing_external_configuration_files"><span class="tocnumber">8.1</span> <span class="toctext">Sourcing external configuration files</span></a></li>
 <li class="toclevel-2 tocsection-22"><a href="#muttrc_options"><span class="tocnumber">8.2</span> <span class="toctext">muttrc options</span></a>
 <ul>
-<li class="toclevel-3 tocsection-23"><a href="#Special_Keybindings"><span class="tocnumber">8.2.1</span> <span class="toctext">Special Keybindings</span></a></li>
-<li class="toclevel-3 tocsection-24"><a href="#Editor_settings"><span class="tocnumber">8.2.2</span> <span class="toctext">Editor settings</span></a></li>
-<li class="toclevel-3 tocsection-25"><a href="#Print_settings"><span class="tocnumber">8.2.3</span> <span class="toctext">Print settings</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Special_Keybindings"><span class="tocnumber">8.2.1</span> <span class="toctext">Special Keybindings</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Editor_settings"><span class="tocnumber">8.2.2</span> <span class="toctext">Editor settings</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Print_settings"><span class="tocnumber">8.2.3</span> <span class="toctext">Print settings</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-26"><a href="#Final_Notes_and_Resources"><span class="tocnumber">9</span> <span class="toctext">Final Notes and Resources</span></a></li>
-<li class="toclevel-1 tocsection-27"><a href="#Revision_History"><span class="tocnumber">10</span> <span class="toctext">Revision History</span></a></li>
+<li class="toclevel-1 tocsection-26"><a href="#Final_Notes_and_Resources"><span class="tocnumber">9</span> <span class="toctext">Final Notes and Resources</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#Revision_History"><span class="tocnumber">10</span> <span class="toctext">Revision History</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h1><span class="mw-headline" id="Installing_mutt">Installing mutt</span></h1>
-<p>You can install mutt via Fink, but I prefer to build it from source.  The latest version as of this writing is 1.5.21.  Download the tarball, compile, and install it:
+            <p><b><span class="caps">NOTE</span>:</b> All referenced scripts are available at <a href="https://github.com/vdanen/mutt-scripts">https://github.com/vdanen/mutt-scripts</a>.</p>
+<p>I’ve been using <span class="caps">OS</span> X on my desktop for a number of years now and unfortunately, the availability of email clients for <span class="caps">OS</span> X, while numerous, all stink.  I’m coming from a background where on Linux I’ve always used the <a class="external text" href="http://www.mutt.org/" rel="nofollow">mutt</a> email client.  To be honest, I’m not a big fan of any of the <span class="caps">GUI</span> email clients on Linux either.
+</p>
+<p>I was happy with Mail.app in Panther, but with Tiger, it quickly turned into a painful experience, especially for someone who deals with thousands of emails per month and keeps an archive of each and every one of them.  Mail.app simply couldn’t handle that load to my liking, so as a result I decided to go back to mutt.  Of course, mutt by itself doesn’t have nearly the same nice integration with the system that something like Mail.app does.  I have a few requirements for an email client that simply must be adhered to:
+</p>
+<ul><li> Address Book integration</li>
+<li> GnuPG support</li>
+<li> <b>good</b> threading support</li></ul>
+<p>Other than this, I just like “power-user” features, same as any other good geek.  Needs to be fast, stable, and reliable.  Too many email clients, while nice looking, fall flat here.  So it was back to good-old mutt.
+</p>
+<p><b><span class="caps">NOTE</span>:</b> The current version as of this writing is 1.5.21 and is the recommended version of mutt to use.
+</p>
+
+<h1><span class="mw-headline" id="Installing_mutt">Installing mutt</span></h1>
+<p>You can install mutt via Fink, but I prefer to build it from source.  The latest version as of this writing is 1.5.21.  Download the tarball, compile, and install it:
 </p>
 <pre>
 $ curl -O ftp://ftp.mutt.org/mutt/devel/mutt-1.5.21.tar.gz
 $ tar xvzf mutt-1.5.21.tar.gz
 $ cd mutt-1.5.21
 </pre>
-<h2><span class="mw-headline" id="Applying_the_sidebar_patch">Applying the sidebar patch</span></h2>
-<p>At this point, I typically patch mutt with the <a rel="nofollow" class="external text" href="http://www.lunar-linux.org/index.php?option=com_content&amp;task=view&amp;id=44">sidebar patch</a>; a patch that gives mutt a listing of folders on the screen, same as any GUI client.  You can easily apply it as well:
+<h2><span class="mw-headline" id="Applying_the_sidebar_patch">Applying the sidebar patch</span></h2>
+<p>At this point, I typically patch mutt with the <a class="external text" href="http://www.lunar-linux.org/index.php?option=com_content&amp;task=view&amp;id=44" rel="nofollow">sidebar patch</a>; a patch that gives mutt a listing of folders on the screen, same as any <span class="caps">GUI</span> client.  You can easily apply it as well:
 </p>
 <pre>
 $ curl -O http://lunar-linux.org/~tchan/mutt/patch-1.5.20.sidebar.20090619.txt
 $ patch -p1 &lt;patch-1.5.20.sidebar.20090619.txt
 </pre>
-<p>The latest official sidebar patch is for version 1.5.20 which does not apply to version 1.5.21.  I've pulled a sidebar patch from Debian's <a rel="nofollow" class="external text" href="http://packages.debian.org/experimental/mutt-patched">mutt-patched</a> package, and it is available here: <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt-1.5.21-sidebar.patch" class="internal" title="Mutt-1.5.21-sidebar.patch">Sidebar patch taken from Debian for 1.5.21</a>.
+<p>The latest official sidebar patch is for version 1.5.20 which does not apply to version 1.5.21.  I’ve pulled a sidebar patch from Debian’s <a class="external text" href="http://packages.debian.org/experimental/mutt-patched" rel="nofollow">mutt-patched</a> package, and it is available here: <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt-1.5.21-sidebar.patch" title="Mutt-1.5.21-sidebar.patch">Sidebar patch taken from Debian for 1.5.21</a>.
 </p>
-<h2><span class="mw-headline" id="Compiling_mutt">Compiling mutt</span></h2>
-<p>Then finish by compiling and installing mutt.  Note that having fink setup is a good idea; you may need to install some packages via fink to satisfy build requirements.
+<h2><span class="mw-headline" id="Compiling_mutt">Compiling mutt</span></h2>
+<p>Then finish by compiling and installing mutt.  Note that having fink setup is a good idea; you may need to install some packages via fink to satisfy build requirements.
 </p>
 <pre>
 $ ./configure --prefix=/sw --with-curses --with-regex --enable-locales-fix \
@@ -163,56 +180,56 @@ $ ./configure --prefix=/sw --with-curses --with-regex --enable-locales-fix \
 $ make
 $ sudo make install
 </pre>
-<p>This will compile mutt with curses and regex support, with POP3 and IMAP support (and using header caching with IMAP), with SSL support, and will install it into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw</span>, the default location for where fink and friends live.  New in 1.5.15 is SMTP support within mutt and it is fantastic.  You will need to add <b>--enable-smtp --with-sasl=/sw</b> for that support to be available.  You'll also want to install the <b>cyrus-sasl2-dev</b> package from Fink to get the SASL support (required for SMTP-AUTH).
+<p>This will compile mutt with curses and regex support, with <span class="caps">POP3</span> and <span class="caps">IMAP</span> support (and using header caching with <span class="caps">IMAP</span>), with <span class="caps">SSL</span> support, and will install it into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw</span>, the default location for where fink and friends live.  New in 1.5.15 is <span class="caps">SMTP</span> support within mutt and it is fantastic.  You will need to add <b>—enable-smtp —with-sasl=/sw</b> for that support to be available.  You’ll also want to install the <b>cyrus-sasl2-dev</b> package from Fink to get the <span class="caps">SASL</span> support (required for <span class="caps">SMTP</span>-<span class="caps">AUTH</span>).
 </p>
-<p><b>NOTE:</b> If you find you have problems with mutt compiling, particularly if you are using SASL support (it complains it cannot find a working SASL, but you have the <b>cyrus-sasl2-dev</b> package from Fink installed), you may need to tell OS X to compile for 32bit explicitly (otherwise it will try to compile for both 64bit and 32bit).  This can be accomplished using the following configure line instead of that noted above, which sets the appropriate CFLAG environment variable for the compiler to use:
+<p><b><span class="caps">NOTE</span>:</b> If you find you have problems with mutt compiling, particularly if you are using <span class="caps">SASL</span> support (it complains it cannot find a working <span class="caps">SASL</span>, but you have the <b>cyrus-sasl2-dev</b> package from Fink installed), you may need to tell <span class="caps">OS</span> X to compile for 32bit explicitly (otherwise it will try to compile for both 64bit and 32bit).  This can be accomplished using the following configure line instead of that noted above, which sets the appropriate <span class="caps">CFLAG</span> environment variable for the compiler to use:
 </p>
 <pre>
-$ CFLAGS=&quot;-m32&quot; ./configure --prefix=/sw --with-curses --with-regex --enable-locales-fix \
+$ CFLAGS="-m32" ./configure --prefix=/sw --with-curses --with-regex --enable-locales-fix \
   --enable-pop --enable-imap --enable-smtp --with-sasl=/sw --enable-hcache --with-ssl --mandir=/sw/share/man
 </pre>
-<p>(This only seems to be a problem with OS X 10.6; earlier versions should not be affected by this).
+<p>(This only seems to be a problem with <span class="caps">OS</span> X 10.6; earlier versions should not be affected by this).
 </p>
-<p>Once this is done, congratulations... the absolute easiest part is done (and you thought compiling software was difficult).
+<p>Once this is done, congratulations… the absolute easiest part is done (and you thought compiling software was difficult).
 </p>
-<h1><span class="mw-headline" id="Configuring_fetchmail">Configuring fetchmail</span></h1>
-<p>Although mutt can handle POP3 and IMAP accounts, using fetchmail and procmail is much easier and more flexible.  You can continue to download email in the background without even having mutt open, and by using fetchmail, you can hand the mails off to procmail to sort and so all kinds of interesting things with.
+<h1><span class="mw-headline" id="Configuring_fetchmail">Configuring fetchmail</span></h1>
+<p>Although mutt can handle <span class="caps">POP3</span> and <span class="caps">IMAP</span> accounts, using fetchmail and procmail is much easier and more flexible.  You can continue to download email in the background without even having mutt open, and by using fetchmail, you can hand the mails off to procmail to sort and so all kinds of interesting things with.
 </p>
-<p>Fetchmail is quite simple to configure.  Create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.fetchmailrc</span> to configure your mail accounts.  For example:
+<p>Fetchmail is quite simple to configure.  Create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.fetchmailrc</span> to configure your mail accounts.  For example:
 </p>
 <pre>
-poll mail.server.com protocol pop3 user &quot;joe@server.com&quot; password &quot;secret&quot; mda &quot;/usr/bin/procmail -d&#160;%T&quot; ssl
-poll mail.somewhere.com protocol imap user &quot;jimbob&quot; password &quot;secret&quot; mda &quot;/usr/bin/procmail -d&#160;%T&quot; ssl
+poll mail.server.com protocol pop3 user "joe@server.com" password "secret" mda "/usr/bin/procmail -d %T" ssl
+poll mail.somewhere.com protocol imap user "jimbob" password "secret" mda "/usr/bin/procmail -d %T" ssl
 </pre>
-<p>In the above example we have two mail accounts, one with a username of "joe@server.com" which is a POP3 account (using SSL).  The other is an IMAPS (IMAP over SSL) account with a username of "jimbob".
+<p>In the above example we have two mail accounts, one with a username of “joe@server.com” which is a <span class="caps">POP3</span> account (using <span class="caps">SSL</span>).  The other is an <span class="caps">IMAPS</span> (<span class="caps">IMAP</span> over <span class="caps">SSL</span>) account with a username of “jimbob”.
 </p>
-<p>Because I like getting alerts as to when I get new mail, I take advantage of Growl to alert me when fetchmail has received new mail.  Instead of calling fetchmail directly via cron, I use a script (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/getmail.sh</span>) to do it, which looks like:
+<p>Because I like getting alerts as to when I get new mail, I take advantage of Growl to alert me when fetchmail has received new mail.  Instead of calling fetchmail directly via cron, I use a script (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/getmail.sh</span>) to do it, which looks like:
 </p>
 <pre>
 #!/bin/sh
 
-if [ &quot;$1&quot; = &quot;-v&quot; ]; then
-    EXTRAARG=&quot;-v&quot;
+if [ "$1" = "-v" ]; then
+    EXTRAARG="-v"
 fi
 
 fetchmail -a -K $EXTRAARG &gt;/dev/null 2&gt;&amp;1
 
-if [ &quot;$?&quot; = &quot;0&quot; ]; then
-    /usr/local/bin/growlnotify -n mutt -a Mail.app -m &quot;New mail received&quot; &gt;/dev/null 2&gt;&amp;1
+if [ "$?" = "0" ]; then
+    /usr/local/bin/growlnotify -n mutt -a Mail.app -m "New mail received" &gt;/dev/null 2&gt;&amp;1
 fi
 </pre>
-<p>This is the script that I get cron to run every 5 minutes (I use Cronnix to manage my crontab).  The relevant section of the crontab looks like:
+<p>This is the script that I get cron to run every 5 minutes (I use Cronnix to manage my crontab).  The relevant section of the crontab looks like:
 </p>
 <pre>
 $ crontab -l
 */5     *       *       *       *       /Users/vdanen/bin/getmail.sh
 </pre>
-<p>As you can see, you'll need to first install Growl and the add-on CLI program (growlnotify).
+<p>As you can see, you’ll need to first install Growl and the add-on <span class="caps">CLI</span> program (growlnotify).
 </p>
-<h1><span class="mw-headline" id="Configuring_procmail">Configuring procmail</span></h1>
-<p>One of the most fantastic filters available is procmail.  This beast will let you do pretty much anything you want to your email.  Smart mailboxes and simple filters?  Give me a break.  This puppy puts the filtering capabilities of Mail.app to shame.
+<h1><span class="mw-headline" id="Configuring_procmail">Configuring procmail</span></h1>
+<p>One of the most fantastic filters available is procmail.  This beast will let you do pretty much anything you want to your email.  Smart mailboxes and simple filters?  Give me a break.  This puppy puts the filtering capabilities of Mail.app to shame.
 </p>
-<p>The first step is to create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span>; the simplest way of doing it is this:
+<p>The first step is to create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span>; the simplest way of doing it is this:
 </p>
 <pre>
 # .procmailrc
@@ -223,7 +240,7 @@ VERBOSE=off
 PMDIR=/Users/vdanen/.procmail
 LOGFILE=$PMDIR/procmail.log
 # inserts a blank line between log entries
-LOG=&quot;&quot;
+LOG=""
 MAIL=/Users/vdanen/Mail
 
 #
@@ -235,9 +252,9 @@ MAIL=/Users/vdanen/Mail
 :0
 $MAIL/Inbox
 </pre>
-<p>That essentially does no filtering, except for weeding out duplicates, and puts all of your emails into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Mail/Inbox</span>.  That in itself is pretty much useless... the whole point is to give us power and flexibility.  There are plenty of tutorials on tweaking procmail, using <a rel="nofollow" class="external text" href="http://www.google.com/search?ie=utf8&amp;oe=utf8&amp;q=procmail+howto">Google to search</a> will give you plenty of hits.
+<p>That essentially does no filtering, except for weeding out duplicates, and puts all of your emails into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Mail/Inbox</span>.  That in itself is pretty much useless… the whole point is to give us power and flexibility.  There are plenty of tutorials on tweaking procmail, using <a class="external text" href="http://www.google.com/search?ie=utf8&amp;oe=utf8&amp;q=procmail+howto" rel="nofollow">Google to search</a> will give you plenty of hits.
 </p>
-<p>For myself, I prefer to break up the procmail configuration into different special files.  First, I create the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail</span>.  Then my default procmail configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span>, but for consistency I symlink <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span> to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/procmailrc</span>.  Then I also have some special include configurations, namely <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/mailinglists.rc</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/spam.rc</span>.  To include these files in your main procmail configuration, use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">INCLUDE</span> directive:
+<p>For myself, I prefer to break up the procmail configuration into different special files.  First, I create the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail</span>.  Then my default procmail configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span>, but for consistency I symlink <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmailrc</span> to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/procmailrc</span>.  Then I also have some special include configurations, namely <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/mailinglists.rc</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.procmail/spam.rc</span>.  To include these files in your main procmail configuration, use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;"><span class="caps">INCLUDE</span></span> directive:
 </p>
 <pre>
 #
@@ -245,29 +262,29 @@ $MAIL/Inbox
 #
 INCLUDERC=$PMDIR/spam.rc
 </pre>
-<p>procmail includes those extra files directly where you include them, so be sure of your ordering.  Typically I order things as follows:
+<p>procmail includes those extra files directly where you include them, so be sure of your ordering.  Typically I order things as follows:
 </p>
-<ul><li> basic procmail setup (variable definitions, etc.)</li>
-<li> weed out messages I don't want (delivery failure mails, things that my server tags as spam, etc.)</li>
-<li> parse through <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">mailinglists.rc</span> which filters mail based on the mailing list to go to various different mailboxes</li>
-<li> parse through <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">spam.rc</span> to get rid of spam messages locally (note, I used to run spamassassin locally with more aggressive rules than on the server, but I'm started using <a rel="nofollow" class="external text" href="http://www.tmda.net">TMDA</a> again, so I no longer have to run SA locally)</li>
-<li> filter other messages (i.e. my *mandriva.com mails go to a Mandriva inbox, my *annvix.org mails to go to an Annvix inbox, etc.)</li>
-<li> everything that hasn't been filtered by the end goes into my general Inbox</li></ul>
-<p>You can look at my procmail settings here (they're much too big to include as part of this article directly):
+<ul><li> basic procmail setup (variable definitions, etc.)</li>
+<li> weed out messages I don’t want (delivery failure mails, things that my server tags as spam, etc.)</li>
+<li> parse through <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">mailinglists.rc</span> which filters mail based on the mailing list to go to various different mailboxes</li>
+<li> parse through <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">spam.rc</span> to get rid of spam messages locally (note, I used to run spamassassin locally with more aggressive rules than on the server, but I’m started using <a class="external text" href="http://www.tmda.net" rel="nofollow"><span class="caps">TMDA</span></a> again, so I no longer have to run <span class="caps">SA</span> locally)</li>
+<li> filter other messages (i.e. my *mandriva.com mails go to a Mandriva inbox, my *annvix.org mails to go to an Annvix inbox, etc.)</li>
+<li> everything that hasn’t been filtered by the end goes into my general Inbox</li></ul>
+<p>You can look at my procmail settings here (they’re much too big to include as part of this article directly):
 </p>
-<ul><li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/procmail.rc" class="internal" title="Procmail.rc">procmail.rc</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/mailinglists.rc" class="internal" title="Mailinglists.rc">mailinglists.rc</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/spam.rc" class="internal" title="Spam.rc">spam.rc</a></li></ul>
-<h1><span class="mw-headline" id="Setting_up_some_nice_extras">Setting up some nice extras</span></h1>
-<p>So far we have fetchmail retrieving our email, procmail filtering our email, and an unconfigured mutt to (eventually) read the email.  However, there are a few niceties we can also include to make using mutt so much nicer.
+<ul><li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/procmail.rc" title="Procmail.rc">procmail.rc</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/mailinglists.rc" title="Mailinglists.rc">mailinglists.rc</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/procmail/spam.rc" title="Spam.rc">spam.rc</a></li></ul>
+<h1><span class="mw-headline" id="Setting_up_some_nice_extras">Setting up some nice extras</span></h1>
+<p>So far we have fetchmail retrieving our email, procmail filtering our email, and an unconfigured mutt to (eventually) read the email.  However, there are a few niceties we can also include to make using mutt so much nicer.
 </p>
 <h2><span class="mw-headline" id="MailtoMutt">MailtoMutt</span></h2>
-<p>The first is a little cocoa program called <a rel="nofollow" class="external text" href="http://nothingmuch.woobling.org/MailtoMutt/">MailtoMutt</a>.  This little gem essentially is a "mailto:" url handler.  So when you click on an email link on a web page, instead of opening Mail.app or some other GUI email client, mutt will get the focus and take that address to start a new message.  Installing MailtoMutt is as simple as downloading the dmg file, mounting it, copying MailtoMutt.app to your Applications directory, and running it.  To make it the default mailto: handler, you'll need to either use RCDefaultApp or fire up Mail.app and set the default mail client to MailtoMutt.
+<p>The first is a little cocoa program called <a class="external text" href="http://nothingmuch.woobling.org/MailtoMutt/" rel="nofollow">MailtoMutt</a>.  This little gem essentially is a “mailto:” url handler.  So when you click on an email link on a web page, instead of opening Mail.app or some other <span class="caps">GUI</span> email client, mutt will get the focus and take that address to start a new message.  Installing MailtoMutt is as simple as downloading the dmg file, mounting it, copying MailtoMutt.app to your Applications directory, and running it.  To make it the default mailto: handler, you’ll need to either use RCDefaultApp or fire up Mail.app and set the default mail client to MailtoMutt.
 </p>
-<p>The only downside here is that MailtoMutt launches a new Terminal window, launches mutt to send the mail.  Depending on how you have Terminal configured, you may need to manually exit/close the window after it's used.  However, since I don't usually click on too many mailto: urls, I think it's not that big of a deal.
+<p>The only downside here is that MailtoMutt launches a new Terminal window, launches mutt to send the mail.  Depending on how you have Terminal configured, you may need to manually exit/close the window after it’s used.  However, since I don’t usually click on too many mailto: urls, I think it’s not that big of a deal.
 </p>
-<h2><span class="mw-headline" id="lbdb:_The_Little_Brother.27s_Database">lbdb: The Little Brother's Database</span></h2>
-<p>Another very important little application is <a rel="nofollow" class="external text" href="http://www.spinnaker.de/lbdb/">lbdb</a>.  This program is the "glue" that will make mutt able to use the OS X Address Book.  To begin, download the tarball for the latest version (0.34 as of this writing) and compile it:
+<h2><span class="mw-headline" id="lbdb:_The_Little_Brother.27s_Database">lbdb: The Little Brother’s Database</span></h2>
+<p>Another very important little application is <a class="external text" href="http://www.spinnaker.de/lbdb/" rel="nofollow">lbdb</a>.  This program is the “glue” that will make mutt able to use the <span class="caps">OS</span> X Address Book.  To begin, download the tarball for the latest version (0.34 as of this writing) and compile it:
 </p>
 <pre>
 $ curl -O http://www.spinnaker.de/debian/lbdb_0.34.tar.gz
@@ -277,117 +294,117 @@ $ ./configure --prefix=/sw --mandir=/sw/share/man --with-gpg --libdir=/sw/lib/lb
 $ make
 $ sudo make install
 </pre>
-<p>This will configure lbdb with GnuPG support and install it into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw</span>, the same place that mutt itself lives.  You will need to create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.lbdbrc</span> which is the configuration file for lbdb.  It configures what lookup methods to use with lbdbrc (the mutt alias file and OS X Address Book, plus whatever else you want to be able to lookup (you could use LDAP, for instance)), and some other preferences.
+<p>This will configure lbdb with GnuPG support and install it into <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw</span>, the same place that mutt itself lives.  You will need to create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.lbdbrc</span> which is the configuration file for lbdb.  It configures what lookup methods to use with lbdbrc (the mutt alias file and <span class="caps">OS</span> X Address Book, plus whatever else you want to be able to lookup (you could use <span class="caps">LDAP</span>, for instance)), and some other preferences.
 </p>
-<ul><li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/lbdb/lbdbrc" class="internal" title="Lbdbrc">~/.lbdbrc</a></li></ul>
-<p>To give it a quick test, just execute:
+<ul><li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/lbdb/lbdbrc" title="Lbdbrc">~/.lbdbrc</a></li></ul>
+<p>To give it a quick test, just execute:
 </p>
 <pre>
 $ lbdbq
 </pre>
-<p>You should see everything that is currently stored in your OS X Address Book, printed out as:
+<p>You should see everything that is currently stored in your <span class="caps">OS</span> X Address Book, printed out as:
 </p>
 <pre>
 joe@joe.com       Joe Person   (AddressBook)
 </pre>
-<p>This allows you to address emails to any user in your OS X Address Book using mutt's lookup completion (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">query_command</span>).  More on that in the mutt configuration later.
+<p>This allows you to address emails to any user in your <span class="caps">OS</span> X Address Book using mutt’s lookup completion (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">query_command</span>).  More on that in the mutt configuration later.
 </p>
 <h2><span class="mw-headline" id="urlview">urlview</span></h2>
-<p>urlview is another handy program that extracts URLs from text files and allows you to define mappings to them.  urlview can be installed via Fink:
+<p>urlview is another handy program that extracts URLs from text files and allows you to define mappings to them.  urlview can be installed via Fink:
 </p>
 <pre>
 $ sudo fink install urlview
 </pre>
-<p>This little program takes the input of a file (such as an email message) and prints out links to everything, which you can then navigate around, highlight, and press enter to open them.
+<p>This little program takes the input of a file (such as an email message) and prints out links to everything, which you can then navigate around, highlight, and press enter to open them.
 </p>
-<p>To have these links open in your default web browser, create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.urlview</span> with the contents:
+<p>To have these links open in your default web browser, create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.urlview</span> with the contents:
 </p>
 <pre>
-COMMAND open&#160;%s
+COMMAND open %s
 </pre>
-<p>This then uses the standard open command to open the URL, which will in turn call your default web browser to open the URL (Safari, Chrome, Firefox... whatever you have defined as your default web browser).
+<p>This then uses the standard open command to open the <span class="caps">URL</span>, which will in turn call your default web browser to open the <span class="caps">URL</span> (Safari, Chrome, Firefox… whatever you have defined as your default web browser).
 </p>
 <h2><span class="mw-headline" id="Mairix">Mairix</span></h2>
-<p><a rel="nofollow" class="external text" href="http://www.rc0.org.uk/mairix">Mairix</a> is a great mail searching tool, and very easy to implement in mutt.  First, install it via Fink:
+<p><a class="external text" href="http://www.rc0.org.uk/mairix" rel="nofollow">Mairix</a> is a great mail searching tool, and very easy to implement in mutt.  First, install it via Fink:
 </p>
 <pre>
 $ sudo fink install mairix
 </pre>
-<p>Create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mairixrc</span> to create your configuration for Mairix (sample below), and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/msearch.sh</span> script that does the actual searching (sample below).  This script will delete any existing results folders, update the index, and then execute the search.
+<p>Create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mairixrc</span> to create your configuration for Mairix (sample below), and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/msearch.sh</span> script that does the actual searching (sample below).  This script will delete any existing results folders, update the index, and then execute the search.
 </p>
-<p>To integrate this with mutt, edit your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/macros</span> file and add:
+<p>To integrate this with mutt, edit your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/macros</span> file and add:
 </p>
 <pre>
-macro index &quot;\em&quot;    &quot;&lt;shell-escape&gt;$HOME/.mutt/msearch.sh &quot; &quot;Run a Mairix search&quot;
-macro index &quot;\ef&quot;    &quot;&lt;change-folder-readonly&gt;=mairix-search\n&quot; &quot;Switch to Mairix search results&quot;
+macro index "\em"    "&lt;shell-escape&gt;$HOME/.mutt/msearch.sh " "Run a Mairix search"
+macro index "\ef"    "&lt;change-folder-readonly&gt;=mairix-search\n" "Switch to Mairix search results"
 
-macro pager &quot;\em&quot;    &quot;&lt;shell-escape&gt;$HOME/.mutt/msearch.sh &quot; &quot;Run a Mairix search&quot;
-macro pager &quot;\ef&quot;    &quot;&lt;change-folder-readonly&gt;=mairix-search\n&quot; &quot;Switch to Mairix search results&quot;
+macro pager "\em"    "&lt;shell-escape&gt;$HOME/.mutt/msearch.sh " "Run a Mairix search"
+macro pager "\ef"    "&lt;change-folder-readonly&gt;=mairix-search\n" "Switch to Mairix search results"
 </pre>
-<p>This will bind the search command to ESC+m (or ALT-m) and then create a change-folder command to go to the search results folder (ESC+f or ALT-f).
+<p>This will bind the search command to <span class="caps">ESC</span>+m (or <span class="caps">ALT</span>-m) and then create a change-folder command to go to the search results folder (<span class="caps">ESC</span>+f or <span class="caps">ALT</span>-f).
 </p>
-<p>Finally, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/mailboxes</span> and add:
+<p>Finally, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/mailboxes</span> and add:
 </p>
 <pre>
 mailboxes =mairix-search
 </pre>
-<p>I put that at the top of the list, so it's always first.
+<p>I put that at the top of the list, so it’s always first.
 </p>
-<p>Now you can hit ALT-m and provide your search criteria (like f:foo@foo.org to find all messages from foo@foo.org in all the indexed mailboxes), then hit ALT-f to go to the search results folder.
+<p>Now you can hit <span class="caps">ALT</span>-m and provide your search criteria (like f:foo@foo.org to find all messages from foo@foo.org in all the indexed mailboxes), then hit <span class="caps">ALT</span>-f to go to the search results folder.
 </p>
-<ul><li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mairix/mairixrc" class="internal" title="Mairixrc">~/.mairixrc</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/msearch.sh" class="internal" title="Msearch.sh">~/.mutt/msearch.sh</a></li></ul>
+<ul><li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mairix/mairixrc" title="Mairixrc">~/.mairixrc</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/msearch.sh" title="Msearch.sh">~/.mutt/msearch.sh</a></li></ul>
 <h1><span class="mw-headline" id="mailcap">mailcap</span></h1>
-<p>Like urlview, using mailcap is important so we can open attachments directly from mutt and have them open using our default applications automatically.  To do this, create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mailcap</span> add entries similar to:
+<p>Like urlview, using mailcap is important so we can open attachments directly from mutt and have them open using our default applications automatically.  To do this, create <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mailcap</span> add entries similar to:
 </p>
 <pre>
 # Images
-image/jpeg; /Users/vdanen/.mutt/view_attachment.sh&#160;%s
-image/pjpeg; /Users/vdanen/.mutt/view_attachment.sh&#160;%s
-image/png; /Users/vdanen/.mutt/view_attachment.sh&#160;%s
-image/gif; /Users/vdanen/.mutt/view_attachment.sh&#160;%s
+image/jpeg; /Users/vdanen/.mutt/view_attachment.sh %s
+image/pjpeg; /Users/vdanen/.mutt/view_attachment.sh %s
+image/png; /Users/vdanen/.mutt/view_attachment.sh %s
+image/gif; /Users/vdanen/.mutt/view_attachment.sh %s
 
 # PDF
-application/pdf; /Users/vdanen/.mutt/view_attachment.sh&#160;%s pdf
+application/pdf; /Users/vdanen/.mutt/view_attachment.sh %s pdf
 
 # HTML
 # -- always use lynx; we prefer the commandline
-text/html; elinks -force-html&#160;%s
+text/html; elinks -force-html %s
 </pre>
-<p>Here's the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mailcap</span> file that I use, and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/view_attachment.sh</span> script to actually open the files (thanks to Eric Gebhart who wrote the script and made it available)
+<p>Here’s the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mailcap</span> file that I use, and the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/view_attachment.sh</span> script to actually open the files (thanks to Eric Gebhart who wrote the script and made it available)
 </p>
-<ul><li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mailcap/mailcap" class="internal" title="Mailcap">~/.mailcap</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/view_attachment.sh" class="internal" title="View attachment.sh">~/.mutt/view_attachment.sh</a></li></ul>
-<p>Essentially, this calls "open" to open the file, which will use your default application (so if TextEdit is the default handler for MS Word files, if you open a Word attachment, it will open in TextEdit).
+<ul><li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mailcap/mailcap" title="Mailcap">~/.mailcap</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/view_attachment.sh" title="View attachment.sh">~/.mutt/view_attachment.sh</a></li></ul>
+<p>Essentially, this calls “open” to open the file, which will use your default application (so if TextEdit is the default handler for <span class="caps">MS</span> Word files, if you open a Word attachment, it will open in TextEdit).
 </p>
-<h1><span class="mw-headline" id="Setting_up_SMTP_Support">Setting up SMTP Support</span></h1>
-<p>New in mutt 1.5.15 is SMTP support within mutt itself.  Older versions will need to use the sendmail interface, which requires a properly configured postfix or exim (or some other MTA) server.  With mutt 1.5.15 and later, you no longer need to configure postfix or exim as noted below (although those sections remain because some people may prefer the flexibility that using a full-blown MTA provides).
+<h1><span class="mw-headline" id="Setting_up_SMTP_Support">Setting up <span class="caps">SMTP</span> Support</span></h1>
+<p>New in mutt 1.5.15 is <span class="caps">SMTP</span> support within mutt itself.  Older versions will need to use the sendmail interface, which requires a properly configured postfix or exim (or some other <span class="caps">MTA</span>) server.  With mutt 1.5.15 and later, you no longer need to configure postfix or exim as noted below (although those sections remain because some people may prefer the flexibility that using a full-blown <span class="caps">MTA</span> provides).
 </p>
-<p>If you compiled mutt with SMTP and SASL support, you have full support for SMTP-AUTH; if you did not compile with SASL support, you can only do straight SMTP negotiation with no authentication.  If you didn't compile with SMTP support, well, you'll need to use the sendmail interface or recompile.
+<p>If you compiled mutt with <span class="caps">SMTP</span> and <span class="caps">SASL</span> support, you have full support for <span class="caps">SMTP</span>-<span class="caps">AUTH</span>; if you did not compile with <span class="caps">SASL</span> support, you can only do straight <span class="caps">SMTP</span> negotiation with no authentication.  If you didn’t compile with <span class="caps">SMTP</span> support, well, you’ll need to use the sendmail interface or recompile.
 </p>
-<p>Configuring SMTP support is very simple.  Edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.muttrc</span> and add:
+<p>Configuring <span class="caps">SMTP</span> support is very simple.  Edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.muttrc</span> and add:
 </p>
 <pre>
-set smtp_url=&quot;smtp://mail.myisp.com&quot;
+set smtp_url="smtp://mail.myisp.com"
 </pre>
-<p>This will send all mail via SMTP to mail.myisp.com (presumably your ISP's SMTP server).  If you need to use SMTP authentication, this can also be easily accomplished using:
+<p>This will send all mail via <span class="caps">SMTP</span> to mail.myisp.com (presumably your <span class="caps">ISP</span>’s <span class="caps">SMTP</span> server).  If you need to use <span class="caps">SMTP</span> authentication, this can also be easily accomplished using:
 </p>
 <pre>
-set smtp_url=&quot;smtp://user@host.com:secret@smtp.myhost.com&quot;
-set smtp_authenticators=&quot;cram-md5&quot;
+set smtp_url="smtp://user@host.com:secret@smtp.myhost.com"
+set smtp_authenticators="cram-md5"
 </pre>
-<p>The smtp_url command defines the url to use, and is of the form "smtp[s]://[user[:pass]@]host[:port]/", so in the above example "user@host.com" is the username to use, "secret" is the password, and "smtp.myhost.com" is the SMTP server to connect to.  Using smtps:// instead of smtp:// to use SMTP over SSL.
+<p>The smtp_url command defines the url to use, and is of the form “smtp[s]://[user[:pass]@]host[:port]/”, so in the above example “user@host.com” is the username to use, “secret” is the password, and “smtp.myhost.com” is the <span class="caps">SMTP</span> server to connect to.  Using smtps:// instead of smtp:// to use <span class="caps">SMTP</span> over <span class="caps">SSL</span>.
 </p>
-<p>The smtp_authenticators command is only available if SASL support has been compiled in, and can consist of one or more of "cram-md5", "digest-md5", or "gssapi".  If left unconfigured, mutt will attempt to use the most secure to the least secure in order.
+<p>The smtp_authenticators command is only available if <span class="caps">SASL</span> support has been compiled in, and can consist of one or more of “cram-md5”, “digest-md5”, or “gssapi”.  If left unconfigured, mutt will attempt to use the most secure to the least secure in order.
 </p>
-<p>With these two commands enabled, you no longer need to set the "sendmail" command, nor do you need to have a locally-running SMTP server for mutt to relay mail through.  However, if you prefer, you can setup postfix on OS X as a mail delivery relay in the next section.
+<p>With these two commands enabled, you no longer need to set the “sendmail” command, nor do you need to have a locally-running <span class="caps">SMTP</span> server for mutt to relay mail through.  However, if you prefer, you can setup postfix on <span class="caps">OS</span> X as a mail delivery relay in the next section.
 </p>
-<h2><span class="mw-headline" id="Configure_postfix">Configure postfix</span></h2>
-<p>By default, OS X uses postfix for local mail delivery.  You can install another MTA, such as exim, if you like, but postfix works fine.  It does need a little bit of configuration because mutt will send mail via the local MTA, so it's the MTA's job to do the final delivery.  Unless you have a static IP that's resolvable on the internet, chances are any mails you send out will be rejected, so you need to tell postfix to forward mails on to your ISP's mail server, for it to do the final delivery of.
+<h2><span class="mw-headline" id="Configure_postfix">Configure postfix</span></h2>
+<p>By default, <span class="caps">OS</span> X uses postfix for local mail delivery.  You can install another <span class="caps">MTA</span>, such as exim, if you like, but postfix works fine.  It does need a little bit of configuration because mutt will send mail via the local <span class="caps">MTA</span>, so it’s the <span class="caps">MTA</span>’s job to do the final delivery.  Unless you have a static <span class="caps">IP</span> that’s resolvable on the internet, chances are any mails you send out will be rejected, so you need to tell postfix to forward mails on to your <span class="caps">ISP</span>’s mail server, for it to do the final delivery of.
 </p>
-<p>The easiest way to do this is to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/main.cf</span>.  Now, how you do this will largely depend on your ISP's SMTP server's configuration.  I relay through my own remote SMTP server, and it uses TLS and authentication.  The configuration you need to take may be different.
+<p>The easiest way to do this is to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/main.cf</span>.  Now, how you do this will largely depend on your <span class="caps">ISP</span>’s <span class="caps">SMTP</span> server’s configuration.  I relay through my own remote <span class="caps">SMTP</span> server, and it uses <span class="caps">TLS</span> and authentication.  The configuration you need to take may be different.
 </p>
-<p>Adding the following to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/main.cf</span> did the trick here:
+<p>Adding the following to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/main.cf</span> did the trick here:
 </p>
 <pre>
 myhostname = odin.annvix.ca
@@ -411,28 +428,28 @@ smtp_sasl_tls_security_options = noanonymous
 relayhost = mail.myserver.com
 myorigin = annvix.org
 </pre>
-<p>This is all added to the end of the file.  The only thing here that isn't from my real configuration file is the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">relayhost</span> setting.  Everything else is exactly as I have it configured.
+<p>This is all added to the end of the file.  The only thing here that isn’t from my real configuration file is the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">relayhost</span> setting.  Everything else is exactly as I have it configured.
 </p>
-<p>The next step is to create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/saslpass</span> file, which would contain:
+<p>The next step is to create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix/saslpass</span> file, which would contain:
 </p>
 <pre>
 mail.myserver.com  user@host.com:secret
 </pre>
-<p>In the above, "mail.myserver.com" is the same entry as the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">relayhost</span> setting.  The "user@host.com" is the address with which to authenticate, and "secret" is, of course, the password to authenticate with.  Then, convert the file into dbm format for postfix to use:
+<p>In the above, “mail.myserver.com” is the same entry as the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">relayhost</span> setting.  The “user@host.com” is the address with which to authenticate, and “secret” is, of course, the password to authenticate with.  Then, convert the file into dbm format for postfix to use:
 </p>
 <pre>
 # postmap /etc/postfix/saslpass
 # chmod 0600 /etc/postfix/saslpass.db
 # rm /etc/postfix/saslpass
 </pre>
-<p>You can elect to keep the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">saslpass</span> file around, if you like, just make sure to give it 0600 permissions as well so no one can snoop at it since it does store your password in cleartext.
+<p>You can elect to keep the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">saslpass</span> file around, if you like, just make sure to give it 0600 permissions as well so no one can snoop at it since it does store your password in cleartext.
 </p>
-<p>Because, by default, postfix isn't always running, there is no need to reload the postfix service.
+<p>Because, by default, postfix isn’t always running, there is no need to reload the postfix service.
 </p>
-<p>To do a quick test to make sure it's working, execute:
+<p>To do a quick test to make sure it’s working, execute:
 </p>
 <pre>
-$ echo &quot;this is a test&quot;|mail -s test me@me.com
+$ echo "this is a test"|mail -s test me@me.com
 $ sudo tail /var/log/mail.log
 Feb 28 16:36:05 odin postfix/master[15284]: daemon started -- version 2.1.5
 Feb 28 16:36:06 odin postfix/pickup[15285]: CE0A04E29CE: uid=1001 from=&lt;vdanen&gt;
@@ -442,15 +459,15 @@ Feb 28 16:36:15 odin postfix/smtp[15289]: CE0A04E29CE: to=&lt;me@me.com&gt;, rel
 Feb 28 16:36:15 odin postfix/qmgr[15288]: CE0A04E29CE: removed
 Feb 28 16:37:05 odin postfix/master[15284]: master exit time has arrived
 </pre>
-<p>If you see something similar to the above, you'll know it worked (yes, the above was obfuscated a bit).
+<p>If you see something similar to the above, you’ll know it worked (yes, the above was obfuscated a bit).
 </p>
-<p>On a side note, if you don't mind parting with a few dollars, you can also use <a rel="nofollow" class="external text" href="http://www.cutedgesystems.com/software/PostfixEnabler/">PostfixEnabler</a> on OS X to do this for you.  I haven't registered this but played with it on a friend's system who has and it seems fairly nice, although you will want to chmod a few files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix</span>, in particualr the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sasl_passwd</span> file is mode 0644 and it's the file that contains the cleartext password.  Other than that it seems like a pretty straightforward program.
+<p>On a side note, if you don’t mind parting with a few dollars, you can also use <a class="external text" href="http://www.cutedgesystems.com/software/PostfixEnabler/" rel="nofollow">PostfixEnabler</a> on <span class="caps">OS</span> X to do this for you.  I haven’t registered this but played with it on a friend’s system who has and it seems fairly nice, although you will want to chmod a few files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/postfix</span>, in particualr the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">sasl_passwd</span> file is mode 0644 and it’s the file that contains the cleartext password.  Other than that it seems like a pretty straightforward program.
 </p>
-<h2><span class="mw-headline" id="Using_exim_instead_of_postfix">Using exim instead of postfix</span></h2>
-<p>While postfix might do the job ok, I prefer something like <a rel="nofollow" class="external text" href="http://www.exim.org/">Exim</a> which is, in my opinion, a much better MTA.  So this, entirely optional, step is to use exim instead of postfix.
+<h2><span class="mw-headline" id="Using_exim_instead_of_postfix">Using exim instead of postfix</span></h2>
+<p>While postfix might do the job ok, I prefer something like <a class="external text" href="http://www.exim.org/" rel="nofollow">Exim</a> which is, in my opinion, a much better <span class="caps">MTA</span>.  So this, entirely optional, step is to use exim instead of postfix.
 </p>
-<h3><span class="mw-headline" id="Create_the_exim_system_account">Create the exim system account</span></h3>
-<p>To begin, you need to create some system accounts for exim to use:
+<h3><span class="mw-headline" id="Create_the_exim_system_account">Create the exim system account</span></h3>
+<p>To begin, you need to create some system accounts for exim to use:
 </p>
 <pre>
 $ sudo niutil -create . /users/exim
@@ -461,10 +478,10 @@ $ sudo niutil -createprop . /users/exim realname 'Exim'
 $ id exim
 uid=90(exim) gid=20(staff) groups=20(staff)
 </pre>
-<p>The above creates a dedicated system user "exim" to use.
+<p>The above creates a dedicated system user “exim” to use.
 </p>
-<h3><span class="mw-headline" id="Compile_and_install_exim">Compile and install exim</span></h3>
-<p>Next, download exim and prepare to compile it:
+<h3><span class="mw-headline" id="Compile_and_install_exim">Compile and install exim</span></h3>
+<p>Next, download exim and prepare to compile it:
 </p>
 <pre>
 $ curl -O ftp://ftp.csx.cam.ac.uk/pub/software/email/exim/exim4/exim-4.66.tar.gz
@@ -473,7 +490,7 @@ $ cd exim-4.66
 $ cp src/EDITME Local/Makefile
 $ mate Local/Makefile
 </pre>
-<p>The last command opens the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">Makefile</span> in TextMate (replace "mate" with "vim" or "bbedit" or whatever you prefer to edit text files with).  The following lines are important to change to the settings noted:
+<p>The last command opens the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">Makefile</span> in TextMate (replace “mate” with “vim” or “bbedit” or whatever you prefer to edit text files with).  The following lines are important to change to the settings noted:
 </p>
 <pre>
 BIN_DIRECTORY=/sw/bin
@@ -494,32 +511,32 @@ LOG_FILE_PATH=syslog
 
 CHOWN_COMMAND=/usr/sbin/chown
 </pre>
-<p>Once this is done (and note the above commenting out the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">EXIM_MONITOR</span>) entry), you can compile exim using:
+<p>Once this is done (and note the above commenting out the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">EXIM_MONITOR</span>) entry), you can compile exim using:
 </p>
 <pre>
 $ make
 $ sudo make install
 </pre>
-<p><b>NOTE</b>: There is a problem with setting exim as the default MTA for the entire system, which I didn't realize immediately.  If you set <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> as a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span>, when you do a Repair Disk Permissions via Disk Utility, the suid bit on <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exim-4.66-1</span> gets removed.  Disk Utility stupidly follows symlinks and since <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> isn't suid, it follows the symlink to the resulting binary (in our case, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-4.66-1</span> and removes the suid bit.  <b>This will break exim!</b>
+<p><b><span class="caps">NOTE</span></b>: There is a problem with setting exim as the default <span class="caps">MTA</span> for the entire system, which I didn’t realize immediately.  If you set <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> as a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span>, when you do a Repair Disk Permissions via Disk Utility, the suid bit on <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exim-4.66-1</span> gets removed.  Disk Utility stupidly follows symlinks and since <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> isn’t suid, it follows the symlink to the resulting binary (in our case, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-4.66-1</span> and removes the suid bit.  <b>This will break exim!</b>
 </p>
-<p>The solution is to make <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/sendmail</span> a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> which, in turn, is a symlink to the real exim binary.  Leave <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> as-is.  Realistically, the only thing that should require sendmail is mutt itself, so you do need to make mutt aware of the new location.  This can be done by setting the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sendmail</span> keyword:
+<p>The solution is to make <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/sendmail</span> a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> which, in turn, is a symlink to the real exim binary.  Leave <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span> as-is.  Realistically, the only thing that should require sendmail is mutt itself, so you do need to make mutt aware of the new location.  This can be done by setting the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sendmail</span> keyword:
 </p>
 <pre>
-set sendmail=&quot;/sw/bin/sendmail&quot;
+set sendmail="/sw/bin/sendmail"
 </pre>
-<p>This way, mutt will use the symlink we created, and Disk Utility will never remove the suid bit from the real exim binary because it won't know about it.
+<p>This way, mutt will use the symlink we created, and Disk Utility will never remove the suid bit from the real exim binary because it won’t know about it.
 </p>
-<p>Note that <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> is actually a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-4.66-1</span>; however the advantage of symlinking to the non-versioned symlink is that you can upgrade exim without ever changing the sendmail symlinks as the "make install" for exim will update <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> to point to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-[version]-[build]</span>.
+<p>Note that <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> is actually a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-4.66-1</span>; however the advantage of symlinking to the non-versioned symlink is that you can upgrade exim without ever changing the sendmail symlinks as the “make install” for exim will update <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim</span> to point to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/exim-[version]-[build]</span>.
 </p>
-<h3><span class="mw-headline" id="Telling_OS_X_to_start_exim_at_boot">Telling OS X to start exim at boot</span></h3>
-<p>You can have exim start at boot, or you can simply use it to push mails as it receives them.  The better idea is to have exim up and running so that it's queue-runner can work automatically.  If you don't want other systems to be able to use the SMTP server on your laptop/workstation, either firewall off port 25 or tell exim to listen to the localhost only (by setting <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">local_interfaces</span> in the configuration file).
+<h3><span class="mw-headline" id="Telling_OS_X_to_start_exim_at_boot">Telling <span class="caps">OS</span> X to start exim at boot</span></h3>
+<p>You can have exim start at boot, or you can simply use it to push mails as it receives them.  The better idea is to have exim up and running so that it’s queue-runner can work automatically.  If you don’t want other systems to be able to use the <span class="caps">SMTP</span> server on your laptop/workstation, either firewall off port 25 or tell exim to listen to the localhost only (by setting <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">local_interfaces</span> in the configuration file).
 </p>
-<p>Create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/LaunchDaemons/exim.plist</span> with the following contents:
+<p>Create the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/LaunchDaemons/exim.plist</span> with the following contents:
 </p>
 <pre>
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE plist PUBLIC &quot;-//Apple Computer//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&lt;plist version=&quot;1.0&quot;&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
 &lt;dict&gt;
    &lt;key&gt;Label&lt;/key&gt;
    &lt;string&gt;com.exim.exim&lt;/string&gt;
@@ -536,16 +553,16 @@ set sendmail=&quot;/sw/bin/sendmail&quot;
 &lt;/dict&gt;
 &lt;/plist&gt;
 </pre>
-<p>You need to be root to create and save that file.  Once this is done, exim will start at boot.  You will also need to disable postfix at boot by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/LaunchDaemons/org.postfix.master.plist</span> and adding:
+<p>You need to be root to create and save that file.  Once this is done, exim will start at boot.  You will also need to disable postfix at boot by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/LaunchDaemons/org.postfix.master.plist</span> and adding:
 </p>
 <pre>
     &lt;key&gt;Disabled&lt;/key&gt;
     &lt;true/&gt;
 </pre>
-<p>to the plist, immediately after "&lt;dict&gt;" and before "&lt;key&gt;Label&lt;/key&gt;".  Once these changes have been made, you will need to reboot for them to take effect.
+<p>to the plist, immediately after “&lt;dict&gt;” and before “&lt;key&gt;Label&lt;/key&gt;”.  Once these changes have been made, you will need to reboot for them to take effect.
 </p>
-<h3><span class="mw-headline" id="Configure_exim">Configure exim</span></h3>
-<p>The exim configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/etc/exim.conf</span> unless you used different paths than those above.  This file is extremely well-commented which makes it exceptionally huge.  You can begin by using the following configuration file instead and build from there:
+<h3><span class="mw-headline" id="Configure_exim">Configure exim</span></h3>
+<p>The exim configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/etc/exim.conf</span> unless you used different paths than those above.  This file is extremely well-commented which makes it exceptionally huge.  You can begin by using the following configuration file instead and build from there:
 </p>
 <pre>
 # exim configuration for OS X as a smtp-auth client
@@ -565,7 +582,7 @@ acl_smtp_rcpt = acl_check_rcpt
 acl_smtp_data = acl_check_data
 
 never_users = root
-# combine this with mutt's &quot;set envelope_from&quot; and your Return-Path will get set
+# combine this with mutt's "set envelope_from" and your Return-Path will get set
 # to whatever mutt sets it to
 untrusted_set_sender = *
 
@@ -573,7 +590,7 @@ untrusted_set_sender = *
 begin acl
 
 acl_check_rcpt:
-  accept  hosts =&#160;:
+  accept  hosts = :
 
   accept
 
@@ -586,7 +603,7 @@ begin routers
 send_upstream:
   driver = manualroute
   transport = remote_smtp
-  route_list =&#160;!+local_domains mail.domain.com
+  route_list = !+local_domains mail.domain.com
 
 # TRANSPORTS CONFIGURATION
 begin transports
@@ -618,62 +635,62 @@ fixed_cram:
   client_name = user
   client_secret = secret
 </pre>
-<p>This is an extremely basic <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exim.conf</span> file, but it suits the purpose.  It isn't meant to be used for anything other than relaying mail from this host to the smarthost (<i>mail.domain.com</i> as seen in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">send_upstream</span> router above).  About the only things you need to configure here are the username and password in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">fixed_cram</span> authenticator and the smarthost domain name (or IP address) in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">send_upstream</span> router.
+<p>This is an extremely basic <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">exim.conf</span> file, but it suits the purpose.  It isn’t meant to be used for anything other than relaying mail from this host to the smarthost (<i>mail.domain.com</i> as seen in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">send_upstream</span> router above).  About the only things you need to configure here are the username and password in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">fixed_cram</span> authenticator and the smarthost domain name (or <span class="caps">IP</span> address) in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">send_upstream</span> router.
 </p>
-<p>The above will also only accept mail from the local machine; it binds to port 25 on 127.0.0.1 and will accept mail from that, and also locally via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span>; otherwise it does not accept mail from any other system (which is important considering how loose the security on it is considering it will take any mail, unauthenticated, and send it on, authenticated, to the smarthost).
+<p>The above will also only accept mail from the local machine; it binds to port 25 on 127.0.0.1 and will accept mail from that, and also locally via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span>; otherwise it does not accept mail from any other system (which is important considering how loose the security on it is considering it will take any mail, unauthenticated, and send it on, authenticated, to the smarthost).
 </p>
-<p>If your upstream SMTP server does not require authentication to relay mail, be sure to comment out all of the auth-related options (as noted in the config above).
+<p>If your upstream <span class="caps">SMTP</span> server does not require authentication to relay mail, be sure to comment out all of the auth-related options (as noted in the config above).
 </p>
-<p>Once you've made those changes and rebooted, exim should be running and working nicely.  It logs via syslog, so you can see what it's doing by looking at <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mail.log</span>.
+<p>Once you’ve made those changes and rebooted, exim should be running and working nicely.  It logs via syslog, so you can see what it’s doing by looking at <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mail.log</span>.
 </p>
-<h1><span class="mw-headline" id="Configuring_Terminal.27s_Meta_Key_Support">Configuring Terminal's Meta Key Support</span></h1>
-<p>Because mutt runs in the terminal, there are a few little things that should be done to make it work a little nicer.  For instance, the sidebar patch, by default, suggests using CTRL-O, CTRL-P, and CTRL-N to navigate the sidebar but I found that CTRL-O doesn't work at all.  The solution was to use meta keys to navigate, but by default this won't work.
+<h1><span class="mw-headline" id="Configuring_Terminal.27s_Meta_Key_Support">Configuring Terminal’s Meta Key Support</span></h1>
+<p>Because mutt runs in the terminal, there are a few little things that should be done to make it work a little nicer.  For instance, the sidebar patch, by default, suggests using <span class="caps">CTRL</span>-O, <span class="caps">CTRL</span>-P, and <span class="caps">CTRL</span>-N to navigate the sidebar but I found that <span class="caps">CTRL</span>-O doesn’t work at all.  The solution was to use meta keys to navigate, but by default this won’t work.
 </p>
-<p>To bind escape keys to the meta key, you need to configure mutt to allow it first:
+<p>To bind escape keys to the meta key, you need to configure mutt to allow it first:
 </p>
 <pre>
 set meta_key=yes
 </pre>
-<p>This will make escape commands accessible via the meta key as well (typically the ALT key).  So, for instance, "\ep" will work with ESC+P and ALT-P.  But Terminal doesn't support/use the meta (ALT) key by default.
+<p>This will make escape commands accessible via the meta key as well (typically the <span class="caps">ALT</span> key).  So, for instance, “\ep” will work with <span class="caps">ESC</span>+P and <span class="caps">ALT</span>-P.  But Terminal doesn’t support/use the meta (<span class="caps">ALT</span>) key by default.
 </p>
-<p>To do this, you need to enter Terminal's Window Settings, then select Keyboard.  Make sure the "Use option key as meta key" checkbox is enabled.  On a Mac keyboard, the ALT key is the OPTION key, so this will properly map the meta key strokes, allowing us to define "\ep" as ALT-P (aka OPTION-P or META-P).
+<p>To do this, you need to enter Terminal’s Window Settings, then select Keyboard.  Make sure the “Use option key as meta key” checkbox is enabled.  On a Mac keyboard, the <span class="caps">ALT</span> key is the <span class="caps">OPTION</span> key, so this will properly map the meta key strokes, allowing us to define “\ep” as <span class="caps">ALT</span>-P (aka <span class="caps">OPTION</span>-P or <span class="caps">META</span>-P).
 </p>
-<p>Now you can configure the sidebar options like this:
+<p>Now you can configure the sidebar options like this:
 </p>
 <pre>
 bind index \ep  sidebar-prev
 bind index \en  sidebar-next
 bind index \eo  sidebar-open
 </pre>
-<p>At this point, you can use ALT-P to move up the sidebar, ALT-N to move down it, and ALT-O to open the highlighted mailbox.  This also allows you to create a whole host of keystrokes for other commands that you would otherwise have to use the ESC key to access.
+<p>At this point, you can use <span class="caps">ALT</span>-P to move up the sidebar, <span class="caps">ALT</span>-N to move down it, and <span class="caps">ALT</span>-O to open the highlighted mailbox.  This also allows you to create a whole host of keystrokes for other commands that you would otherwise have to use the <span class="caps">ESC</span> key to access.
 </p>
-<h1><span class="mw-headline" id="Configuring_mutt">Configuring mutt</span></h1>
-<p>Now comes the fun part... configuring mutt itself.  Mutt itself can be a bit of a beast to setup the first time around.  The first thing to do is to create the configuration directory where all of the mutt files will live: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt</span>.  The main configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/muttrc</span>.
+<h1><span class="mw-headline" id="Configuring_mutt">Configuring mutt</span></h1>
+<p>Now comes the fun part… configuring mutt itself.  Mutt itself can be a bit of a beast to setup the first time around.  The first thing to do is to create the configuration directory where all of the mutt files will live: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt</span>.  The main configuration file is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/muttrc</span>.
 </p>
-<p>I prefer a modular approach to one huge monolithic configuration file and mutt lets us do that with various <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">source</span> options in the configuration file which you'll see.  Most of this is largely personal preference and the configuration files are included to be perused.  There are a few important things that need to be set to make all of this work well.
+<p>I prefer a modular approach to one huge monolithic configuration file and mutt lets us do that with various <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">source</span> options in the configuration file which you’ll see.  Most of this is largely personal preference and the configuration files are included to be perused.  There are a few important things that need to be set to make all of this work well.
 </p>
-<p>The following are my mutt configuration files which were largely inspired from using mutt on Linux for years, and other tips I've picked up along the way.  They're not overly pretty, but it's what I use and it's functional:
+<p>The following are my mutt configuration files which were largely inspired from using mutt on Linux for years, and other tips I’ve picked up along the way.  They’re not overly pretty, but it’s what I use and it’s functional:
 </p>
-<ul><li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/muttrc" class="internal" title="Muttrc">~/.mutt/muttrc</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/auto_view" class="internal" title="Auto view">~/.mutt/auto_views</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/bindings.rc" class="internal" title="Bindings.rc">~/.mutt/bindings</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/colours" class="internal" title="Colours">~/.mutt/colours</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/defaults" class="internal" title="Defaults">~/.mutt/defaults</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/defaults.maillist" class="internal" title="Defaults.maillist">~/.mutt/defaults.maillist</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/fcc-hooks" class="internal" title="Fcc-hooks">~/.mutt/fcc-hooks</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/folder-hooks" class="internal" title="Folder-hooks">~/.mutt/folder-hooks</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/gpg.rc" class="internal" title="Gpg.rc">~/.mutt/gpg.rc</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/headers" class="internal" title="Headers">~/.mutt/headers</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/macros" class="internal" title="Macros">~/.mutt/macros</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/mailboxes" class="internal" title="Mailboxes">~/.mutt/mailboxes</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/message-hooks" class="internal" title="Message-hooks">~/.mutt/message-hooks</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/save-hooks" class="internal" title="Save-hooks">~/.mutt/save-hooks</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/sidebar" class="internal" title="Sidebar">~/.mutt/sidebar</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/subscriptions" class="internal" title="Subscriptions">~/.mutt/subscriptions</a></li></ul>
-<p>The only files omitted from the above list are the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/signature*</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/aliases</span> files (they should be pretty self-explanatory).
+<ul><li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/muttrc" title="Muttrc">~/.mutt/muttrc</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/auto_view" title="Auto view">~/.mutt/auto_views</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/bindings.rc" title="Bindings.rc">~/.mutt/bindings</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/colours" title="Colours">~/.mutt/colours</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/defaults" title="Defaults">~/.mutt/defaults</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/defaults.maillist" title="Defaults.maillist">~/.mutt/defaults.maillist</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/fcc-hooks" title="Fcc-hooks">~/.mutt/fcc-hooks</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/folder-hooks" title="Folder-hooks">~/.mutt/folder-hooks</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/gpg.rc" title="Gpg.rc">~/.mutt/gpg.rc</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/headers" title="Headers">~/.mutt/headers</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/macros" title="Macros">~/.mutt/macros</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/mailboxes" title="Mailboxes">~/.mutt/mailboxes</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/message-hooks" title="Message-hooks">~/.mutt/message-hooks</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/save-hooks" title="Save-hooks">~/.mutt/save-hooks</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/sidebar" title="Sidebar">~/.mutt/sidebar</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt/subscriptions" title="Subscriptions">~/.mutt/subscriptions</a></li></ul>
+<p>The only files omitted from the above list are the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/signature*</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/aliases</span> files (they should be pretty self-explanatory).
 </p>
-<h2><span class="mw-headline" id="Sourcing_external_configuration_files">Sourcing external configuration files</span></h2>
-<p>To source an external configuration file, use:
+<h2><span class="mw-headline" id="Sourcing_external_configuration_files">Sourcing external configuration files</span></h2>
+<p>To source an external configuration file, use:
 </p>
 <pre>
 source ~/.mutt/gpg.rc                   # Use GPG
@@ -691,60 +708,60 @@ source ~/.mutt/macros                   # Define macros.
 source ~/.mutt/colours                  # Define colours.
 source ~/.mutt/sidebar                  # Define sidebar support (requires sidebar patch)
 </pre>
-<p>Each of these are separate configuration files that get included by mutt when it starts up.  This makes configuration <i>much</i> easier by keeping things separated.
+<p>Each of these are separate configuration files that get included by mutt when it starts up.  This makes configuration <i>much</i> easier by keeping things separated.
 </p>
-<h2><span class="mw-headline" id="muttrc_options">muttrc options</span></h2>
-<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/muttrc</span> configuration file is the main one.  There are a few things that should be set:
+<h2><span class="mw-headline" id="muttrc_options">muttrc options</span></h2>
+<p>The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.mutt/muttrc</span> configuration file is the main one.  There are a few things that should be set:
 </p>
 <pre>
 set envelope_from
 </pre>
-<p>This is really important if you're using exim, as it will set the Return-Path properly and other envelope information.  If you are using exim, be sure to keep <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">untrusted_set_sender = *</span> set so that exim doesn't rewrite the Return-Path.
+<p>This is really important if you’re using exim, as it will set the Return-Path properly and other envelope information.  If you are using exim, be sure to keep <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">untrusted_set_sender = *</span> set so that exim doesn’t rewrite the Return-Path.
 </p>
 <pre>
-set query_command=&quot;/sw/bin/lbdbq '%s'&quot;
+set query_command="/sw/bin/lbdbq '%s'"
 </pre>
-<p>This will use lbdbq (part of lbdb which we configured already) to do queries for looking up email addresses.
+<p>This will use lbdbq (part of lbdb which we configured already) to do queries for looking up email addresses.
 </p>
 <pre>
-set mailcap_path=&quot;~/.mailcap&quot;
+set mailcap_path="~/.mailcap"
 </pre>
-<p>Where the mailcap definition file is, which we've already configured.
+<p>Where the mailcap definition file is, which we’ve already configured.
 </p>
-<h4><span class="mw-headline" id="Special_Keybindings">Special Keybindings</span></h4>
-<p>If you want to use special function keys in mutt, there are a few steps you must first take.  These involve disassociating the function keys with the rest of the OS X system and Expose.
+<h4><span class="mw-headline" id="Special_Keybindings">Special Keybindings</span></h4>
+<p>If you want to use special function keys in mutt, there are a few steps you must first take.  These involve disassociating the function keys with the rest of the <span class="caps">OS</span> X system and Expose.
 </p>
-<p>By default, F9 through F11 are reserved for Expose, while F12 brings up Dashboard.  These can be changed by going into <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span> and the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Expose &amp; Spaces</span> preference pane.  Here you can either re-map the functions you want to a different key, or set them to "-" to disable them.  Typically I active Expose via extra mouse buttons, so disabling them entirely here is fine (also note the new Expose features in OS X 10.6 make it less necessary to have all these mapped unless you absolutely want to activate via the keyboard).
+<p>By default, F9 through F11 are reserved for Expose, while F12 brings up Dashboard.  These can be changed by going into <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span> and the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Expose <span class="amp">&amp;</span> Spaces</span> preference pane.  Here you can either re-map the functions you want to a different key, or set them to “-” to disable them.  Typically I active Expose via extra mouse buttons, so disabling them entirely here is fine (also note the new Expose features in <span class="caps">OS</span> X 10.6 make it less necessary to have all these mapped unless you absolutely want to activate via the keyboard).
 </p>
-<p>For the F1 through F8 function keys, go to the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Keyboard</span> preference pane and select the "Use all F1, F2, etc. keys as standard function keys".  This will prevent the system from using F1 to dim the screen (on an Apple keyboard); instead you must use Fn-F1 to do it.  This leaves the F1 key free to use.
+<p>For the F1 through F8 function keys, go to the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Keyboard</span> preference pane and select the “Use all F1, F2, etc. keys as standard function keys”.  This will prevent the system from using F1 to dim the screen (on an Apple keyboard); instead you must use Fn-F1 to do it.  This leaves the F1 key free to use.
 </p>
-<p>To use the function keys in mutt, edit the file that contains your key bindings and use something similar to:
+<p>To use the function keys in mutt, edit the file that contains your key bindings and use something similar to:
 </p>
 <pre>
 bind index &lt;f10&gt;        sidebar-prev
 </pre>
-<p>This will bind the F10 key to the "sidebar-prev" command in the index.
+<p>This will bind the F10 key to the “sidebar-prev” command in the index.
 </p>
-<h4><span class="mw-headline" id="Editor_settings">Editor settings</span></h4>
+<h4><span class="mw-headline" id="Editor_settings">Editor settings</span></h4>
 <pre>
-set editor=&quot;vim +12&quot;
+set editor="vim +12"
 </pre>
-<p>This tells mutt to use vim to edit emails.  This works fine for me, but some people like GUI editors.  If you want that, you could do something like:
+<p>This tells mutt to use vim to edit emails.  This works fine for me, but some people like <span class="caps">GUI</span> editors.  If you want that, you could do something like:
 </p>
 <pre>
-set editor=&quot;/Users/vdanen/bin/mate_mutt&quot;
+set editor="/Users/vdanen/bin/mate_mutt"
 </pre>
-<p>with the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/mate_mutt</span> being:
+<p>with the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/mate_mutt</span> being:
 </p>
 <pre>
 #!/bin/sh
 #
 # wrapper script to edit emails with textmate
 
-mate=&quot;/usr/local/bin/mate&quot;
-args=&quot;-w -l 12&quot;
+mate="/usr/local/bin/mate"
+args="-w -l 12"
 
-mailfile=&quot;${1}&quot;
+mailfile="${1}"
 
 pushd ~/tmp &gt;/dev/null 2&gt;&amp;1
     mv -f ${mailfile} ${mailfile}.mail
@@ -752,16 +769,16 @@ pushd ~/tmp &gt;/dev/null 2&gt;&amp;1
     mv -f ${mailfile}.mail ${mailfile}
 popd &gt;/dev/null 2&gt;&amp;1
 </pre>
-<p>This wrapper will open TextMate to edit emails, tell the calling app to wait for TextMate to close the file, and position it at line 12.  You need to do this so you can use the Mail bundle (essentially we just move the file to one named *.mail so TextMate recognizes it as a "mail" file, then move it back when we're done).
+<p>This wrapper will open TextMate to edit emails, tell the calling app to wait for TextMate to close the file, and position it at line 12.  You need to do this so you can use the Mail bundle (essentially we just move the file to one named *.mail so TextMate recognizes it as a “mail” file, then move it back when we’re done).
 </p>
-<p>The only problem I have with this is that TextMate doesn't do hard-wrapping, so you can't tell it to use column 72 or something as a hard-wrap; you'd have to manually reformat your mails before sending them or write a snippet to do that (I haven't gotten far enough in TextMate to know how to do that yet).
+<p>The only problem I have with this is that TextMate doesn’t do hard-wrapping, so you can’t tell it to use column 72 or something as a hard-wrap; you’d have to manually reformat your mails before sending them or write a snippet to do that (I haven’t gotten far enough in TextMate to know how to do that yet).
 </p>
-<p>Alternatively, TextMate's mail bundle will identify a text file as being of the mail type (with the Mail bundle installed) if it starts with the "From:" line.  With a little bit of configuration changes, this is easy.
+<p>Alternatively, TextMate’s mail bundle will identify a text file as being of the mail type (with the Mail bundle installed) if it starts with the “From:” line.  With a little bit of configuration changes, this is easy.
 </p>
-<p>The appropriate settings of your .muttrc would be:
+<p>The appropriate settings of your .muttrc would be:
 </p>
 <pre>
-set editor            =&quot;mate -w -l 8&quot;
+set editor            ="mate -w -l 8"
 set edit_headers      = yes
 # Don't display certain headers
 ignore *
@@ -770,73 +787,72 @@ unignore From To Cc Subject Date Reply-To
 unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 </pre>
-<p>This directly sets the editor the the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">mate</span> command and re-orders the headers to ensure the "From:" header is first.  With this method, there is no need for an external file to call the editor.
+<p>This directly sets the editor the the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">mate</span> command and re-orders the headers to ensure the “From:” header is first.  With this method, there is no need for an external file to call the editor.
 </p>
-<p>Of course, with a little creativity, you could use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">mate_mutt</span> to differentiate between a local/GUI connection and over ssh.  In other words, depending on the environment, it would use vim (if remote) and TextMate (if local).
+<p>Of course, with a little creativity, you could use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">mate_mutt</span> to differentiate between a local/<span class="caps">GUI</span> connection and over ssh.  In other words, depending on the environment, it would use vim (if remote) and TextMate (if local).
 </p>
-<h4><span class="mw-headline" id="Print_settings">Print settings</span></h4>
+<h4><span class="mw-headline" id="Print_settings">Print settings</span></h4>
 <pre>
-set print_command=&quot;/Users/vdanen/bin/mutt_print&quot;          # use a wrapper script for printing (opens in Preview to print)
+set print_command="/Users/vdanen/bin/mutt_print"          # use a wrapper script for printing (opens in Preview to print)
 </pre>
-<p>This sets the print_command option for printing messages.  The contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/mutt_print</span> would be:
+<p>This sets the print_command option for printing messages.  The contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/bin/mutt_print</span> would be:
 </p>
 <pre>
  #!/bin/sh
-pfile=&quot;${1}&quot;
-pdir=&quot;${HOME}/tmp/mutt_print&quot;
+pfile="${1}"
+pdir="${HOME}/tmp/mutt_print"
 
-if [&#160;! -d ${pdir} ]; then
+if [ ! -d ${pdir} ]; then
     mkdir -p ${pdir}
 fi
 
 # delete any old temporary files first
 rm -f ${pdir}/*_mutt.pdf
 
-tmpfile=&quot;`mktemp ${pdir}/mutt_XXXXXXXX`&quot;
+tmpfile="`mktemp ${pdir}/mutt_XXXXXXXX`"
 mv -f ${tmpfile} ${tmpfile}.pdf
 enscript --font=Times-Roman10 --pretty-print ${1} -o - 2&gt;/dev/null | pstopdf -i -o ${tmpfile}.pdf
 open ${tmpfile}.pdf
 </pre>
-<p>This script uses <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">enscript</span> to make a pretty output to a postscript file, which is then converted to a PDF via <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pstopdf</span>, which is finally opened in <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Preview</span> so you can then print or save the PDF.  It will also remove any existing PDF's in the temporary directory prior to creating the new one, so you don't ever really have to worry about cleanup.
+<p>This script uses <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">enscript</span> to make a pretty output to a postscript file, which is then converted to a <span class="caps">PDF</span> via <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">pstopdf</span>, which is finally opened in <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Preview</span> so you can then print or save the <span class="caps">PDF</span>.  It will also remove any existing <span class="caps">PDF</span>’s in the temporary directory prior to creating the new one, so you don’t ever really have to worry about cleanup.
 </p>
-<h1><span class="mw-headline" id="Final_Notes_and_Resources">Final Notes and Resources</span></h1>
-<p>A lot of this can be used to configure mutt on Linux or any other operating system as well.  lbdb works great and can use LDAP, the Evolution address book, and so on.  Everything with the exception of the urlview configuration and MailtoMutt, and maybe a few other bits, are fairly generic.
+<h1><span class="mw-headline" id="Final_Notes_and_Resources">Final Notes and Resources</span></h1>
+<p>A lot of this can be used to configure mutt on Linux or any other operating system as well.  lbdb works great and can use <span class="caps">LDAP</span>, the Evolution address book, and so on.  Everything with the exception of the urlview configuration and MailtoMutt, and maybe a few other bits, are fairly generic.
 </p>
-<p>The following resources may be use/interest as well:
+<p>The following resources may be use/interest as well:
 </p>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.mutt.org/">mutt homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://wiki.mutt.org/">mutt wiki</a> -- lots of good tips and links here
-<ul><li> <a rel="nofollow" class="external text" href="http://www.lunar-linux.org/index.php?option=com_content&amp;task=view&amp;id=44">mutt sidebar patch</a></li>
-<li> <a href="https://github.com/vdanen/mutt-scripts/raw/master/mutt-1.5.21-sidebar.patch" class="internal" title="Mutt-1.5.21-sidebar.patch">Sidebar patch taken from Debian for 1.5.21</a></li></ul></li>
-<li> <a rel="nofollow" class="external text" href="http://therandymon.com/index.php?/198-Woodnotes-Guide-to-the-Mutt-Email-Client.html">Woodnotes Guide to Using Mutt</a></li>
-<li> <a rel="nofollow" class="external text" href="http://fetchmail.berlios.de/">fetchmail homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.procmail.org/">procmail homepage</a>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.google.com/search?ie=utf8&amp;oe=utf8&amp;q=procmail+howto">Google search on procmail howto's</a></li></ul></li>
-<li> <a rel="nofollow" class="external text" href="http://nothingmuch.woobling.org/MailtoMutt/">MailtoMutt homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.spinnaker.de/lbdb/">lbdb homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="ftp://ftp.mutt.org/pub/mutt/contrib">download for urlview</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.cutedgesystems.com/software/PostfixEnabler/">PostfixEnabler homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.rc0.org.uk/mairix">Mairix home page</a></li>
-<li> <a rel="nofollow" class="external text" href="http://koweycode.blogspot.com/2006/10/getting-things-done-with-mutt.html">Getting Things Done with mutt</a></li>
-<li> <a rel="nofollow" class="external text" href="http://tleonardi.dyndns.org/notablog/archives/25">Using mutt with multiple SMTP servers, using an auto-detection script</a></li></ul>
-<p>Finally, I'm always interested in tweaking mutt more, so this article will likely be updated on a semi-regular basis.  If those of you reading this have better ways of doing things (or more unique ways of doing things), I would love to hear about it.  In particular, I haven't yet gotten the function keys, (F1, etc.) to work in mutt, and would love to be able to do that (well, they probably work fine in mutt, it's Terminal that would be the problem).  Finally, anyone getting TextMate to work in a sane manner with mutt (so as to not have to manually wrap lines), please let me know how you did it!
+<ul><li> <a class="external text" href="http://www.mutt.org/" rel="nofollow">mutt homepage</a></li>
+<li> <a class="external text" href="http://wiki.mutt.org/" rel="nofollow">mutt wiki</a> — lots of good tips and links here
+<ul><li> <a class="external text" href="http://www.lunar-linux.org/index.php?option=com_content&amp;task=view&amp;id=44" rel="nofollow">mutt sidebar patch</a></li>
+<li> <a class="internal" href="https://github.com/vdanen/mutt-scripts/raw/master/mutt-1.5.21-sidebar.patch" title="Mutt-1.5.21-sidebar.patch">Sidebar patch taken from Debian for 1.5.21</a></li></ul></li>
+<li> <a class="external text" href="http://therandymon.com/index.php?/198-Woodnotes-Guide-to-the-Mutt-Email-Client.html" rel="nofollow">Woodnotes Guide to Using Mutt</a></li>
+<li> <a class="external text" href="http://fetchmail.berlios.de/" rel="nofollow">fetchmail homepage</a></li>
+<li> <a class="external text" href="http://www.procmail.org/" rel="nofollow">procmail homepage</a>
+<ul><li> <a class="external text" href="http://www.google.com/search?ie=utf8&amp;oe=utf8&amp;q=procmail+howto" rel="nofollow">Google search on procmail howto’s</a></li></ul></li>
+<li> <a class="external text" href="http://nothingmuch.woobling.org/MailtoMutt/" rel="nofollow">MailtoMutt homepage</a></li>
+<li> <a class="external text" href="http://www.spinnaker.de/lbdb/" rel="nofollow">lbdb homepage</a></li>
+<li> <a class="external text" href="ftp://ftp.mutt.org/pub/mutt/contrib" rel="nofollow">download for urlview</a></li>
+<li> <a class="external text" href="http://www.cutedgesystems.com/software/PostfixEnabler/" rel="nofollow">PostfixEnabler homepage</a></li>
+<li> <a class="external text" href="http://www.rc0.org.uk/mairix" rel="nofollow">Mairix home page</a></li>
+<li> <a class="external text" href="http://koweycode.blogspot.com/2006/10/getting-things-done-with-mutt.html" rel="nofollow">Getting Things Done with mutt</a></li>
+<li> <a class="external text" href="http://tleonardi.dyndns.org/notablog/archives/25" rel="nofollow">Using mutt with multiple <span class="caps">SMTP</span> servers, using an auto-detection script</a></li></ul>
+<p>Finally, I’m always interested in tweaking mutt more, so this article will likely be updated on a semi-regular basis.  If those of you reading this have better ways of doing things (or more unique ways of doing things), I would love to hear about it.  In particular, I haven’t yet gotten the function keys, (F1, etc.) to work in mutt, and would love to be able to do that (well, they probably work fine in mutt, it’s Terminal that would be the problem).  Finally, anyone getting TextMate to work in a sane manner with mutt (so as to not have to manually wrap lines), please let me know how you did it!
 </p>
-<p>You can reach me <a rel="nofollow" class="external text" href="mailto:vdanen_at_linsec_dot_ca">via email</a>.
+<p>You can reach me <a class="external text" href="mailto:vdanen_at_linsec_dot_ca" rel="nofollow">via email</a>.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Muttscreen.jpg" alt="Muttscreen" class="img-responsive" /></center></p>
-<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
-<ul><li> 02/22/2011 - note that urlview and mairix are available via Fink now, use mutt 1.5.21 as a base, note problems compiling on 10.6, and link to recent sidebar patch</li>
-<li> 08/30/2009 - added special function key bindings section courtesy of Tommaso Leonardi and alternative TextMate invocation courtesy of Peter D. Cowan</li>
-<li> 08/05/2009 - added info on printing emails to PDF for printing</li>
-<li> 01/19/2009 - link to Tommaso's blog post about using mutt with multiple SMTP servers, and an auto-detection script (i.e. useful for VPN usage, etc.)</li>
-<li> 09/06/2007 - links to GTD with mutt info and an updated X-Label edit patch for mutt 1.5.16</li>
-<li> 04/30/2007 - changes due to mutt 1.5.15 (smtp support!!)</li>
-<li> 04/08/2007 - add setup of Mairix</li>
-<li> 03/21/2007 - note the use of --enable-hcache for imap header caching and link to the Woodnotes guide</li>
-<li> 03/12/2007 - added section on enabling meta keys in Terminal</li>
-<li> 03/10/2007 - updated mutt configs and added notes on exim's suid bit getting stripped by Disk Utility if symlinked via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span></li>
-<li> 03/04/2007 - finished initial article</li></ul>
+<p><center><img alt="Muttscreen" class="img-responsive" src="https://vdanen.github.io/images/Muttscreen.jpg"/></center></p>
+<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
+<ul><li> 02/22/2011 - note that urlview and mairix are available via Fink now, use mutt 1.5.21 as a base, note problems compiling on 10.6, and link to recent sidebar patch</li>
+<li> 08/30/2009 - added special function key bindings section courtesy of Tommaso Leonardi and alternative TextMate invocation courtesy of Peter D. Cowan</li>
+<li> 08/05/2009 - added info on printing emails to <span class="caps">PDF</span> for printing</li>
+<li> 01/19/2009 - link to Tommaso’s blog post about using mutt with multiple <span class="caps">SMTP</span> servers, and an auto-detection script (i.e. useful for <span class="caps">VPN</span> usage, etc.)</li>
+<li> 09/06/2007 - links to <span class="caps">GTD</span> with mutt info and an updated X-Label edit patch for mutt 1.5.16</li>
+<li> 04/30/2007 - changes due to mutt 1.5.15 (smtp support!!)</li>
+<li> 04/08/2007 - add setup of Mairix</li>
+<li> 03/21/2007 - note the use of —enable-hcache for imap header caching and link to the Woodnotes guide</li>
+<li> 03/12/2007 - added section on enabling meta keys in Terminal</li>
+<li> 03/10/2007 - updated mutt configs and added notes on exim’s suid bit getting stripped by Disk Utility if symlinked via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/sbin/sendmail</span></li>
+<li> 03/04/2007 - finished initial article</li></ul>
             
 
 
@@ -919,6 +935,9 @@ open ${tmpfile}.pdf
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

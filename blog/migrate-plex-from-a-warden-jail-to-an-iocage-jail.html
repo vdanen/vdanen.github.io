@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’ve been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1). I’ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I’ve not taken the step to migrate the old warden-based jails to …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="plex, freenas, Bsd, " />
 
-<meta property="og:title" content="Migrate plex from a warden jail to an iocage jail "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail.html" />
-<meta property="og:description" content="I&#39;ve been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1). I&#39;ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I&#39;ve not taken the step to migrate the old warden-based jails to the newer iocage jails …" />
+<meta property="og:title" content="Migrate plex from a warden jail to an iocage jail "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail" />
+<meta property="og:description" content="I’ve been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1). I’ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I’ve not taken the step to migrate the old warden-based jails to …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2018-11-04T16:00:00-07:00" />
-<meta name="twitter:title" content="Migrate plex from a warden jail to an iocage jail ">
-<meta name="twitter:description" content="I&#39;ve been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1). I&#39;ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I&#39;ve not taken the step to migrate the old warden-based jails to the newer iocage jails …">
+<meta name="twitter:title" content="Migrate plex from a warden jail to an iocage jail ">
+<meta name="twitter:description" content="I’ve been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1). I’ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I’ve not taken the step to migrate the old warden-based jails to …">
 
-        <title>Migrate plex from a warden jail to an iocage jail  · Annvix
+        <title>Migrate plex from a warden jail to an iocage jail  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail.html">
-                Migrate plex from a warden jail to an iocage jail
+            <a href="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail">
+                Migrate plex from a warden jail to an iocage&nbsp;jail
             </a>
         </h1>
     </header>
@@ -80,23 +93,25 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://vdanen.github.io/images/plex.png"></p>
-<p>I've been running FreeNAS 11.2 beta for a while (currently on 11.2-RC1).  I've got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I've not taken the step to migrate the old warden-based jails to the newer iocage jails.  This meant that my Plex jail was not listed in the web UI.  I could get into the jail using <code>jexec</code> but couldn't really configure it or use the web UI to control it.  This was sufficient to apply Plex upgrades and other things that I needed to do, from within the jail, which was all CLI-based.</p>
-<p>Amongst other fiddling today, I decided to create a new jail in the FreeNAS web UI and try to migrate the old jail to a new one.  It had to take 10 minutes or less or I wasn't interested (I didn't want to fight with it on a Sunday!).  I was pleasantly surprised.. it took maybe 15 minutes including testing.  But I had prepared the old jail a long time ago in that I had all of the media and data files in storage volumes outside of the jail.</p>
-<p>I have one pool named "storage" and within this pool I have two datasets: "plex" and "plex_media".  The first contains all the media files for Plex, the second has all the data files (basically <code>/usr/local/plexdata</code>).  This meant that all configuration data for Plex existed outside of the jail.  If you have these local to the jail, you'll want to create a dataset, stop the Plex server, mount the dataset in the jail, and copy the data files over.  Plex respects symlinks so it works out pretty good (you'll see what I mean in a moment).  I had <code>plex</code> mounted in the jail at <code>/media</code> and <code>plex_media</code> mounted in the jail at <code>/plex_media</code>.</p>
-<p>Creating the new jail involved very little "special sauce".  When I created the jail, I added similar mount points as those described above to the jail.  I also made sure before I started the new jail to stop the Plex server running in the old jail since having two Plex servers accessing the same metadata at the same time would probably cause issues.</p>
-<p>I did this using (in the old jail):</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> service plexmediaserver stop
+            <p><img alt="Image" src="https://vdanen.github.io/images/plex.png" /></p>
+<p>I&#8217;ve been running FreeNAS 11.2 beta for a while (currently on 11.2-<span class="caps">RC1</span>).  I&#8217;ve got a bunch of media on it from when I started running FreeNAS 9 (home videos, music, etc.) and I&#8217;ve not taken the step to migrate the old warden-based jails to the newer iocage jails.  This meant that my Plex jail was not listed in the web <span class="caps">UI</span>.  I could get into the jail using <code>jexec</code> but couldn&#8217;t really configure it or use the web <span class="caps">UI</span> to control it.  This was sufficient to apply Plex upgrades and other things that I needed to do, from within the jail, which was all <span class="caps">CLI</span>-based.</p>
+<p>Amongst other fiddling today, I decided to create a new jail in the FreeNAS web <span class="caps">UI</span> and try to migrate the old jail to a new one.  It had to take 10 minutes or less or I wasn&#8217;t interested (I didn&#8217;t want to fight with it on a Sunday!).  I was pleasantly surprised.. it took maybe 15 minutes including testing.  But I had prepared the old jail a long time ago in that I had all of the media and data files in storage volumes outside of the&nbsp;jail.</p>
+<p>I have one pool named &#8220;storage&#8221; and within this pool I have two datasets: &#8220;plex&#8221; and &#8220;plex_media&#8221;.  The first contains all the media files for Plex, the second has all the data files (basically <code>/usr/local/plexdata</code>).  This meant that all configuration data for Plex existed outside of the jail.  If you have these local to the jail, you&#8217;ll want to create a dataset, stop the Plex server, mount the dataset in the jail, and copy the data files over.  Plex respects symlinks so it works out pretty good (you&#8217;ll see what I mean in a moment).  I had <code>plex</code> mounted in the jail at <code>/media</code> and <code>plex_media</code> mounted in the jail at <code>/plex_media</code>.</p>
+<p>Creating the new jail involved very little &#8220;special sauce&#8221;.  When I created the jail, I added similar mount points as those described above to the jail.  I also made sure before I started the new jail to stop the Plex server running in the old jail since having two Plex servers accessing the same metadata at the same time would probably cause&nbsp;issues.</p>
+<p>I did this using (in the old&nbsp;jail):</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> service plexmediaserver stop
 <span class="gh">#</span> sysrc plexmediaserver_enable=NO
-</code></pre></div>
+</pre></div>
 
-<p>Note, you can see where those datasets are mounted in the jail using <code>mount</code> on the FreeNAS host:</p>
-<div class="highlight"><pre><span></span><code>/mnt/storage/plex on /mnt/iocage/jails/plex/root/media (nullfs, local)
+
+<p>Note, you can see where those datasets are mounted in the jail using <code>mount</code> on the FreeNAS&nbsp;host:</p>
+<div class="highlight"><pre><span></span>/mnt/storage/plex on /mnt/iocage/jails/plex/root/media (nullfs, local)
 /mnt/storage/plex_media on /mnt/iocage/jails/plex/root/plex_media (nullfs, local)
-</code></pre></div>
+</pre></div>
 
-<p>In the new jail, which was pristine, I did the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">plex</span><span class="p">:</span><span class="o">~</span><span class="w"> </span><span class="c1"># pkg upgrade</span>
+
+<p>In the new jail, which was pristine, I did the&nbsp;following:</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="err">@</span><span class="n">plex</span><span class="p">:</span><span class="o">~</span><span class="w"> </span><span class="c1"># pkg upgrade</span>
 <span class="n">The</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">management</span><span class="w"> </span><span class="k">tool</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">yet</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">system</span><span class="o">.</span>
 <span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">fetch</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">now</span><span class="err">?</span><span class="w"> </span><span class="p">[</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">]:</span><span class="w"> </span><span class="n">y</span>
 <span class="n">Bootstrapping</span><span class="w"> </span><span class="n">pkg</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">pkg</span><span class="o">+</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">pkg</span><span class="o">.</span><span class="n">FreeBSD</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">FreeBSD</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="n">amd64</span><span class="o">/</span><span class="n">quarterly</span><span class="p">,</span><span class="w"> </span><span class="n">please</span><span class="w"> </span><span class="n">wait</span><span class="o">...</span>
@@ -179,25 +194,31 @@
 <span class="n">root</span><span class="err">@</span><span class="n">plex</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="c1"># mv plexdata plexdata.org</span>
 <span class="n">root</span><span class="err">@</span><span class="n">plex</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="c1"># ln -s /plex_media plexdata</span>
 <span class="n">root</span><span class="err">@</span><span class="n">plex</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="w"> </span><span class="c1"># service plexmediaserver start</span>
-</code></pre></div>
+</pre></div>
 
-<p>I kept the old <code>plexdata</code> directory just as a precaution; you could easily delete it.</p>
-<p>After this I grabbed the MAC address of the jail so that I could update my static DHCP mapping to give it the IP address of the old jail:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@plex</span><span class="err">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">ifconfig</span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="n">ether</span>
+
+<p>I kept the old <code>plexdata</code> directory just as a precaution; you could easily delete&nbsp;it.</p>
+<p>After this I grabbed the <span class="caps">MAC</span> address of the jail so that I could update my static <span class="caps">DHCP</span> mapping to give it the <span class="caps">IP</span> address of the old&nbsp;jail:</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@plex</span><span class="err">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">ifconfig</span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="n">ether</span>
 <span class="w">    </span><span class="n">ether</span><span class="w"> </span><span class="mi">02</span><span class="err">:</span><span class="nl">ff</span><span class="p">:</span><span class="mi">60</span><span class="err">:</span><span class="mi">14</span><span class="err">:</span><span class="nl">fa</span><span class="p">:</span><span class="mi">0</span><span class="n">a</span>
-</code></pre></div>
+</pre></div>
 
-<p>After updating the DHCP server and flushing the ARP cache, I restarted the jail using the web UI.  After that, Plex was running properly with all of the old media, at the old web address, available to Google Chromecast and my mobile devices, etc.</p>
-<p>I know you can run Plex as a plugin but I like running it in a jail as you get a bit more control over it and don't typically have to wait too long for Plex server upgrades.</p>
-<p>The last step is to remove the old warden jail.  I'll likely wait a few days before I do that to ensure the new jail is working properly.  In the meantime, with the new DHCP map and the Plex server disabled in the old jail, it shouldn't be running and interfering with anything.</p>
-<p>This was actually a lot easier than I had expected!  This is the second migration of Plex I've done and the first was so painful I didn't want to try again, but this one was really easy (granted the first was from a macOS server to FreeNAS so there was a bit more effort, but it completely hosed all of my metadata so it was like starting from scratch).  At any rate, I know a lot of people in the FreeNAS community that use Plex were having difficulty with migrating jails so I thought I would quickly write this up for anyone who might still need it (keeping in mind that 11.2 is still technically a beta product although it's worked pretty well for me thus far, your mileage may vary).  For the record, it took me longer to write this than to do the actual upgrade!</p>
-<p>Next step is to setup another jail to play with OpenProject and possibly move my GitHub setup from a separate machine here at home onto the FreeNAS server (those are likely Christmas shutdown projects though).</p>
+
+<p>After updating the <span class="caps">DHCP</span> server and flushing the <span class="caps">ARP</span> cache, I restarted the jail using the web <span class="caps">UI</span>.  After that, Plex was running properly with all of the old media, at the old web address, available to Google Chromecast and my mobile devices,&nbsp;etc.</p>
+<p>I know you can run Plex as a plugin but I like running it in a jail as you get a bit more control over it and don&#8217;t typically have to wait too long for Plex server&nbsp;upgrades.</p>
+<p>The last step is to remove the old warden jail.  I&#8217;ll likely wait a few days before I do that to ensure the new jail is working properly.  In the meantime, with the new <span class="caps">DHCP</span> map and the Plex server disabled in the old jail, it shouldn&#8217;t be running and interfering with&nbsp;anything.</p>
+<p>This was actually a lot easier than I had expected!  This is the second migration of Plex I&#8217;ve done and the first was so painful I didn&#8217;t want to try again, but this one was really easy (granted the first was from a macOS server to FreeNAS so there was a bit more effort, but it completely hosed all of my metadata so it was like starting from scratch).  At any rate, I know a lot of people in the FreeNAS community that use Plex were having difficulty with migrating jails so I thought I would quickly write this up for anyone who might still need it (keeping in mind that 11.2 is still technically a beta product although it&#8217;s worked pretty well for me thus far, your mileage may vary).  For the record, it took me longer to write this than to do the actual&nbsp;upgrade!</p>
+<p>Next step is to setup another jail to play with OpenProject and possibly move my GitHub setup from a separate machine here at home onto the FreeNAS server (those are likely Christmas shutdown projects&nbsp;though).</p>
 <p>Enjoy!</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Migrate%20plex%20from%20a%20warden%20jail%20to%20an%20iocage%C2%A0jail&url=https%3A//vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail&hashtags=plex,freenas" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail&title=Migrate%20plex%20from%20a%20warden%20jail%20to%20an%20iocage%C2%A0jail&summary=I%E2%80%99ve%20been%20running%20FreeNAS%2011.2%20beta%20for%20a%20while%20%28currently%20on%2011.2-RC1%29.%20%20I%E2%80%99ve%20got%20a%20bunch%20of%20media%20on%20it%20from%20when%20I%20started%20running%20FreeNAS%209%20%28home%20videos%2C%20music%2C%20etc.%29%20and%20I%E2%80%99ve%20not%20taken%20the%20step%20to%20migrate%20the%20old%20warden-based%20jails%20to%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -208,22 +229,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/using-letsencrypt-on-freenas" title="Using LetsEncrypt on FreeNAS">Using LetsEncrypt on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/using-letsencrypt-with-plex" title="Using LetsEncrypt with Plex">Using LetsEncrypt with Plex</a></li>
+<li><a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas" title="Updating iocage jails in FreeNAS">Updating iocage jails in FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" title="Inkdrop with CouchDB on FreeNAS">Inkdrop with CouchDB on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core" title="Upgrading FreeNAS to TrueNAS Core">Upgrading FreeNAS to TrueNAS Core</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/stonecutters" title="Previous: Stonecutters">Stonecutters</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/using-letsencrypt-on-freenas" title="Next: Using LetsEncrypt on FreeNAS">Using LetsEncrypt on FreeNAS</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2018-11-04T16:00:00-07:00">Sun 04 November 2018</time>
+            <time itemprop="dateCreated" datetime="2018-11-04T16:00:00-07:00">Nov 04, 2018</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#bsd-ref">Bsd</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#bsd-ref">Bsd</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#freenas-ref">freenas
+                <li><a href="https://vdanen.github.io/tags#freenas-ref">freenas
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#plex-ref">plex
+                <li><a href="https://vdanen.github.io/tags#plex-ref">plex
                     <span class="superscript">2</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -324,6 +364,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

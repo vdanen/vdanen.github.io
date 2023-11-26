@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This seems to be an ongoing saga so now I’m going to vent about it. It is ridiculous that an organization supposedly as secure as CERT can have such poor distribution mechanisms for alerting users of their new GPG keys. It is really important that, when you update GPG …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="gpg, Linux, " />
 
-<meta property="og:title" content="How not to update GPG keys "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/how-not-to-update-gpg-keys.html" />
-<meta property="og:description" content="This seems to be an ongoing saga so now I&#39;m going to vent about it. It is ridiculous that an organization supposedly as secure as CERT can have such poor distribution mechanisms for alerting users of their new GPG keys. It is really important that, when you update GPG keys …" />
+<meta property="og:title" content="How not to update GPG keys "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/how-not-to-update-gpg-keys" />
+<meta property="og:description" content="This seems to be an ongoing saga so now I’m going to vent about it. It is ridiculous that an organization supposedly as secure as CERT can have such poor distribution mechanisms for alerting users of their new GPG keys. It is really important that, when you update GPG …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-09-14T16:40:00-06:00" />
-<meta name="twitter:title" content="How not to update GPG keys ">
-<meta name="twitter:description" content="This seems to be an ongoing saga so now I&#39;m going to vent about it. It is ridiculous that an organization supposedly as secure as CERT can have such poor distribution mechanisms for alerting users of their new GPG keys. It is really important that, when you update GPG keys …">
+<meta name="twitter:title" content="How not to update GPG keys ">
+<meta name="twitter:description" content="This seems to be an ongoing saga so now I’m going to vent about it. It is ridiculous that an organization supposedly as secure as CERT can have such poor distribution mechanisms for alerting users of their new GPG keys. It is really important that, when you update GPG …">
 
-        <title>How not to update GPG keys  · Annvix
+        <title>How not to update GPG keys  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/how-not-to-update-gpg-keys.html">
-                How not to update GPG keys
+            <a href="https://vdanen.github.io/blog/how-not-to-update-gpg-keys">
+                How not to update <span class="caps">GPG</span>&nbsp;keys
             </a>
         </h1>
     </header>
@@ -80,12 +93,12 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This seems to be an ongoing saga so now I'm going to vent about it.  It is ridiculous that an organization supposedly as secure as <a href="http://www.cert.org/">CERT</a> can have such poor distribution mechanisms for alerting users of their new GPG keys.  It is really important that, when you update GPG keys and distribute the public key that you can <i>easily</i> establish trust of the new key.  There are a few ways this can be done: sign the new key with the old (known and/or trusted) key, sign any distribution mails with the old key (to ensure authenticity), include a revocation in the new key to import, and have a secure place where that information can be obtained.</p>
-<p>CERT changes keys often -- way more often than their once-a-year policy on their web site indicates; well, this year they have anyways.  Previous years were one key a year.  However, they don't follow any of these "best practices".  And they know it, because I've told them in the past.  And yet, even now, they still can't get it right.  What's more amusing is that on their <a href="https://www.cert.org/contact_cert/encryptmail.html">Sending Sensitive Information to CERT</a> page, which is SSL encrypted, shows <i>two</i> different fingerprints.  For posterity, I took the following screenshot:</p>
+            <p>This seems to be an ongoing saga so now I&#8217;m going to vent about it.  It is ridiculous that an organization supposedly as secure as <a href="http://www.cert.org/"><span class="caps">CERT</span></a> can have such poor distribution mechanisms for alerting users of their new <span class="caps">GPG</span> keys.  It is really important that, when you update <span class="caps">GPG</span> keys and distribute the public key that you can <i>easily</i> establish trust of the new key.  There are a few ways this can be done: sign the new key with the old (known and/or trusted) key, sign any distribution mails with the old key (to ensure authenticity), include a revocation in the new key to import, and have a secure place where that information can be&nbsp;obtained.</p>
+<p><span class="caps">CERT</span> changes keys often &#8212; way more often than their once-a-year policy on their web site indicates; well, this year they have anyways.  Previous years were one key a year.  However, they don&#8217;t follow any of these &#8220;best practices&#8221;.  And they know it, because I&#8217;ve told them in the past.  And yet, even now, they still can&#8217;t get it right.  What&#8217;s more amusing is that on their <a href="https://www.cert.org/contact_cert/encryptmail.html">Sending Sensitive Information to <span class="caps">CERT</span></a> page, which is <span class="caps">SSL</span> encrypted, shows <i>two</i> different fingerprints.  For posterity, I took the following&nbsp;screenshot:</p>
 <p><a href="http://linsec.ca/blog/wp-content/uploads/2010/09/cert-gpg.jpg"><img src="http://linsec.ca/blog/wp-content/uploads/2010/09/cert-gpg-300x165.jpg" alt="CERT&#039;s web page for posterity" title="CERT web page" width="300" height="165" class="aligncenter size-medium wp-image-835" /></a></p>
-<p>The wrong fingerprint listed in section #2 belongs to the old key.</p>
+<p>The wrong fingerprint listed in section #2 belongs to the old key.
 <!--more-->
-<p>The key released today is:</p>
+The key released today&nbsp;is:</p>
 <pre>
 pub   2048R/72C33BD5 2010-09-13 [expires: 2011-09-30]
       Key fingerprint = 79DA 4C07 0AE5 EB20 D641  3F80 67B1 5F29 72C3 3BD5
@@ -93,7 +106,7 @@ uid                  CERT Coordination Center <cert@cert.org>
 sig 3        72C33BD5 2010-09-13  CERT Coordination Center <cert@cert.org>
 </pre>
 
-<p>While the previous key is:</p>
+<p>While the previous key&nbsp;is:</p>
 <pre>
 pub   2048R/9A478CA0 2010-03-03 [revoked: 2010-09-13]
       Key fingerprint = E9EA E7FB D8AF E5AE FD36  41DE 5146 432C 9A47 8CA0
@@ -102,7 +115,7 @@ uid                  CERT Coordination Center <cert@cert.org>
 sig 3        9A478CA0 2010-03-03  CERT Coordination Center <cert@cert.org>
 </pre>
 
-<p>To see how things are getting sloppy, we need to go back a bit further to see what had been done in the past:</p>
+<p>To see how things are getting sloppy, we need to go back a bit further to see what had been done in the&nbsp;past:</p>
 <pre>
 pub   2048R/B7FBBBC1 2010-01-20 [revoked: 2010-03-03]
       Key fingerprint = 66A6 DAC9 3014 21CB DCA6  A6F6 3389 F064 B7FB BBC1
@@ -112,7 +125,7 @@ sig 3        B7FBBBC1 2010-01-20  CERT Coordination Center <cert@cert.org>
 sig          AF30D800 2010-01-20  CERT Coordination Center <cert@cert.org>
 </pre>
 
-<p>Notice the difference here?  This third-latest key was signed by another CERT-owned key (AF30D800), which was the previous-to-that key used.  Trust is then established to the new key, <i>from</i> the old (known) key.  The most current and previous keys were not signed by their predecessors, which makes them harder to trust.  So in the last three keys, two are self-signed, one is properly signed to establish trust (by the previous key).  What's even more sad is that key AF30D800 was nicely signed: not only by the previous key, but also by a "master key" which also establishes more authenticity of the key:</p>
+<p>Notice the difference here?  This third-latest key was signed by another <span class="caps">CERT</span>-owned key (<span class="caps">AF30D800</span>), which was the previous-to-that key used.  Trust is then established to the new key, <i>from</i> the old (known) key.  The most current and previous keys were not signed by their predecessors, which makes them harder to trust.  So in the last three keys, two are self-signed, one is properly signed to establish trust (by the previous key).  What&#8217;s even more sad is that key <span class="caps">AF30D800</span> was nicely signed: not only by the previous key, but also by a &#8220;master key&#8221; which also establishes more authenticity of the&nbsp;key:</p>
 <pre>
 pub   2048R/AF30D800 2009-06-15 [revoked: 2010-01-20]
       Key fingerprint = 943C 0A2E 4CB8 4C8F CA53  22F8 680D 4DC1 AF30 D800
@@ -123,25 +136,29 @@ sig          18DEBE70 2009-06-15  Networked Systems Survivability Master Key <no
 sig          14C33F57 2009-06-15  CERT Coordination Center <cert@cert.org>
 </pre>
 
-<p>Now this one is a good key, a trustable key.  The last two keys are not.</p>
-<p>Couple that with the half-updated web page and you're left scratching your head -- or, at least, I was.  Not so much this time because, sadly, I'm no longer surprised.  But last time I actually phoned CERT to verify the new key's fingerprint because I had nothing to trust it with.  In fact, when the mail came out to notify of the new key, it was signed with the <i>new</i> key, not the old key.</p>
-<p>Ummm... excuse me, but I can spoof sending a mail from cert@cert.org and generate my own key with the uid cert@cert.org and bloody well sign it with the spoofed key I just generated!  The only thing I couldn't do is update their web page but, honestly, I wonder how many people check.  And of those that do, have they done it in the past and noticed prior inconsistencies and just chalked it up to... incompetence?  Negligence?  Key distribution malpractice?</p>
-<p>Again, there is nothing for me to trust that this new key is legit.</p>
-<p>It's sad that an organization built around <i>security</i> has no clue about this.  What's worse, is they've been told (twice!) about a better way to distribute new keys.  I know.  I told them.  Both times.</p>
-<p>So, to recap, these are things you <i>should</i> do when distributing a new GPG key:</p>
+<p>Now this one is a good key, a trustable key.  The last two keys are&nbsp;not.</p>
+<p>Couple that with the half-updated web page and you&#8217;re left scratching your head &#8212; or, at least, I was.  Not so much this time because, sadly, I&#8217;m no longer surprised.  But last time I actually phoned <span class="caps">CERT</span> to verify the new key&#8217;s fingerprint because I had nothing to trust it with.  In fact, when the mail came out to notify of the new key, it was signed with the <i>new</i> key, not the old&nbsp;key.</p>
+<p>Ummm&#8230; excuse me, but I can spoof sending a mail from cert@cert.org and generate my own key with the uid cert@cert.org and bloody well sign it with the spoofed key I just generated!  The only thing I couldn&#8217;t do is update their web page but, honestly, I wonder how many people check.  And of those that do, have they done it in the past and noticed prior inconsistencies and just chalked it up to&#8230; incompetence?  Negligence?  Key distribution&nbsp;malpractice?</p>
+<p>Again, there is nothing for me to trust that this new key is&nbsp;legit.</p>
+<p>It&#8217;s sad that an organization built around <i>security</i> has no clue about this.  What&#8217;s worse, is they&#8217;ve been told (twice!) about a better way to distribute new keys.  I know.  I told them.  Both&nbsp;times.</p>
+<p>So, to recap, these are things you <i>should</i> do when distributing a new <span class="caps">GPG</span>&nbsp;key:</p>
 <ol>
 <li> Sign the email sending out the <i>new</i> key with the <i>old</i> key.  Seriously, it establishes trust and proves you are who you say you are
-<li> Fully and completely update your web site.  It's nice you have one, and it's nice that it's semi-updated, and even better that you can get to it via SSL.  But if it lists the new key in section 1 and section 2 is about verifying the fingerprint but lists the <i>old</i> key's fingerprint, how do you trust any of it?
-<li> Sign the <i>new</i> key with the <i>old</i> key.  It proves that the person/organization who has the old key trusts the new one enough to sign it.  Like giving it a seal of approval or just saying "hey, this is legit"
-<li> For Pete's sake, revoke the old key!  It doesn't have to necessarily be in the same message, but it should be revoked.  Heck, send out a mail signed with the old key, containing the new key, and then send out another message signed with the new key, revoking the old key.  Or have one email message sending two different GPG-signed sections so one email does it all.
+<li> Fully and completely update your web site.  It&#8217;s nice you have one, and it&#8217;s nice that it&#8217;s semi-updated, and even better that you can get to it via <span class="caps">SSL</span>.  But if it lists the new key in section 1 and section 2 is about verifying the fingerprint but lists the <i>old</i> key&#8217;s fingerprint, how do you trust any of it?
+<li> Sign the <i>new</i> key with the <i>old</i> key.  It proves that the person/organization who has the old key trusts the new one enough to sign it.  Like giving it a seal of approval or just saying &#8220;hey, this is legit&#8221;
+<li> For Pete&#8217;s sake, revoke the old key!  It doesn&#8217;t have to necessarily be in the same message, but it should be revoked.  Heck, send out a mail signed with the old key, containing the new key, and then send out another message signed with the new key, revoking the old key.  Or have one email message sending two different <span class="caps">GPG</span>-signed sections so one email does it all.
 </ol>
 
-<p>None of this is difficult to do, and it makes trusting these new keys so much easier.  I've not paid attention to see if other people/organizations fail so badly here, but I don't get what makes this so hard to do.  It's not rocket science, just common sense.  I can see Joe Average maybe not thinking about it, but for an organization like CERT?  Come on.  How are we supposed to trust what you send out when you can't even get Simple Key Management 101 right?</p>
+<p>None of this is difficult to do, and it makes trusting these new keys so much easier.  I&#8217;ve not paid attention to see if other people/organizations fail so badly here, but I don&#8217;t get what makes this so hard to do.  It&#8217;s not rocket science, just common sense.  I can see Joe Average maybe not thinking about it, but for an organization like <span class="caps">CERT</span>?  Come on.  How are we supposed to trust what you send out when you can&#8217;t even get Simple Key Management 101&nbsp;right?</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=How%20not%20to%20update%20GPG%C2%A0keys&url=https%3A//vdanen.github.io/blog/how-not-to-update-gpg-keys&hashtags=gpg" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/how-not-to-update-gpg-keys&title=How%20not%20to%20update%20GPG%C2%A0keys&summary=This%20seems%20to%20be%20an%20ongoing%20saga%20so%20now%20I%E2%80%99m%20going%20to%20vent%20about%20it.%20%20It%20is%20ridiculous%20that%20an%20organization%20supposedly%20as%20secure%20as%20CERT%20can%20have%20such%20poor%20distribution%20mechanisms%20for%20alerting%20users%20of%20their%20new%20GPG%20keys.%20%20It%20is%20really%20important%20that%2C%20when%20you%20update%20GPG%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/how-not-to-update-gpg-keys" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -152,19 +169,38 @@ sig          14C33F57 2009-06-15  CERT Coordination Center <cert@cert.org>
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/encrypting-and-decrypting-files-with-gnupg" title="Encrypting and decrypting files with GnuPG">Encrypting and decrypting files with GnuPG</a></li>
+<li><a href="https://vdanen.github.io/blog/updated-my-gpg-key" title="Updated my GPG key">Updated my GPG key</a></li>
+<li><a href="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4" title="Figuring out GPG, SSH and U2F with YubiKey 4">Figuring out GPG, SSH and U2F with YubiKey 4</a></li>
+<li><a href="https://vdanen.github.io/blog/replaced-gpg-key" title="Replaced GPG Key">Replaced GPG Key</a></li>
+<li><a href="https://vdanen.github.io/blog/replaced-gpg-key-2019" title="Replaced GPG key (2019)">Replaced GPG key (2019)</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/reusable-passwords" title="Previous: Reusable passwords">Reusable passwords</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/how-to-set-up-webdav-hosting-on-apache" title="Next: How to set up WebDAV hosting on Apache">How to set up WebDAV hosting on Apache</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-09-14T16:40:00-06:00">Tue 14 September 2010</time>
+            <time itemprop="dateCreated" datetime="2010-09-14T16:40:00-06:00">Sep 14, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#gpg-ref">gpg
+                <li><a href="https://vdanen.github.io/tags#gpg-ref">gpg
                     <span class="superscript">7</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -265,6 +301,9 @@ sig          14C33F57 2009-06-15  CERT Coordination Center <cert@cert.org>
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

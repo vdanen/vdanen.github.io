@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things. This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="freenas, couchdb, inkdrop, Macos, " />
 
-<meta property="og:title" content="Inkdrop with CouchDB on FreeNAS "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas.html" />
+<meta property="og:title" content="Inkdrop with CouchDB on FreeNAS "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" />
 <meta property="og:description" content="I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things. This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2020-02-23T19:00:00-07:00" />
-<meta name="twitter:title" content="Inkdrop with CouchDB on FreeNAS ">
+<meta name="twitter:title" content="Inkdrop with CouchDB on FreeNAS ">
 <meta name="twitter:description" content="I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things. This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet …">
 
-        <title>Inkdrop with CouchDB on FreeNAS  · Annvix
+        <title>Inkdrop with CouchDB on FreeNAS  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas.html">
-                Inkdrop with CouchDB on FreeNAS
+            <a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas">
+                Inkdrop with CouchDB on&nbsp;FreeNAS
             </a>
         </h1>
     </header>
@@ -80,46 +93,51 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://vdanen.github.io/images/inkdrop.png"></p>
-<p>I have a terrible memory, which means that I rely on a lot of tools and methodologies (like GTD, Getting Things Done) to help me track things.  This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet my ever-changing needs.</p>
-<p>For the last two years I've been using <a href="https://happenapps.com/">Quiver</a> to categorize and keep notes.  These are notes for myself of people, projects, interesting things, escalations, etc.  These are also notes on nearly every meeting I attend.  For obvious reasons, these are sensitive and need to be kept under my own control.  Prior to Quiver, I was using <a href="https://c-command.com/eaglefiler/">EagleFiler</a> (incidentally, I still use EagleFiler, just not for note keeping -- it's a great way to organize and collect files).</p>
-<p>While Quiver worked quite well, it has limitations.  As I try to do more work from my iPad rather than my laptop, the companion Quiver iOS app was showing it's limitations.  I could share the notes via my own internal WebDAV server, but it was read-only.  That is great if I only want a reference, but to fully move to my iPad for the "normal day to day" stuff I needed something where I could review and edit notes.</p>
-<p>I recently came across <a href="https://inkdrop.app/">Inkdrop</a> which is a note-taking application similar to Quiver with a more robust set of features, including iOS applications that will edit, and a better way of synchronizing those notes.  While Inkdrop does provide a server to store the data (which is no good for me since I want to retain full control of my data), it does allow you to use a local CouchDB server.  It also has a subscription of $5/mo which, if it can do what I need it to do, is worth it to me (particularly with the travel I've been doing of late).</p>
-<p>The big things for me were standing up a CouchDB server (never played with it before) and being able to convert my Quiver library into a format that Inkdrop can use.  Fortunately, both Quiver and Inkdrop use JSON files for the metadata so with a little bit of elbow grease I figured I could make it work.  This post covers a few things: standing up the CouchDB server, getting Inkdrop to sync to it, and finally converting the data I already had in Quiver (nearly 1800 notes).</p>
-<h2>CouchDB in a FreeNAS jail</h2>
-<p>The first step was to create the FreeNAS jail in which I was going to run CouchDB.  This needed to be running on my local network and not accessible to the internet.  It also needed to use HTTPS.  The first step was to create a new jail named <code>inkdrop</code> in FreeNAS (using the web UI).  Once that was done, I logged into the FreeNAS server, entered the jail, and installed the <code>pkg</code> tool to install what I needed for CouchDB:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>iocage<span class="w"> </span>console<span class="w"> </span>inkdrop
+            <p><img alt="Image" src="https://vdanen.github.io/images/inkdrop.png" /></p>
+<p>I have a terrible memory, which means that I rely on a lot of tools and methodologies (like <span class="caps">GTD</span>, Getting Things Done) to help me track things.  This also means that I have a lot of different tools ,and I regularly re-evaluate and change them if something new can meet my ever-changing&nbsp;needs.</p>
+<p>For the last two years I&#8217;ve been using <a href="https://happenapps.com/">Quiver</a> to categorize and keep notes.  These are notes for myself of people, projects, interesting things, escalations, etc.  These are also notes on nearly every meeting I attend.  For obvious reasons, these are sensitive and need to be kept under my own control.  Prior to Quiver, I was using <a href="https://c-command.com/eaglefiler/">EagleFiler</a> (incidentally, I still use EagleFiler, just not for note keeping &#8212; it&#8217;s a great way to organize and collect&nbsp;files).</p>
+<p>While Quiver worked quite well, it has limitations.  As I try to do more work from my iPad rather than my laptop, the companion Quiver iOS app was showing it&#8217;s limitations.  I could share the notes via my own internal WebDAV server, but it was read-only.  That is great if I only want a reference, but to fully move to my iPad for the &#8220;normal day to day&#8221; stuff I needed something where I could review and edit&nbsp;notes.</p>
+<p>I recently came across <a href="https://inkdrop.app/">Inkdrop</a> which is a note-taking application similar to Quiver with a more robust set of features, including iOS applications that will edit, and a better way of synchronizing those notes.  While Inkdrop does provide a server to store the data (which is no good for me since I want to retain full control of my data), it does allow you to use a local CouchDB server.  It also has a subscription of $5/mo which, if it can do what I need it to do, is worth it to me (particularly with the travel I&#8217;ve been doing of&nbsp;late).</p>
+<p>The big things for me were standing up a CouchDB server (never played with it before) and being able to convert my Quiver library into a format that Inkdrop can use.  Fortunately, both Quiver and Inkdrop use <span class="caps">JSON</span> files for the metadata so with a little bit of elbow grease I figured I could make it work.  This post covers a few things: standing up the CouchDB server, getting Inkdrop to sync to it, and finally converting the data I already had in Quiver (nearly 1800&nbsp;notes).</p>
+<h2 id="couchdb-in-a-freenas-jail">CouchDB in a FreeNAS jail<a class="headerlink" href="#couchdb-in-a-freenas-jail" title="Permanent link"> </a></h2>
+<p>The first step was to create the FreeNAS jail in which I was going to run CouchDB.  This needed to be running on my local network and not accessible to the internet.  It also needed to use <span class="caps">HTTPS</span>.  The first step was to create a new jail named <code>inkdrop</code> in FreeNAS (using the web <span class="caps">UI</span>).  Once that was done, I logged into the FreeNAS server, entered the jail, and installed the <code>pkg</code> tool to install what I needed for&nbsp;CouchDB:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>iocage<span class="w"> </span>console<span class="w"> </span>inkdrop
 <span class="c1"># pkg</span>
 <span class="c1"># pkg install couchdb2 curl</span>
 <span class="c1"># cd /usr/local/etc/couchdb2</span>
 <span class="c1"># vi local.ini</span>
-</code></pre></div>
+</pre></div>
 
-<p>At this point we need to assign the admin user a password and note it in the <em>local.ini</em> file.  There are other files to edit as well:</p>
-<div class="highlight"><pre><span></span><code># vi vm.args
-</code></pre></div>
 
-<p>In <em>vm.args</em>, change the <code>setcookie</code> option from its default.</p>
-<div class="highlight"><pre><span></span><code># vi /etc/rc.conf
-</code></pre></div>
+<p>At this point we need to assign the admin user a password and note it in the <em>local.ini</em> file.  There are other files to edit as&nbsp;well:</p>
+<div class="highlight"><pre><span></span># vi vm.args
+</pre></div>
 
-<p>In <em>rc.conf</em> set <code>coudchdb2_enable</code> to <strong>YES</strong>.  Now we can start the service and initialize our database.  The database will be named <code>inkdrop</code> and the admin user's password is <strong>passwd</strong> in the following examples.</p>
-<div class="highlight"><pre><span></span><code><span class="cp"># service couchdb2 start</span>
+
+<p>In <em>vm.args</em>, change the <code>setcookie</code> option from its&nbsp;default.</p>
+<div class="highlight"><pre><span></span># vi /etc/rc.conf
+</pre></div>
+
+
+<p>In <em>rc.conf</em> set <code>coudchdb2_enable</code> to <strong><span class="caps">YES</span></strong>.  Now we can start the service and initialize our database.  The database will be named <code>inkdrop</code> and the admin user&#8217;s password is <strong>passwd</strong> in the following&nbsp;examples.</p>
+<div class="highlight"><pre><span></span><span class="cp"># service couchdb2 start</span>
 <span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_users</span>
 <span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_replicator</span>
 <span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/_global_changes</span>
 <span class="cp"># curl -X PUT http:</span><span class="c1">//admin:passwd@127.0.0.1:5984/inkdrop</span>
-</code></pre></div>
+</pre></div>
 
-<h2>Install nginx as the CouchDB proxy</h2>
-<p>The next step is to use nginx as the proxy for CouchDB so that we can have HTTPS requests rather than HTTP.</p>
-<div class="highlight"><pre><span></span><code># pkg install nginx
+
+<h2 id="install-nginx-as-the-couchdb-proxy">Install nginx as the CouchDB proxy<a class="headerlink" href="#install-nginx-as-the-couchdb-proxy" title="Permanent link"> </a></h2>
+<p>The next step is to use nginx as the proxy for CouchDB so that we can have <span class="caps">HTTPS</span> requests rather than <span class="caps">HTTP</span>.</p>
+<div class="highlight"><pre><span></span># pkg install nginx
 # cd /usr/local/etc/nginx
 # vi nginx.conf
-</code></pre></div>
+</pre></div>
 
-<p>At this point you want to follow the <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#how-to-set-up-your-own-sync-server">Inkdrop instructions for setting up your own sync server</a>.  That should get nginx nicely configured.  The next step is to use Let's Encrypt in the FreeNAS jail.  I've blogged about this in the past here, with <a href="https://annvix.com/blog/using-letsencrypt-on-freenas">Using LetsEncrypt on FreeNAS</a> and <a href="https://annvix.com/blog/using-letsencrypt-with-plex">Using LetsEncrypt with Plex</a> so I won't go into a lot of detail, but will simply note the commands used:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># pkg install git</span>
+
+<p>At this point you want to follow the <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#how-to-set-up-your-own-sync-server">Inkdrop instructions for setting up your own sync server</a>.  That should get nginx nicely configured.  The next step is to use Let&#8217;s Encrypt in the FreeNAS jail.  I&#8217;ve blogged about this in the past here, with <a href="https://annvix.com/blog/using-letsencrypt-on-freenas">Using LetsEncrypt on FreeNAS</a> and <a href="https://annvix.com/blog/using-letsencrypt-with-plex">Using LetsEncrypt with Plex</a> so I won&#8217;t go into a lot of detail, but will simply note the commands&nbsp;used:</p>
+<div class="highlight"><pre><span></span><span class="c1"># pkg install git</span>
 <span class="c1"># cd /root</span>
 <span class="c1"># git clone https://github.com/Neilpang/acme.sh.git</span>
 <span class="c1"># cd acme.sh</span>
@@ -130,34 +148,41 @@
 <span class="c1"># ./acme.sh --issue --dns dns_cf -d inkdrop.hostname --fullchain-file /usr/local/etc/nginx/fullchain.pem --key-file /usr/local/etc/nginx/privkey.pem</span>
 <span class="c1"># crontab -l</span>
 <span class="mi">12</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="s2">&quot;/root/.acme.sh&quot;</span><span class="o">/</span><span class="n">acme</span><span class="o">.</span><span class="n">sh</span><span class="w"> </span><span class="o">--</span><span class="n">cron</span><span class="w"> </span><span class="o">--</span><span class="n">home</span><span class="w"> </span><span class="s2">&quot;/root/.acme.sh&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nb nb-Type">null</span>
-</code></pre></div>
+</pre></div>
 
-<p>With our SSL certificate setup and making sure the cronjob is set as well, we can now start nginx and test if we can connect to our CouchDB server over HTTPS:</p>
-<div class="highlight"><pre><span></span><code><span class="cp"># vi /etc/rc.conf</span>
+
+<p>With our <span class="caps">SSL</span> certificate setup and making sure the cronjob is set as well, we can now start nginx and test if we can connect to our CouchDB server over <span class="caps">HTTPS</span>:</p>
+<div class="highlight"><pre><span></span><span class="cp"># vi /etc/rc.conf</span>
 <span class="cp"># service nginx start</span>
 <span class="cp"># curl -X GET https:</span><span class="c1">//127.0.0.1:6984/_all_dbs</span>
 <span class="p">{</span><span class="s">&quot;error&quot;</span><span class="o">:</span><span class="s">&quot;unauthorized&quot;</span><span class="p">,</span><span class="s">&quot;reason&quot;</span><span class="o">:</span><span class="s">&quot;You are not a server admin.&quot;</span><span class="p">}</span>
 <span class="cp"># curl -X GET https:</span><span class="c1">//admin:passwd@127.0.0.1:6984/_all_dbs</span>
 <span class="p">[</span><span class="s">&quot;_global_changes&quot;</span><span class="p">,</span><span class="s">&quot;_replicator&quot;</span><span class="p">,</span><span class="s">&quot;_users&quot;</span><span class="p">,</span><span class="s">&quot;inkdrop&quot;</span><span class="p">]</span>
-</code></pre></div>
+</pre></div>
 
-<p>In <em>rc.conf</em> you want to set <code>nginx_enable</code> to <strong>YES</strong>.</p>
-<p>If you intend to use Inkdrop on your mobile device, you now need to create the mobile design document as per <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#support-mobile-sync">Inkdrop's mobile sync documentation</a>, which is effectively running:</p>
-<div class="highlight"><pre><span></span><code><span class="cp"># curl -X PUT https:</span><span class="c1">//admin:passwd@127.0.0.1:6984/inkdrop -d &#39;{ &quot;_id&quot;: &quot;_design/mobile&quot;, &quot;filters&quot;: { &quot;sync&quot;: &quot;function (doc) { return doc._id.indexOf(&#39;file:&#39;) === -1 }&quot; } }&#39;</span>
-</code></pre></div>
 
-<h2>Mobile Sync</h2>
-<p>At this point you should have a fully functional CouchDB running behind nginx in a FreeNAS jail.  Now you can point Inkdrop to your server for syncing.  You can set this up to be accessible from anywhere, or you can leave it accessible only internally.  That's the way I chose to do it since you can edit documents while disconnected and it will sync back to the server when the client is able to connect.  This allows for complete privacy by not making it available outside of your own network, but makes it portable enough that you can take your notes with you so you can add and edit as you're out and about.</p>
-<p>The only thing that would make this even better for me would be for Inkdrop to have PIN or TouchID/FaceID protection on the mobile device.</p>
-<h2>Converting from Quiver to Inkdrop</h2>
-<p>Now if you're like me and you've used Quiver in the past, there is good news!  You <em>can</em> convert from Quiver to Inkdrop.  I had to scratch my own itch here as there was no conversion tool available.  Thankfully, Quiver uses JSON files that can be parsed and, for Inkdrop, I can talk directly to the CouchDB server.  Because of this I could see the content/format of what I had in Quiver, and what Inkdrop expected in CouchDB.  It wasn't terribly difficult to figure out, just took a bit of trial and error. </p>
+<p>In <em>rc.conf</em> you want to set <code>nginx_enable</code> to <strong><span class="caps">YES</span></strong>.</p>
+<p>If you intend to use Inkdrop on your mobile device, you now need to create the mobile design document as per <a href="https://docs.inkdrop.app/manual/synchronizing-in-the-cloud/#support-mobile-sync">Inkdrop&#8217;s mobile sync documentation</a>, which is effectively&nbsp;running:</p>
+<div class="highlight"><pre><span></span><span class="cp"># curl -X PUT https:</span><span class="c1">//admin:passwd@127.0.0.1:6984/inkdrop -d &#39;{ &quot;_id&quot;: &quot;_design/mobile&quot;, &quot;filters&quot;: { &quot;sync&quot;: &quot;function (doc) { return doc._id.indexOf(&#39;file:&#39;) === -1 }&quot; } }&#39;</span>
+</pre></div>
+
+
+<h2 id="mobile-sync">Mobile Sync<a class="headerlink" href="#mobile-sync" title="Permanent link"> </a></h2>
+<p>At this point you should have a fully functional CouchDB running behind nginx in a FreeNAS jail.  Now you can point Inkdrop to your server for syncing.  You can set this up to be accessible from anywhere, or you can leave it accessible only internally.  That&#8217;s the way I chose to do it since you can edit documents while disconnected and it will sync back to the server when the client is able to connect.  This allows for complete privacy by not making it available outside of your own network, but makes it portable enough that you can take your notes with you so you can add and edit as you&#8217;re out and&nbsp;about.</p>
+<p>The only thing that would make this even better for me would be for Inkdrop to have <span class="caps">PIN</span> or TouchID/FaceID protection on the mobile&nbsp;device.</p>
+<h2 id="converting-from-quiver-to-inkdrop">Converting from Quiver to Inkdrop<a class="headerlink" href="#converting-from-quiver-to-inkdrop" title="Permanent link"> </a></h2>
+<p>Now if you&#8217;re like me and you&#8217;ve used Quiver in the past, there is good news!  You <em>can</em> convert from Quiver to Inkdrop.  I had to scratch my own itch here as there was no conversion tool available.  Thankfully, Quiver uses <span class="caps">JSON</span> files that can be parsed and, for Inkdrop, I can talk directly to the CouchDB server.  Because of this I could see the content/format of what I had in Quiver, and what Inkdrop expected in CouchDB.  It wasn&#8217;t terribly difficult to figure out, just took a bit of trial and&nbsp;error. </p>
 <p>My script for the conversion is available on GitHub: <a href="https://github.com/vdanen/quiver-to-inkdrop">quiver-to-inkdrop</a>.</p>
-<p>This was a nice amusement for me, to be honest.  I always enjoy playing with new software, something I don't get to do as often as I used to (when I wrote for TechRepublic years ago I was playing with new things all the time).  Everything here aside from FreeNAS was new for me and I'd never played with CouchDB before, and I always enjoy doing a bit of Python and hacking things to make them work.  Hopefully there is something interesting or useful here for others to use as well!</p>
+<p>This was a nice amusement for me, to be honest.  I always enjoy playing with new software, something I don&#8217;t get to do as often as I used to (when I wrote for TechRepublic years ago I was playing with new things all the time).  Everything here aside from FreeNAS was new for me and I&#8217;d never played with CouchDB before, and I always enjoy doing a bit of Python and hacking things to make them work.  Hopefully there is something interesting or useful here for others to use as&nbsp;well!</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Inkdrop%20with%20CouchDB%20on%C2%A0FreeNAS&url=https%3A//vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas&hashtags=freenas,couchdb,inkdrop" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas&title=Inkdrop%20with%20CouchDB%20on%C2%A0FreeNAS&summary=I%20have%20a%20terrible%20memory%2C%20which%20means%20that%20I%20rely%20on%20a%20lot%20of%20tools%20and%20methodologies%20%28like%20GTD%2C%20Getting%20Things%20Done%29%20to%20help%20me%20track%20things.%20%20This%20also%20means%20that%20I%20have%20a%20lot%20of%20different%20tools%20%2Cand%20I%20regularly%20re-evaluate%20and%20change%20them%20if%20something%20new%20can%20meet%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -168,25 +193,44 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve" title="Virtualized Linux guest in FreeNAS 9.10 using iohyve">Virtualized Linux guest in FreeNAS 9.10 using iohyve</a></li>
+<li><a href="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail" title="Migrate plex from a warden jail to an iocage jail">Migrate plex from a warden jail to an iocage jail</a></li>
+<li><a href="https://vdanen.github.io/blog/using-letsencrypt-on-freenas" title="Using LetsEncrypt on FreeNAS">Using LetsEncrypt on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas" title="Updating iocage jails in FreeNAS">Updating iocage jails in FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core" title="Upgrading FreeNAS to TrueNAS Core">Upgrading FreeNAS to TrueNAS Core</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas" title="Previous: Updating iocage jails in FreeNAS">Updating iocage jails in FreeNAS</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/an-unexpected-journey" title="Next: An Unexpected Journey">An Unexpected Journey</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2020-02-23T19:00:00-07:00">Sun 23 February 2020</time>
+            <time itemprop="dateCreated" datetime="2020-02-23T19:00:00-07:00">Feb 23, 2020</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#couchdb-ref">couchdb
+                <li><a href="https://vdanen.github.io/tags#couchdb-ref">couchdb
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#freenas-ref">freenas
+                <li><a href="https://vdanen.github.io/tags#freenas-ref">freenas
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#inkdrop-ref">inkdrop
+                <li><a href="https://vdanen.github.io/tags#inkdrop-ref">inkdrop
                     <span class="superscript">1</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -287,6 +331,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="You know your wife is a keeper when she gets you a YubiKey 4 for your birthday! I was really excited about this YubiKey because of its support for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="gpg, openssh, yubikey, Macos, " />
 
-<meta property="og:title" content="Figuring out GPG, SSH and U2F with YubiKey 4 "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4.html" />
+<meta property="og:title" content="Figuring out GPG, SSH and U2F with YubiKey 4 "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4" />
 <meta property="og:description" content="You know your wife is a keeper when she gets you a YubiKey 4 for your birthday! I was really excited about this YubiKey because of its support for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2017-02-11T15:00:00-07:00" />
-<meta name="twitter:title" content="Figuring out GPG, SSH and U2F with YubiKey 4 ">
+<meta name="twitter:title" content="Figuring out GPG, SSH and U2F with YubiKey 4 ">
 <meta name="twitter:description" content="You know your wife is a keeper when she gets you a YubiKey 4 for your birthday! I was really excited about this YubiKey because of its support for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support …">
 
-        <title>Figuring out GPG, SSH and U2F with YubiKey 4  · Annvix
+        <title>Figuring out GPG, SSH and U2F with YubiKey 4  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4.html">
-                Figuring out GPG, SSH and U2F with YubiKey 4
+            <a href="https://vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4">
+                Figuring out <span class="caps">GPG</span>, <span class="caps">SSH</span> and <span class="caps">U2F</span> with YubiKey&nbsp;4
             </a>
         </h1>
     </header>
@@ -80,24 +93,25 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://vdanen.github.io/images/yubikey.jpg"></p>
+            <p><img alt="Image" src="https://vdanen.github.io/images/yubikey.jpg" /></p>
 <p>You know your wife is a keeper when she gets you a YubiKey 4 for your birthday!  I was really excited about this YubiKey because of its support
-for storing your GPG private keys and also for an SSH private key, in addition to the U2F (Universal 2nd Factor) support.  I've been using
-earlier versions of the YubiKey for OTP (one-time password) and U2F, but the new version was especially interesting to me because of the GPG support.</p>
-<p>Plus it's a new toy to tinker with, and I like nerdy little things like this.</p>
-<p>When I got it, it was easy enough to associate it with the accounts I previously had my U2F-only YubiKey associated with and also others I previously had not and probably should have.</p>
+for storing your <span class="caps">GPG</span> private keys and also for an <span class="caps">SSH</span> private key, in addition to the <span class="caps">U2F</span> (Universal 2nd Factor) support.  I&#8217;ve been using
+earlier versions of the YubiKey for <span class="caps">OTP</span> (one-time password) and <span class="caps">U2F</span>, but the new version was especially interesting to me because of the <span class="caps">GPG</span>&nbsp;support.</p>
+<p>Plus it&#8217;s a new toy to tinker with, and I like nerdy little things like&nbsp;this.</p>
+<p>When I got it, it was easy enough to associate it with the accounts I previously had my <span class="caps">U2F</span>-only YubiKey associated with and also others I previously had not and probably should&nbsp;have.</p>
 <p>However, when it came to getting this setup for GnuPG I ran into some interesting things.  First off, I used this <a href="https://github.com/drduh/YubiKey-Guide">YubiKey
 Guide</a> to get things setup (this is a great guide).  I did it on my Fedora laptop because from the things I
-read it seemed that using Linux for the setup would be easier.</p>
-<p>That guide is pretty Debian-specific when it comes to the software install, so on Fedora you want to use:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>ykpers<span class="w"> </span>libyubikey<span class="w"> </span>gnupg2<span class="w"> </span>gnupg2-smime<span class="w"> </span>pcsc-list<span class="w"> </span>pcsc-lite-ccid
-</code></pre></div>
+read it seemed that using Linux for the setup would be&nbsp;easier.</p>
+<p>That guide is pretty Debian-specific when it comes to the software install, so on Fedora you want to&nbsp;use:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>ykpers<span class="w"> </span>libyubikey<span class="w"> </span>gnupg2<span class="w"> </span>gnupg2-smime<span class="w"> </span>pcsc-list<span class="w"> </span>pcsc-lite-ccid
+</pre></div>
+
 
 <p>Creating the new key on the laptop was easy enough with the instructions provided but I ran into problems writing the keys to the YubiKey.  I could
 program the card as root, but as the user that generated the key I was unable to write the keys.  With a bit more hunting around, I found another
-blog post about using the <a href="http://stafwag.github.io/blog/blog/2015/06/16/using-yubikey-neo-as-gpg-smartcard-for-ssh-authentication/">YubiKey Neo as a GPG Smartcard for SSH Authentication</a> and realized I needed to give myself access to write to the card via udev.</p>
-<p>Editing the <code>/usr/lib/udev/rules.d/69-yubikey.rules</code> file to add myself as an owner of the device did the trick and now it looks like:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ACTION</span><span class="o">!=</span><span class="ss">&quot;add|change&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">GOTO</span><span class="o">=</span><span class="ss">&quot;yubico_end&quot;</span>
+blog post about using the <a href="http://stafwag.github.io/blog/blog/2015/06/16/using-yubikey-neo-as-gpg-smartcard-for-ssh-authentication/">YubiKey Neo as a <span class="caps">GPG</span> Smartcard for <span class="caps">SSH</span> Authentication</a> and realized I needed to give myself access to write to the card via&nbsp;udev.</p>
+<p>Editing the <code>/usr/lib/udev/rules.d/69-yubikey.rules</code> file to add myself as an owner of the device did the trick and now it looks&nbsp;like:</p>
+<div class="highlight"><pre><span></span><span class="k">ACTION</span><span class="o">!=</span><span class="ss">&quot;add|change&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">GOTO</span><span class="o">=</span><span class="ss">&quot;yubico_end&quot;</span>
 
 <span class="err">#</span><span class="w"> </span><span class="n">Udev</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">letting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Yubikey</span><span class="w"> </span><span class="n">USB</span>
 <span class="err">#</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">needed</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">challenge</span><span class="o">/</span><span class="n">response</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="n">correctly</span><span class="p">.</span>
@@ -107,56 +121,65 @@ blog post about using the <a href="http://stafwag.github.io/blog/blog/2015/06/16
 <span class="w">    </span><span class="n">OWNER</span><span class="o">=</span><span class="ss">&quot;[me]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ENV</span><span class="err">{</span><span class="n">ID_SECURITY_TOKEN</span><span class="err">}</span><span class="o">=</span><span class="ss">&quot;1&quot;</span>
 
 <span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;yubico_end&quot;</span>
-</code></pre></div>
+</pre></div>
 
-<p>Then reloading the configuration using:</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">udevadm</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="o">--</span><span class="n">reload</span>
+
+<p>Then reloading the configuration&nbsp;using:</p>
+<div class="highlight"><pre><span></span><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">udevadm</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="o">--</span><span class="n">reload</span>
 <span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">udevadm</span><span class="w"> </span><span class="n">trigger</span>
-</code></pre></div>
+</pre></div>
 
-<p>Now I could finish with the original tutorial and get the keys written to the card.  Success!</p>
-<p>Or so I thought.  Once this was done, the U2F logins were no longer working.  Plugging the YubiKey into my mac and trying to use it as the
-second factor with some of the sites it previously worked with was no longer possible.</p>
+
+<p>Now I could finish with the original tutorial and get the keys written to the card.&nbsp;Success!</p>
+<p>Or so I thought.  Once this was done, the <span class="caps">U2F</span> logins were no longer working.  Plugging the YubiKey into my mac and trying to use it as the
+second factor with some of the sites it previously worked with was no longer&nbsp;possible.</p>
 <p>Given this was already a few hours of work, I went off to eat dinner and watch a show with the family.  When that was done, as often happens when
-you give your mind something else to think about, it occurred to me that the command in the original tutorial about changing the mode of the YubiKey might have had something to do with it.  The original tutorial indicates that to configure the YubiKey you needed to do:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ykpersonalize<span class="w"> </span>-m82
-</code></pre></div>
+you give your mind something else to think about, it occurred to me that the command in the original tutorial about changing the mode of the YubiKey might have had something to do with it.  The original tutorial indicates that to configure the YubiKey you needed to&nbsp;do:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>ykpersonalize<span class="w"> </span>-m82
+</pre></div>
 
-<p>Checking out the manpage, it seems that this mode of 82 sets:</p>
+
+<p>Checking out the manpage, it seems that this mode of 82&nbsp;sets:</p>
 <ul>
-<li>MODE_FLAG_EJECT (which is the 80)</li>
-<li>OTP/CCID composite device (which is the 2)</li>
+<li>MODE_FLAG_EJECT (which is the&nbsp;80)</li>
+<li><span class="caps">OTP</span>/<span class="caps">CCID</span> composite device (which is the&nbsp;2)</li>
 </ul>
-<p>I guess earlier YubiKeys did not enable CCID which is what we need for GPG support.  But guess what's missing?  Right, the U2F support.  We need mode 6, which is for OTP/CCID/U2F.  So running:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ykpersonalize<span class="w"> </span>-m86
-</code></pre></div>
+<p>I guess earlier YubiKeys did not enable <span class="caps">CCID</span> which is what we need for <span class="caps">GPG</span> support.  But guess what&#8217;s missing?  Right, the <span class="caps">U2F</span> support.  We need mode 6, which is for <span class="caps">OTP</span>/<span class="caps">CCID</span>/<span class="caps">U2F</span>.  So&nbsp;running:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>ykpersonalize<span class="w"> </span>-m86
+</pre></div>
 
-<p>fixed the problem and now U2F works again (as does GPG).</p>
-<p>The next problem I had was that, while GPG worked fine on my Fedora laptop, when I tried to do <code>gpg2 --list-secret-keys</code> on my mac, it was telling me there were no secret keys.  Using <code>gpg2 --card-status</code> or <code>gpg2 --card-edit</code> worked fine, and they even showed those card slots occupied.</p>
-<p>What the heck?!?</p>
-<p>Well, it turns out GPG 2.1 uses a different format for storing key information that GPG 1.x and 2.0 don't support or understand.  And MacGPG2 for the mac is currently providing 2.0.30 which didn't understand this stuff.  And it turns out that fink (which I use for all the extra Linux-like commands and updated CLI tools that I like) did not provide GnuPG 2.1.  As a result I switched from fink to HomeBrew because it provides GnuPG 2.1, which I found from <a href="https://www.rempe.us/blog/yubikey-gnupg-2-1-and-ssh/">Yubikey, GnuPG 2.1 Modern, and SSH on macOS</a>.</p>
-<p>There's still some work to be done to clean a few things up.  I need to publish my new GPG key once I'm confident with it, and have signed it with
-my existing key, and revoked the old key.  Then I need to put the new SSH pubkey on those servers that are critical and I want the higher security on.</p>
+
+<p>fixed the problem and now <span class="caps">U2F</span> works again (as does <span class="caps">GPG</span>).</p>
+<p>The next problem I had was that, while <span class="caps">GPG</span> worked fine on my Fedora laptop, when I tried to do <code>gpg2 --list-secret-keys</code> on my mac, it was telling me there were no secret keys.  Using <code>gpg2 --card-status</code> or <code>gpg2 --card-edit</code> worked fine, and they even showed those card slots&nbsp;occupied.</p>
+<p>What the&nbsp;heck?!?</p>
+<p>Well, it turns out <span class="caps">GPG</span> 2.1 uses a different format for storing key information that <span class="caps">GPG</span> 1.x and 2.0 don&#8217;t support or understand.  And MacGPG2 for the mac is currently providing 2.0.30 which didn&#8217;t understand this stuff.  And it turns out that fink (which I use for all the extra Linux-like commands and updated <span class="caps">CLI</span> tools that I like) did not provide GnuPG 2.1.  As a result I switched from fink to HomeBrew because it provides GnuPG 2.1, which I found from <a href="https://www.rempe.us/blog/yubikey-gnupg-2-1-and-ssh/">Yubikey, GnuPG 2.1 Modern, and <span class="caps">SSH</span> on macOS</a>.</p>
+<p>There&#8217;s still some work to be done to clean a few things up.  I need to publish my new <span class="caps">GPG</span> key once I&#8217;m confident with it, and have signed it with
+my existing key, and revoked the old key.  Then I need to put the new <span class="caps">SSH</span> pubkey on those servers that are critical and I want the higher security&nbsp;on.</p>
 <p>Most of what I had to do to get this setup was already out there (thank you citizens of the internet!) but there were a few gotchas that others may
-stumble on and since I couldn't easily find any answers (maybe I'm the only one that tripped over the ykpersonalize, or maybe most people use these for GPG/SSH and not also U2F, I have no idea).  Hopefully this will be helpful for anyone stuck in the same boat.</p>
-<p>Quick notes on some macOS-specific things:</p>
-<p>I'm a MailMate user (awesome email client) but the suggestion of using a command-line pinentry program causes it to crash because it can't get input from anywhere.  You want to <code>brew install pinentry-mac</code> first, and then use that as the pinentry program for the gpg-agent.  My <code>~/.gnupg/gpg-agent.conf</code> file now looks like this:</p>
-<div class="highlight"><pre><span></span><code>enable-ssh-support
+stumble on and since I couldn&#8217;t easily find any answers (maybe I&#8217;m the only one that tripped over the ykpersonalize, or maybe most people use these for <span class="caps">GPG</span>/<span class="caps">SSH</span> and not also <span class="caps">U2F</span>, I have no idea).  Hopefully this will be helpful for anyone stuck in the same&nbsp;boat.</p>
+<p>Quick notes on some macOS-specific&nbsp;things:</p>
+<p>I&#8217;m a MailMate user (awesome email client) but the suggestion of using a command-line pinentry program causes it to crash because it can&#8217;t get input from anywhere.  You want to <code>brew install pinentry-mac</code> first, and then use that as the pinentry program for the gpg-agent.  My <code>~/.gnupg/gpg-agent.conf</code> file now looks like&nbsp;this:</p>
+<div class="highlight"><pre><span></span>enable-ssh-support
 use-standard-socket
 pinentry-program /usr/local/bin/pinentry-mac
 default-cache-ttl 600
 max-cache-ttl 7200
-</code></pre></div>
+</pre></div>
 
-<p>You will also want to uninstall MacGPG2 if you have it installed.  You can re-install it if you want, as it does have some nice tools, but if you do be sure to select "Customize" on the installer and de-select "GPGMail" and "MacGPG2" (basically install "GPGServices", "GPGKeychain", and "GPGPreferences" only).  I don't know if the GPGMail plugin will work with GnuPG 2.1 (I don't use Apple Mail and MailMate doesn't need it) so maybe you don't need to remove it (and I can't be bothered to find out).</p>
-<p>As a final note, I had this working fine with two macs and my Fedora laptop, but when I tried it on another mac a day or two later it did not want to work.  I finally figured out that it was because when I started fiddling with this, on the first two macs I had gnupg 2.1.17 but on the other mac it pulled the new version (2.1.18) from homebrew.  This new version does not play well with the YubiKey.  I filed <a href="https://github.com/Homebrew/homebrew-versions/issues/1522">this bug</a> against homebrew but then after some more digging I found it was actually <a href="https://bugs.gnupg.org/gnupg/issue2933">this upstream bug</a> so hopefully 2.1.19 will fix the problem.  I note it here only because it had me scratching my head for a few days going through my setups wondering if I had done something wrong on the last mac.  Once I installed 2.1.17 on that one, everything worked peachy.  Talk about whacky timing!</p>
-<p>Thanks Ang for this awesome birthday present!  =)</p>
-<p><strong>EDIT</strong>: see <a href="https://annvix.com/blog/replaced-gpg-key">Replaced GPG Key</a> for details on the new key.</p>
+
+<p>You will also want to uninstall MacGPG2 if you have it installed.  You can re-install it if you want, as it does have some nice tools, but if you do be sure to select &#8220;Customize&#8221; on the installer and de-select &#8220;GPGMail&#8221; and &#8220;MacGPG2&#8221; (basically install &#8220;GPGServices&#8221;, &#8220;GPGKeychain&#8221;, and &#8220;GPGPreferences&#8221; only).  I don&#8217;t know if the GPGMail plugin will work with GnuPG 2.1 (I don&#8217;t use Apple Mail and MailMate doesn&#8217;t need it) so maybe you don&#8217;t need to remove it (and I can&#8217;t be bothered to find&nbsp;out).</p>
+<p>As a final note, I had this working fine with two macs and my Fedora laptop, but when I tried it on another mac a day or two later it did not want to work.  I finally figured out that it was because when I started fiddling with this, on the first two macs I had gnupg 2.1.17 but on the other mac it pulled the new version (2.1.18) from homebrew.  This new version does not play well with the YubiKey.  I filed <a href="https://github.com/Homebrew/homebrew-versions/issues/1522">this bug</a> against homebrew but then after some more digging I found it was actually <a href="https://bugs.gnupg.org/gnupg/issue2933">this upstream bug</a> so hopefully 2.1.19 will fix the problem.  I note it here only because it had me scratching my head for a few days going through my setups wondering if I had done something wrong on the last mac.  Once I installed 2.1.17 on that one, everything worked peachy.  Talk about whacky&nbsp;timing!</p>
+<p>Thanks Ang for this awesome birthday present!&nbsp;=)</p>
+<p><strong><span class="caps">EDIT</span></strong>: see <a href="https://annvix.com/blog/replaced-gpg-key">Replaced <span class="caps">GPG</span> Key</a> for details on the new&nbsp;key.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Figuring%20out%20GPG%2C%20SSH%20and%20U2F%20with%20YubiKey%C2%A04&url=https%3A//vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4&hashtags=gpg,openssh,yubikey" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4&title=Figuring%20out%20GPG%2C%20SSH%20and%20U2F%20with%20YubiKey%C2%A04&summary=You%20know%20your%20wife%20is%20a%20keeper%20when%20she%20gets%20you%20a%20YubiKey%204%20for%20your%20birthday%21%20%20I%20was%20really%20excited%20about%20this%20YubiKey%20because%20of%20its%20support%0Afor%20storing%20your%20GPG%20private%20keys%20and%20also%20for%20an%20SSH%20private%20key%2C%20in%20addition%20to%20the%20U2F%20%28Universal%202nd%20Factor%29%20support%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/figuring-out-gpg-ssh-and-u2f-with-yubikey-4" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -167,25 +190,44 @@ max-cache-ttl 7200
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/encrypting-and-decrypting-files-with-gnupg" title="Encrypting and decrypting files with GnuPG">Encrypting and decrypting files with GnuPG</a></li>
+<li><a href="https://vdanen.github.io/blog/how-not-to-update-gpg-keys" title="How not to update GPG keys">How not to update GPG keys</a></li>
+<li><a href="https://vdanen.github.io/blog/updated-my-gpg-key" title="Updated my GPG key">Updated my GPG key</a></li>
+<li><a href="https://vdanen.github.io/blog/replaced-gpg-key" title="Replaced GPG Key">Replaced GPG Key</a></li>
+<li><a href="https://vdanen.github.io/blog/replaced-gpg-key-2019" title="Replaced GPG key (2019)">Replaced GPG key (2019)</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/2016-a-retrospective" title="Previous: 2016: A Retrospective">2016: A Retrospective</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/replaced-gpg-key" title="Next: Replaced GPG Key">Replaced GPG Key</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2017-02-11T15:00:00-07:00">Sat 11 February 2017</time>
+            <time itemprop="dateCreated" datetime="2017-02-11T15:00:00-07:00">Feb 11, 2017</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#gpg-ref">gpg
+                <li><a href="https://vdanen.github.io/tags#gpg-ref">gpg
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#openssh-ref">openssh
+                <li><a href="https://vdanen.github.io/tags#openssh-ref">openssh
                     <span class="superscript">14</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#yubikey-ref">yubikey
+                <li><a href="https://vdanen.github.io/tags#yubikey-ref">yubikey
                     <span class="superscript">1</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -286,6 +328,9 @@ max-cache-ttl 7200
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

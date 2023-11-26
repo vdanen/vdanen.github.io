@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I’m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Systemd/systemctl tips and info "/>
-<meta property="og:url" content="https://vdanen.github.io/systemd.html" />
-<meta property="og:description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I&#39;m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle boot …" />
+<meta property="og:title" content="Systemd/systemctl tips and info "/>
+<meta property="og:url" content="https://vdanen.github.io/systemd" />
+<meta property="og:description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I’m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2013-02-02T20:00:00-07:00" />
-<meta name="twitter:title" content="Systemd/systemctl tips and info ">
-<meta name="twitter:description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I&#39;m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle boot …">
+<meta name="twitter:title" content="Systemd/systemctl tips and info ">
+<meta name="twitter:description" content="SysV-init has been a staple of Linux for years and years. In recent versions of Fedora (current version is 18) this has changed to using systemd. I’m no stranger to alternative means for running startup commands (I did, after all, have Annvix using Annvix:User_Guide/Services runit to handle …">
 
-        <title>Systemd/systemctl tips and info  · Annvix
+        <title>Systemd/systemctl tips and info  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,37 +80,42 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/systemd.html"> Systemd/systemctl tips and info  </a></h1>
+    <h1><a href="https://vdanen.github.io/systemd"> Systemd/systemctl tips and&nbsp;info  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>SysV-init has been a staple of Linux for years and years.  In recent versions of Fedora (current version is 18) this has changed to using <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd">systemd</a>.  I'm no stranger to alternative means for running startup commands (I did, after all, have Annvix using <a href="/Annvix:User_Guide/Services" title="Annvix:User Guide/Services">Annvix:User_Guide/Services</a> runit to handle boot with a custom script called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">srv</span> to handle all the service management stuff (similar to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span>).
-</p>
-<p>Now I need to learn a new system which is quite a bit different from both and reminds me a lot of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">launchd</span> on OS X.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Command_Comparison"><span class="tocnumber">1</span> <span class="toctext">Command Comparison</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Boot_Commands"><span class="tocnumber">2</span> <span class="toctext">Boot Commands</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Command_Comparison"><span class="tocnumber">1</span> <span class="toctext">Command Comparison</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Boot_Commands"><span class="tocnumber">2</span> <span class="toctext">Boot Commands</span></a></li>
 <li class="toclevel-1 tocsection-3"><a href="#Runlevels"><span class="tocnumber">3</span> <span class="toctext">Runlevels</span></a>
 <ul>
-<li class="toclevel-2 tocsection-4"><a href="#Changing_the_Default_Runlevel"><span class="tocnumber">3.1</span> <span class="toctext">Changing the Default Runlevel</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Changing_the_Default_Runlevel"><span class="tocnumber">3.1</span> <span class="toctext">Changing the Default Runlevel</span></a></li>
 </ul>
 </li>
 <li class="toclevel-1 tocsection-5"><a href="#Systemctl_Commands_In_Depth"><span class="tocnumber">4</span> <span class="toctext">Systemctl Commands In Depth</span></a>
 <ul>
-<li class="toclevel-2 tocsection-6"><a href="#Systemctl_Show"><span class="tocnumber">4.1</span> <span class="toctext">Systemctl Show</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Systemctl_Show"><span class="tocnumber">4.1</span> <span class="toctext">Systemctl Show</span></a></li>
 </ul>
 </li>
 <li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h1><span class="mw-headline" id="Command_Comparison">Command Comparison</span></h1>
-<p>Out of the box, we're used to commands like "service foo restart" or "chkconfig --add foo" and so forth.  In Fedora 17, you could still use these commands and they would transparently go to the equivalent <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> command.  But some stuff doesn't work (like "chkconfig --list" doesn't really list the systemd service units), and it's just plain old better to learn the real commands for the day when these wrappers are deprecated.
+            <p>SysV-init has been a staple of Linux for years and years.  In recent versions of Fedora (current version is 18) this has changed to using <a class="external text" href="http://www.freedesktop.org/wiki/Software/systemd" rel="nofollow">systemd</a>.  I’m no stranger to alternative means for running startup commands (I did, after all, have Annvix using <a href="/Annvix:User_Guide/Services" title="Annvix:User Guide/Services">Annvix:User_Guide/Services</a> runit to handle boot with a custom script called <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">srv</span> to handle all the service management stuff (similar to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">service</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span>).
+</p>
+<p>Now I need to learn a new system which is quite a bit different from both and reminds me a lot of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">launchd</span> on <span class="caps">OS</span> X.
+</p>
+
+<h1><span class="mw-headline" id="Command_Comparison">Command Comparison</span></h1>
+<p>Out of the box, we’re used to commands like “service foo restart” or “chkconfig —add foo” and so forth.  In Fedora 17, you could still use these commands and they would transparently go to the equivalent <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> command.  But some stuff doesn’t work (like “chkconfig —list” doesn’t really list the systemd service units), and it’s just plain old better to learn the real commands for the day when these wrappers are deprecated.
 </p>
 <table border="0">
 <tr>
@@ -108,8 +126,8 @@
 <th style="background:#efefef;" width="55%"> What it does
 </th></tr>
 <tr>
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list</span> </td>
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl list-units -t service --all</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig —list</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl list-units -t service —all</span> </td>
 <td> List available services; the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> command however does not list targets, so unlike <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span> we do not know what runlevel (or boot target) a specific service will start in
 </td></tr>
 <tr style="background: #f8f8f8;">
@@ -139,12 +157,12 @@
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service X status</span> </td>
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl status X.service</span> or<br /> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl is-active X.service</span> </td>
-<td> Displays the status of service X; the first command displays the path to the loaded service unit file, the process, PID, etc.  The second command will simply display whether or not the service is active (good for shell scripts, etc.)
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl status X.service</span> or<br/> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl is-active X.service</span> </td>
+<td> Displays the status of service X; the first command displays the path to the loaded service unit file, the process, <span class="caps">PID</span>, etc.  The second command will simply display whether or not the service is active (good for shell scripts, etc.)
 </td></tr>
 <tr style="background: #f8f8f8;">
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list | grep '3:on'</span> </td>
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -p show "Wants" multi-user.target | cat</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig —list | grep ‘3:on’</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -p show “Wants” multi-user.target | cat</span> </td>
 <td> Lists all services enabled for runlevel 3 (or multi-user/network/text);see <a href="#Systemctl_Show">#Systemctl_Show</a> below.
 </td></tr>
 <tr>
@@ -153,7 +171,7 @@
 <td> Switch to runlevel 3 (or multi-user.target).  See <a href="#Runlevels">#Runlevels</a> for more details.
 </td></tr>
 <tr style="background: #f8f8f8;">
-<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list</span> </td>
+<td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig —list</span> </td>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -t service</span> </td>
 <td> Show all loaded services (running, failed, active, inactive, etc.).  Can use target, etc. as well; no arguments shows everything loaded
 </td></tr>
@@ -162,16 +180,16 @@
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl -t service | grep running</span> </td>
 <td> Show all currently running services
 </td></tr></table>
-<h1><span class="mw-headline" id="Boot_Commands">Boot Commands</span></h1>
-<p>With systemd, if you want to boot into the non-default runlevel (or target) you need to edit the GRUB boot command for the linux kernel and options to specify the target to boot into.  The default is typically graphical.target.  You can do this by appending to the boot command:
+<h1><span class="mw-headline" id="Boot_Commands">Boot Commands</span></h1>
+<p>With systemd, if you want to boot into the non-default runlevel (or target) you need to edit the <span class="caps">GRUB</span> boot command for the linux kernel and options to specify the target to boot into.  The default is typically graphical.target.  You can do this by appending to the boot command:
 </p>
 <pre>
 linux /vmlinuz-3.7.2-204.fc18.i686.PAE root= [...] quiet systemd.unit=multi-user.target
 </pre>
-<p>Other valid targets include "rescue.target" (like runlevel 1), "emergency.target" (like using init=/bin/sh).  Further details can be found via <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">man systemd.special</span>.
+<p>Other valid targets include “rescue.target” (like runlevel 1), “emergency.target” (like using init=/bin/sh).  Further details can be found via <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">man systemd.special</span>.
 </p>
 <h1><span class="mw-headline" id="Runlevels">Runlevels</span></h1>
-<p>SysV-init had the concept of runlevels, defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inittab</span>, for example:
+<p>SysV-init had the concept of runlevels, defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inittab</span>, for example:
 </p>
 <pre>
 # Default runlevel. The runlevels used are:
@@ -185,7 +203,7 @@ linux /vmlinuz-3.7.2-204.fc18.i686.PAE root= [...] quiet systemd.unit=multi-user
 #
 id:3:initdefault:
 </pre>
-<p>The above will boot into runlevel 3 by default.  Systemd does not have the same concept of runlevels, it uses targets instead.  You can get the output of available targets using:
+<p>The above will boot into runlevel 3 by default.  Systemd does not have the same concept of runlevels, it uses targets instead.  You can get the output of available targets using:
 </p>
 <pre>
 % systemctl list-units -t target --all
@@ -196,38 +214,38 @@ multi-user.target            loaded active   active     Multi-User
 rescue.target                loaded inactive dead       Rescue Mode
 shutdown.target              loaded inactive dead       Shutdown
 </pre>
-<p>I've snipped out the targets that are not really relevant as "runlevels" (for instance the "unmount.target" isn't really a runlevel you would boot into, so I didn't include it in the above output).  Again, if you want to see what any of these load, use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p "Wants" rescue.target</span>, which will show ou what services and/or targets this target (or runlevel) wants.
+<p>I’ve snipped out the targets that are not really relevant as “runlevels” (for instance the “unmount.target” isn’t really a runlevel you would boot into, so I didn’t include it in the above output).  Again, if you want to see what any of these load, use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p “Wants” rescue.target</span>, which will show ou what services and/or targets this target (or runlevel) wants.
 </p>
-<p>Also note that there is some correspondance with the initial runlevel; for instance <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">multi-user.target</span> can also be called as <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">runlevel3.target</span>.  You can look at <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/lib/systemd/system/runlevel*</span> to see which runlevel target corresponds to the systemctl target, for instance:
+<p>Also note that there is some correspondance with the initial runlevel; for instance <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">multi-user.target</span> can also be called as <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">runlevel3.target</span>.  You can look at <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/lib/systemd/system/runlevel*</span> to see which runlevel target corresponds to the systemctl target, for instance:
 </p>
 <pre>
  ls /lib/systemd/system/runlevel3.target -al
 lrwxrwxrwx. 1 root root 17 Jan  8 21:19 /lib/systemd/system/runlevel3.target -&gt; multi-user.target
 </pre>
-<h2><span class="mw-headline" id="Changing_the_Default_Runlevel">Changing the Default Runlevel</span></h2>
+<h2><span class="mw-headline" id="Changing_the_Default_Runlevel">Changing the Default Runlevel</span></h2>
 <p>Changing the default runlevel is done by changing the symlink of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/systemd/system/default.target</span>:
 </p>
 <pre>
 % ls -al /etc/systemd/system/default.target
 lrwxrwxrwx. 1 root root 36 May 28  2012 /etc/systemd/system/default.target -&gt; /lib/systemd/system/runlevel5.target
 </pre>
-<p>So if you wanted to boot into runlevel3 (multi-user.target) by default, you would:
+<p>So if you wanted to boot into runlevel3 (multi-user.target) by default, you would:
 </p>
 <pre>
 # cd /etc/systemd/system
 # rm default.target
 # ln -s /lib/systemd/system/multi-user.target default.target
 </pre>
-<h1><span class="mw-headline" id="Systemctl_Commands_In_Depth">Systemctl Commands In Depth</span></h1>
-<p>Here we'll look at a few commands in depth to try to make sense of them.
+<h1><span class="mw-headline" id="Systemctl_Commands_In_Depth">Systemctl Commands In Depth</span></h1>
+<p>Here we’ll look at a few commands in depth to try to make sense of them.
 </p>
-<h2><span class="mw-headline" id="Systemctl_Show">Systemctl Show</span></h2>
-<p>One of the more annoying things about <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> is the show command.  This is probably because it behaves quite differently from what I would expect from <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> and it's worth discussing in a little more depth.
+<h2><span class="mw-headline" id="Systemctl_Show">Systemctl Show</span></h2>
+<p>One of the more annoying things about <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> is the show command.  This is probably because it behaves quite differently from what I would expect from <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> and it’s worth discussing in a little more depth.
 </p>
-<p>The primary issue is that when you run <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p "Wants" multi-user.target</span> it pipes it to less, so you don't really get to see all of the commands at once.  Not sure why it does this, but it's annoying.  Piping that output to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">cat</span> instead gives us the whole thing together:
+<p>The primary issue is that when you run <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">systemctl show -p “Wants” multi-user.target</span> it pipes it to less, so you don’t really get to see all of the commands at once.  Not sure why it does this, but it’s annoying.  Piping that output to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">cat</span> instead gives us the whole thing together:
 </p>
 <pre>
-% systemctl show -p &quot;Wants&quot; multi-user.target | cat
+% systemctl show -p "Wants" multi-user.target | cat
 Wants=systemd-update-utmp-runlevel.service sm-client.service abrt-vmcore.service remote-fs.target abrt-xorg.service apcupsd.service sssd.service
 mcelog.service nfs-idmap.service nfs-lock.service auditd.service crond.service sendmail.service sshd.service rsyslog.service acpid.service
 avahi-daemon.service netatalk.service ntpd.service rpcbind.service NetworkManager.service chronyd.service httpd.service arp-ethers.service
@@ -235,38 +253,38 @@ atd.service irqbalance.service abrt-oops.service certmonger.service mysqld.servi
 plymouth-quit-wait.service systemd-logind.service dbus.service getty.target systemd-ask-password-wall.path plymouth-quit.service
 systemd-user-sessions.service rc-local.service nrpe.service tcsd.service
 </pre>
-<p>This shows all the services and targets that the multi-user.target wants, which is our non-GUI runlevel (essentially runlevel 3).  So if we want to see what starts with our graphical target:
+<p>This shows all the services and targets that the multi-user.target wants, which is our non-<span class="caps">GUI</span> runlevel (essentially runlevel 3).  So if we want to see what starts with our graphical target:
 </p>
 <pre>
-% systemctl show -p &quot;Wants&quot; graphical.target | cat
+% systemctl show -p "Wants" graphical.target | cat
 Wants=systemd-readahead-collect.service systemd-readahead-replay.service systemd-update-utmp-runlevel.service system-setup-keyboard.service
 prefdm.service nrpe.service tcsd.service atieventsd.service
 </pre>
-<p>Based on the above, it doesn't look like the graphical target wants a whole heck of a lot.  This is quite different from the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> output where you see all the services and whether or not they are enabled in a particular runlevel.  Here, at a quick glance, we would be thinking that things like dbus, getty, sshd, etc. aren't being started.  But we need to look at the dependencies between targets to know for sure what is going on.  To that end:
+<p>Based on the above, it doesn’t look like the graphical target wants a whole heck of a lot.  This is quite different from the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig</span> output where you see all the services and whether or not they are enabled in a particular runlevel.  Here, at a quick glance, we would be thinking that things like dbus, getty, sshd, etc. aren’t being started.  But we need to look at the dependencies between targets to know for sure what is going on.  To that end:
 </p>
 <pre>
-% systemctl show -p &quot;RequiredBy&quot; multi-user.target| cat
+% systemctl show -p "RequiredBy" multi-user.target| cat
 RequiredBy=graphical.target
 </pre>
 <p>and:
 </p>
 <pre>
-% systemctl show -p &quot;Requires&quot; graphical.target | cat
+% systemctl show -p "Requires" graphical.target | cat
 Requires=multi-user.target
 </pre>
-<p>So now we see that multi-user.target is required by graphical.target (and likewise that graphical.target requires multi-user.target).  This means that the multi-user.target must be loaded before graphical.target can be loaded.  In other words, for the graphical.target we can add the "Wants" of multi-user.target to its "Wants" list.  Confused yet?  It's not bad, but just annoying.  With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> you need to to run two commands ("Wants" on both targets) versus a simple <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span> command (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig --list | grep '5:on'</span>).
+<p>So now we see that multi-user.target is required by graphical.target (and likewise that graphical.target requires multi-user.target).  This means that the multi-user.target must be loaded before graphical.target can be loaded.  In other words, for the graphical.target we can add the “Wants” of multi-user.target to its “Wants” list.  Confused yet?  It’s not bad, but just annoying.  With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">systemctl</span> you need to to run two commands (“Wants” on both targets) versus a simple <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">chkconfig</span> command (<span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chkconfig —list | grep ‘5:on’</span>).
 </p>
 <h1><span class="mw-headline" id="References">References</span></h1>
-<p>Here are links to other systemd documentation and articles worth reading:
+<p>Here are links to other systemd documentation and articles worth reading:
 </p>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd">Official systemd Home</a>
-<ul><li> <a rel="nofollow" class="external text" href="http://freedesktop.org/wiki/Software/systemd/Optimizations">Official systemd Optimizations</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions">Official systemd FAQ</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks">Official systemd Tips And Tricks</a></li></ul></li>
-<li> <a rel="nofollow" class="external text" href="http://fedoraproject.org/wiki/Systemd">systemd on Fedora</a></li>
-<li> <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/Systemd">systemd on ArchLinux</a>
-<ul><li> <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/Systemd_FAQ">systemd FAQ (ArchLinux)</a></li></ul></li>
-<li> <a rel="nofollow" class="external text" href="http://0pointer.de/public/systemd-ebook-psankar.pdf">systemd for Administrators E-Book (PDF)</a></li></ul>
+<ul><li> <a class="external text" href="http://www.freedesktop.org/wiki/Software/systemd" rel="nofollow">Official systemd Home</a>
+<ul><li> <a class="external text" href="http://freedesktop.org/wiki/Software/systemd/Optimizations" rel="nofollow">Official systemd Optimizations</a></li>
+<li> <a class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions" rel="nofollow">Official systemd <span class="caps">FAQ</span></a></li>
+<li> <a class="external text" href="http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks" rel="nofollow">Official systemd Tips And Tricks</a></li></ul></li>
+<li> <a class="external text" href="http://fedoraproject.org/wiki/Systemd" rel="nofollow">systemd on Fedora</a></li>
+<li> <a class="external text" href="https://wiki.archlinux.org/index.php/Systemd" rel="nofollow">systemd on ArchLinux</a>
+<ul><li> <a class="external text" href="https://wiki.archlinux.org/index.php/Systemd_FAQ" rel="nofollow">systemd <span class="caps">FAQ</span> (ArchLinux)</a></li></ul></li>
+<li> <a class="external text" href="http://0pointer.de/public/systemd-ebook-psankar.pdf" rel="nofollow">systemd for Administrators E-Book (<span class="caps">PDF</span>)</a></li></ul>
             
 
 
@@ -349,6 +367,9 @@ Requires=multi-user.target
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

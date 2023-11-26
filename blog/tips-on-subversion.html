@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren’t linked on my blog. Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that’s not surprising. =) Anyways, Automate configuration backups with …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, subversion, Linux, " />
 
-<meta property="og:title" content="Tips on Subversion "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/tips-on-subversion.html" />
-<meta property="og:description" content="These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren&#39;t linked on my blog. Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that&#39;s not surprising. =) Anyways, Automate configuration backups with subversion is …" />
+<meta property="og:title" content="Tips on Subversion "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/tips-on-subversion" />
+<meta property="og:description" content="These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren’t linked on my blog. Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that’s not surprising. =) Anyways, Automate configuration backups with …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-12-21T12:00:00-07:00" />
-<meta name="twitter:title" content="Tips on Subversion ">
-<meta name="twitter:description" content="These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren&#39;t linked on my blog. Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that&#39;s not surprising. =) Anyways, Automate configuration backups with subversion is …">
+<meta name="twitter:title" content="Tips on Subversion ">
+<meta name="twitter:description" content="These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren’t linked on my blog. Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that’s not surprising. =) Anyways, Automate configuration backups with …">
 
-        <title>Tips on Subversion  · Annvix
+        <title>Tips on Subversion  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/tips-on-subversion.html">
-                Tips on Subversion
+            <a href="https://vdanen.github.io/blog/tips-on-subversion">
+                Tips on&nbsp;Subversion
             </a>
         </h1>
     </header>
@@ -80,15 +93,19 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren't linked on my blog.  Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that's not surprising.  =)</p>
-<p>Anyways, <a href="http://articles.techrepublic.com/5100-1035-6142224.html">Automate configuration backups with subversion</a> is a quick way to use subversion to track configuration file changes.  It can be retro-fitted to work with anything really, but the sample is for committing and tracking changes to /etc/ in subversion.  I use it on all of my servers; it's awesome.</p>
-<p>Another subversion-related tip is <a href="http://blogs.techrepublic.com/opensource/?p=73">Automate subversion backups</a> which goes into handling automatic backups of subversion repositories.  Having experienced subversion corruption (once only, thankfully), I find this is a great way to ensure you have a working backup of subversion at all times.  It's a little brief, but does the job.  I've expanded on that to also dump single commits every time they're made so you have an outside-of-svn-constant-backup of stuff that can be used to reconstruct the svn repository easily.</p>
-<p>Anyone who knows me knows that I'm overly cautious and almost anal when it comes to backups of stuff.  =)</p>
+            <p>These are older tips I wrote for TechRepublic but I found myself needing to look them up before and realized they weren&#8217;t linked on my blog.  Of course, with over 200 articles written for TechRepublic over the last 7-8 years, that&#8217;s not surprising.&nbsp;=)</p>
+<p>Anyways, <a href="http://articles.techrepublic.com/5100-1035-6142224.html">Automate configuration backups with subversion</a> is a quick way to use subversion to track configuration file changes.  It can be retro-fitted to work with anything really, but the sample is for committing and tracking changes to /etc/ in subversion.  I use it on all of my servers; it&#8217;s&nbsp;awesome.</p>
+<p>Another subversion-related tip is <a href="http://blogs.techrepublic.com/opensource/?p=73">Automate subversion backups</a> which goes into handling automatic backups of subversion repositories.  Having experienced subversion corruption (once only, thankfully), I find this is a great way to ensure you have a working backup of subversion at all times.  It&#8217;s a little brief, but does the job.  I&#8217;ve expanded on that to also dump single commits every time they&#8217;re made so you have an outside-of-svn-constant-backup of stuff that can be used to reconstruct the svn repository&nbsp;easily.</p>
+<p>Anyone who knows me knows that I&#8217;m overly cautious and almost anal when it comes to backups of stuff.&nbsp;=)</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Tips%20on%C2%A0Subversion&url=https%3A//vdanen.github.io/blog/tips-on-subversion&hashtags=techmail,subversion" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/tips-on-subversion&title=Tips%20on%C2%A0Subversion&summary=These%20are%20older%20tips%20I%20wrote%20for%20TechRepublic%20but%20I%20found%20myself%20needing%20to%20look%20them%20up%20before%20and%20realized%20they%20weren%E2%80%99t%20linked%20on%20my%20blog.%20%20Of%20course%2C%20with%20over%20200%20articles%20written%20for%20TechRepublic%20over%20the%20last%207-8%20years%2C%20that%E2%80%99s%20not%20surprising.%C2%A0%3D%29%0AAnyways%2C%20Automate%20configuration%20backups%20with%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/tips-on-subversion" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -99,22 +116,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/converting-subversion-repositories-to-git" title="Converting Subversion repositories to Git">Converting Subversion repositories to Git</a></li>
+<li><a href="https://vdanen.github.io/blog/manage-dotfile-configuration-with-subversion" title="Manage dotfile configuration with subversion">Manage dotfile configuration with subversion</a></li>
+<li><a href="https://vdanen.github.io/blog/using-cornerstone-to-handle-subversion-on-the-mac" title="Using Cornerstone to handle Subversion on the Mac">Using Cornerstone to handle Subversion on the Mac</a></li>
+<li><a href="https://vdanen.github.io/blog/work-on-remote-subversion-repositories-locally-with-git" title="Work on remote Subversion repositories locally with Git">Work on remote Subversion repositories locally with Git</a></li>
+<li><a href="https://vdanen.github.io/blog/enterprise-subversion-gets-a-boost-with-cornerstone-2" title="Enterprise Subversion gets a boost with Cornerstone 2">Enterprise Subversion gets a boost with Cornerstone 2</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/filter-for-unwanted-mail-and-mailing-lists-with-procmail" title="Previous: Filter for unwanted mail and mailing lists with procmail">Filter for unwanted mail and mailing lists with procmail</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/annvix-30-release-released" title="Next: Annvix 3.0-RELEASE released">Annvix 3.0-RELEASE released</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-12-21T12:00:00-07:00">Fri 21 December 2007</time>
+            <time itemprop="dateCreated" datetime="2007-12-21T12:00:00-07:00">Dec 21, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#subversion-ref">subversion
+                <li><a href="https://vdanen.github.io/tags#subversion-ref">subversion
                     <span class="superscript">10</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -215,6 +251,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

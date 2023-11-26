@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I know I’ve written about this in the past (here and here), but I needed to do another conversion the other day that was similar, yet different. Previous posts talked about pulling parts of a subversion repository into a git repo — effectively taking one svn repo apart into multiple …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="Converting subversion to git redux "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/converting-subversion-to-git-redux.html" />
-<meta property="og:description" content="I know I&#39;ve written about this in the past (here and here), but I needed to do another conversion the other day that was similar, yet different. Previous posts talked about pulling parts of a subversion repository into a git repo -- effectively taking one svn repo apart into multiple git …" />
+<meta property="og:title" content="Converting subversion to git redux "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/converting-subversion-to-git-redux" />
+<meta property="og:description" content="I know I’ve written about this in the past (here and here), but I needed to do another conversion the other day that was similar, yet different. Previous posts talked about pulling parts of a subversion repository into a git repo — effectively taking one svn repo apart into multiple …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2013-04-27T17:00:00-06:00" />
-<meta name="twitter:title" content="Converting subversion to git redux ">
-<meta name="twitter:description" content="I know I&#39;ve written about this in the past (here and here), but I needed to do another conversion the other day that was similar, yet different. Previous posts talked about pulling parts of a subversion repository into a git repo -- effectively taking one svn repo apart into multiple git …">
+<meta name="twitter:title" content="Converting subversion to git redux ">
+<meta name="twitter:description" content="I know I’ve written about this in the past (here and here), but I needed to do another conversion the other day that was similar, yet different. Previous posts talked about pulling parts of a subversion repository into a git repo — effectively taking one svn repo apart into multiple …">
 
-        <title>Converting subversion to git redux  · Annvix
+        <title>Converting subversion to git redux  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/converting-subversion-to-git-redux.html">
-                Converting subversion to git redux
+            <a href="https://vdanen.github.io/blog/converting-subversion-to-git-redux">
+                Converting subversion to git&nbsp;redux
             </a>
         </h1>
     </header>
@@ -80,9 +93,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I know I've written about this in the past (<a href="/blog/figuring-this-git-thing-out">here</a> and <a href="/blog/dissecting-part-of-a-subversion-repo-to-git">here</a>), but I needed to do another conversion the other day that was similar, yet different.  Previous posts talked about pulling parts of a subversion repository into a git repo -- effectively taking one svn repo apart into multiple git repos.  This time I just needed to do a straight conversion, however I needed to exclude one single directory from ever being a part of the history of the repo.</p>
-<p>Since this was a fairly important repo to convert, I did a few trial runs first and ended up scripting it since there isn't just a single command to do what I needed.  Essentially, we are doing a git clone from a subversion repository (a standard one with trunk/, tags/, branches/ this time), but excluding one directory (we'll call it private).  I also wanted to convert the svn branches to tags since that's effectively what they were.  Also, since the git repository was not local, and for the sake of expediency I didn't want to tar something up and email it, we're taking our converted-and-cleaned-up new git repo, changing the upstream, and then pushing the whole thing to a remote bare repository.</p>
-<p>Ready?  (Note: a few lines are manually wrapped with '\' below)</p>
+            <p>I know I&#8217;ve written about this in the past (<a href="/blog/figuring-this-git-thing-out">here</a> and <a href="/blog/dissecting-part-of-a-subversion-repo-to-git">here</a>), but I needed to do another conversion the other day that was similar, yet different.  Previous posts talked about pulling parts of a subversion repository into a git repo &#8212; effectively taking one svn repo apart into multiple git repos.  This time I just needed to do a straight conversion, however I needed to exclude one single directory from ever being a part of the history of the&nbsp;repo.</p>
+<p>Since this was a fairly important repo to convert, I did a few trial runs first and ended up scripting it since there isn&#8217;t just a single command to do what I needed.  Essentially, we are doing a git clone from a subversion repository (a standard one with trunk/, tags/, branches/ this time), but excluding one directory (we&#8217;ll call it private).  I also wanted to convert the svn branches to tags since that&#8217;s effectively what they were.  Also, since the git repository was not local, and for the sake of expediency I didn&#8217;t want to tar something up and email it, we&#8217;re taking our converted-and-cleaned-up new git repo, changing the upstream, and then pushing the whole thing to a remote bare&nbsp;repository.</p>
+<p>Ready?  (Note: a few lines are manually wrapped with &#8216;&#39;&nbsp;below)</p>
 <pre>
 #!/bin/sh
 WORKDIR="/srv/svn2git/git"
@@ -119,18 +132,22 @@ git config master.merge refs/head/master
 git push --set-upstream origin master
 </pre>
 
-<p>And that is all there was too it.  The svn authors file was created ny using:</p>
+<p>And that is all there was too it.  The svn authors file was created ny&nbsp;using:</p>
 <pre>
 $ svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); \
 print $2" = "$2" <"$2">"}' | sort -u > authors-transform.txt
 </pre>
 
-<p>in the existing copy of the subversion repository that I had (and then mangling it to suit my needs, particularly changing it to add the committers' real names and email addresses as well).</p>
+<p>in the existing copy of the subversion repository that I had (and then mangling it to suit my needs, particularly changing it to add the committers&#8217; real names and email addresses as&nbsp;well).</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Converting%20subversion%20to%20git%C2%A0redux&url=https%3A//vdanen.github.io/blog/converting-subversion-to-git-redux" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/converting-subversion-to-git-redux&title=Converting%20subversion%20to%20git%C2%A0redux&summary=I%20know%20I%E2%80%99ve%20written%20about%20this%20in%20the%20past%20%28here%20and%20here%29%2C%20but%20I%20needed%20to%20do%20another%20conversion%20the%20other%20day%20that%20was%20similar%2C%20yet%20different.%20%20Previous%20posts%20talked%20about%20pulling%20parts%20of%20a%20subversion%20repository%20into%20a%20git%20repo%20%E2%80%94%20effectively%20taking%20one%20svn%20repo%20apart%20into%20multiple%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/converting-subversion-to-git-redux" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -141,13 +158,21 @@ print $2" = "$2" <"$2">"}' | sort -u > authors-transform.txt
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/bye-bye-google-reader" title="Previous: Bye bye Google Reader">Bye bye Google Reader</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail" title="Next: Of bugzilla, python, fetchmail, and procmail">Of bugzilla, python, fetchmail, and procmail</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2013-04-27T17:00:00-06:00">Sat 27 April 2013</time>
+            <time itemprop="dateCreated" datetime="2013-04-27T17:00:00-06:00">Apr 27, 2013</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -248,6 +273,9 @@ print $2" = "$2" <"$2">"}' | sort -u > authors-transform.txt
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

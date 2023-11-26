@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the “defacto” way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using OS X as an NFS Client "/>
-<meta property="og:url" content="https://vdanen.github.io/using_os_x_as_an_nfs_client.html" />
-<meta property="og:description" content="Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the &#34;defacto&#34; way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share …" />
+<meta property="og:title" content="Using OS X as an NFS Client "/>
+<meta property="og:url" content="https://vdanen.github.io/using_os_x_as_an_nfs_client" />
+<meta property="og:description" content="Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the “defacto” way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T20:34:00-06:00" />
-<meta name="twitter:title" content="Using OS X as an NFS Client ">
-<meta name="twitter:description" content="Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the &#34;defacto&#34; way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share …">
+<meta name="twitter:title" content="Using OS X as an NFS Client ">
+<meta name="twitter:description" content="Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the “defacto” way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share …">
 
-        <title>Using OS X as an NFS Client  · Annvix
+        <title>Using OS X as an NFS Client  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,23 +80,20 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_os_x_as_an_nfs_client.html"> Using OS X as an NFS Client  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_os_x_as_an_nfs_client"> Using <span class="caps">OS</span> X as an <span class="caps">NFS</span>&nbsp;Client  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the "defacto" way to share files in OS X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share files with Windows systems. When sharing files amongst my Linux machines, I've always chosen NFS. Fortunately, OS X can also use NFS. Unfortunately, it can be a little tricky for the first time user who wants to share files with their other OS X, Linux, or other NFS-exporting systems.
-</p>
-<p>There are two routes that can be taken. The first is to manually edit the NetInfo directory, which can be a little disturbing to those unfamiliar with it, and the second is to use an excellent shareware utility called <a rel="nofollow" class="external text" href="http://www.bresink.de/osx/NFSManager.html">NFS Manager</a>. NFS Manager is functionally unrestricted if you don't purchase a license; you just have to deal with a little nagware. But this utility is perhaps the simplest means of adding the ability to automount NFS shares on your OS X client systems.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#NFS_Manager"><span class="tocnumber">1</span> <span class="toctext">NFS Manager</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Using_NetInfo_Manager"><span class="tocnumber">2</span> <span class="toctext">Using NetInfo Manager</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Using_the_Command_Line"><span class="tocnumber">3</span> <span class="toctext">Using the Command Line</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Restarting_automount"><span class="tocnumber">4</span> <span class="toctext">Restarting automount</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#NFS_Manager"><span class="tocnumber">1</span> <span class="toctext"><span class="caps">NFS</span> Manager</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_NetInfo_Manager"><span class="tocnumber">2</span> <span class="toctext">Using NetInfo Manager</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Using_the_Command_Line"><span class="tocnumber">3</span> <span class="toctext">Using the Command Line</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Restarting_automount"><span class="tocnumber">4</span> <span class="toctext">Restarting automount</span></a></li>
 <li class="toclevel-1 tocsection-5"><a href="#Final_Notes"><span class="tocnumber">5</span> <span class="toctext">Final Notes</span></a>
 <ul>
 <li class="toclevel-2 tocsection-6"><a href="#References"><span class="tocnumber">5.1</span> <span class="toctext">References</span></a></li>
@@ -91,41 +101,47 @@
 </li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h2><span class="mw-headline" id="NFS_Manager">NFS Manager</span></h2>
-<p>Begin by downloading and copying NFS Manager to your {{file|/Applications directory. Once you have done this, open up a terminal to get to the command prompt. In order to use NFS Manager, you must know root's password. In order to know root's password, you must <i>have</i> one. By default, OS X does not come with a root password; everything is done via <a href="/Using_Sudo_to_Limit_Access" title="Using Sudo to Limit Access">Sudo</a>. However, adding a password for root is extremely simple. If you have administrative privileges on the OS X system, you can execute the following to set root's password:
+            <p>Having a fairly modest household network, without a single Windows machine in the mix, I find it quite irritating that the “defacto” way to share files in <span class="caps">OS</span> X is to use Samba. Nothing against Samba, of course, but I only want to use it if I need to share files with Windows systems. When sharing files amongst my Linux machines, I’ve always chosen <span class="caps">NFS</span>. Fortunately, <span class="caps">OS</span> X can also use <span class="caps">NFS</span>. Unfortunately, it can be a little tricky for the first time user who wants to share files with their other <span class="caps">OS</span> X, Linux, or other <span class="caps">NFS</span>-exporting systems.
+</p>
+<p>There are two routes that can be taken. The first is to manually edit the NetInfo directory, which can be a little disturbing to those unfamiliar with it, and the second is to use an excellent shareware utility called <a class="external text" href="http://www.bresink.de/osx/NFSManager.html" rel="nofollow"><span class="caps">NFS</span> Manager</a>. <span class="caps">NFS</span> Manager is functionally unrestricted if you don’t purchase a license; you just have to deal with a little nagware. But this utility is perhaps the simplest means of adding the ability to automount <span class="caps">NFS</span> shares on your <span class="caps">OS</span> X client systems.
+</p>
+
+<h2><span class="mw-headline" id="NFS_Manager"><span class="caps">NFS</span> Manager</span></h2>
+<p>Begin by downloading and copying <span class="caps">NFS</span> Manager to your {{file|/Applications directory. Once you have done this, open up a terminal to get to the command prompt. In order to use <span class="caps">NFS</span> Manager, you must know root’s password. In order to know root’s password, you must <i>have</i> one. By default, <span class="caps">OS</span> X does not come with a root password; everything is done via <a href="/Using_Sudo_to_Limit_Access" title="Using Sudo to Limit Access">Sudo</a>. However, adding a password for root is extremely simple. If you have administrative privileges on the <span class="caps">OS</span> X system, you can execute the following to set root’s password:
 </p>
 <pre>
 $ sudo su -
 # passwd root
 </pre>
-<p>You will be asked to provide root's password; I strongly recommend making it a hard one.
+<p>You will be asked to provide root’s password; I strongly recommend making it a hard one.
 </p>
-<p>Once this is accomplished, fire up NFS Manager. Before you can make any changes, you need to authenticate yourself. Unlike most OS X apps requiring authentication, NFS Manager wants root's password, not your own. Once you have provided the password, you can add mounts. You can add, remove, or edit mount points. To add a mount point, click on the "Add Entry" button on the toolbar and fill in the appropriate fields.
+<p>Once this is accomplished, fire up <span class="caps">NFS</span> Manager. Before you can make any changes, you need to authenticate yourself. Unlike most <span class="caps">OS</span> X apps requiring authentication, <span class="caps">NFS</span> Manager wants root’s password, not your own. Once you have provided the password, you can add mounts. You can add, remove, or edit mount points. To add a mount point, click on the “Add Entry” button on the toolbar and fill in the appropriate fields.
 </p>
-<p>The "NFS Server" field is for the FQDN or IP address of the server exporting the NFS mounts. The "NFS Share" is the mount point that the server is exporting. For the options, the defaults are good, however if the client is to have write access to the mounts, you may wish to turn off "Connect as read-only folder".
+<p>The “<span class="caps">NFS</span> Server” field is for the <span class="caps">FQDN</span> or <span class="caps">IP</span> address of the server exporting the <span class="caps">NFS</span> mounts. The “<span class="caps">NFS</span> Share” is the mount point that the server is exporting. For the options, the defaults are good, however if the client is to have write access to the mounts, you may wish to turn off “Connect as read-only folder”.
 </p>
-<p>Once you've added your mounts, you'll be able to activate your changes, which tells the automounter about your NFS mounts so they can be mounted automatically, as required. The benefit to using the automounter is that if the NFS server isn't available (you're away from the network, the machine is turned off, etc.) your system won't be tied up with hung or stale NFS connections. When hard mounting, if this happens, sometimes the only way you can "fix" the system is by rebooting, or by waiting a few minutes for it to time out. There is really no scenario where a hard mount would be preferred to an auto mount. The other benefit is that automounted shares are only mounted when they are in use; if you aren't using it, the system unmounts it.
+<p>Once you’ve added your mounts, you’ll be able to activate your changes, which tells the automounter about your <span class="caps">NFS</span> mounts so they can be mounted automatically, as required. The benefit to using the automounter is that if the <span class="caps">NFS</span> server isn’t available (you’re away from the network, the machine is turned off, etc.) your system won’t be tied up with hung or stale <span class="caps">NFS</span> connections. When hard mounting, if this happens, sometimes the only way you can “fix” the system is by rebooting, or by waiting a few minutes for it to time out. There is really no scenario where a hard mount would be preferred to an auto mount. The other benefit is that automounted shares are only mounted when they are in use; if you aren’t using it, the system unmounts it.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Nfsmanager.png" alt="Nfsmanager" class="img-responsive" /></center></p>
-<p>When this is complete, you can point the terminal or the Finder over to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers</span> and the NFS server's name should be listed there. Clicking on the name or changing to that directory will activate the mount and you should be browsing your NFS mounts in no time.
+<p><center><img alt="Nfsmanager" class="img-responsive" src="https://vdanen.github.io/images/Nfsmanager.png"/></center></p>
+<p>When this is complete, you can point the terminal or the Finder over to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers</span> and the <span class="caps">NFS</span> server’s name should be listed there. Clicking on the name or changing to that directory will activate the mount and you should be browsing your <span class="caps">NFS</span> mounts in no time.
 </p>
-<h2><span class="mw-headline" id="Using_NetInfo_Manager">Using NetInfo Manager</span></h2>
-<p>The NetInfo Manager is a GUI tool to administer your NetInfo directory. You can find it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Applications/Utilities</span>. When you fire up the program, you will need to authenticate as an administrator on the machine by clicking the lock icon at the bottom of the window. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mounts</span> directory should already exist, so click on it. This is the information the automounter looks at when looking for directories to mount.
+<h2><span class="mw-headline" id="Using_NetInfo_Manager">Using NetInfo Manager</span></h2>
+<p>The NetInfo Manager is a <span class="caps">GUI</span> tool to administer your NetInfo directory. You can find it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Applications/Utilities</span>. When you fire up the program, you will need to authenticate as an administrator on the machine by clicking the lock icon at the bottom of the window. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mounts</span> directory should already exist, so click on it. This is the information the automounter looks at when looking for directories to mount.
 </p>
-<p>Add a new entry by clicking the "New" button on the toolbar. A new entry will appear called "new_directory". Click on this and then move to the bottom pane in the window. An existing property will be there, the "name" property. Double-click on the value for this property (currently "new_directory") and change the value to something more meaningful; the NFS share to mount. For example, you could use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">files.linsec.vx:/mp3</span> (obviously change this to the NFS share you wish to mount).
+<p>Add a new entry by clicking the “New” button on the toolbar. A new entry will appear called “new_directory”. Click on this and then move to the bottom pane in the window. An existing property will be there, the “name” property. Double-click on the value for this property (currently “new_directory”) and change the value to something more meaningful; the <span class="caps">NFS</span> share to mount. For example, you could use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">files.linsec.vx:/mp3</span> (obviously change this to the <span class="caps">NFS</span> share you wish to mount).
 </p>
-<p>Enter the "Directory" menu on the menubar and select "New Property". You will need to add three new properties, so you may as well create all three now. Moving back to our properties pane, change the properties to "type", "opts", and "dir". You can also use "vfstype" rather than "type" (this is what NFS Manager does).
+<p>Enter the “Directory” menu on the menubar and select “New Property”. You will need to add three new properties, so you may as well create all three now. Moving back to our properties pane, change the properties to “type”, “opts”, and “dir”. You can also use “vfstype” rather than “type” (this is what <span class="caps">NFS</span> Manager does).
 </p>
-<p>When you've changed the property names accordingly, modify the values for each property. The "type" (or "vfstype") value should be "nfs". The "dir" value should be where on the local filesystem you want this share mounted. Finally, for "opts" you can leave it blank, or add some options. Because each option will need it's own value, you will need to add more values to the property, which can be accomplished by going to the "Directory" menu on the menubar and selecting "New Value". Add three new values (while having the "opts" property highlighted). Back in the properties pane, make the values "-s", "-P", "-b", and "net". Each item will have it's own place in the values for "opts".
+<p>When you’ve changed the property names accordingly, modify the values for each property. The “type” (or “vfstype”) value should be “nfs”. The “dir” value should be where on the local filesystem you want this share mounted. Finally, for “opts” you can leave it blank, or add some options. Because each option will need it’s own value, you will need to add more values to the property, which can be accomplished by going to the “Directory” menu on the menubar and selecting “New Value”. Add three new values (while having the “opts” property highlighted). Back in the properties pane, make the values “-s”, “-P”, “-b”, and “net”. Each item will have it’s own place in the values for “opts”.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Nfs_netinfo.png" alt="Nfs_netinfo" class="img-responsive" /></center></p>
-<p>Once you are done with the entry, click on any other directory in NetInfo Manager and you will be asked to save your changes. When you do, you will just need to go to the commandline and send a HUP signal to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> (see Restarting automount below).
+<p><center><img alt="Nfs_netinfo" class="img-responsive" src="https://vdanen.github.io/images/Nfs_netinfo.png"/></center></p>
+<p>Once you are done with the entry, click on any other directory in NetInfo Manager and you will be asked to save your changes. When you do, you will just need to go to the commandline and send a <span class="caps">HUP</span> signal to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> (see Restarting automount below).
 </p>
-<h2><span class="mw-headline" id="Using_the_Command_Line">Using the Command Line</span></h2>
-<p>Finally, you can also configure the client using the NetInfo command line tools. To do this, execute the following commands (substituting the NFS server and path information, of course):
+<h2><span class="mw-headline" id="Using_the_Command_Line">Using the Command Line</span></h2>
+<p>Finally, you can also configure the client using the NetInfo command line tools. To do this, execute the following commands (substituting the <span class="caps">NFS</span> server and path information, of course):
 </p>
 <pre>
 $ sudo nicl . -create /mounts/files.linsec.vx:\\/mp3
@@ -136,32 +152,32 @@ $ sudo nicl . -append /mounts/files.linsec.vx:\\/mp3 opts -b
 $ sudo nicl . -append /mounts/files.linsec.vx:\\/mp3 opts net
 $ sudo nicl . -append /mounts/files.linsec.vx:\\/mp3 dir /private/mp3
 </pre>
-<p>These commands do a few things. The first command uses <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nicl</span> to create the NetInfo entry for the NFS export <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">files.linsec.vx:/mp3</span> (the server is <i>files.linsec.vx</i> and the mount point is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mp3</span>). NetInfo uses forward slashes to separate path components, so any forward slashes required for our NFS directory must be escaped (with a double back-slash). In other words, if you have an NFS share of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mnt/BIG/2</span> you would have to write it as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">\\/mnt\\/BIG\\/2</span>.
+<p>These commands do a few things. The first command uses <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nicl</span> to create the NetInfo entry for the <span class="caps">NFS</span> export <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">files.linsec.vx:/mp3</span> (the server is <i>files.linsec.vx</i> and the mount point is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mp3</span>). NetInfo uses forward slashes to separate path components, so any forward slashes required for our <span class="caps">NFS</span> directory must be escaped (with a double back-slash). In other words, if you have an <span class="caps">NFS</span> share of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/mnt/<span class="caps">BIG</span>/2</span> you would have to write it as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">\/mnt\/<span class="caps">BIG</span>\/2</span>.
 </p>
-<p>The last set of commands set some properties for the entry. The "type" must be set to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nfs</span>, the "opts" can be set to whatever you like, but "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-s -P -b net</span>" is a good default (change this to "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-b ro net</span>" if you want the mount to be read-only). Each value to the "opts" property must be set by it's own call to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nicl</span>. Finally, you must tell NetInfo the "dir", or local directory where this mount should be mounted (in this case, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/mp3</span>). Note that you do not need to escape forward slashes in the path because this is a value, not part of the NetInfo directory.
+<p>The last set of commands set some properties for the entry. The “type” must be set to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nfs</span>, the “opts” can be set to whatever you like, but “<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-s -P -b net</span>” is a good default (change this to “<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-b ro net</span>” if you want the mount to be read-only). Each value to the “opts” property must be set by it’s own call to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">nicl</span>. Finally, you must tell NetInfo the “dir”, or local directory where this mount should be mounted (in this case, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/mp3</span>). Note that you do not need to escape forward slashes in the path because this is a value, not part of the NetInfo directory.
 </p>
-<h2><span class="mw-headline" id="Restarting_automount">Restarting automount</span></h2>
-<p>You will need to make <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> aware of your changes and this can be done by sending a HUP to the automount process:
+<h2><span class="mw-headline" id="Restarting_automount">Restarting automount</span></h2>
+<p>You will need to make <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> aware of your changes and this can be done by sending a <span class="caps">HUP</span> to the automount process:
 </p>
 <pre>
 $ sudo kill -HUP `cat /var/run/automount.pid`
 </pre>
-<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
-<p>You can have the local mount point anywhere on the system, it's entirely up to you. What <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> does is make that mount point a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/private/Network/Servers/hostname</span>. The defacto "default" for where these mounts should go is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers/hostname</span>, and if you use a directory that isn't available (ie. doesn't exist) in your NetInfo directory, it will default to this location (which is as good as any, and flows with the system).
+<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
+<p>You can have the local mount point anywhere on the system, it’s entirely up to you. What <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">automount</span> does is make that mount point a symlink to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/private/Network/Servers/hostname</span>. The defacto “default” for where these mounts should go is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers/hostname</span>, and if you use a directory that isn’t available (ie. doesn’t exist) in your NetInfo directory, it will default to this location (which is as good as any, and flows with the system).
 </p>
-<p>Also, if you wish to see the mount information but don't feel like firing up NetInfo Manager, you can do so by executing, in a terminal:
+<p>Also, if you wish to see the mount information but don’t feel like firing up NetInfo Manager, you can do so by executing, in a terminal:
 </p>
 <pre>
 $ nidump -r /mounts .
 </pre>
-<p>This will give you a rather horrid looking map of the configured mounts, but it's easy enough to read and understand.
+<p>This will give you a rather horrid looking map of the configured mounts, but it’s easy enough to read and understand.
 </p>
-<p><b>NOTE:</b> It looks as if the "dir" property is ignored in NetInfo, at least for OS X 10.2 (and likely higher). Because some documents make reference to this setting, I believe it is pertinent for older versions of OS X, however in 10.2, everything gets mounted in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers/hostname</span> so if you're looking for the mountpoint you defined and don't find it, take a look there and you should find it. If you, for whatever reason, require that it be mounted in a certain place (for instance, if you wish to automount <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Users</span>), then create a symlink manually pointing to the appropriate directory.
+<p><b><span class="caps">NOTE</span>:</b> It looks as if the “dir” property is ignored in NetInfo, at least for <span class="caps">OS</span> X 10.2 (and likely higher). Because some documents make reference to this setting, I believe it is pertinent for older versions of <span class="caps">OS</span> X, however in 10.2, everything gets mounted in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Network/Servers/hostname</span> so if you’re looking for the mountpoint you defined and don’t find it, take a look there and you should find it. If you, for whatever reason, require that it be mounted in a certain place (for instance, if you wish to automount <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Users</span>), then create a symlink manually pointing to the appropriate directory.
 </p>
-<p>From the three different methods noted for configuring your OS X machine to be an NFS client, I highly recommend using NFS Manager. It makes it extremely easy to configure, and the nagware isn't that big of a deal considering how little you'll end up using the software (how many times can you really create NFS mounts?). Even if you're comfortable with the commandline or modifying NetInfo directly using the GUI, it still takes twice as long to do with Apple's tools as it does with NFS Manager.
+<p>From the three different methods noted for configuring your <span class="caps">OS</span> X machine to be an <span class="caps">NFS</span> client, I highly recommend using <span class="caps">NFS</span> Manager. It makes it extremely easy to configure, and the nagware isn’t that big of a deal considering how little you’ll end up using the software (how many times can you really create <span class="caps">NFS</span> mounts?). Even if you’re comfortable with the commandline or modifying NetInfo directly using the <span class="caps">GUI</span>, it still takes twice as long to do with Apple’s tools as it does with <span class="caps">NFS</span> Manager.
 </p>
 <h3><span class="mw-headline" id="References">References</span></h3>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.bresink.de/osx/NFSManager.html">NFSManager</a></li></ul>
+<ul><li> <a class="external text" href="http://www.bresink.de/osx/NFSManager.html" rel="nofollow">NFSManager</a></li></ul>
             
 
 
@@ -244,6 +260,9 @@ $ nidump -r /mounts .
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

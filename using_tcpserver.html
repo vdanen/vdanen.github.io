@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="If you’ve ever used qmail or djbdns, you’ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using tcpserver "/>
-<meta property="og:url" content="https://vdanen.github.io/using_tcpserver.html" />
-<meta property="og:description" content="If you&#39;ve ever used qmail or djbdns, you&#39;ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries. In other …" />
+<meta property="og:title" content="Using tcpserver "/>
+<meta property="og:url" content="https://vdanen.github.io/using_tcpserver" />
+<meta property="og:description" content="If you’ve ever used qmail or djbdns, you’ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T15:19:00-06:00" />
-<meta name="twitter:title" content="Using tcpserver ">
-<meta name="twitter:description" content="If you&#39;ve ever used qmail or djbdns, you&#39;ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries. In other …">
+<meta name="twitter:title" content="Using tcpserver ">
+<meta name="twitter:description" content="If you’ve ever used qmail or djbdns, you’ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries …">
 
-        <title>Using tcpserver  · Annvix
+        <title>Using tcpserver  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,126 +80,131 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_tcpserver.html"> Using tcpserver  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_tcpserver"> Using&nbsp;tcpserver  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>If you've ever used qmail or djbdns, you've used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the TCP connection to the particular program to perform email reception or DNS queries. In other words, tcpserver is very similar to other programs that have been used with Mandrakelinux: inetd, which is no longer used, and xinetd, which is the current "super server" in use. tcpserver competes with these products, and is written by the same author of qmail and djbdns. Right there, one word comes to mind: security. Wait, there's one more: non-standard. At least, non-standard in terms of what you might be used to; it doesn't use flat configuration files like xinetd or inetd do, and operates in a very different manner.
-</p>
-<p>This tutorial is here to help you make use of tcpserver. tcpserver is a secure replacement for inetd. I won't argue the benefits of using either tcpserver or xinetd; both are equally efficient programs in my opinion. xinetd is more secure than inetd, but it has also had a somewhat checkered past as well (see <a rel="nofollow" class="external text" href="http://www.mandrakesoft.com/security/advisories?name=MDKSA-2001:076">MDKSA-2001:076</a>); however, the new release fixing those vulnerabilities (version 2.3.0) was due to Solar Designer's hard work, and as a result one can feel relatively confident that xinetd is more secure than other choices.
-</p>
-<p>tcpserver comes in the <a rel="nofollow" class="external text" href="http://cr.yp.to/ucspi-tcp.html">ucspi-tcp</a> package, which also provides the tcpclient program, which makes a TCP connection and runs a program of your choice. Using tcpserver and tcpclient, you can have programs not meant to talk to each other via TCP/IP, do exactly that. It also comes with a lot of other little programs and tools that can make life easier.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installing_tcpserver"><span class="tocnumber">1</span> <span class="toctext">Installing tcpserver</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Using_tcpserver_and_supervise"><span class="tocnumber">2</span> <span class="toctext">Using tcpserver and supervise</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Access_controls_with_tcprules"><span class="tocnumber">3</span> <span class="toctext">Access controls with tcprules</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Controlling_supervised_services"><span class="tocnumber">4</span> <span class="toctext">Controlling supervised services</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Final_Notes"><span class="tocnumber">5</span> <span class="toctext">Final Notes</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Installing_tcpserver"><span class="tocnumber">1</span> <span class="toctext">Installing tcpserver</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_tcpserver_and_supervise"><span class="tocnumber">2</span> <span class="toctext">Using tcpserver and supervise</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Access_controls_with_tcprules"><span class="tocnumber">3</span> <span class="toctext">Access controls with tcprules</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Controlling_supervised_services"><span class="tocnumber">4</span> <span class="toctext">Controlling supervised services</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Final_Notes"><span class="tocnumber">5</span> <span class="toctext">Final Notes</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#Resources"><span class="tocnumber">6</span> <span class="toctext">Resources</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h2><span class="mw-headline" id="Installing_tcpserver">Installing tcpserver</span></h2>
-<p>In order to use tcpserver, you must install the ucspi-tcp package. If you have djbdns or qmail installed, it is a pre-requisite and will already be installed. If not, you can install it from source (very easy to do), or grab an RPM from <a rel="nofollow" class="external text" href="http://www.ibiblio.org/pub/packages/rpmhelp/">rpmhelp</a> (if you're using Mandrakelinux).
+            <p>If you’ve ever used qmail or djbdns, you’ve used tcpserver. tcpserver is the program that waits for incoming connections and will run a particular program; when dealing with qmail and djbdns, tcpserver hands off the <span class="caps">TCP</span> connection to the particular program to perform email reception or <span class="caps">DNS</span> queries. In other words, tcpserver is very similar to other programs that have been used with Mandrakelinux: inetd, which is no longer used, and xinetd, which is the current “super server” in use. tcpserver competes with these products, and is written by the same author of qmail and djbdns. Right there, one word comes to mind: security. Wait, there’s one more: non-standard. At least, non-standard in terms of what you might be used to; it doesn’t use flat configuration files like xinetd or inetd do, and operates in a very different manner.
 </p>
-<p>To take full advantage of everything this tutorial will show, and to make the most of using tcpserver, you should also install the daemontools and supervise-scripts packages. These are also available on rpmhelp.net. If you install djbsupport, you can simply execute on the command line, as root:
+<p>This tutorial is here to help you make use of tcpserver. tcpserver is a secure replacement for inetd. I won’t argue the benefits of using either tcpserver or xinetd; both are equally efficient programs in my opinion. xinetd is more secure than inetd, but it has also had a somewhat checkered past as well (see <a class="external text" href="http://www.mandrakesoft.com/security/advisories?name=MDKSA-2001:076" rel="nofollow"><span class="caps">MDKSA</span>-2001:076</a>); however, the new release fixing those vulnerabilities (version 2.3.0) was due to Solar Designer’s hard work, and as a result one can feel relatively confident that xinetd is more secure than other choices.
+</p>
+<p>tcpserver comes in the <a class="external text" href="http://cr.yp.to/ucspi-tcp.html" rel="nofollow">ucspi-tcp</a> package, which also provides the tcpclient program, which makes a <span class="caps">TCP</span> connection and runs a program of your choice. Using tcpserver and tcpclient, you can have programs not meant to talk to each other via <span class="caps">TCP</span>/<span class="caps">IP</span>, do exactly that. It also comes with a lot of other little programs and tools that can make life easier.
+</p>
+
+<h2><span class="mw-headline" id="Installing_tcpserver">Installing tcpserver</span></h2>
+<p>In order to use tcpserver, you must install the ucspi-tcp package. If you have djbdns or qmail installed, it is a pre-requisite and will already be installed. If not, you can install it from source (very easy to do), or grab an <span class="caps">RPM</span> from <a class="external text" href="http://www.ibiblio.org/pub/packages/rpmhelp/" rel="nofollow">rpmhelp</a> (if you’re using Mandrakelinux).
+</p>
+<p>To take full advantage of everything this tutorial will show, and to make the most of using tcpserver, you should also install the daemontools and supervise-scripts packages. These are also available on rpmhelp.net. If you install djbsupport, you can simply execute on the command line, as root:
 </p>
 <pre>
 # urpmi --auto-select ucspi-tcp daemontools supervise-scripts
 </pre>
-<p>This will install all three packages.
+<p>This will install all three packages.
 </p>
-<h2><span class="mw-headline" id="Using_tcpserver_and_supervise">Using tcpserver and supervise</span></h2>
-<p>The first step to using tcpserver, and supervise to control the entire operation, is to understand how it is all laid out. There are a few important directories to keep in mind, as each plays an important function. The first is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> directory. This directory is the primary directory that supervise will look at to see what services it will control. Each service is contained in it's own directory. For example, if you were running vsftpd via tcpserver and supervise, you would have a directory structure like this:
+<h2><span class="mw-headline" id="Using_tcpserver_and_supervise">Using tcpserver and supervise</span></h2>
+<p>The first step to using tcpserver, and supervise to control the entire operation, is to understand how it is all laid out. There are a few important directories to keep in mind, as each plays an important function. The first is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> directory. This directory is the primary directory that supervise will look at to see what services it will control. Each service is contained in it’s own directory. For example, if you were running vsftpd via tcpserver and supervise, you would have a directory structure like this:
 </p>
 <pre>
 /service/vsftpd
 /service/vsftpd/log
 </pre>
-<p>Within each directory is a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file. This file tells supervise how to start the service. Below each primary service is a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/</span> sub-directory; this directory also contains a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file, which is used to log the information tcpserver generates (connection information, etc). For instance, the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd/run</span> would look something like this:
+<p>Within each directory is a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file. This file tells supervise how to start the service. Below each primary service is a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/</span> sub-directory; this directory also contains a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file, which is used to log the information tcpserver generates (connection information, etc). For instance, the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd/run</span> would look something like this:
 </p>
 <pre>
 #!/bin/sh
-PATH=&quot;/sbin:/usr/sbin:/bin:/usr/bin:$PATH&quot;
+PATH="/sbin:/usr/sbin:/bin:/usr/bin:$PATH"
 
 exec /usr/bin/tcpserver -c30 -HRXv -llocalhost -x /etc/tcprules.d/vsftpd.cdb \
 0 ftp /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf 2&gt;&amp;1
 </pre>
-<p>And the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd/log/run</span> would be something like this:
+<p>And the contents of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd/log/run</span> would be something like this:
 </p>
 <pre>
 #!/bin/sh
 
 exec /usr/bin/setuidgid nobody /usr/bin/multilog t /var/log/supervise/vsftpd
 </pre>
-<p>As you can see, the first run file calls tcpserver to handle the connections for vsftpd, while the second logs all of tcpserver's output to the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/supervise/vsftpd</span>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> program is part of the daemontools package and basically takes tcpserver's output as input and writes it to a file called "current" in the specified directory. multilog handles it's own log rotation, so you never have to worry about rotating logfiles. For more information on how multilog handles logging, view the multilog manpage.
+<p>As you can see, the first run file calls tcpserver to handle the connections for vsftpd, while the second logs all of tcpserver’s output to the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/supervise/vsftpd</span>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> program is part of the daemontools package and basically takes tcpserver’s output as input and writes it to a file called “current” in the specified directory. multilog handles it’s own log rotation, so you never have to worry about rotating logfiles. For more information on how multilog handles logging, view the multilog manpage.
 </p>
-<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> is a very special directory and should not be used directly. In fact, there should be nothing other than symbolic links to directories in other locations in this directory. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span> directory is a convenient place to put your supervise directories. As soon as you create a symbolic link in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> to a directory in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span> (or any other place you feel like having the actual directory), svscan will notice the new link and start the specified server within seconds. svscan is the scanning daemon that supervises the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> directory.
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> is a very special directory and should not be used directly. In fact, there should be nothing other than symbolic links to directories in other locations in this directory. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span> directory is a convenient place to put your supervise directories. As soon as you create a symbolic link in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> to a directory in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span> (or any other place you feel like having the actual directory), svscan will notice the new link and start the specified server within seconds. svscan is the scanning daemon that supervises the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> directory.
 </p>
-<p>Another important directory is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d</span> directory. This contains all of the rules for various applications, much like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts.allow</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts.deny</span> being used by tcp_wrappers. You can still use tcp_wrappers to provide access control, but since tcpserver provides the same capabilities, there isn't much point. In the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d</span> directory, you will have two files for each service (or none if you do not want to use access controls on a particular service): the plaintext file and it's cdb binary equivalent. More on this a little later.
+<p>Another important directory is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d</span> directory. This contains all of the rules for various applications, much like <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts.allow</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts.deny</span> being used by tcp_wrappers. You can still use tcp_wrappers to provide access control, but since tcpserver provides the same capabilities, there isn’t much point. In the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d</span> directory, you will have two files for each service (or none if you do not want to use access controls on a particular service): the plaintext file and it’s cdb binary equivalent. More on this a little later.
 </p>
-<p>The tcpserver program has a number of command line arguments you can provide to make it more customizable. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file in the primary service directory will call tcpserver directly, with a number of arguments, in order to execute the service you want controlled. Think of the run file as a line in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inetd.conf</span> or as a file in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/xinetd.d</span>. This is where you will call the service in question, and wrap it with some tcpserver arguments.
+<p>The tcpserver program has a number of command line arguments you can provide to make it more customizable. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file in the primary service directory will call tcpserver directly, with a number of arguments, in order to execute the service you want controlled. Think of the run file as a line in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/inetd.conf</span> or as a file in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/xinetd.d</span>. This is where you will call the service in question, and wrap it with some tcpserver arguments.
 </p>
-<p>The syntax to use tcpserver is:
+<p>The syntax to use tcpserver is:
 </p>
 <pre>
 tcpserver opts host port prog
 </pre>
-<p>where opts is a series of tcpserver arguments or options, host is a single argument to determine the host IP to listen to, port is the port number to listen to, and prog is the program to call with one or more arguments when a connection is received. Note that you can also use a port name, which should correspond to an entry in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/services</span> file. If the port is "0", tcpserver will select any free TCP port. If the host is "0", tcpserver will allow connections on any local IP address. It can also be an IP address to strictly listen for connections coming in on that IP, or it can be a hostname, which allows connections to the first IP address corresponding to that hostname.
+<p>where opts is a series of tcpserver arguments or options, host is a single argument to determine the host <span class="caps">IP</span> to listen to, port is the port number to listen to, and prog is the program to call with one or more arguments when a connection is received. Note that you can also use a port name, which should correspond to an entry in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/services</span> file. If the port is “0”, tcpserver will select any free <span class="caps">TCP</span> port. If the host is “0”, tcpserver will allow connections on any local <span class="caps">IP</span> address. It can also be an <span class="caps">IP</span> address to strictly listen for connections coming in on that <span class="caps">IP</span>, or it can be a hostname, which allows connections to the first <span class="caps">IP</span> address corresponding to that hostname.
 </p>
-<p>tcpserver also has a number of arguments that can be used. For the full list, look in the tcpserver manpage, but here are some of the more commonly used arguments:
+<p>tcpserver also has a number of arguments that can be used. For the full list, look in the tcpserver manpage, but here are some of the more commonly used arguments:
 </p>
-<ul><li> -c [n]: do not handle more than [n] simultaneous connections (good for rate-limiting and preventing DoS attacks)</li>
-<li> -x [cdb]: follow the rules in the cdb file named [cdb].</li>
-<li> -X: in conjunction with -x, allow connections even if the cdb file does not exist; normally tcpserver will drop the connection if the cdb file doesn't exist</li>
-<li> -g [gid]: switch the effective group ID to [gid] to receive connections</li>
-<li> -u [uid]: switch the effective user ID to [uid] to receive connections</li>
-<li> -h: look up the remote host name in DNS to set the environment variable $TCPREMOTEHOST (this is the default)</li>
-<li> -H: do not look up the remote host name</li>
-<li> -p: after looking up the remote host name in DNS, look up the IP address in DNS for that host name, and remove the $TCPREMOTEHOST variable if none of the addresses match the client's IP address (aka paranoid mode)</li></ul>
-<p>So, if we were to look again at the run file for vsftpd, we would see that it limits the number of simultaneous connections to 30, does not look up the remote host name (simply to make the connection faster by not querying DNS), does not attempt to get $TCPREMOTEINFO from the remote host (the -R argument), allows connections if the cdb file does not exist, and is verbose in it's logging. It specifies to use the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd.cdb</span> to obtain the tcprules, binds to every IP address on the system, and listens on the FTP port (port 21). The program to call is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/sbin/vsftpd</span> and the argument passed to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vsftpd</span> is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/vsftpd/vsftpd.conf</span>, which is vsftpd's configuration file.
+<ul><li> -c [n]: do not handle more than [n] simultaneous connections (good for rate-limiting and preventing DoS attacks)</li>
+<li> -x [cdb]: follow the rules in the cdb file named [cdb].</li>
+<li> -X: in conjunction with -x, allow connections even if the cdb file does not exist; normally tcpserver will drop the connection if the cdb file doesn’t exist</li>
+<li> -g [gid]: switch the effective group <span class="caps">ID</span> to [gid] to receive connections</li>
+<li> -u [uid]: switch the effective user <span class="caps">ID</span> to [uid] to receive connections</li>
+<li> -h: look up the remote host name in <span class="caps">DNS</span> to set the environment variable $<span class="caps">TCPREMOTEHOST</span> (this is the default)</li>
+<li> -H: do not look up the remote host name</li>
+<li> -p: after looking up the remote host name in <span class="caps">DNS</span>, look up the <span class="caps">IP</span> address in <span class="caps">DNS</span> for that host name, and remove the $<span class="caps">TCPREMOTEHOST</span> variable if none of the addresses match the client’s <span class="caps">IP</span> address (aka paranoid mode)</li></ul>
+<p>So, if we were to look again at the run file for vsftpd, we would see that it limits the number of simultaneous connections to 30, does not look up the remote host name (simply to make the connection faster by not querying <span class="caps">DNS</span>), does not attempt to get $<span class="caps">TCPREMOTEINFO</span> from the remote host (the -R argument), allows connections if the cdb file does not exist, and is verbose in it’s logging. It specifies to use the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd.cdb</span> to obtain the tcprules, binds to every <span class="caps">IP</span> address on the system, and listens on the <span class="caps">FTP</span> port (port 21). The program to call is <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/sbin/vsftpd</span> and the argument passed to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vsftpd</span> is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/vsftpd/vsftpd.conf</span>, which is vsftpd’s configuration file.
 </p>
-<p>On a side note, this is an excellent way to run programs that do not understand virtual hosting, such as vsftpd. While proftpd understands virtual hosting (IP-based) for FTP, vsftpd does not. Using tcpserver, you can run multiple instances of vsftpd, each with their own configuration file and cdb tcprules file, and each bound to a distinct IP address. This is accomplished by having each entry in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> distinguished with a unique name (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd-server1</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd-server2</span>, etc.), each pointing to a unique configuration and cdb file, and each bound to an IP (ie. instead of specifying "0" for the host, specify the IP address that belongs to that instance of vsftpd).
+<p>On a side note, this is an excellent way to run programs that do not understand virtual hosting, such as vsftpd. While proftpd understands virtual hosting (<span class="caps">IP</span>-based) for <span class="caps">FTP</span>, vsftpd does not. Using tcpserver, you can run multiple instances of vsftpd, each with their own configuration file and cdb tcprules file, and each bound to a distinct <span class="caps">IP</span> address. This is accomplished by having each entry in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> distinguished with a unique name (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd-server1</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/vsftpd-server2</span>, etc.), each pointing to a unique configuration and cdb file, and each bound to an <span class="caps">IP</span> (ie. instead of specifying “0” for the host, specify the <span class="caps">IP</span> address that belongs to that instance of vsftpd).
 </p>
-<p>Now, if you look at the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/run</span> file, you'll see that it executes the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">setuidgid</span> program, which sets the effective user ID and group ID to that specified (in this case nobody), and runs the program <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> with the "t" parameter (tells it to use precise timestamping), to write logs to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/supervise/vsftpd</span> directory. This directory must exist prior to supervise starting this service.
+<p>Now, if you look at the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/run</span> file, you’ll see that it executes the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">setuidgid</span> program, which sets the effective user <span class="caps">ID</span> and group <span class="caps">ID</span> to that specified (in this case nobody), and runs the program <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> with the “t” parameter (tells it to use precise timestamping), to write logs to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/supervise/vsftpd</span> directory. This directory must exist prior to supervise starting this service.
 </p>
-<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/</span> is a special sub-directory and basically the program specified in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file in this directory will take the standard output of tcpserver as standard input. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> will take this data and write it to a log file. If you are not interested in this data, you can run tcpserver with the "-q" parameter instead of "-v" and omit the log directory. You should do one or the other because tcpserver writes to standard output (unless you want a console that will constantly receive tcpserver messages).
+<p><span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">log/</span> is a special sub-directory and basically the program specified in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">run</span> file in this directory will take the standard output of tcpserver as standard input. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">multilog</span> will take this data and write it to a log file. If you are not interested in this data, you can run tcpserver with the “-q” parameter instead of “-v” and omit the log directory. You should do one or the other because tcpserver writes to standard output (unless you want a console that will constantly receive tcpserver messages).
 </p>
-<h2><span class="mw-headline" id="Access_controls_with_tcprules">Access controls with tcprules</span></h2>
-<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tcprules</span> program generates cdb binary files that are read by tcpserver. tcprules will convert your plaintext file to this special format. To use tcprules, follow the convention:
+<h2><span class="mw-headline" id="Access_controls_with_tcprules">Access controls with tcprules</span></h2>
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tcprules</span> program generates cdb binary files that are read by tcpserver. tcprules will convert your plaintext file to this special format. To use tcprules, follow the convention:
 </p>
 <pre>
 tcprules cdb tmpfile
 </pre>
-<p>In other words, if you wanted to create a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">vsftpd.cdb</span> from the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd</span>, you would use this command:
+<p>In other words, if you wanted to create a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">vsftpd.cdb</span> from the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd</span>, you would use this command:
 </p>
 <pre>
 # tcprules.d /etc/tcprules.d/vsftpd.cdb /etc/tcprules.d/vsftpd.tmp \
   &lt; /etc/tcprules.d/vsftpd
 </pre>
-<p>Notice the redirection. This is because tcprules takes standard input and doesn't actually read a file, so you need to redirect the contents of vsftpd into the program. When this is done, you will have a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd.cdb</span> file which tcpserver will use to limit access to the vsftpd service, if so configured.
+<p>Notice the redirection. This is because tcprules takes standard input and doesn’t actually read a file, so you need to redirect the contents of vsftpd into the program. When this is done, you will have a <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/tcprules.d/vsftpd.cdb</span> file which tcpserver will use to limit access to the vsftpd service, if so configured.
 </p>
-<p>The syntax of the tcprules rules are fairly simple, but it can also be very powerful. tcp_wrappers is not nearly as extensible as tcprules. For instance, the following rule:
+<p>The syntax of the tcprules rules are fairly simple, but it can also be very powerful. tcp_wrappers is not nearly as extensible as tcprules. For instance, the following rule:
 </p>
 <pre>
 192.168.5.25:deny
 </pre>
-<p>will deny all connections coming from the host 192.168.5.25. There are a number of different address rules you can use:
+<p>will deny all connections coming from the host 192.168.5.25. There are a number of different address rules you can use:
 </p>
-<ul><li> $TCPREMOTEINFO@$TCPREMOTEIP, if $TCPREMOTEINFO is set</li>
-<li> $TCPREMOTEINFO@=$TCPREMOTEHOST, if $TCPREMOTEINFO is set and $TCPREMOTEHOST is set</li>
-<li> $TCPREMOTEIP</li>
-<li> =$TCPREMOTEHOST, if $TCPREMOTEHOST is set</li>
-<li> shorter and shorter prefixes of $TCPREMOTEIP ending with a dot</li>
-<li> shorter and shorter suffixes of $TCPREMOTEHOST starting with a dot, preceded by =, if $TCPREMOTEHOST is set</li>
-<li> =, if $TCPREMOTEHOST is set</li>
-<li> an empty string</li></ul>
-<p>tcpserver will always use the first matching rule that it finds. For instance, here are a few other examples:
+<ul><li> $<span class="caps">TCPREMOTEINFO</span>@$<span class="caps">TCPREMOTEIP</span>, if $<span class="caps">TCPREMOTEINFO</span> is set</li>
+<li> $<span class="caps">TCPREMOTEINFO</span>@=$<span class="caps">TCPREMOTEHOST</span>, if $<span class="caps">TCPREMOTEINFO</span> is set and $<span class="caps">TCPREMOTEHOST</span> is set</li>
+<li> $<span class="caps">TCPREMOTEIP</span></li>
+<li> =$<span class="caps">TCPREMOTEHOST</span>, if $<span class="caps">TCPREMOTEHOST</span> is set</li>
+<li> shorter and shorter prefixes of $<span class="caps">TCPREMOTEIP</span> ending with a dot</li>
+<li> shorter and shorter suffixes of $<span class="caps">TCPREMOTEHOST</span> starting with a dot, preceded by =, if $<span class="caps">TCPREMOTEHOST</span> is set</li>
+<li> =, if $<span class="caps">TCPREMOTEHOST</span> is set</li>
+<li> an empty string</li></ul>
+<p>tcpserver will always use the first matching rule that it finds. For instance, here are a few other examples:
 </p>
 <pre>
 mdkuser@202.38.12.128:allow
@@ -194,96 +212,96 @@ mdkuser@202.38.12.128:allow
 127.:deny
 :allow
 </pre>
-<p>In this example, if $TCPREMOTEINFO is "mdkuser" and $TCPREMOTEIP is 202.38.12.128, the connection will be allowed. If $TCPREMOTEIP is 202.38.12.128, the connection will be refused. This allows connections from mdkuser@202.38.12.128, but no other connections (ie. any connections that do not pass $TCPREMOTEINFO as "mdkuser" will be refused). Finally, all other connections from anywhere will be allowed, except connections from 127.0.0.1 which are denied. As you can see, the global commands that would apply to every system (like&#160;:allow or&#160;:deny) should be placed last.
+<p>In this example, if $<span class="caps">TCPREMOTEINFO</span> is “mdkuser” and $<span class="caps">TCPREMOTEIP</span> is 202.38.12.128, the connection will be allowed. If $<span class="caps">TCPREMOTEIP</span> is 202.38.12.128, the connection will be refused. This allows connections from mdkuser@202.38.12.128, but no other connections (ie. any connections that do not pass $<span class="caps">TCPREMOTEINFO</span> as “mdkuser” will be refused). Finally, all other connections from anywhere will be allowed, except connections from 127.0.0.1 which are denied. As you can see, the global commands that would apply to every system (like :allow or :deny) should be placed last.
 </p>
-<p>You can use some shortcuts for address ranges as well. For instance, 10.0.0.5-38:accept will accept connections for any IP from 10.0.0.5 to 10.0.0.38. A range like 10.0-5.:accept will accept all connections from IPs in the 10.0.x.x, 10.1.x.x, 10.2.x.x, and up to 10.5.x.x. address ranges.
+<p>You can use some shortcuts for address ranges as well. For instance, 10.0.0.5-38:accept will accept connections for any <span class="caps">IP</span> from 10.0.0.5 to 10.0.0.38. A range like 10.0-5.:accept will accept all connections from IPs in the 10.0.x.x, 10.1.x.x, 10.2.x.x, and up to 10.5.x.x. address ranges.
 </p>
-<p>Finally, you can also enhance your instructions beyond just allow and deny. One of these access controls must be first, but behind them you can place environment variables which will be passed on to the tcpserver session and subsequently to the program being called. For instance:
+<p>Finally, you can also enhance your instructions beyond just allow and deny. One of these access controls must be first, but behind them you can place environment variables which will be passed on to the tcpserver session and subsequently to the program being called. For instance:
 </p>
 <pre>
-10.0.5.:allow,RELAYCLIENT=&quot;&quot;
+10.0.5.:allow,RELAYCLIENT=""
 </pre>
-<p>will set the environment variable $RELAYCLIENT to an empty string on all connections from 10.0.5.x; it will also allow the connection. If this were a tcprules file for the qmail SMTP daemon, this would tell qmail to allow relaying for this address range. You can add as many variables as you like, separated with a comma, like:
+<p>will set the environment variable $<span class="caps">RELAYCLIENT</span> to an empty string on all connections from 10.0.5.x; it will also allow the connection. If this were a tcprules file for the qmail <span class="caps">SMTP</span> daemon, this would tell qmail to allow relaying for this address range. You can add as many variables as you like, separated with a comma, like:
 </p>
 <pre>
-10.0.5:allow,RELAYCLIENT=&quot;&quot;,SOMEOTHERVAR=&quot;foo&quot;
+10.0.5:allow,RELAYCLIENT="",SOMEOTHERVAR="foo"
 </pre>
-<p>This would set $RELAYCLIENT to an empty string and $SOMEOTHERVAR to "foo".
+<p>This would set $<span class="caps">RELAYCLIENT</span> to an empty string and $<span class="caps">SOMEOTHERVAR</span> to “foo”.
 </p>
-<p>You can also use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tcprulescheck</span> program to check your rules. You must set the environment variables that tcpserver would set based on the incoming connection. For example, let's assume that your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">vsftpd.cdb</span> file contained the rule "10.0.5.25:deny" and you wanted to make sure that tcpserver would in fact deny this connection. You would use:
+<p>You can also use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tcprulescheck</span> program to check your rules. You must set the environment variables that tcpserver would set based on the incoming connection. For example, let’s assume that your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">vsftpd.cdb</span> file contained the rule “10.0.5.25:deny” and you wanted to make sure that tcpserver would in fact deny this connection. You would use:
 </p>
 <pre>
-# TCPREMOTEIP=&quot;10.0.5.25&quot; tcprulescheck /etc/tcprules.d/vsftpd.cdb
+# TCPREMOTEIP="10.0.5.25" tcprulescheck /etc/tcprules.d/vsftpd.cdb
 rule 10.0.5.25:
 deny connection
-# TCPREMOTEIP=&quot;10.0.5.24&quot; tcprulescheck /etc/tcprules.d/vsftpd.cdb
+# TCPREMOTEIP="10.0.5.24" tcprulescheck /etc/tcprules.d/vsftpd.cdb
 default:
 allow connection
 </pre>
-<p>As you can see, two IPs were tested: the first was one explicitly denied and tcprulescheck showed us that tcpserver would deny the connection, and allow one from the IP address 10.0.5.24. Now, assume that you had a default rule of ":accept,SOMEVAR="foo"" at the end of the same file. If you now executed the same test, you would instead get:
+<p>As you can see, two IPs were tested: the first was one explicitly denied and tcprulescheck showed us that tcpserver would deny the connection, and allow one from the <span class="caps">IP</span> address 10.0.5.24. Now, assume that you had a default rule of “:accept,<span class="caps">SOMEVAR</span>=”foo”” at the end of the same file. If you now executed the same test, you would instead get:
 </p>
 <pre>
-# TCPREMOTEIP=&quot;10.0.5.25&quot; tcprulescheck /etc/tcprules.d/vsftpd.cdb
+# TCPREMOTEIP="10.0.5.25" tcprulescheck /etc/tcprules.d/vsftpd.cdb
 rule 10.0.5.25:
 deny connection
-# TCPREMOTEIP=&quot;10.0.5.24&quot; tcprulescheck /etc/tcprules.d/vsftpd.cdb
-rule&#160;:
+# TCPREMOTEIP="10.0.5.24" tcprulescheck /etc/tcprules.d/vsftpd.cdb
+rule :
 set environment variable SOMEVAR=foo
 allow connection
 </pre>
-<h2><span class="mw-headline" id="Controlling_supervised_services">Controlling supervised services</span></h2>
-<p>To start the svscan daemon, which will start all of the services in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>, use the supervise initscript, ie:
+<h2><span class="mw-headline" id="Controlling_supervised_services">Controlling supervised services</span></h2>
+<p>To start the svscan daemon, which will start all of the services in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>, use the supervise initscript, ie:
 </p>
 <pre>
 # service supervise start
 </pre>
-<p>This will start all of your supervised services. Likewise, issuing the stop argument will stop every supervised service. In this respect, supervise works just like xinetd or inetd; if you stop the super server, you stop everything. This works slightly different than the intended use for supervise-scripts. The author, Bruce Guenter, wrote supervise-scripts to run out of init, so they would start before any other service. Instead, with the Mandrake-specific packages on rpmhelp.net, supervise is started with the supervise initscript, instead of being called from init. It is called early in the boot sequence, but not as early as if it were called via init. This is to allow the network and firewall rules to be established prior to starting supervise.
+<p>This will start all of your supervised services. Likewise, issuing the stop argument will stop every supervised service. In this respect, supervise works just like xinetd or inetd; if you stop the super server, you stop everything. This works slightly different than the intended use for supervise-scripts. The author, Bruce Guenter, wrote supervise-scripts to run out of init, so they would start before any other service. Instead, with the Mandrake-specific packages on rpmhelp.net, supervise is started with the supervise initscript, instead of being called from init. It is called early in the boot sequence, but not as early as if it were called via init. This is to allow the network and firewall rules to be established prior to starting supervise.
 </p>
-<p>supervise offers far more flexibility than either xinetd or inetd. If you want to keep all services running but take one down for maintenance, you can do so. You do not have to stop everything in order to stop one service. To do this, you will use some of the scripts in the supervise-scripts package. For instance, let's assume you are running vsftpd, cvspserver, and rsync under supervise and you want to shut down the rsync service. You would use:
+<p>supervise offers far more flexibility than either xinetd or inetd. If you want to keep all services running but take one down for maintenance, you can do so. You do not have to stop everything in order to stop one service. To do this, you will use some of the scripts in the supervise-scripts package. For instance, let’s assume you are running vsftpd, cvspserver, and rsync under supervise and you want to shut down the rsync service. You would use:
 </p>
 <pre>
 # svc-stop rsync
 </pre>
-<p>provided that the directory name is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/rsync</span>. To restart the service, use:
+<p>provided that the directory name is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service/rsync</span>. To restart the service, use:
 </p>
 <pre>
 # svc-start rsync
 </pre>
-<p>You can also determine the status of a running service very quickly. The two scripts, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isup</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isdown</span> will return an errorlevel depending on whether or not the specified service is running. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isup</span> will return an errorlevel of 0 if the service is running, and 1 if it is not. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isdown</span> will do the opposite: 0 if the service is not running, 1 if it is.
+<p>You can also determine the status of a running service very quickly. The two scripts, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isup</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isdown</span> will return an errorlevel depending on whether or not the specified service is running. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isup</span> will return an errorlevel of 0 if the service is running, and 1 if it is not. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-isdown</span> will do the opposite: 0 if the service is not running, 1 if it is.
 </p>
-<p>Now, to add and remove services from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>, you will want to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-remove</span> scripts. There is no reason that you need to manually create symlinks in this directory with these two scripts available. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span> will add any service to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>. By default, if the service to be installed resides in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span>, you can just use the service name; for example if you want to install <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service/rsync</span> you can just use:
+<p>Now, to add and remove services from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>, you will want to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-remove</span> scripts. There is no reason that you need to manually create symlinks in this directory with these two scripts available. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span> will add any service to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span>. By default, if the service to be installed resides in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service</span>, you can just use the service name; for example if you want to install <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/service/rsync</span> you can just use:
 </p>
 <pre>
 # svc-add rsync
 </pre>
-<p>However, if the service you want to install resides in, for example, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/qmail/supervise</span>, you will need to provide the full path:
+<p>However, if the service you want to install resides in, for example, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/qmail/supervise</span>, you will need to provide the full path:
 </p>
 <pre>
 # svc-add /var/qmail/supervise/qmail-pop3d
 </pre>
-<p>If you want to install a service without starting it immediately, you can use the "-d" option with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span>. This is similar to using "chkconfig --add". For instance:
+<p>If you want to install a service without starting it immediately, you can use the “-d” option with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-add</span>. This is similar to using “chkconfig —add”. For instance:
 </p>
 <pre>
 # svc-add -d rsync
 </pre>
-<p>You could then use "svc-start rsync" when you were ready to start the rsync service.
+<p>You could then use “svc-start rsync” when you were ready to start the rsync service.
 </p>
-<p>To remove a service from supervise control, use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-remove</span> script. This will first remove the symbolic link from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> and then stop any supervise tasks that are running on the service. For example:
+<p>To remove a service from supervise control, use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">svc-remove</span> script. This will first remove the symbolic link from <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/service</span> and then stop any supervise tasks that are running on the service. For example:
 </p>
 <pre>
 # svc-remove rsync
 </pre>
-<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
-<p>So why would you want to use tcpserver instead of xinetd? For one, it is written by D. J. Bernstein, the same author of qmail and djbdns, so this means careful attention was paid to security. tcpserver also offers a number of features that can give you full control over your running services. By running the services via a run script, instead of a single command line, you can customize the service's environment to your heart's content. Using the tcprules, you have full flexibility with your environment by being able to pass environment variables to the run script based on the connecting IP address. The ability to do DNS and reverse-DNS lookups will certainly ease the minds of those paranoid or very security-conscious.
+<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
+<p>So why would you want to use tcpserver instead of xinetd? For one, it is written by <span class="caps">D. J.</span> Bernstein, the same author of qmail and djbdns, so this means careful attention was paid to security. tcpserver also offers a number of features that can give you full control over your running services. By running the services via a run script, instead of a single command line, you can customize the service’s environment to your heart’s content. Using the tcprules, you have full flexibility with your environment by being able to pass environment variables to the run script based on the connecting <span class="caps">IP</span> address. The ability to do <span class="caps">DNS</span> and reverse-<span class="caps">DNS</span> lookups will certainly ease the minds of those paranoid or very security-conscious.
 </p>
-<p>All in all, Bernstein's tools have yet to fail me, but this is a personal opinion. Having used qmail and djbdns, each making use of tcpserver, in production for a few years now, I am confident to say that the overheard incurred by using tcpserver is negligible, and the flexibility provided is immense. And, of course, there is the security aspect. While I don't think it's feasible to run all services via tcpserver (ie. running Apache via tcpserver is probably just as efficient as running it via xinetd; you're better off running it standalone), a number of services that are currently being used can effectively run under tcpserver. I cite again the vsftpd example mentioned earlier... using tcpserver allowed me to use a very secure FTP server, while maintaining the virtual host support that previously was only available in ProFTPD. Not to knock ProFTPD, as it is a very good FTP server, but it has also had a checkered past. With tcpserver, I achieved the best of both worlds.
+<p>All in all, Bernstein’s tools have yet to fail me, but this is a personal opinion. Having used qmail and djbdns, each making use of tcpserver, in production for a few years now, I am confident to say that the overheard incurred by using tcpserver is negligible, and the flexibility provided is immense. And, of course, there is the security aspect. While I don’t think it’s feasible to run all services via tcpserver (ie. running Apache via tcpserver is probably just as efficient as running it via xinetd; you’re better off running it standalone), a number of services that are currently being used can effectively run under tcpserver. I cite again the vsftpd example mentioned earlier… using tcpserver allowed me to use a very secure <span class="caps">FTP</span> server, while maintaining the virtual host support that previously was only available in ProFTPD. Not to knock ProFTPD, as it is a very good <span class="caps">FTP</span> server, but it has also had a checkered past. With tcpserver, I achieved the best of both worlds.
 </p>
-<p>As well, for my latest project (<a rel="nofollow" class="external text" href="http://annvix.org/">Annvix</a>), I am using supervise to exclusively handle all services rather than initscripts, and tcpserver rather than xinetd or inetd. So far, the reliability has been top-notch.
+<p>As well, for my latest project (<a class="external text" href="http://annvix.org/" rel="nofollow">Annvix</a>), I am using supervise to exclusively handle all services rather than initscripts, and tcpserver rather than xinetd or inetd. So far, the reliability has been top-notch.
 </p>
 <h2><span class="mw-headline" id="Resources">Resources</span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="http://cr.yp.to/ucspi-tcp.html">ucspi-tcp homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://cr.yp.to/daemontools.html">daemontools homepage</a></li>
-<li> <a rel="nofollow" class="external text" href="http://untroubled.org/supervise-scripts/">supervise-scripts homepage</a></li></ul>
+<ul><li> <a class="external text" href="http://cr.yp.to/ucspi-tcp.html" rel="nofollow">ucspi-tcp homepage</a></li>
+<li> <a class="external text" href="http://cr.yp.to/daemontools.html" rel="nofollow">daemontools homepage</a></li>
+<li> <a class="external text" href="http://untroubled.org/supervise-scripts/" rel="nofollow">supervise-scripts homepage</a></li></ul>
             
 
 
@@ -366,6 +384,9 @@ allow connection
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Creating and Maintaining Your Own Certification Authority (incomplete) "/>
-<meta property="og:url" content="https://vdanen.github.io/creating_and_maintaining_your_own_certification_authority.html" />
+<meta property="og:title" content="Creating and Maintaining Your Own Certification Authority (incomplete) "/>
+<meta property="og:url" content="https://vdanen.github.io/creating_and_maintaining_your_own_certification_authority" />
 <meta property="og:description" content="Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T14:00:00-06:00" />
-<meta name="twitter:title" content="Creating and Maintaining Your Own Certification Authority (incomplete) ">
+<meta name="twitter:title" content="Creating and Maintaining Your Own Certification Authority (incomplete) ">
 <meta name="twitter:description" content="Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You …">
 
-        <title>Creating and Maintaining Your Own Certification Authority (incomplete)  · Annvix
+        <title>Creating and Maintaining Your Own Certification Authority (incomplete)  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,95 +80,100 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/creating_and_maintaining_your_own_certification_authority.html"> Creating and Maintaining Your Own Certification Authority (incomplete)  </a></h1>
+    <h1><a href="https://vdanen.github.io/creating_and_maintaining_your_own_certification_authority"> Creating and Maintaining Your Own Certification Authority&nbsp;(incomplete)  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>Face it. Do you really want to spend $200USD to secure POP3 access for a year that only you and your family uses? Probably not. Yet, if you want to secure POP3 access, you need to create a SSL certificate, and these things need to be signed by someone. You can easily generate a self-signed certificate to get around this, or you can create your own personal Certification Authority so you can create, update, and sign your own certificates, for any service you like, with impunity.
-</p>
-<p>This has distinct advantages. A number of services take advantage of SSL that even if all you do is run your own LAN with an external server or two, creating your own CA will be worth the time spent to do so (and it isn't much). Better that then shelling out a few thousand dollars to secure every service you want to wrap in SSL. Services such as HTTP, LDAP, POP3, IMAP, and more can all take advantage of SSL, and it would be to your advantage to make use of that support. Protecting services in SSL is a good thing.
-</p>
-<p>The only real requirement to creating your own CA is to have OpenSSL installed on your system, and pretty much every BSD, Linux, and other UNIX distribution will come with OpenSSL. If they don't, you can easily obtain it from <a rel="nofollow" class="external text" href="http://www.openssl.org/">www.openssl.org</a> and compile your own copy.
-</p>
-<p>There are two ways of managing your CA: Manually, or with the help of an extremely useful tool called <a rel="nofollow" class="external text" href="http://tinyca.sm-zone.net/">TinyCA</a>. The latter is recommended, and requires Perl/TK as it is a GUI interface to managing your CA.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Using_TinyCA"><span class="tocnumber">1</span> <span class="toctext">Using TinyCA</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Creating_a_CA_.22The_Old_Fashioned_Way.22"><span class="tocnumber">2</span> <span class="toctext">Creating a CA "The Old Fashioned Way"</span></a>
+<li class="toclevel-1 tocsection-1"><a href="#Using_TinyCA"><span class="tocnumber">1</span> <span class="toctext">Using TinyCA</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Creating_a_CA_.22The_Old_Fashioned_Way.22"><span class="tocnumber">2</span> <span class="toctext">Creating a <span class="caps">CA</span> “The Old Fashioned Way”</span></a>
 <ul>
-<li class="toclevel-2 tocsection-3"><a href="#The_OpenSSL_Configuration_File"><span class="tocnumber">2.1</span> <span class="toctext">The OpenSSL Configuration File</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#The_OpenSSL_Configuration_File"><span class="tocnumber">2.1</span> <span class="toctext">The OpenSSL Configuration File</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-4"><a href="#Creating_the_Root_Certificate"><span class="tocnumber">3</span> <span class="toctext">Creating the Root Certificate</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Exporting_your_CA_Certificate"><span class="tocnumber">4</span> <span class="toctext">Exporting your CA Certificate</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_the_Root_Certificate"><span class="tocnumber">3</span> <span class="toctext">Creating the Root Certificate</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Exporting_your_CA_Certificate"><span class="tocnumber">4</span> <span class="toctext">Exporting your <span class="caps">CA</span> Certificate</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h1><span class="mw-headline" id="Using_TinyCA">Using TinyCA</span></h1>
-<p>Many Linux distributions come with Perl/TK and it can usually be installed from your installation CDs. Mac OS X, however, is a little different and you will need to take a few extra steps in order for it to work properly. You will have to build Perl/TK from source and update your version of Perl (for 10.2) and will additionally have to hack things a little bit (for 10.1). Other BSD implementations and UNIX variants should be able to build Perl/TK from source with little to no issues.
+            <p>Face it. Do you really want to spend $<span class="caps">200USD</span> to secure <span class="caps">POP3</span> access for a year that only you and your family uses? Probably not. Yet, if you want to secure <span class="caps">POP3</span> access, you need to create a <span class="caps">SSL</span> certificate, and these things need to be signed by someone. You can easily generate a self-signed certificate to get around this, or you can create your own personal Certification Authority so you can create, update, and sign your own certificates, for any service you like, with impunity.
 </p>
-<p>For Mac OS X, there is a good walk-through on installing Perl/TK available at <a rel="nofollow" class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/">www.lehigh.edu/~sol0/ Macintosh/X/ptk/</a>.
+<p>This has distinct advantages. A number of services take advantage of <span class="caps">SSL</span> that even if all you do is run your own <span class="caps">LAN</span> with an external server or two, creating your own <span class="caps">CA</span> will be worth the time spent to do so (and it isn’t much). Better that then shelling out a few thousand dollars to secure every service you want to wrap in <span class="caps">SSL</span>. Services such as <span class="caps">HTTP</span>, <span class="caps">LDAP</span>, <span class="caps">POP3</span>, <span class="caps">IMAP</span>, and more can all take advantage of <span class="caps">SSL</span>, and it would be to your advantage to make use of that support. Protecting services in <span class="caps">SSL</span> is a good thing.
 </p>
-<p>Download and install TinyCA; the current version as of this writing is 0.4.4. The configuration of TinyCA is extremely simple. Untar the file wherever you like; <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local</span> might be an appropriate directory, or if you plan on being the only person to manage the CA, untar it in your home directory.
+<p>The only real requirement to creating your own <span class="caps">CA</span> is to have OpenSSL installed on your system, and pretty much every <span class="caps">BSD</span>, Linux, and other <span class="caps">UNIX</span> distribution will come with OpenSSL. If they don’t, you can easily obtain it from <a class="external text" href="http://www.openssl.org/" rel="nofollow">www.openssl.org</a> and compile your own copy.
 </p>
-<p>Once you've unpacked it, edit the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> script itself. Three things need to change:
+<p>There are two ways of managing your <span class="caps">CA</span>: Manually, or with the help of an extremely useful tool called <a class="external text" href="http://tinyca.sm-zone.net/" rel="nofollow">TinyCA</a>. The latter is recommended, and requires Perl/<span class="caps">TK</span> as it is a <span class="caps">GUI</span> interface to managing your <span class="caps">CA</span>.
+</p>
+
+<h1><span class="mw-headline" id="Using_TinyCA">Using TinyCA</span></h1>
+<p>Many Linux distributions come with Perl/<span class="caps">TK</span> and it can usually be installed from your installation CDs. Mac <span class="caps">OS</span> X, however, is a little different and you will need to take a few extra steps in order for it to work properly. You will have to build Perl/<span class="caps">TK</span> from source and update your version of Perl (for 10.2) and will additionally have to hack things a little bit (for 10.1). Other <span class="caps">BSD</span> implementations and <span class="caps">UNIX</span> variants should be able to build Perl/<span class="caps">TK</span> from source with little to no issues.
+</p>
+<p>For Mac <span class="caps">OS</span> X, there is a good walk-through on installing Perl/<span class="caps">TK</span> available at <a class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/" rel="nofollow">www.lehigh.edu/~sol0/ Macintosh/X/ptk/</a>.
+</p>
+<p>Download and install TinyCA; the current version as of this writing is 0.4.4. The configuration of TinyCA is extremely simple. Untar the file wherever you like; <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local</span> might be an appropriate directory, or if you plan on being the only person to manage the <span class="caps">CA</span>, untar it in your home directory.
+</p>
+<p>Once you’ve unpacked it, edit the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> script itself. Three things need to change:
 </p>
 <pre>
 BEGIN { push(@INC, './lib'); } # put here the location of the modules
 </pre>
-<p>Change this to the full path of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">lib/</span> directory (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/lib</span>) so that you can call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> from anywhere.
+<p>Change this to the full path of the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">lib/</span> directory (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/lib</span>) so that you can call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> from anywhere.
 </p>
 <pre>
 # location of openssl
-$init-&gt;{'opensslbin'} = &quot;/usr/bin/openssl&quot;;
+$init-&gt;{'opensslbin'} = "/usr/bin/openssl";
 </pre>
-<p>Change this to the location of the =openssl= binary on your system. On most systems, this will suffice, but on some you may need to use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/bin/openssl</span> or, in if you installed OpenSSL using Fink on OS X, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/openssl</span>. Executing <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">which openssl</span> on the command line will tell you where your <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> program is.
+<p>Change this to the location of the =openssl= binary on your system. On most systems, this will suffice, but on some you may need to use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/bin/openssl</span> or, in if you installed OpenSSL using Fink on <span class="caps">OS</span> X, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/sw/bin/openssl</span>. Executing <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">which openssl</span> on the command line will tell you where your <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> program is.
 </p>
 <pre>
 # directory with the templates
-$init-&gt;{'templatedir'} = &quot;./templates&quot;;
+$init-&gt;{'templatedir'} = "./templates";
 </pre>
-<p>This is where your template files for your CA will reside. Change this to the full path (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/templates</span>).
+<p>This is where your template files for your <span class="caps">CA</span> will reside. Change this to the full path (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/TinyCA/templates</span>).
 </p>
-<p>Once you have made these changes, you're ready to fire up TinyCA for the first time. Execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> on the command line and you'll be greated with an empty screen. The first step is to click on the CA pulldown menu and create a new CA.
+<p>Once you have made these changes, you’re ready to fire up TinyCA for the first time. Execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">tinyca</span> on the command line and you’ll be greated with an empty screen. The first step is to click on the <span class="caps">CA</span> pulldown menu and create a new <span class="caps">CA</span>.
 </p>
-<p>Here you will be asked for some information to generate your CA: A password to protect the private key, your two letter country code, state or province, locality (city) name, Organization Name and Organizational Unit Name, Common Name, Email Address, and how long the key should be valid for. You'll also be asked to select the keylength: 4096, 2048 (default), or 1024 bits. Unfortunately, while the Organizational Unit Name is generally optional, TinyCA insists that you include it. You will also be asked for a name of the CA, which is used only to create the directory the data is stored in. This can be useful if you intend to have more than a single CA.
+<p>Here you will be asked for some information to generate your <span class="caps">CA</span>: A password to protect the private key, your two letter country code, state or province, locality (city) name, Organization Name and Organizational Unit Name, Common Name, Email Address, and how long the key should be valid for. You’ll also be asked to select the keylength: 4096, 2048 (default), or 1024 bits. Unfortunately, while the Organizational Unit Name is generally optional, TinyCA insists that you include it. You will also be asked for a name of the <span class="caps">CA</span>, which is used only to create the directory the data is stored in. This can be useful if you intend to have more than a single <span class="caps">CA</span>.
 </p>
-<p>Once you have done this, proceed and create the certificate. You'll be given a chance to modify options used for creating the CA certificate and also for server and client certs; unless you really know what you're doing, leave these at their defaults. When the CA cert is created, TinyCA will inform you and you can begin to work with certificates immediately.
+<p>Once you have done this, proceed and create the certificate. You’ll be given a chance to modify options used for creating the <span class="caps">CA</span> certificate and also for server and client certs; unless you really know what you’re doing, leave these at their defaults. When the <span class="caps">CA</span> cert is created, TinyCA will inform you and you can begin to work with certificates immediately.
 </p>
-<p>The idea behind TinyCA is to allow you to take CSR (Certificate Signing Requests), sign them with your CA key, and export the signed certificates for use with individual servers and services. Because of this, TinyCA provides you with a four-tabbed view of managing your CA: The CA itself (which shows the active CA data), Certificates (which shows what certs have been signed), Keys (which shows what client keys have been signed) and Requests (which shows what CSR's are in the system).
+<p>The idea behind TinyCA is to allow you to take <span class="caps">CSR</span> (Certificate Signing Requests), sign them with your <span class="caps">CA</span> key, and export the signed certificates for use with individual servers and services. Because of this, TinyCA provides you with a four-tabbed view of managing your <span class="caps">CA</span>: The <span class="caps">CA</span> itself (which shows the active <span class="caps">CA</span> data), Certificates (which shows what certs have been signed), Keys (which shows what client keys have been signed) and Requests (which shows what <span class="caps">CSR</span>’s are in the system).
 </p>
-<p>If you generate, or receive, a CSR, go to the Requests tab and click "Import Request". You will be given the chance to input the filename or use the browser to find it. Note that TinyCA looks for PEM, DER, or Request (*.req) files, so if you are like me and generally create *.csr files, you'll need to change the file type to "all files". When you've selected your file, you'll be shown the details of the request so you can confirm whether or not to actually import the CSR. Once you've imported it, you can sign it by clicking on the "Sign Request" button.
+<p>If you generate, or receive, a <span class="caps">CSR</span>, go to the Requests tab and click “Import Request”. You will be given the chance to input the filename or use the browser to find it. Note that TinyCA looks for <span class="caps">PEM</span>, <span class="caps">DER</span>, or Request (*.req) files, so if you are like me and generally create *.csr files, you’ll need to change the file type to “all files”. When you’ve selected your file, you’ll be shown the details of the request so you can confirm whether or not to actually import the <span class="caps">CSR</span>. Once you’ve imported it, you can sign it by clicking on the “Sign Request” button.
 </p>
-<p>You'll be asked for the type of certificate to generate (server or client), for your CA password, and for how long the cert will be valid for. Once it's signed, you'll be asked if you want to delete it. Technically, once the CSR has been signed, you no longer need it, so feel free to remove it now, or wait until you're sure the cert was generated properly. Now if you go to the Certificates tab, you'll see your signed cert, which you can then export, revoke, or delete.
+<p>You’ll be asked for the type of certificate to generate (server or client), for your <span class="caps">CA</span> password, and for how long the cert will be valid for. Once it’s signed, you’ll be asked if you want to delete it. Technically, once the <span class="caps">CSR</span> has been signed, you no longer need it, so feel free to remove it now, or wait until you’re sure the cert was generated properly. Now if you go to the Certificates tab, you’ll see your signed cert, which you can then export, revoke, or delete.
 </p>
-<p>While using TinyCA has the advantage that it's somewhat easy to follow and has a decent GUI, I found that I didn't have the kind of flexibility that I wanted, so I prefer to create my own CA from scratch and do things a little manually. TinyCA is a good enough program, but I believe it needs a little more polish and it doesn't seem to have the ability to import data from a previous CA database (or, if it does, I missed it), which throws my serial numbers off. I also could not make it run under OS X, so it was of limited use to me already.
+<p>While using TinyCA has the advantage that it’s somewhat easy to follow and has a decent <span class="caps">GUI</span>, I found that I didn’t have the kind of flexibility that I wanted, so I prefer to create my own <span class="caps">CA</span> from scratch and do things a little manually. TinyCA is a good enough program, but I believe it needs a little more polish and it doesn’t seem to have the ability to import data from a previous <span class="caps">CA</span> database (or, if it does, I missed it), which throws my serial numbers off. I also could not make it run under <span class="caps">OS</span> X, so it was of limited use to me already.
 </p>
-<h1><span class="mw-headline" id="Creating_a_CA_.22The_Old_Fashioned_Way.22">Creating a CA "The Old Fashioned Way"</span></h1>
-<p>The real old-fashioned way to handle your own CA is to do everything manually. This is actually the method that I prefer the most as it gives you the greatest control over what you intend to accomplish. The process is very similar to what is covered in the book <a rel="nofollow" class="external text" href="http://www.oreilly.com/catalog/openssl/">Network Security with OpenSSL</a> published by O'Reilly. If you want to learn a lot more about OpenSSL than just Certification Authorities, or even if you want to learn a lot of the details of what you are doing with creating your own CA, this book is a recommended read. For our purposes, we will only cover the steps to setup the CA, and not all the theory and detail behind what we are doing.
+<h1><span class="mw-headline" id="Creating_a_CA_.22The_Old_Fashioned_Way.22">Creating a <span class="caps">CA</span> “The Old Fashioned Way”</span></h1>
+<p>The real old-fashioned way to handle your own <span class="caps">CA</span> is to do everything manually. This is actually the method that I prefer the most as it gives you the greatest control over what you intend to accomplish. The process is very similar to what is covered in the book <a class="external text" href="http://www.oreilly.com/catalog/openssl/" rel="nofollow">Network Security with OpenSSL</a> published by O’Reilly. If you want to learn a lot more about OpenSSL than just Certification Authorities, or even if you want to learn a lot of the details of what you are doing with creating your own <span class="caps">CA</span>, this book is a recommended read. For our purposes, we will only cover the steps to setup the <span class="caps">CA</span>, and not all the theory and detail behind what we are doing.
 </p>
-<p>The first thing that needs to be done is the directory structure and environment for you CA must be created. I keep my CA environment on an encrypted DMG file that is stored on a removable USB disk. This offers a few levels of protection: The USB disk must be physically present in order to mount what is essentially an encrypted loopback filesystem, protected by a strong passphrase. You may not require this same level of protection, but since I had my SSH and GPG keys on the same filesystem, putting the CA there also made sense. So for this example, we will use the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> as our directory for the CA files.
+<p>The first thing that needs to be done is the directory structure and environment for you <span class="caps">CA</span> must be created. I keep my <span class="caps">CA</span> environment on an encrypted <span class="caps">DMG</span> file that is stored on a removable <span class="caps">USB</span> disk. This offers a few levels of protection: The <span class="caps">USB</span> disk must be physically present in order to mount what is essentially an encrypted loopback filesystem, protected by a strong passphrase. You may not require this same level of protection, but since I had my <span class="caps">SSH</span> and <span class="caps">GPG</span> keys on the same filesystem, putting the <span class="caps">CA</span> there also made sense. So for this example, we will use the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> as our directory for the <span class="caps">CA</span> files.
 </p>
-<p>In this directory you need to create two subdirectories: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> directory is where the certificates that we have issued will be stored. The second directory, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span> stores the CA private key. This directory must be protected to ensure that no one else has read access to the directory or the key stored in it. Remember, if you take the steps I have taken, if the filesystem is mounted and someone obtains access to the system (ie. remote access), they can access the files on the encrypted filesystem if they have sufficient privilege to do so. To that end, standard UNIX permissions are still a factor. To accomplish these steps, execute:
+<p>In this directory you need to create two subdirectories: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">certs/</span> directory is where the certificates that we have issued will be stored. The second directory, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">private/</span> stores the <span class="caps">CA</span> private key. This directory must be protected to ensure that no one else has read access to the directory or the key stored in it. Remember, if you take the steps I have taken, if the filesystem is mounted and someone obtains access to the system (ie. remote access), they can access the files on the encrypted filesystem if they have sufficient privilege to do so. To that end, standard <span class="caps">UNIX</span> permissions are still a factor. To accomplish these steps, execute:
 </p>
 <pre>
 $ mkdir -p /Volumes/encrypted/ssl/{certs,private}
 $ cd /Volumes/encrypted/ssl
 $ chmod 700 private
 </pre>
-<p>Next, we have to create two files: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file is used to keep track of the last serial number we used to issue a certificate. Each new certificate will have it's serial number incremented by one, so we need to keep track of this. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file does this for us. We need to initialize this file with the number "01". The number must be two digits, which is why we pad the number with a leading "0". Finally, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span> is like a database that keeps track of the certificates we have issued. OpenSSL requires that this file exists, so we'll just make an empty file:
+<p>Next, we have to create two files: <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span>. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file is used to keep track of the last serial number we used to issue a certificate. Each new certificate will have it’s serial number incremented by one, so we need to keep track of this. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">serial</span> file does this for us. We need to initialize this file with the number “01”. The number must be two digits, which is why we pad the number with a leading “0”. Finally, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">index.txt</span> is like a database that keeps track of the certificates we have issued. OpenSSL requires that this file exists, so we’ll just make an empty file:
 </p>
 <pre>
-$ echo &quot;01&quot; &gt; serial
+$ echo "01" &gt; serial
 $ touch index.txt
 </pre>
-<h2><span class="mw-headline" id="The_OpenSSL_Configuration_File">The OpenSSL Configuration File</span></h2>
-<p>The next step is to create a configuration file for OpenSSL. This will ease creating and signing certificates because we won't have to pass as much information to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> on the command line. This file will be stored in our CA directory (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span>) and will be called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">openssl.cnf</span>. Use your favourite text editor to create the file, which would look something like this:
+<h2><span class="mw-headline" id="The_OpenSSL_Configuration_File">The OpenSSL Configuration File</span></h2>
+<p>The next step is to create a configuration file for OpenSSL. This will ease creating and signing certificates because we won’t have to pass as much information to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> on the command line. This file will be stored in our <span class="caps">CA</span> directory (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span>) and will be called <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">openssl.cnf</span>. Use your favourite text editor to create the file, which would look something like this:
 </p>
 <pre>
 [ ca ]
@@ -187,39 +205,39 @@ organizationalUnitName = optional
 [ certificate_extensions ]
 basicConstraints = CA:false
 </pre>
-<p>Let's explore the configuration file in a little more depth. The first section "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ ca ]</span>" deals with identifying the default CA we are using. In this case, we define the default CA to be "myca". We then create a new section specifically for this CA which we give the same name as our default CA, in this case "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca ]</span>". As you can see here, you can configure multiple CA's and use one as a default and provide commandline overrides to use other CA's when appropriate. If you do create other CA sections, you can override the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_ca</span> by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">name</span> option.
+<p>Let’s explore the configuration file in a little more depth. The first section “<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ ca ]</span>” deals with identifying the default <span class="caps">CA</span> we are using. In this case, we define the default <span class="caps">CA</span> to be “myca”. We then create a new section specifically for this <span class="caps">CA</span> which we give the same name as our default <span class="caps">CA</span>, in this case “<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca ]</span>“. As you can see here, you can configure multiple <span class="caps">CA</span>’s and use one as a default and provide commandline overrides to use other <span class="caps">CA</span>’s when appropriate. If you do create other <span class="caps">CA</span> sections, you can override the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_ca</span> by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">name</span> option.
 </p>
-<p>For our CA section, we have to define a number of keywords. The first is the directory where the CA files will be stored. We created <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> for this purpose so that is the value we use for the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dir</span> keyword. The rest of the keywords in this section simply detail the locations of the certificate file for the CA, the database, directory to place new certificates, the CA's private key, and the location of the file containing the serial numbers.
+<p>For our <span class="caps">CA</span> section, we have to define a number of keywords. The first is the directory where the <span class="caps">CA</span> files will be stored. We created <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted/ssl</span> for this purpose so that is the value we use for the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">dir</span> keyword. The rest of the keywords in this section simply detail the locations of the certificate file for the <span class="caps">CA</span>, the database, directory to place new certificates, the <span class="caps">CA</span>’s private key, and the location of the file containing the serial numbers.
 </p>
-<p>The next section, still for our CA, details certain defaults for our CA. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_crl_days</span> keyword specifies the number of days between CRLs (Certificate Revocation Lists). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_days</span> keyword defines the number of days for which a new certificate will be valid (in our case, the 365 days, or the equivalent of one year). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_md</span> keyword defines the default message digest algorithm to use when signing CRLs, which can be either "md5", "sha1", or "mdc2".
+<p>The next section, still for our <span class="caps">CA</span>, details certain defaults for our <span class="caps">CA</span>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_crl_days</span> keyword specifies the number of days between CRLs (Certificate Revocation Lists). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_days</span> keyword defines the number of days for which a new certificate will be valid (in our case, the 365 days, or the equivalent of one year). The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">default_md</span> keyword defines the default message digest algorithm to use when signing CRLs, which can be either “md5”, “sha1”, or “mdc2”.
 </p>
-<p>Finally, we define the default policy for our CA with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">policy</span> keyword, in our case the default policy section is "<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca_policy ]</span>". This policy, which is defined in the section of the same name, determines what information we require in a certificate. Each keyword corresponds to an entry in the certificate, such as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">commonName</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">countryName</span>. You can define whether the keyword must match what you specifiy, whether it can be whatever the certificate creator likes (but must be present), or whether the keyword can be optional; it may either be there or not. Use the values <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">match</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">supplied</span>, or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">optional</span> respectively.
+<p>Finally, we define the default policy for our <span class="caps">CA</span> with the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">policy</span> keyword, in our case the default policy section is “<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ myca_policy ]</span>“. This policy, which is defined in the section of the same name, determines what information we require in a certificate. Each keyword corresponds to an entry in the certificate, such as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">commonName</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">countryName</span>. You can define whether the keyword must match what you specifiy, whether it can be whatever the certificate creator likes (but must be present), or whether the keyword can be optional; it may either be there or not. Use the values <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">match</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">supplied</span>, or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">optional</span> respectively.
 </p>
-<p>The final keyword, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">x509_extension</span> specifies the name of the section that contains the extensions to be added to each certificate the CA issues. If the keyword is omitted, OpenSSL creates an X.509v1 certificate. If the keyword is present, it creates an X.509v3 certificate (even if the keyword is empty). In this example, we set the section to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ certificate_extensions ]</span>, where we have further defined that any certificate created cannot be used to create additional CA's.
+<p>The final keyword, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">x509_extension</span> specifies the name of the section that contains the extensions to be added to each certificate the <span class="caps">CA</span> issues. If the keyword is omitted, OpenSSL creates an X.509v1 certificate. If the keyword is present, it creates an X.509v3 certificate (even if the keyword is empty). In this example, we set the section to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">[ certificate_extensions ]</span>, where we have further defined that any certificate created cannot be used to create additional <span class="caps">CA</span>’s.
 </p>
-<p>At this point, OpenSSL needs to know where to find our default configuration file. You can do this by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-config</span> option passed to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> or you can set an environment variable (ie. in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.bashrc</span> or somewhere similar) the sets the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">OPENSSL_CONF</span> environment variable to the location of your configuration file. ie:
+<p>At this point, OpenSSL needs to know where to find our default configuration file. You can do this by using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">-config</span> option passed to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openssl</span> or you can set an environment variable (ie. in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.bashrc</span> or somewhere similar) the sets the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">OPENSSL_CONF</span> environment variable to the location of your configuration file. ie:
 </p>
 <pre>
-$ echo &quot;OPENSSL_CONF=/Volumes/encrypted/ssl/openssl.cnf&quot; &gt;&gt; ~/.bashrc
+$ echo "OPENSSL_CONF=/Volumes/encrypted/ssl/openssl.cnf" &gt;&gt; ~/.bashrc
 </pre>
-<h1><span class="mw-headline" id="Creating_the_Root_Certificate">Creating the Root Certificate</span></h1>
-<p>Before you can create any certificates with your CA, you need to generate a certifcate for the CA that is used to sign the certificates it will issue, and also any CRLs it may issue. To do this, you need a certificate signed by another CA, or a self-signed root certificate.
+<h1><span class="mw-headline" id="Creating_the_Root_Certificate">Creating the Root Certificate</span></h1>
+<p>Before you can create any certificates with your <span class="caps">CA</span>, you need to generate a certifcate for the <span class="caps">CA</span> that is used to sign the certificates it will issue, and also any CRLs it may issue. To do this, you need a certificate signed by another <span class="caps">CA</span>, or a self-signed root certificate.
 </p>
-<p>...TODO...
+<p>…<span class="caps">TODO</span>…
 </p>
-<h1><span class="mw-headline" id="Exporting_your_CA_Certificate">Exporting your CA Certificate</span></h1>
-<p>At the end of the day, having your own CA is pretty worthless unless you trust certificates signed by it. To do this, you will need to export your CA root certificate to your clients so that certificates you have signed with your CA can be validated by them. Usually the format required by clients for this purpose is a DER format file (or .crt file). This can be done by executing:
+<h1><span class="mw-headline" id="Exporting_your_CA_Certificate">Exporting your <span class="caps">CA</span> Certificate</span></h1>
+<p>At the end of the day, having your own <span class="caps">CA</span> is pretty worthless unless you trust certificates signed by it. To do this, you will need to export your <span class="caps">CA</span> root certificate to your clients so that certificates you have signed with your <span class="caps">CA</span> can be validated by them. Usually the format required by clients for this purpose is a <span class="caps">DER</span> format file (or .crt file). This can be done by executing:
 </p>
 <pre>
 $ openssl x509 -in demoCA/cacert.pem -outform der -out cacert.crt
 </pre>
-<p>This will create the DER format file. This file should be transmitted securely to your clients so that they can import it in their web browser or whatever application will be interacting with the secured service. If it is HTTP traffic you are wrapping in SSL, the CA certificate can be imported into the browser simply by viewing it; most browsers can do this (Galeon, Mozilla, and IE for the Mac, although Safari simply downloaded the file).
+<p>This will create the <span class="caps">DER</span> format file. This file should be transmitted securely to your clients so that they can import it in their web browser or whatever application will be interacting with the secured service. If it is <span class="caps">HTTP</span> traffic you are wrapping in <span class="caps">SSL</span>, the <span class="caps">CA</span> certificate can be imported into the browser simply by viewing it; most browsers can do this (Galeon, Mozilla, and <span class="caps">IE</span> for the Mac, although Safari simply downloaded the file).
 </p>
 <h1><span class="mw-headline" id="References">References</span></h1>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.openssl.org/">OpenSSL home page</a></li>
-<li> <a rel="nofollow" class="external text" href="http://tinyca.sm-zone.net/">TinyCA home page</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/">Perl/Tk and Mac OS X</a> (HOWTO)</li>
-<li> <a rel="nofollow" class="external text" href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/">SSL Certificates HOWTO</a></li></ul>
+<ul><li> <a class="external text" href="http://www.openssl.org/" rel="nofollow">OpenSSL home page</a></li>
+<li> <a class="external text" href="http://tinyca.sm-zone.net/" rel="nofollow">TinyCA home page</a></li>
+<li> <a class="external text" href="http://www.lehigh.edu/~sol0/Macintosh/X/ptk/" rel="nofollow">Perl/Tk and Mac <span class="caps">OS</span> X</a> (<span class="caps">HOWTO</span>)</li>
+<li> <a class="external text" href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/" rel="nofollow"><span class="caps">SSL</span> Certificates <span class="caps">HOWTO</span></a></li></ul>
             
 
 
@@ -302,6 +320,9 @@ $ openssl x509 -in demoCA/cacert.pem -outform der -out cacert.crt
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

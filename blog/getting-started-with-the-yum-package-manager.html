@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week’s TechMail is Getting started with the yum package manager which goes into some of the basics of using yum. This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I’m going to …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, yum, Linux, " />
 
-<meta property="og:title" content="Getting started with the yum package manager "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/getting-started-with-the-yum-package-manager.html" />
-<meta property="og:description" content="This week&#39;s TechMail is Getting started with the yum package manager which goes into some of the basics of using yum. This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I&#39;m going to be dealing …" />
+<meta property="og:title" content="Getting started with the yum package manager "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/getting-started-with-the-yum-package-manager" />
+<meta property="og:description" content="This week’s TechMail is Getting started with the yum package manager which goes into some of the basics of using yum. This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I’m going to …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2009-03-13T09:00:00-06:00" />
-<meta name="twitter:title" content="Getting started with the yum package manager ">
-<meta name="twitter:description" content="This week&#39;s TechMail is Getting started with the yum package manager which goes into some of the basics of using yum. This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I&#39;m going to be dealing …">
+<meta name="twitter:title" content="Getting started with the yum package manager ">
+<meta name="twitter:description" content="This week’s TechMail is Getting started with the yum package manager which goes into some of the basics of using yum. This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I’m going to …">
 
-        <title>Getting started with the yum package manager  · Annvix
+        <title>Getting started with the yum package manager  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/getting-started-with-the-yum-package-manager.html">
-                Getting started with the yum package manager
+            <a href="https://vdanen.github.io/blog/getting-started-with-the-yum-package-manager">
+                Getting started with the yum package&nbsp;manager
             </a>
         </h1>
     </header>
@@ -80,13 +93,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week's TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=449">Getting started with the yum package manager</a> which goes into some of the basics of using yum.  This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I'm going to be dealing with packages from this point forward.</p>
-<p>Still much more to learn I suspect, but for anyone who (like me) is used to some other package manager (be it urpmi, apt, whatever), this little primer may be of some use.</p>
+            <p>This week&#8217;s TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=449">Getting started with the yum package manager</a> which goes into some of the basics of using yum.  This was good reference for me coming from years of urpmi, so digging into the use of yum was a good exercise for how I&#8217;m going to be dealing with packages from this point&nbsp;forward.</p>
+<p>Still much more to learn I suspect, but for anyone who (like me) is used to some other package manager (be it urpmi, apt, whatever), this little primer may be of some&nbsp;use.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Getting%20started%20with%20the%20yum%20package%C2%A0manager&url=https%3A//vdanen.github.io/blog/getting-started-with-the-yum-package-manager&hashtags=techmail,yum" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/getting-started-with-the-yum-package-manager&title=Getting%20started%20with%20the%20yum%20package%C2%A0manager&summary=This%20week%E2%80%99s%20TechMail%20is%20Getting%20started%20with%20the%20yum%20package%20manager%20which%20goes%20into%20some%20of%20the%20basics%20of%20using%20yum.%20%20This%20was%20good%20reference%20for%20me%20coming%20from%20years%20of%20urpmi%2C%20so%20digging%20into%20the%20use%20of%20yum%20was%20a%20good%20exercise%20for%20how%20I%E2%80%99m%20going%20to%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/getting-started-with-the-yum-package-manager" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -97,22 +114,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/create-your-own-yum-repository" title="Create your own yum repository">Create your own yum repository</a></li>
+<li><a href="https://vdanen.github.io/blog/practical-selinux-port-contexts-and-handling-access-alerts" title="Practical SELinux: Port contexts and handling access alerts">Practical SELinux: Port contexts and handling access alerts</a></li>
+<li><a href="https://vdanen.github.io/blog/chromium-on-fedora-linux-is-closing-in-on-firefox" title="Chromium on Fedora Linux is closing in on Firefox">Chromium on Fedora Linux is closing in on Firefox</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring" title="Nagios XI wizards make setup a snap for network monitoring">Nagios XI wizards make setup a snap for network monitoring</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/elvish-names" title="Previous: Elvish names">Elvish names</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/the-return-of-annvix" title="Next: The return of Annvix">The return of Annvix</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-03-13T09:00:00-06:00">Fri 13 March 2009</time>
+            <time itemprop="dateCreated" datetime="2009-03-13T09:00:00-06:00">Mar 13, 2009</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#yum-ref">yum
+                <li><a href="https://vdanen.github.io/tags#yum-ref">yum
                     <span class="superscript">4</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -213,6 +249,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

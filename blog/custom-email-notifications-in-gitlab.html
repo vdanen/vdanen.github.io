@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I started playing around with GitLab last month in order to get to know it a better and, while I like it well enough, the one thing that drove me nuts was the email that it sent out alerting of changes. My old git setup used the wonderful git-notifier script …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="git, git-notifier, gitlab, Linux, " />
 
-<meta property="og:title" content="Custom Email Notifications in GitLab "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/custom-email-notifications-in-gitlab.html" />
+<meta property="og:title" content="Custom Email Notifications in GitLab "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/custom-email-notifications-in-gitlab" />
 <meta property="og:description" content="I started playing around with GitLab last month in order to get to know it a better and, while I like it well enough, the one thing that drove me nuts was the email that it sent out alerting of changes. My old git setup used the wonderful git-notifier script …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2015-01-07T10:44:00-07:00" />
-<meta name="twitter:title" content="Custom Email Notifications in GitLab ">
+<meta name="twitter:title" content="Custom Email Notifications in GitLab ">
 <meta name="twitter:description" content="I started playing around with GitLab last month in order to get to know it a better and, while I like it well enough, the one thing that drove me nuts was the email that it sent out alerting of changes. My old git setup used the wonderful git-notifier script …">
 
-        <title>Custom Email Notifications in GitLab  · Annvix
+        <title>Custom Email Notifications in GitLab  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/custom-email-notifications-in-gitlab.html">
-                Custom Email Notifications in GitLab
+            <a href="https://vdanen.github.io/blog/custom-email-notifications-in-gitlab">
+                Custom Email Notifications in&nbsp;GitLab
             </a>
         </h1>
     </header>
@@ -80,9 +93,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I started playing around with GitLab last month in order to get to know it a better and, while I like it well enough, the one thing that drove me nuts was the email that it sent out alerting of changes.  My old git setup used the wonderful <a href="http://www.icir.org/robin/git-notifier/">git-notifier</a> script to send out emails and I <i>much</i> prefer the format it used than the format GitLab uses.  Unfortunately, at that time, without ponying up for the enterprise edition it didn't look feasible to change without some serious work that I didn't have the time or effort to invest.</p>
-<p>Yesterday I was looking at the latest version (7.6.2) and noticed the community edition support for <a href="http://doc.gitlab.com/ce/hooks/custom_hooks.html">custom hooks</a>.  After upgrading, I fiddled with it and git-notifier to try to make the two work well together.  With a little elbow-grease (git-notifier works well with straight git repos or gitolite) I got it to work, although it is a bit of a nuisance because, with regular git or gitolite, you can get some information from the repo exposed via the calling scripts and environment that does not seem to be present in GitLab.</p>
-<p>If you follow the instructions on the custom hooks document referenced above, you'll end up with something along the lines of /var/opt/gitlab/git-data/repositories/<group>/<project>.git/custom_hooks (in my case it is /srv/git-data/repositories/<group>/<project>.git/custom_hooks).  In this directory (which must be owned git:git, including all its contents) lives a post-receive script which looks like:</p>
+            <p>I started playing around with GitLab last month in order to get to know it a better and, while I like it well enough, the one thing that drove me nuts was the email that it sent out alerting of changes.  My old git setup used the wonderful <a href="http://www.icir.org/robin/git-notifier/">git-notifier</a> script to send out emails and I <i>much</i> prefer the format it used than the format GitLab uses.  Unfortunately, at that time, without ponying up for the enterprise edition it didn&#8217;t look feasible to change without some serious work that I didn&#8217;t have the time or effort to&nbsp;invest.</p>
+<p>Yesterday I was looking at the latest version (7.6.2) and noticed the community edition support for <a href="http://doc.gitlab.com/ce/hooks/custom_hooks.html">custom hooks</a>.  After upgrading, I fiddled with it and git-notifier to try to make the two work well together.  With a little elbow-grease (git-notifier works well with straight git repos or gitolite) I got it to work, although it is a bit of a nuisance because, with regular git or gitolite, you can get some information from the repo exposed via the calling scripts and environment that does not seem to be present in&nbsp;GitLab.</p>
+<p>If you follow the instructions on the custom hooks document referenced above, you&#8217;ll end up with something along the lines of /var/opt/gitlab/git-data/repositories/<group>/<project>.git/custom_hooks (in my case it is /srv/git-data/repositories/<group>/<project>.git/custom_hooks).  In this directory (which must be owned git:git, including all its contents) lives a post-receive script which looks&nbsp;like:</p>
 <pre>
 #!/bin/sh
 repo_name="mygroup/myrepo"
@@ -100,15 +113,19 @@ pushd ${base_dir}/${repo_name}.git >/dev/null 2>&1
 popd >/dev/null 2>&1
 </pre>
 
-<p>I have git-notifier in a directory called /srv/git-hooks and it's owned root:root and mode 0755.  This will tell git-notifier to send an email to the $send_to address, from the $send_from address, and defines a few things like the repository itself and the host (all things that would normally be exposed via the environment in a git or gitolite setup but are lacking with GitLab).  But this can be used as a template and the only thing you should have to change is the value of $repo_name (everything else can be the same unless you need to define them differently per-repo or per-group).</p>
-<p>The downside to this is that you need shell access to set it up, which may prove troublesome for larger installations or shared environments.  For a personal or work environment this is probably an ok requirement.  Make sure that you disable the "Emails on push" service for the repository in GitLab or you'll get both the stock GitLab commitdiff email and git-notifier's email.</p>
-<p>I'm extremely grateful for those who contributed this support to GitLab as it means I spent a lot less time dorking around with this than I would have had I done it all myself, and while it was a bit of a nuisance to setup, it works quite well and I'm back to getting my old style of email notifications which are much more useful (for one thing, GitLab seems to have an upper size limit and if that is exceeded it sends no mail at all, whereas git-notifier will send you a list of changed files without the actual diff... a much more useful and meaningful email than sending nothing at all (if you look at git-notifier's changelog you'll see that was contributed by me in version 0.3-18, almost 2.5 years ago... that's how long I've been using git-notifier)).</p>
-<p>I wish I could contribute some sane code back to git-notifier to support GitLab, but without GitLab exposing things like the repository name or committer name to the environment I don't think it would be possible unless I've missed something non-obvious.</p>
+<p>I have git-notifier in a directory called /srv/git-hooks and it&#8217;s owned root:root and mode 0755.  This will tell git-notifier to send an email to the $send_to address, from the $send_from address, and defines a few things like the repository itself and the host (all things that would normally be exposed via the environment in a git or gitolite setup but are lacking with GitLab).  But this can be used as a template and the only thing you should have to change is the value of $repo_name (everything else can be the same unless you need to define them differently per-repo or&nbsp;per-group).</p>
+<p>The downside to this is that you need shell access to set it up, which may prove troublesome for larger installations or shared environments.  For a personal or work environment this is probably an ok requirement.  Make sure that you disable the &#8220;Emails on push&#8221; service for the repository in GitLab or you&#8217;ll get both the stock GitLab commitdiff email and git-notifier&#8217;s&nbsp;email.</p>
+<p>I&#8217;m extremely grateful for those who contributed this support to GitLab as it means I spent a lot less time dorking around with this than I would have had I done it all myself, and while it was a bit of a nuisance to setup, it works quite well and I&#8217;m back to getting my old style of email notifications which are much more useful (for one thing, GitLab seems to have an upper size limit and if that is exceeded it sends no mail at all, whereas git-notifier will send you a list of changed files without the actual diff&#8230; a much more useful and meaningful email than sending nothing at all (if you look at git-notifier&#8217;s changelog you&#8217;ll see that was contributed by me in version 0.3-18, almost 2.5 years ago&#8230; that&#8217;s how long I&#8217;ve been using&nbsp;git-notifier)).</p>
+<p>I wish I could contribute some sane code back to git-notifier to support GitLab, but without GitLab exposing things like the repository name or committer name to the environment I don&#8217;t think it would be possible unless I&#8217;ve missed something&nbsp;non-obvious.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Custom%20Email%20Notifications%20in%C2%A0GitLab&url=https%3A//vdanen.github.io/blog/custom-email-notifications-in-gitlab&hashtags=git,git-notifier,gitlab" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/custom-email-notifications-in-gitlab&title=Custom%20Email%20Notifications%20in%C2%A0GitLab&summary=I%20started%20playing%20around%20with%20GitLab%20last%20month%20in%20order%20to%20get%20to%20know%20it%20a%20better%20and%2C%20while%20I%20like%20it%20well%20enough%2C%20the%20one%20thing%20that%20drove%20me%20nuts%20was%20the%20email%20that%20it%20sent%20out%20alerting%20of%20changes.%20%20My%20old%20git%20setup%20used%20the%20wonderful%20git-notifier%20script%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/custom-email-notifications-in-gitlab" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -119,25 +136,44 @@ popd >/dev/null 2>&1
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/dissecting-part-of-a-subversion-repo-to-git" title="Dissecting part of a subversion repo to git">Dissecting part of a subversion repo to git</a></li>
+<li><a href="https://vdanen.github.io/blog/some-quick-git-tips" title="Some quick git tips">Some quick git tips</a></li>
+<li><a href="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" title="Git commit hook to bugzilla using git-notifier">Git commit hook to bugzilla using git-notifier</a></li>
+<li><a href="https://vdanen.github.io/blog/git-commits-on-xkcd" title="Git commits on xkcd">Git commits on xkcd</a></li>
+<li><a href="https://vdanen.github.io/blog/git-patch-workflow" title="Git patch workflow">Git patch workflow</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/ssl-certificate-verification-failure-with-finks-python-2-7-9" title="Previous: SSL Certificate Verification failure with fink’s Python 2.7.9">SSL Certificate Verification failure with fink’s Python 2.7.9</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/our-response-to-the-majesty-of-god" title="Next: Our Response to the Majesty of God">Our Response to the Majesty of God</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-01-07T10:44:00-07:00">Wed 07 January 2015</time>
+            <time itemprop="dateCreated" datetime="2015-01-07T10:44:00-07:00">Jan 07, 2015</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#git-ref">git
+                <li><a href="https://vdanen.github.io/tags#git-ref">git
                     <span class="superscript">12</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#git-notifier-ref">git-notifier
+                <li><a href="https://vdanen.github.io/tags#git-notifier-ref">git-notifier
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#gitlab-ref">gitlab
+                <li><a href="https://vdanen.github.io/tags#gitlab-ref">gitlab
                     <span class="superscript">2</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -238,6 +274,9 @@ popd >/dev/null 2>&1
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

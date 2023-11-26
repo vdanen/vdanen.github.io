@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’ve been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro. The other day I found a blog post on How I converted a VMware VM to KVM and since my new LAN server is a beefy 8-core AMD …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="kvm, vmware, Linux, " />
 
 <meta property="og:title" content="Converting a VMware Fusion virtual machine to KVM "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm.html" />
-<meta property="og:description" content="I&#39;ve been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro. The other day I found a blog post on How I converted a VMware VM to KVM and since my new LAN server is a beefy 8-core AMD FX-8120 …" />
+<meta property="og:url" content="https://vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm" />
+<meta property="og:description" content="I’ve been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro. The other day I found a blog post on How I converted a VMware VM to KVM and since my new LAN server is a beefy 8-core AMD …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2013-01-27T15:00:00-07:00" />
 <meta name="twitter:title" content="Converting a VMware Fusion virtual machine to KVM ">
-<meta name="twitter:description" content="I&#39;ve been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro. The other day I found a blog post on How I converted a VMware VM to KVM and since my new LAN server is a beefy 8-core AMD FX-8120 …">
+<meta name="twitter:description" content="I’ve been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro. The other day I found a blog post on How I converted a VMware VM to KVM and since my new LAN server is a beefy 8-core AMD …">
 
         <title>Converting a VMware Fusion virtual machine to KVM  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm.html">
-                Converting a VMware Fusion virtual machine to KVM
+            <a href="https://vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm">
+                Converting a VMware Fusion virtual machine to <span class="caps">KVM</span>
             </a>
         </h1>
     </header>
@@ -80,10 +93,10 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I've been running an instance of my Nagios XI monitor in a VMware Fusion virtual machine on my (aging) Mac Pro.  The other day I found a blog post on <a href="http://www.held.org.il/blog/2012/04/how-i-converted-vmware-vm-to-kvm/">How I converted a VMware VM to KVM</a> and since my new LAN server is a beefy 8-core AMD FX-8120 with 32GB RAM (as opposed to the 2 x 2.66GHz dual-core Xeon with 16GB RAM that is my 5(?) year old Mac Pro), I decided to try moving the VMware Fusion VM to running on my Linux server (Red Hat Enterprise Linux 6 with KVM).</p>
-<p>Not to be redundant on the steps noted in the other blog post, but to be a bit more explicit, we'll just go through the steps as I did notice a few errors (I'm assuming that blog post was written on some version of Ubuntu; I'm of course using a Red Hat Enterprise Linux 6 host).</p>
-<p>The blog notes to run the <i>qemu-img convert</i> command on the non-wildcard vmdk file; however, I found that I needed to convert the multi-file image into a single disk image first, before it could be converted.  This may be the case for VMware Workstation disk images as well, however keep in mind we're using VMware Fusion 5 on OS X, so the tool we want is inside the VMware Fusion application bundle (specifically, we want the <i>vmware-vdiskmanager</i> program).</p>
-<p>Before converting, however, I strongly recommend removing any existing snapshots of the virtual machine.  The first time I did this, I got the original snapshot which had the guest running CentOS 5.6 (and I updated it to 5.9 this morning before starting this).  So before converting anything, you probably need to remove any existing snapshots first.  Then, on the mac, convert this multi-file image into a single image:</p>
+            <p>I&#8217;ve been running an instance of my Nagios <span class="caps">XI</span> monitor in a VMware Fusion virtual machine on my (aging) Mac Pro.  The other day I found a blog post on <a href="http://www.held.org.il/blog/2012/04/how-i-converted-vmware-vm-to-kvm/">How I converted a VMware <span class="caps">VM</span> to <span class="caps">KVM</span></a> and since my new <span class="caps">LAN</span> server is a beefy 8-core <span class="caps">AMD</span> <span class="caps">FX</span>-8120 with <span class="caps">32GB</span> <span class="caps">RAM</span> (as opposed to the 2 x 2.66GHz dual-core Xeon with <span class="caps">16GB</span> <span class="caps">RAM</span> that is my 5(?) year old Mac Pro), I decided to try moving the VMware Fusion <span class="caps">VM</span> to running on my Linux server (Red Hat Enterprise Linux 6 with <span class="caps">KVM</span>).</p>
+<p>Not to be redundant on the steps noted in the other blog post, but to be a bit more explicit, we&#8217;ll just go through the steps as I did notice a few errors (I&#8217;m assuming that blog post was written on some version of Ubuntu; I&#8217;m of course using a Red Hat Enterprise Linux 6&nbsp;host).</p>
+<p>The blog notes to run the <i>qemu-img convert</i> command on the non-wildcard vmdk file; however, I found that I needed to convert the multi-file image into a single disk image first, before it could be converted.  This may be the case for VMware Workstation disk images as well, however keep in mind we&#8217;re using VMware Fusion 5 on <span class="caps">OS</span> X, so the tool we want is inside the VMware Fusion application bundle (specifically, we want the <i>vmware-vdiskmanager</i>&nbsp;program).</p>
+<p>Before converting, however, I strongly recommend removing any existing snapshots of the virtual machine.  The first time I did this, I got the original snapshot which had the guest running CentOS 5.6 (and I updated it to 5.9 this morning before starting this).  So before converting anything, you probably need to remove any existing snapshots first.  Then, on the mac, convert this multi-file image into a single&nbsp;image:</p>
 <pre>
 $ cd /Applications/VMware\ Fusion.app/Contents/Library
 $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
@@ -91,8 +104,8 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 
 </pre>
 
-<p>This also gets rid of all of the extra VMware stuff like snapshots, etc.  Copy this new vmdk file, as well as the vmx file in the container, to the Linux box.</p>
-<p>Next, convert the new image file to QCOW2 format (the original blog post didn't specify the output format; qemu-img defaults to a raw file which we don't want, we want QCOW2).</p>
+<p>This also gets rid of all of the extra VMware stuff like snapshots, etc.  Copy this new vmdk file, as well as the vmx file in the container, to the Linux&nbsp;box.</p>
+<p>Next, convert the new image file to <span class="caps">QCOW2</span> format (the original blog post didn&#8217;t specify the output format; qemu-img defaults to a raw file which we don&#8217;t want, we want <span class="caps">QCOW2</span>).</p>
 <pre>
 #  qemu-img convert nagiosxi.vmdk -O qcow2 /srv/virt/images/nagiosxi.img
 # ls /srv/virt/images/nagiosxi.img -l
@@ -100,20 +113,20 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 
 </pre>
 
-<p>Seems more reasonable.  But we need to change permissions so that libvirt can read it:</p>
+<p>Seems more reasonable.  But we need to change permissions so that libvirt can read&nbsp;it:</p>
 <pre>
 # chown qemu:qemu /srv/virt/images/nagiosxi.img
 # chmod 600 /srv/virt/images/nagiosxi.img
 
 </pre>
 
-<p>The next step is to use the <i>vmware2libvirt</i> script to convert the vmx file to an XML file for libvirt.  Unfortunately, this only seems to ship with Ubuntu.  Fortunately, we can grab the script from <a href="http://bazaar.launchpad.net/~ubuntu-virt/virt-goodies/trunk/view/head:/vmware2libvirt">here</a>.  It's just a python script with no dependencies, so run:</p>
+<p>The next step is to use the <i>vmware2libvirt</i> script to convert the vmx file to an <span class="caps">XML</span> file for libvirt.  Unfortunately, this only seems to ship with Ubuntu.  Fortunately, we can grab the script from <a href="http://bazaar.launchpad.net/~ubuntu-virt/virt-goodies/trunk/view/head:/vmware2libvirt">here</a>.  It&#8217;s just a python script with no dependencies, so&nbsp;run:</p>
 <pre>
 # python vmware2libvirt -f nagiosxi.vmwarevm/nagiosxi.vmx >~/nagiosxi.xml
 
 </pre>
 
-<p>Then we use virsh to import it.  Unfortunately, in this step, virsh is looking for <i>/usr/bin/kvm</i> and the binary is actually installed as <i>/usr/libexec/qemu-kvm</i>, so we need to make a symlink first:</p>
+<p>Then we use virsh to import it.  Unfortunately, in this step, virsh is looking for <i>/usr/bin/kvm</i> and the binary is actually installed as <i>/usr/libexec/qemu-kvm</i>, so we need to make a symlink&nbsp;first:</p>
 <pre>
 #  ln -s /usr/libexec/qemu-kvm /usr/bin/kvm
 # virsh -c qemu:///system define ~/nagiosxi.xml
@@ -121,27 +134,31 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 </pre>
 
 <p>This will import the <i>nagiosxi.xml</i> file to <i>/etc/libvirt/qemu/nagiosxi.xml</i>.</p>
-<p>The original blog post talked about using the virt-manager GUI to finalize things, and since I'm lazy and don't know libvirt well enough to do all this on the commandline, we'll do the same thing.  Since that machine runs headless without a GUI, I need to ssh in as root with X forwarding and run virt-manager.</p>
-<p>In the GUI, I can see my nagiosxi VM defined, so I select it and edit the virtual machine details.  I need to remove the existing IDE Disk 1 (which points to the vmdk file) and add my converted image file.  Essentially:</p>
+<p>The original blog post talked about using the virt-manager <span class="caps">GUI</span> to finalize things, and since I&#8217;m lazy and don&#8217;t know libvirt well enough to do all this on the commandline, we&#8217;ll do the same thing.  Since that machine runs headless without a <span class="caps">GUI</span>, I need to ssh in as root with X forwarding and run&nbsp;virt-manager.</p>
+<p>In the <span class="caps">GUI</span>, I can see my nagiosxi <span class="caps">VM</span> defined, so I select it and edit the virtual machine details.  I need to remove the existing <span class="caps">IDE</span> Disk 1 (which points to the vmdk file) and add my converted image file.&nbsp;Essentially:</p>
 <ul>
-<li> "Add Hardware" -> "Storage" -> "Managed or other existing storage" -> Pick your new file
-<li> Select "Storage Format" -> Pick qcow2
-<li> Click "Finish"
+<li> <span class="dquo">&#8220;</span>Add Hardware&#8221; -> &#8220;Storage&#8221; -> &#8220;Managed or other existing storage&#8221; -> Pick your new file
+<li> Select &#8220;Storage Format&#8221; -> Pick qcow2
+<li> Click &#8220;Finish&#8221;
 </ul>
 
-<p>You will also want to add a few more bits of hardware:</p>
+<p>You will also want to add a few more bits of&nbsp;hardware:</p>
 <ul>
 <li> <b>Serial</b>: Device type: pty
 <li> <b>Network</b>: Host device: br0, Device model: virtio
 </ul>
 
-<p>In my case, there was no network device, and the serial console is useful for using commands like "virsh console" (but you have to setup the serial getty inside the VM for this to work).</p>
-<p>Now you should be able to startup the new virtual machine.  Once you have gotten it up and running, you'll want to remove the vmware-tools that were installed.</p>
+<p>In my case, there was no network device, and the serial console is useful for using commands like &#8220;virsh console&#8221; (but you have to setup the serial getty inside the <span class="caps">VM</span> for this to&nbsp;work).</p>
+<p>Now you should be able to startup the new virtual machine.  Once you have gotten it up and running, you&#8217;ll want to remove the vmware-tools that were&nbsp;installed.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Converting%20a%20VMware%20Fusion%20virtual%20machine%20to%20KVM&url=https%3A//vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm&hashtags=kvm,vmware" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm&title=Converting%20a%20VMware%20Fusion%20virtual%20machine%20to%20KVM&summary=I%E2%80%99ve%20been%20running%20an%20instance%20of%20my%20Nagios%20XI%20monitor%20in%20a%20VMware%20Fusion%20virtual%20machine%20on%20my%20%28aging%29%20Mac%20Pro.%20%20The%20other%20day%20I%20found%20a%20blog%20post%20on%20How%20I%20converted%20a%20VMware%20VM%20to%20KVM%20and%20since%20my%20new%20LAN%20server%20is%20a%20beefy%208-core%20AMD%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -152,22 +169,39 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/how-to-use-virtual-machine-manager-on-fedora-11" title="How to use Virtual Machine Manager on Fedora 11">How to use Virtual Machine Manager on Fedora 11</a></li>
+<li><a href="https://vdanen.github.io/blog/upgrading-and-installing-fedora-18-in-vmware-fusion" title="Upgrading and Installing Fedora 18 in VMware Fusion">Upgrading and Installing Fedora 18 in VMware Fusion</a></li>
+<li><a href="https://vdanen.github.io/blog/serial-console-support-in-grub2" title="Serial console support in Grub2">Serial console support in Grub2</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/replaced-my-kerberosldap-setup-with-freeipa" title="Previous: Replaced my Kerberos+LDAP setup with FreeIPA">Replaced my Kerberos+LDAP setup with FreeIPA</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/upgrading-and-installing-fedora-18-in-vmware-fusion" title="Next: Upgrading and Installing Fedora 18 in VMware Fusion">Upgrading and Installing Fedora 18 in VMware Fusion</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2013-01-27T15:00:00-07:00">Sun 27 January 2013</time>
+            <time itemprop="dateCreated" datetime="2013-01-27T15:00:00-07:00">Jan 27, 2013</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#kvm-ref">kvm
+                <li><a href="https://vdanen.github.io/tags#kvm-ref">kvm
                     <span class="superscript">3</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#vmware-ref">vmware
+                <li><a href="https://vdanen.github.io/tags#vmware-ref">vmware
                     <span class="superscript">2</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -268,6 +302,9 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

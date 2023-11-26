@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week’s techmail is Introducing Linux virtual containers with LXC. I played with LXC for the first time a little while ago when writing this tip, and it’s pretty slick. It’s not quite as feature-complete or as robust as OpenVZ, but it’s very close. It also …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, containers, Linux, " />
 
 <meta property="og:title" content="Introducing Linux virtual containers with LXC "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc.html" />
-<meta property="og:description" content="This week&#39;s techmail is Introducing Linux virtual containers with LXC. I played with LXC for the first time a little while ago when writing this tip, and it&#39;s pretty slick. It&#39;s not quite as feature-complete or as robust as OpenVZ, but it&#39;s very close. It also has some benefits over …" />
+<meta property="og:url" content="https://vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc" />
+<meta property="og:description" content="This week’s techmail is Introducing Linux virtual containers with LXC. I played with LXC for the first time a little while ago when writing this tip, and it’s pretty slick. It’s not quite as feature-complete or as robust as OpenVZ, but it’s very close. It also …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-02-27T11:00:00-07:00" />
 <meta name="twitter:title" content="Introducing Linux virtual containers with LXC ">
-<meta name="twitter:description" content="This week&#39;s techmail is Introducing Linux virtual containers with LXC. I played with LXC for the first time a little while ago when writing this tip, and it&#39;s pretty slick. It&#39;s not quite as feature-complete or as robust as OpenVZ, but it&#39;s very close. It also has some benefits over …">
+<meta name="twitter:description" content="This week’s techmail is Introducing Linux virtual containers with LXC. I played with LXC for the first time a little while ago when writing this tip, and it’s pretty slick. It’s not quite as feature-complete or as robust as OpenVZ, but it’s very close. It also …">
 
         <title>Introducing Linux virtual containers with LXC  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc.html">
-                Introducing Linux virtual containers with LXC
+            <a href="https://vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc">
+                Introducing Linux virtual containers with <span class="caps">LXC</span>
             </a>
         </h1>
     </header>
@@ -80,12 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week's techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1289">Introducing Linux virtual containers with LXC</a>.  I played with LXC for the first time a little while ago when writing this tip, and it's pretty slick.  It's not quite as feature-complete or as robust as OpenVZ, but it's very close.  It also has some benefits over OpenVZ, like direct integration with the upstream kernel.  LXC is something to watch; it would be extremely cool to see things like Firefox stuffed into an LXC application container in the future, so it can really only ever mess with specific files/directories.  LXC is definitely something to keep an eye on.</p>
+            <p>This week&#8217;s techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1289">Introducing Linux virtual containers with <span class="caps">LXC</span></a>.  I played with <span class="caps">LXC</span> for the first time a little while ago when writing this tip, and it&#8217;s pretty slick.  It&#8217;s not quite as feature-complete or as robust as OpenVZ, but it&#8217;s very close.  It also has some benefits over OpenVZ, like direct integration with the upstream kernel.  <span class="caps">LXC</span> is something to watch; it would be extremely cool to see things like Firefox stuffed into an <span class="caps">LXC</span> application container in the future, so it can really only ever mess with specific files/directories.  <span class="caps">LXC</span> is definitely something to keep an eye&nbsp;on.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Introducing%20Linux%20virtual%20containers%20with%20LXC&url=https%3A//vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc&hashtags=techmail,containers" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc&title=Introducing%20Linux%20virtual%20containers%20with%20LXC&summary=This%20week%E2%80%99s%20techmail%20is%20Introducing%20Linux%20virtual%20containers%20with%20LXC.%20%20I%20played%20with%20LXC%20for%20the%20first%20time%20a%20little%20while%20ago%20when%20writing%20this%20tip%2C%20and%20it%E2%80%99s%20pretty%20slick.%20%20It%E2%80%99s%20not%20quite%20as%20feature-complete%20or%20as%20robust%20as%20OpenVZ%2C%20but%20it%E2%80%99s%20very%20close.%20%20It%20also%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/introducing-linux-virtual-containers-with-lxc" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -96,22 +113,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/install-openvz-on-centos-to-create-a-virtual-container" title="Install OpenVZ on CentOS to create a virtual container">Install OpenVZ on CentOS to create a virtual container</a></li>
+<li><a href="https://vdanen.github.io/blog/create-an-openvz-container" title="Create an OpenVZ container">Create an OpenVZ container</a></li>
+<li><a href="https://vdanen.github.io/blog/gain-fine-control-in-openvz-with-resource-management" title="Gain fine control in OpenVZ with resource management">Gain fine control in OpenVZ with resource management</a></li>
+<li><a href="https://vdanen.github.io/blog/how-to-create-lxc-system-containers-to-isolate-services" title="How to create LXC system containers to isolate services">How to create LXC system containers to isolate services</a></li>
+<li><a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring" title="Nagios XI wizards make setup a snap for network monitoring">Nagios XI wizards make setup a snap for network monitoring</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/1password-for-mac-os-x-one-program-to-store-them-all" title="Previous: 1Password for Mac OS X: One program to store them all">1Password for Mac OS X: One program to store them all</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/using-expandrive-to-mount-remote-file-systems" title="Next: Using ExpanDrive to mount remote file systems">Using ExpanDrive to mount remote file systems</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-02-27T11:00:00-07:00">Sat 27 February 2010</time>
+            <time itemprop="dateCreated" datetime="2010-02-27T11:00:00-07:00">Feb 27, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#containers-ref">containers
+                <li><a href="https://vdanen.github.io/tags#containers-ref">containers
                     <span class="superscript">6</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -212,6 +248,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

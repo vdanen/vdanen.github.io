@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="python, bugzilla, Linux, " />
 
-<meta property="og:title" content="Of bugzilla, python, fetchmail, and procmail "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail.html" />
-<meta property="og:description" content="I&#39;ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that we …" />
+<meta property="og:title" content="Of bugzilla, python, fetchmail, and procmail "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail" />
+<meta property="og:description" content="I’ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2013-06-08T14:31:00-06:00" />
-<meta name="twitter:title" content="Of bugzilla, python, fetchmail, and procmail ">
-<meta name="twitter:description" content="I&#39;ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that we …">
+<meta name="twitter:title" content="Of bugzilla, python, fetchmail, and procmail ">
+<meta name="twitter:description" content="I’ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that …">
 
-        <title>Of bugzilla, python, fetchmail, and procmail  · Annvix
+        <title>Of bugzilla, python, fetchmail, and procmail  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail.html">
-                Of bugzilla, python, fetchmail, and procmail
+            <a href="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail">
+                Of bugzilla, python, fetchmail, and&nbsp;procmail
             </a>
         </h1>
     </header>
@@ -80,9 +93,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I've been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that we work with bugzilla all the time).  I also run my own bugzilla instance a) so I can keep up to date with the goings-on of bugzilla and b) so I can track various things in some of the scripts I write and other stuff.  One thing that I do is also use it as a way of logging issues that may come up with the various bits of web hosting that I do.</p>
-<p>So what I needed was a way to take incoming emails generated by lfd (my primary concern right now is high load average warnings; I wanted to log them to bugzilla so that if I'm unavailable my dad could also see them (he helps maintain the server and hosts a bunch of his stuff there as well) and perhaps deal with them or at the very least if he wanted/needed to comment on them he could do so via bugzilla, and I can also make note of resolutions or causes, etc.  Yes, I'm turning bugzilla into a poor man's "RT" ticketing system (I have no interest in setting something like that up, I'm already using bugzilla, and this is the best place for me to stuff these sorts of notes).  I've tried the email_in.pl method and while it works, it only works if you have a specific format so you can assign it to the right component and product -- not something that will work with these lfd-generated emails.</p>
-<p>Being that a lot of the work that I've been doing has to do with using python and xmlrpc to manipulate bugs in the Red Hat bugzilla, it seemed like a reasonable approach to take to deal with my own bug mangling.  The problem is that these emails were being sent to root, which in turn forwards directly to me.  I also wanted to keep a copy of those mails in my own mailbox in case bugzilla, or anything in between, did something funky, so I opted to do a few things:</p>
+            <p>I&#8217;ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that we work with bugzilla all the time).  I also run my own bugzilla instance a) so I can keep up to date with the goings-on of bugzilla and b) so I can track various things in some of the scripts I write and other stuff.  One thing that I do is also use it as a way of logging issues that may come up with the various bits of web hosting that I&nbsp;do.</p>
+<p>So what I needed was a way to take incoming emails generated by lfd (my primary concern right now is high load average warnings; I wanted to log them to bugzilla so that if I&#8217;m unavailable my dad could also see them (he helps maintain the server and hosts a bunch of his stuff there as well) and perhaps deal with them or at the very least if he wanted/needed to comment on them he could do so via bugzilla, and I can also make note of resolutions or causes, etc.  Yes, I&#8217;m turning bugzilla into a poor man&#8217;s &#8220;<span class="caps">RT</span>&#8221; ticketing system (I have no interest in setting something like that up, I&#8217;m already using bugzilla, and this is the best place for me to stuff these sorts of notes).  I&#8217;ve tried the email_in.pl method and while it works, it only works if you have a specific format so you can assign it to the right component and product &#8212; not something that will work with these lfd-generated&nbsp;emails.</p>
+<p>Being that a lot of the work that I&#8217;ve been doing has to do with using python and xmlrpc to manipulate bugs in the Red Hat bugzilla, it seemed like a reasonable approach to take to deal with my own bug mangling.  The problem is that these emails were being sent to root, which in turn forwards directly to me.  I also wanted to keep a copy of those mails in my own mailbox in case bugzilla, or anything in between, did something funky, so I opted to do a few&nbsp;things:</p>
 <ul>
 <li> use a gmail filter to forward those emails to another email account specifically for bugzilla mails
 <li> setup fetchmail to pull (via pop3) those emails
@@ -90,11 +103,11 @@
 <li> write a helper script that will then call the <a href="https://fedorahosted.org/python-bugzilla">python-bugzilla</a> tool to file the bug
 </ul>
 
-<p>The first step was easy.  Fetchmail was pretty easy too (although it's been a few years).  Procmail was easy, particularly now since I'm only concerned with one particular type of email and my gmail filter is quite specific.  The helper script was initially a shell script that was going to call the bugzilla script but I quickly found limitations to that, particular since lfd's email also has a few attachments and I was having issues with getting it to file the bugs properly.  So instead of using uudeview and a shell script, I opted to write something in python.</p>
-<p>Instead of procmail feeding uudeview and then feeding my script, I made use of some of the features of python that allow for manipulating email messages (something I've never done before).  I also found that passing stdin to the python script was somehow also passing stdin to python-bugzilla when I was calling it, which was causing all kinds of grief.</p>
-<p>So with this script I learned all kinds of new things: how to manipulate an email message in python and reduce an email with attachments to a message body with individual attachments as objects and how to use subprocess (yes, I'm still using the commands stuff by and large, but that was really problematic with stdin being persistent).</p>
-<p>All in all it works quite well.  However, I do still have one problem that I've not yet liked, and that is with binary files.  I'm not sure where the issue is coming from, but for some reason when I call python-bugzilla myself, in a shell, and feed it the file to attach to the bug it works fine -- however, when I call it from my script (so no shell), it uses the --file argument as the name of the file and wants stdin as the contents of the file.  This is all fine and dandy, but somewhere along the line something is rendering that binary file (was testing with a jpeg) into text and when it's attached to the bug it has the right mime type, but the contents are wrong and no image is displayed.  So, dear lazy web, if there any python folks out there who want to look at my script and tell me what I'm doing wrong, I'd be much obliged.... =)</p>
-<p>Anyways, since no post like this is really any good without the files involved, what follows is the script (process-mail) and the .procmailrc file (which is pretty bare bones and doesn't filter much of anything):</p>
+<p>The first step was easy.  Fetchmail was pretty easy too (although it&#8217;s been a few years).  Procmail was easy, particularly now since I&#8217;m only concerned with one particular type of email and my gmail filter is quite specific.  The helper script was initially a shell script that was going to call the bugzilla script but I quickly found limitations to that, particular since lfd&#8217;s email also has a few attachments and I was having issues with getting it to file the bugs properly.  So instead of using uudeview and a shell script, I opted to write something in&nbsp;python.</p>
+<p>Instead of procmail feeding uudeview and then feeding my script, I made use of some of the features of python that allow for manipulating email messages (something I&#8217;ve never done before).  I also found that passing stdin to the python script was somehow also passing stdin to python-bugzilla when I was calling it, which was causing all kinds of&nbsp;grief.</p>
+<p>So with this script I learned all kinds of new things: how to manipulate an email message in python and reduce an email with attachments to a message body with individual attachments as objects and how to use subprocess (yes, I&#8217;m still using the commands stuff by and large, but that was really problematic with stdin being&nbsp;persistent).</p>
+<p>All in all it works quite well.  However, I do still have one problem that I&#8217;ve not yet liked, and that is with binary files.  I&#8217;m not sure where the issue is coming from, but for some reason when I call python-bugzilla myself, in a shell, and feed it the file to attach to the bug it works fine &#8212; however, when I call it from my script (so no shell), it uses the &#8212;file argument as the name of the file and wants stdin as the contents of the file.  This is all fine and dandy, but somewhere along the line something is rendering that binary file (was testing with a jpeg) into text and when it&#8217;s attached to the bug it has the right mime type, but the contents are wrong and no image is displayed.  So, dear lazy web, if there any python folks out there who want to look at my script and tell me what I&#8217;m doing wrong, I&#8217;d be much obliged&#8230;.&nbsp;=)</p>
+<p>Anyways, since no post like this is really any good without the files involved, what follows is the script (process-mail) and the .procmailrc file (which is pretty bare bones and doesn&#8217;t filter much of&nbsp;anything):</p>
 <pre>
 # .procmailrc
 #
@@ -114,9 +127,10 @@ LOG="
     | /usr/bin/python $HOME/bin/process-mail
 }
 </pre>
+
 <p><br /></p>
-<p>All this does is call the process-mail script.  It will/may eventually filter on subject and sender if I find that unwanted emails are triggering new bugs.  For the moment I don't particularly care.</p>
-<p>And the process-mail python script:</p>
+<p>All this does is call the process-mail script.  It will/may eventually filter on subject and sender if I find that unwanted emails are triggering new bugs.  For the moment I don&#8217;t particularly&nbsp;care.</p>
+<p>And the process-mail python&nbsp;script:</p>
 <pre>
 #!/usr/bin/env python
 
@@ -191,13 +205,18 @@ log.close()
 
 sys.exit(0)
 </pre>
+
 <p><br /></p>
-<p>I'm not sure why this isn't working for binary attachments though... it's probably something simple, but I've not had a chance to figure out what the problem is.  Dear lazy web.... any advice?  =)</p>
+<p>I&#8217;m not sure why this isn&#8217;t working for binary attachments though&#8230; it&#8217;s probably something simple, but I&#8217;ve not had a chance to figure out what the problem is.  Dear lazy web&#8230;. any advice?&nbsp;=)</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Of%20bugzilla%2C%20python%2C%20fetchmail%2C%20and%C2%A0procmail&url=https%3A//vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail&hashtags=python,bugzilla" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail&title=Of%20bugzilla%2C%20python%2C%20fetchmail%2C%20and%C2%A0procmail&summary=I%E2%80%99ve%20been%20working%20with%20bugzilla%20for%20years..%20at%20Mandriva%20I%20was%20the%20primary%20bugzilla%20care-taker%20for%20a%20few%20years%2C%20and%20now%20with%20Red%20Hat%20I%20do%20a%20lot%20of%20work%20on%20some%20internal%20tools%20that%20interface%20with%20bugzilla%20that%20enhances%20and%20directs%20the%20workflow%20of%20day-to-day%20work%20%28being%20that%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -208,22 +227,41 @@ sys.exit(0)
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/adding-dash-support-to-komodo-ide" title="Adding Dash support to Komodo IDE">Adding Dash support to Komodo IDE</a></li>
+<li><a href="https://vdanen.github.io/blog/welcome-to-the-new-journey" title="Welcome to the new journey">Welcome to the new journey</a></li>
+<li><a href="https://vdanen.github.io/blog/current-progress-of-new-blog-platform" title="Current progress of new blog platform">Current progress of new blog platform</a></li>
+<li><a href="https://vdanen.github.io/blog/moved-to-python-anywhere" title="Moved to PythonAnywhere">Moved to PythonAnywhere</a></li>
+<li><a href="https://vdanen.github.io/blog/moving-from-python-2-to-python-3" title="Moving from python 2 to python 3">Moving from python 2 to python 3</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/converting-subversion-to-git-redux" title="Previous: Converting subversion to git redux">Converting subversion to git redux</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/setting-up-a-drobo-5n" title="Next: Setting up a Drobo 5N">Setting up a Drobo 5N</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2013-06-08T14:31:00-06:00">Sat 08 June 2013</time>
+            <time itemprop="dateCreated" datetime="2013-06-08T14:31:00-06:00">Jun 08, 2013</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#bugzilla-ref">bugzilla
+                <li><a href="https://vdanen.github.io/tags#bugzilla-ref">bugzilla
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#python-ref">python
+                <li><a href="https://vdanen.github.io/tags#python-ref">python
                     <span class="superscript">10</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -324,6 +362,9 @@ sys.exit(0)
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

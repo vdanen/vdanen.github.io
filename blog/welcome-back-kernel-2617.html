@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Due to an issue that the 2.6.17+ kernel exemplified, all of the sites I host (annvix.org, linsec.ca, danen.ca, etc.) have been unavailable to anyone using a 2.6.17+ kernel due to a change in the way TCP window scaling was implemented, which has been …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="Welcome back, kernel 2.6.17+ "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/welcome-back-kernel-2617.html" />
+<meta property="og:title" content="Welcome back, kernel 2.6.17+ "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/welcome-back-kernel-2617" />
 <meta property="og:description" content="Due to an issue that the 2.6.17+ kernel exemplified, all of the sites I host (annvix.org, linsec.ca, danen.ca, etc.) have been unavailable to anyone using a 2.6.17+ kernel due to a change in the way TCP window scaling was implemented, which has been …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-03-03T20:36:00-07:00" />
-<meta name="twitter:title" content="Welcome back, kernel 2.6.17+ ">
+<meta name="twitter:title" content="Welcome back, kernel 2.6.17+ ">
 <meta name="twitter:description" content="Due to an issue that the 2.6.17+ kernel exemplified, all of the sites I host (annvix.org, linsec.ca, danen.ca, etc.) have been unavailable to anyone using a 2.6.17+ kernel due to a change in the way TCP window scaling was implemented, which has been …">
 
-        <title>Welcome back, kernel 2.6.17+  · Annvix
+        <title>Welcome back, kernel 2.6.17+  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/welcome-back-kernel-2617.html">
-                Welcome back, kernel 2.6.17+
+            <a href="https://vdanen.github.io/blog/welcome-back-kernel-2617">
+                Welcome back, kernel&nbsp;2.6.17+
             </a>
         </h1>
     </header>
@@ -80,16 +93,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Due to an issue that the 2.6.17+ kernel exemplified, all of the sites I host (annvix.org, linsec.ca, danen.ca, etc.) have been unavailable to anyone using a 2.6.17+ kernel due to a change in the way TCP window scaling was implemented, which has been noted in a number of places (here's one: <a href="http://inodes.org/blog/2006/09/06/tcp-window-scaling-and-kernel-2617/">TCP Window Scaling and kernel 2.6.17+</a>).</p>
-<p>This issue was noticed when I set up the mock Mandriva wiki a few months ago and I could never figure out where the problem was coming from (the server is at a co-location, behind two different OpenBSD firewalls with three switches in the closet.. nevermind all the junk in front of that).  Well, today it got figured out.</p>
-<p>Turns out the issue was with an OpenBSD firewall and the interface packets to my machine were being sent through was on a gigabit intel pro card.  Now, I don't know if the problem is with the card itself or with OpenBSD's drivers for it, but after a whole lot of trouble-shooting and shuffling things around, we finally put the network my machine is on via a different interface in the OpenBSD firewall, rebooted it, and all of a sudden all of the problems disappeared.  I've noticed that as more people upgrade to distros shipping this new kernel, more issues were showing up... not only could regular desktop users not connect to my sites, but some sites delivering mail would timeout, etc.  I'm suspecting this is due to upgrades of kernels on those machines.</p>
-<p>Anyways, this is all fixed now.  For the first time in I don't know how long, I can visit my websites via my Mandriva desktop.  Wow, is it nice to have that again!  So... welcome back all you 2.6.17+ using people!  It's a nuisance that the kernel developers knew about this issue and didn't care to do anything about it.  Sure, the problem isn't technically with the linux kernel, but when you go from 2.6.16 (which worked fine) to 2.6.17 (which didn't) and they're aware of it and poo-poo the situation, well... that's not fun for anyone (it's not like I, and many others like me, can go and tell people to change the TCP window scaling value on their desktop machine for anyone who wants to visit).</p>
-<p>Oh well... the nuisance, for me at least, is dealt with.  And I'm very glad of it.</p>
+            <p>Due to an issue that the 2.6.17+ kernel exemplified, all of the sites I host (annvix.org, linsec.ca, danen.ca, etc.) have been unavailable to anyone using a 2.6.17+ kernel due to a change in the way <span class="caps">TCP</span> window scaling was implemented, which has been noted in a number of places (here&#8217;s one: <a href="http://inodes.org/blog/2006/09/06/tcp-window-scaling-and-kernel-2617/"><span class="caps">TCP</span> Window Scaling and kernel 2.6.17+</a>).</p>
+<p>This issue was noticed when I set up the mock Mandriva wiki a few months ago and I could never figure out where the problem was coming from (the server is at a co-location, behind two different OpenBSD firewalls with three switches in the closet.. nevermind all the junk in front of that).  Well, today it got figured&nbsp;out.</p>
+<p>Turns out the issue was with an OpenBSD firewall and the interface packets to my machine were being sent through was on a gigabit intel pro card.  Now, I don&#8217;t know if the problem is with the card itself or with OpenBSD&#8217;s drivers for it, but after a whole lot of trouble-shooting and shuffling things around, we finally put the network my machine is on via a different interface in the OpenBSD firewall, rebooted it, and all of a sudden all of the problems disappeared.  I&#8217;ve noticed that as more people upgrade to distros shipping this new kernel, more issues were showing up&#8230; not only could regular desktop users not connect to my sites, but some sites delivering mail would timeout, etc.  I&#8217;m suspecting this is due to upgrades of kernels on those&nbsp;machines.</p>
+<p>Anyways, this is all fixed now.  For the first time in I don&#8217;t know how long, I can visit my websites via my Mandriva desktop.  Wow, is it nice to have that again!  So&#8230; welcome back all you 2.6.17+ using people!  It&#8217;s a nuisance that the kernel developers knew about this issue and didn&#8217;t care to do anything about it.  Sure, the problem isn&#8217;t technically with the linux kernel, but when you go from 2.6.16 (which worked fine) to 2.6.17 (which didn&#8217;t) and they&#8217;re aware of it and poo-poo the situation, well&#8230; that&#8217;s not fun for anyone (it&#8217;s not like I, and many others like me, can go and tell people to change the <span class="caps">TCP</span> window scaling value on their desktop machine for anyone who wants to&nbsp;visit).</p>
+<p>Oh well&#8230; the nuisance, for me at least, is dealt with.  And I&#8217;m very glad of&nbsp;it.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Welcome%20back%2C%20kernel%C2%A02.6.17%2B&url=https%3A//vdanen.github.io/blog/welcome-back-kernel-2617" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/welcome-back-kernel-2617&title=Welcome%20back%2C%20kernel%C2%A02.6.17%2B&summary=Due%20to%20an%20issue%20that%20the%202.6.17%2B%20kernel%20exemplified%2C%20all%20of%20the%20sites%20I%20host%20%28annvix.org%2C%20linsec.ca%2C%20danen.ca%2C%20etc.%29%20have%20been%20unavailable%20to%20anyone%20using%20a%202.6.17%2B%20kernel%20due%20to%20a%20change%20in%20the%20way%20TCP%20window%20scaling%20was%20implemented%2C%20which%20has%20been%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/welcome-back-kernel-2617" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -100,13 +117,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/main-site-reorganization" title="Previous: Main site reorganization">Main site reorganization</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/using-mutt-on-os-x" title="Next: Using mutt on OS X">Using mutt on OS X</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-03-03T20:36:00-07:00">Sat 03 March 2007</time>
+            <time itemprop="dateCreated" datetime="2007-03-03T20:36:00-07:00">Mar 03, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -207,6 +232,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

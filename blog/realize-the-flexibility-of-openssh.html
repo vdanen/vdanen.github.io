@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="The last TechMail is Realize the flexibility of OpenSSH which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user. OpenSSH is another of my favourite tools. Of course, there’s also the …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, openssh, Linux, " />
 
-<meta property="og:title" content="Realize the flexibility of OpenSSH "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/realize-the-flexibility-of-openssh.html" />
-<meta property="og:description" content="The last TechMail is Realize the flexibility of OpenSSH which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user. OpenSSH is another of my favourite tools. Of course, there&#39;s also the linsec …" />
+<meta property="og:title" content="Realize the flexibility of OpenSSH "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/realize-the-flexibility-of-openssh" />
+<meta property="og:description" content="The last TechMail is Realize the flexibility of OpenSSH which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user. OpenSSH is another of my favourite tools. Of course, there’s also the …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-06-16T12:00:00-06:00" />
-<meta name="twitter:title" content="Realize the flexibility of OpenSSH ">
-<meta name="twitter:description" content="The last TechMail is Realize the flexibility of OpenSSH which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user. OpenSSH is another of my favourite tools. Of course, there&#39;s also the linsec …">
+<meta name="twitter:title" content="Realize the flexibility of OpenSSH ">
+<meta name="twitter:description" content="The last TechMail is Realize the flexibility of OpenSSH which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user. OpenSSH is another of my favourite tools. Of course, there’s also the …">
 
-        <title>Realize the flexibility of OpenSSH  · Annvix
+        <title>Realize the flexibility of OpenSSH  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/realize-the-flexibility-of-openssh.html">
-                Realize the flexibility of OpenSSH
+            <a href="https://vdanen.github.io/blog/realize-the-flexibility-of-openssh">
+                Realize the flexibility of&nbsp;OpenSSH
             </a>
         </h1>
     </header>
@@ -80,12 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>The last TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=221">Realize the flexibility of OpenSSH</a> which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user.  OpenSSH is another of my favourite tools.  Of course, there's also the linsec wiki page <a href="http://linsec.ca/Optimizing_OpenSSH">Optimizing OpenSSH</a> that goes into a lot more depth about using OpenSSH.  It does, however, need to be updated to note the many new features recent OpenSSH versions provide.</p>
+            <p>The last TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=221">Realize the flexibility of OpenSSH</a> which talks about some of the basics of using OpenSSH, from setting up keys to modifying sshd_config for user/group access controls and different features per group/user.  OpenSSH is another of my favourite tools.  Of course, there&#8217;s also the linsec wiki page <a href="http://linsec.ca/Optimizing_OpenSSH">Optimizing OpenSSH</a> that goes into a lot more depth about using OpenSSH.  It does, however, need to be updated to note the many new features recent OpenSSH versions&nbsp;provide.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Realize%20the%20flexibility%20of%C2%A0OpenSSH&url=https%3A//vdanen.github.io/blog/realize-the-flexibility-of-openssh&hashtags=techmail,openssh" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/realize-the-flexibility-of-openssh&title=Realize%20the%20flexibility%20of%C2%A0OpenSSH&summary=The%20last%20TechMail%20is%20Realize%20the%20flexibility%20of%20OpenSSH%20which%20talks%20about%20some%20of%20the%20basics%20of%20using%20OpenSSH%2C%20from%20setting%20up%20keys%20to%20modifying%20sshd_config%20for%20user/group%20access%20controls%20and%20different%20features%20per%20group/user.%20%20OpenSSH%20is%20another%20of%20my%20favourite%20tools.%20%20Of%20course%2C%20there%E2%80%99s%20also%20the%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/realize-the-flexibility-of-openssh" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -96,22 +113,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/secure-remote-firewall-administration-via-ssh" title="Secure remote firewall administration via SSH">Secure remote firewall administration via SSH</a></li>
+<li><a href="https://vdanen.github.io/blog/what-you-need-to-know-about-openssh-key-management" title="What you need to know about OpenSSH key management">What you need to know about OpenSSH key management</a></li>
+<li><a href="https://vdanen.github.io/blog/tips-and-tricks-to-help-you-do-more-with-openssh" title="Tips and tricks to help you do more with OpenSSH">Tips and tricks to help you do more with OpenSSH</a></li>
+<li><a href="https://vdanen.github.io/blog/two-ssh-clients-to-consider-for-the-ipad" title="Two SSH clients to consider for the iPad">Two SSH clients to consider for the iPad</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/back-in-canada" title="Previous: Back in Canada!">Back in Canada!</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/delegate-privileges-to-users-with-sudo" title="Next: Delegate privileges to users with sudo">Delegate privileges to users with sudo</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-06-16T12:00:00-06:00">Mon 16 June 2008</time>
+            <time itemprop="dateCreated" datetime="2008-06-16T12:00:00-06:00">Jun 16, 2008</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#openssh-ref">openssh
+                <li><a href="https://vdanen.github.io/tags#openssh-ref">openssh
                     <span class="superscript">14</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -212,6 +248,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

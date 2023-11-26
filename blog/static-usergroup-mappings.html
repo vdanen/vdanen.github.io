@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="security, Linux, " />
 
-<meta property="og:title" content="Static User/Group Mappings "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/static-usergroup-mappings.html" />
-<meta property="og:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …" />
+<meta property="og:title" content="Static User/Group Mappings "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/static-usergroup-mappings" />
+<meta property="og:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-04-08T00:41:00-06:00" />
-<meta name="twitter:title" content="Static User/Group Mappings ">
-<meta name="twitter:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …">
+<meta name="twitter:title" content="Static User/Group Mappings ">
+<meta name="twitter:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …">
 
-        <title>Static User/Group Mappings  · Annvix
+        <title>Static User/Group Mappings  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/static-usergroup-mappings.html">
-                Static User/Group Mappings
+            <a href="https://vdanen.github.io/blog/static-usergroup-mappings">
+                Static User/Group&nbsp;Mappings
             </a>
         </h1>
     </header>
@@ -80,17 +93,21 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>/start rant</p>
-<p>Switching my servers from Annvix to Mandriva is absolutely maddening.  The biggest problem is dynamic uid/gid mappings.  Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another?  Or svn is gid 75 on one and gid 76 on another?  It's driving me absolutely bonkers.</p>
-<p>Why on earth we switched, years ago, from static uid/gid mapping to dynamic mapping is beyond me.  It's the most utterly retarded thing possible.  Consistency between different installs is not a bad thing people!  Sure, the original argument was "it keeps the passwd file smaller" but... news flash!  It's <em>easy</em> to specify the uid or gid in the spec file and it's trivial to keep a publicly-accessible list of the map so people don't grab inappropriate uid or gid numbers.  I mean, seriously... I implemented that in Annvix over 4 years ago!  It was one of the first things I did.</p>
-<p>Of course, mention this and developers/maintainers poo-poo the idea (no, that's not theoretical... after I did it Annvix I proposed it again and... gasp... it was poo-poo'd... like usual).</p>
-<p>Gaaaahhh!  If I had a brick wall handy I'd be smashing my head in it at the moment.</p>
-<p>/end rant</p>
+            <p>/start&nbsp;rant</p>
+<p>Switching my servers from Annvix to Mandriva is absolutely maddening.  The biggest problem is dynamic uid/gid mappings.  Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another?  Or svn is gid 75 on one and gid 76 on another?  It&#8217;s driving me absolutely&nbsp;bonkers.</p>
+<p>Why on earth we switched, years ago, from static uid/gid mapping to dynamic mapping is beyond me.  It&#8217;s the most utterly retarded thing possible.  Consistency between different installs is not a bad thing people!  Sure, the original argument was &#8220;it keeps the passwd file smaller&#8221; but&#8230; news flash!  It&#8217;s <em>easy</em> to specify the uid or gid in the spec file and it&#8217;s trivial to keep a publicly-accessible list of the map so people don&#8217;t grab inappropriate uid or gid numbers.  I mean, seriously&#8230; I implemented that in Annvix over 4 years ago!  It was one of the first things I&nbsp;did.</p>
+<p>Of course, mention this and developers/maintainers poo-poo the idea (no, that&#8217;s not theoretical&#8230; after I did it Annvix I proposed it again and&#8230; gasp&#8230; it was poo-poo&#8217;d&#8230; like&nbsp;usual).</p>
+<p>Gaaaahhh!  If I had a brick wall handy I&#8217;d be smashing my head in it at the&nbsp;moment.</p>
+<p>/end&nbsp;rant</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Static%20User/Group%C2%A0Mappings&url=https%3A//vdanen.github.io/blog/static-usergroup-mappings&hashtags=security" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/static-usergroup-mappings&title=Static%20User/Group%C2%A0Mappings&summary=/start%C2%A0rant%0ASwitching%20my%20servers%20from%20Annvix%20to%20Mandriva%20is%20absolutely%20maddening.%20%20The%20biggest%20problem%20is%20dynamic%20uid/gid%20mappings.%20%20Do%20you%20know%20how%20frustrating%20it%20is%20to%20have%20apache%20uid%2077%20on%20one%20machine%20and%20uid%2092%20on%20another%3F%20%20Or%20svn%20is%20gid%2075%20on%20one%20and%20gid%2076%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/static-usergroup-mappings" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -101,19 +118,38 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/a-new-generation-of-tools-for-open-source-vulnerability-management" title="A new generation of tools for open source vulnerability management">A new generation of tools for open source vulnerability management</a></li>
+<li><a href="https://vdanen.github.io/blog/and-a-pelican-in-a-pear-tree" title="… And a pelican in a pear tree">… And a pelican in a pear tree</a></li>
+<li><a href="https://vdanen.github.io/blog/sboms-cves-cvss-and-more" title="SBOMs, CVEs, CVSS and more">SBOMs, CVEs, CVSS and more</a></li>
+<li><a href="https://vdanen.github.io/blog/oss-summit-2023" title="OSS Summit 2023">OSS Summit 2023</a></li>
+<li><a href="https://vdanen.github.io/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/which-bible-character-am-i-most-like" title="Previous: Which bible character am I most like?">Which bible character am I most like?</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/use-command-line-mysql-for-additional-flexibility" title="Next: Use command-line MySQL for additional flexibility">Use command-line MySQL for additional flexibility</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-04-08T00:41:00-06:00">Tue 08 April 2008</time>
+            <time itemprop="dateCreated" datetime="2008-04-08T00:41:00-06:00">Apr 08, 2008</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#security-ref">security
+                <li><a href="https://vdanen.github.io/tags#security-ref">security
                     <span class="superscript">34</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -214,6 +250,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

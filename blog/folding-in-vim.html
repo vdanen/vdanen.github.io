@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Was just reading this article on linux.com about some guy’s sysadmin toolbox. Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses. What got me though was the first comment that was made. Vim has text …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="Folding in vim "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/folding-in-vim.html" />
-<meta property="og:description" content="Was just reading this article on linux.com about some guy&#39;s sysadmin toolbox. Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses. What got me though was the first comment that was made. Vim has text folding …" />
+<meta property="og:title" content="Folding in vim "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/folding-in-vim" />
+<meta property="og:description" content="Was just reading this article on linux.com about some guy’s sysadmin toolbox. Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses. What got me though was the first comment that was made. Vim has text …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2006-02-25T06:35:00-07:00" />
-<meta name="twitter:title" content="Folding in vim ">
-<meta name="twitter:description" content="Was just reading this article on linux.com about some guy&#39;s sysadmin toolbox. Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses. What got me though was the first comment that was made. Vim has text folding …">
+<meta name="twitter:title" content="Folding in vim ">
+<meta name="twitter:description" content="Was just reading this article on linux.com about some guy’s sysadmin toolbox. Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses. What got me though was the first comment that was made. Vim has text …">
 
-        <title>Folding in vim  · Annvix
+        <title>Folding in vim  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/folding-in-vim.html">
-                Folding in vim
+            <a href="https://vdanen.github.io/blog/folding-in-vim">
+                Folding in&nbsp;vim
             </a>
         </h1>
     </header>
@@ -80,21 +93,25 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Was just reading this article on linux.com about some guy's sysadmin toolbox.  Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses.  What got me though was the first <a href="http://www.linux.com/comments.pl?sid=36338&cid=87337">comment</a> that was made.  Vim has text folding?  I had no idea.  That totally rocks!</p>
-<p>One thing I appreciate about the two IDE's I use (Komodo and Zend Studio, although Komodo does this one thing nicer) is code folding.  I love being able to fold code and get it out of the way.  The fact that I can do this in vim, with <i>anything</i> is really really cool.</p>
-<p>Quick step by step here to get the basics (use ":help folding" to get a really large rundown on all the stuff you can do):  Use "V" to visually highlight the lines you want to fold (this is in command mode, BTW) then use "zf" to fold them into one line (the "z*" commands seem to be relevant just for folding).  You'll get something like this:</p>
+            <p>Was just reading this article on linux.com about some guy&#8217;s sysadmin toolbox.  Yeah, the tools were ok and nothing much different from what I use except for some of the desktop-ish stuff he uses.  What got me though was the first <a href="http://www.linux.com/comments.pl?sid=36338&cid=87337">comment</a> that was made.  Vim has text folding?  I had no idea.  That totally&nbsp;rocks!</p>
+<p>One thing I appreciate about the two <span class="caps">IDE</span>&#8217;s I use (Komodo and Zend Studio, although Komodo does this one thing nicer) is code folding.  I love being able to fold code and get it out of the way.  The fact that I can do this in vim, with <i>anything</i> is really really&nbsp;cool.</p>
+<p>Quick step by step here to get the basics (use &#8220;:help folding&#8221; to get a really large rundown on all the stuff you can do):  Use &#8220;V&#8221; to visually highlight the lines you want to fold (this is in command mode, <span class="caps">BTW</span>) then use &#8220;zf&#8221; to fold them into one line (the &#8220;z*&#8221; commands seem to be relevant just for folding).  You&#8217;ll get something like&nbsp;this:</p>
 <pre>
 +----  8 lines: if ( $wgCommandLineMode ) {--------
 </pre>
 
-<p>You can use "zo" to open the fold, which just expands it.  You can then use "zc" to close the fold again (good for quick peeks), without having to re-highlight the block.  As well, just about anything you do on the line that is the fold marker (as shown above) will expand it... ie. hitting "$" to get to the end of the line will do it, hitting the right arrow will do it, etc.  The nice thing is you can "zc" the fold while you're anywhere in the fold.</p>
-<p>I really need to use vim more and remember all the bloody commands.  I've been using joe for so long that, although I can use vim quite well, I don't have it customized enough and can never remember simple commands like page-up/down, etc.  Maybe I should remove joe from everything and force myself to use vim (I did that with OS/2 when I first started learning Linux and look at me now!)</p>
-<p>Oh, another article that I haven't read fully yet but that looks good is <a href="http://www.moolenaar.net/habits.html">Seven habits of effective text editing</a> written by the vim author, Bram Moolenaar, himself.</p>
+<p>You can use &#8220;zo&#8221; to open the fold, which just expands it.  You can then use &#8220;zc&#8221; to close the fold again (good for quick peeks), without having to re-highlight the block.  As well, just about anything you do on the line that is the fold marker (as shown above) will expand it&#8230; ie. hitting &#8220;$&#8221; to get to the end of the line will do it, hitting the right arrow will do it, etc.  The nice thing is you can &#8220;zc&#8221; the fold while you&#8217;re anywhere in the&nbsp;fold.</p>
+<p>I really need to use vim more and remember all the bloody commands.  I&#8217;ve been using joe for so long that, although I can use vim quite well, I don&#8217;t have it customized enough and can never remember simple commands like page-up/down, etc.  Maybe I should remove joe from everything and force myself to use vim (I did that with <span class="caps">OS</span>/2 when I first started learning Linux and look at me&nbsp;now!)</p>
+<p>Oh, another article that I haven&#8217;t read fully yet but that looks good is <a href="http://www.moolenaar.net/habits.html">Seven habits of effective text editing</a> written by the vim author, Bram Moolenaar,&nbsp;himself.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Folding%20in%C2%A0vim&url=https%3A//vdanen.github.io/blog/folding-in-vim" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/folding-in-vim&title=Folding%20in%C2%A0vim&summary=Was%20just%20reading%20this%20article%20on%20linux.com%20about%20some%20guy%E2%80%99s%20sysadmin%20toolbox.%20%20Yeah%2C%20the%20tools%20were%20ok%20and%20nothing%20much%20different%20from%20what%20I%20use%20except%20for%20some%20of%20the%20desktop-ish%20stuff%20he%20uses.%20%20What%20got%20me%20though%20was%20the%20first%20comment%20that%20was%20made.%20%20Vim%20has%20text%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/folding-in-vim" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -105,13 +122,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/security-wars" title="Previous: “Security wars”?">“Security wars”?</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/dwtfywwi-license" title="Next: DWTFYWWI License">DWTFYWWI License</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2006-02-25T06:35:00-07:00">Sat 25 February 2006</time>
+            <time itemprop="dateCreated" datetime="2006-02-25T06:35:00-07:00">Feb 25, 2006</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -212,6 +237,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

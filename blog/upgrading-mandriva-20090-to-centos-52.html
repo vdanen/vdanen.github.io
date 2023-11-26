@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Well, technically speaking, I guess this is a bit of a downgrade. But, since I’m not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to. It was also a long week, so I goofed …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="mandriva, centos, Linux, " />
 
-<meta property="og:title" content="Upgrading Mandriva 2009.0 to CentOS 5.2 "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52.html" />
-<meta property="og:description" content="Well, technically speaking, I guess this is a bit of a downgrade. But, since I&#39;m not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to. It was also a long week, so I goofed a …" />
+<meta property="og:title" content="Upgrading Mandriva 2009.0 to CentOS 5.2 "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52" />
+<meta property="og:description" content="Well, technically speaking, I guess this is a bit of a downgrade. But, since I’m not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to. It was also a long week, so I goofed …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2009-02-06T19:42:00-07:00" />
-<meta name="twitter:title" content="Upgrading Mandriva 2009.0 to CentOS 5.2 ">
-<meta name="twitter:description" content="Well, technically speaking, I guess this is a bit of a downgrade. But, since I&#39;m not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to. It was also a long week, so I goofed a …">
+<meta name="twitter:title" content="Upgrading Mandriva 2009.0 to CentOS 5.2 ">
+<meta name="twitter:description" content="Well, technically speaking, I guess this is a bit of a downgrade. But, since I’m not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to. It was also a long week, so I goofed …">
 
-        <title>Upgrading Mandriva 2009.0 to CentOS 5.2  · Annvix
+        <title>Upgrading Mandriva 2009.0 to CentOS 5.2  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52.html">
-                Upgrading Mandriva 2009.0 to CentOS 5.2
+            <a href="https://vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52">
+                Upgrading Mandriva 2009.0 to CentOS&nbsp;5.2
             </a>
         </h1>
     </header>
@@ -80,19 +93,23 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Well, technically speaking, I guess this is a bit of a downgrade.  But, since I'm not longer using Mandriva and need to get used to Red Hat products (Fedora, RHEL, etc.), CentOS makes sense for upgrading my internal server to.  It was also a long week, so I goofed a bit on it (I did backups of mysql and ldap, but didn't do dumps of the data which I only realized after the fact... could have been very very bad).</p>
-<p>Anyways, the system is a quad core 2 duo system with 8GB RAM.  CentOS refused to boot at first until I specified "linux acpi=off".  Downside there is it only got me the use of one core rather than the four.  That was later fixed using "pci=nommconf", which allowed the kernel to boot and got me all four cores.</p>
-<p>The install went well.  Seems like a lot less to select, and therefore tweak, than the Mandriva installers I'm used to.  But it wasn't bad.  Nice thing was it picked up and auto-assembled all my mdadm RAID1 arrays, so I could format those that needed it and left the others alone.  Unfortunately, it didn't fully associate them... after the install when I booted they were in a degraded state so I had to hot-add the second partition for each one.</p>
-<p>The real kicker is the placement of files.  There are a few places where Mandriva and CentOS differ, like where the named chroot is, so that took some monkeying around with.  I also had SELinux in enforcing mode at first, but it didn't really like the fact that I was using /srv/www/[domain] instead of /var/www/html for serving up web content, and it didn't like the vhost.d/*.conf bit in httpd.conf so Apache was pretty broken until I disabled SELinux.  I've never actually used SELinux before, so now I have to learn how to set policies and targets and all that other goodness.</p>
-<p>One of the first steps was setting up the rpmforge yum repository.  Too much of CentOS is just too dated for me.  I need subversion 1.5 (comes with 1.4) and nagios 3.x (comes with 2.x).  I was not going to change my nagios configs to suit the older version.  rpmforge makes all of that pretty easy though.  I did have to copy /var/lib/mysql over and other than changing the ownership of the files to match the new uid/gid for the mysql user, it all worked out great.  I have not yet done the openldap setup though, so I'm not sure if I'll be as lucky with that.</p>
-<p>There are still quite a few configuration tweaks to make.  It also didn't help that I had to reset my network from a 10.10 network to a 192.168 network.  I'm sure that may still bite me a bit.</p>
-<p>Other than that, it all seems to have worked out ok.  I was asked why I didn't just use Fedora for this and while Fedora may be stable enough, I don't want to have to upgrade every year.  That makes CentOS compelling.  All this machine does is run nagios to monitor other sites, provide DHCP and DNS services, LDAP for authentication for my virtual machines, web/mysql serving, and does automatic backups of other systems in the LAN.  The reason I upgraded from Corporate Server 4.0 to 2009.0 in the first place was the idea that CS5 was going to be based on 2009.0 (so I was getting a jump on things).  Time will tell how it goes, but I think it should be ok.  Last month I deployed 4 CentOS boxes for a client, with one more left to do, so I'm starting to get a little used to it and yum.  =)  The SELinux thing may be a bit more work to get used to (I've used RSBAC and AppArmor, but never really played with SELinux).</p>
-<p>Then tomorrow I'm upgrading a laptop to Fedora 11.  That should be interesting.  =)</p>
+            <p>Well, technically speaking, I guess this is a bit of a downgrade.  But, since I&#8217;m not longer using Mandriva and need to get used to Red Hat products (Fedora, <span class="caps">RHEL</span>, etc.), CentOS makes sense for upgrading my internal server to.  It was also a long week, so I goofed a bit on it (I did backups of mysql and ldap, but didn&#8217;t do dumps of the data which I only realized after the fact&#8230; could have been very very&nbsp;bad).</p>
+<p>Anyways, the system is a quad core 2 duo system with <span class="caps">8GB</span> <span class="caps">RAM</span>.  CentOS refused to boot at first until I specified &#8220;linux acpi=off&#8221;.  Downside there is it only got me the use of one core rather than the four.  That was later fixed using &#8220;pci=nommconf&#8221;, which allowed the kernel to boot and got me all four&nbsp;cores.</p>
+<p>The install went well.  Seems like a lot less to select, and therefore tweak, than the Mandriva installers I&#8217;m used to.  But it wasn&#8217;t bad.  Nice thing was it picked up and auto-assembled all my mdadm <span class="caps">RAID1</span> arrays, so I could format those that needed it and left the others alone.  Unfortunately, it didn&#8217;t fully associate them&#8230; after the install when I booted they were in a degraded state so I had to hot-add the second partition for each&nbsp;one.</p>
+<p>The real kicker is the placement of files.  There are a few places where Mandriva and CentOS differ, like where the named chroot is, so that took some monkeying around with.  I also had SELinux in enforcing mode at first, but it didn&#8217;t really like the fact that I was using /srv/www/[domain] instead of /var/www/html for serving up web content, and it didn&#8217;t like the vhost.d/*.conf bit in httpd.conf so Apache was pretty broken until I disabled SELinux.  I&#8217;ve never actually used SELinux before, so now I have to learn how to set policies and targets and all that other&nbsp;goodness.</p>
+<p>One of the first steps was setting up the rpmforge yum repository.  Too much of CentOS is just too dated for me.  I need subversion 1.5 (comes with 1.4) and nagios 3.x (comes with 2.x).  I was not going to change my nagios configs to suit the older version.  rpmforge makes all of that pretty easy though.  I did have to copy /var/lib/mysql over and other than changing the ownership of the files to match the new uid/gid for the mysql user, it all worked out great.  I have not yet done the openldap setup though, so I&#8217;m not sure if I&#8217;ll be as lucky with&nbsp;that.</p>
+<p>There are still quite a few configuration tweaks to make.  It also didn&#8217;t help that I had to reset my network from a 10.10 network to a 192.168 network.  I&#8217;m sure that may still bite me a&nbsp;bit.</p>
+<p>Other than that, it all seems to have worked out ok.  I was asked why I didn&#8217;t just use Fedora for this and while Fedora may be stable enough, I don&#8217;t want to have to upgrade every year.  That makes CentOS compelling.  All this machine does is run nagios to monitor other sites, provide <span class="caps">DHCP</span> and <span class="caps">DNS</span> services, <span class="caps">LDAP</span> for authentication for my virtual machines, web/mysql serving, and does automatic backups of other systems in the <span class="caps">LAN</span>.  The reason I upgraded from Corporate Server 4.0 to 2009.0 in the first place was the idea that <span class="caps">CS5</span> was going to be based on 2009.0 (so I was getting a jump on things).  Time will tell how it goes, but I think it should be ok.  Last month I deployed 4 CentOS boxes for a client, with one more left to do, so I&#8217;m starting to get a little used to it and yum.  =)  The SELinux thing may be a bit more work to get used to (I&#8217;ve used <span class="caps">RSBAC</span> and AppArmor, but never really played with&nbsp;SELinux).</p>
+<p>Then tomorrow I&#8217;m upgrading a laptop to Fedora 11.  That should be interesting.&nbsp;=)</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Upgrading%20Mandriva%202009.0%20to%20CentOS%C2%A05.2&url=https%3A//vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52&hashtags=mandriva,centos" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52&title=Upgrading%20Mandriva%202009.0%20to%20CentOS%C2%A05.2&summary=Well%2C%20technically%20speaking%2C%20I%20guess%20this%20is%20a%20bit%20of%20a%20downgrade.%20%20But%2C%20since%20I%E2%80%99m%20not%20longer%20using%20Mandriva%20and%20need%20to%20get%20used%20to%20Red%20Hat%20products%20%28Fedora%2C%20RHEL%2C%20etc.%29%2C%20CentOS%20makes%20sense%20for%20upgrading%20my%20internal%20server%20to.%20%20It%20was%20also%20a%20long%20week%2C%20so%20I%20goofed%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -103,22 +120,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/never-a-dull-moment-with-mandriva" title="Never a dull moment with Mandriva…">Never a dull moment with Mandriva…</a></li>
+<li><a href="https://vdanen.github.io/blog/a-mandriva-user-kicks-around-fedora-core-10-how-does-it-compare" title="A Mandriva user kicks around Fedora Core 10: How does it compare?">A Mandriva user kicks around Fedora Core 10: How does it compare?</a></li>
+<li><a href="https://vdanen.github.io/blog/open-source-is-20-lets-wander-down-memory-lane" title="Open Source is 20; Let’s Wander Down Memory Lane">Open Source is 20; Let’s Wander Down Memory Lane</a></li>
+<li><a href="https://vdanen.github.io/blog/an-unexpected-journey" title="An Unexpected Journey">An Unexpected Journey</a></li>
+<li><a href="https://vdanen.github.io/blog/zerobytesgiven-podcast-appearance" title="ZeroBytesGiven podcast appearance">ZeroBytesGiven podcast appearance</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/first-days-at-red-hat-first-impressions" title="Previous: First days at Red Hat, first impressions">First days at Red Hat, first impressions</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/check-out-subversion-repositories-with-viewvc" title="Next: Check out subversion repositories with ViewVC">Check out subversion repositories with ViewVC</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-02-06T19:42:00-07:00">Fri 06 February 2009</time>
+            <time itemprop="dateCreated" datetime="2009-02-06T19:42:00-07:00">Feb 06, 2009</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#centos-ref">centos
+                <li><a href="https://vdanen.github.io/tags#centos-ref">centos
                     <span class="superscript">5</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#mandriva-ref">mandriva
+                <li><a href="https://vdanen.github.io/tags#mandriva-ref">mandriva
                     <span class="superscript">28</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -219,6 +255,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

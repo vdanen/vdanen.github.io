@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week’s techmail is Using smartctl to get SMART status information on your hard drives. Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning “oh crap, something is wrong, backup NOW!” that people can really use. I know …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, Linux, " />
 
-<meta property="og:title" content="Using smartctl to get SMART status information on your hard drives "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives.html" />
-<meta property="og:description" content="This week&#39;s techmail is Using smartctl to get SMART status information on your hard drives. Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning &#34;oh crap, something is wrong, backup NOW!&#34; that people can really use. I know it&#39;s …" />
+<meta property="og:title" content="Using smartctl to get SMART status information on your hard drives "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives" />
+<meta property="og:description" content="This week’s techmail is Using smartctl to get SMART status information on your hard drives. Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning “oh crap, something is wrong, backup NOW!” that people can really use. I know …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-04-01T10:13:00-06:00" />
-<meta name="twitter:title" content="Using smartctl to get SMART status information on your hard drives ">
-<meta name="twitter:description" content="This week&#39;s techmail is Using smartctl to get SMART status information on your hard drives. Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning &#34;oh crap, something is wrong, backup NOW!&#34; that people can really use. I know it&#39;s …">
+<meta name="twitter:title" content="Using smartctl to get SMART status information on your hard drives ">
+<meta name="twitter:description" content="This week’s techmail is Using smartctl to get SMART status information on your hard drives. Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning “oh crap, something is wrong, backup NOW!” that people can really use. I know …">
 
-        <title>Using smartctl to get SMART status information on your hard drives  · Annvix
+        <title>Using smartctl to get SMART status information on your hard drives  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives.html">
-                Using smartctl to get SMART status information on your hard drives
+            <a href="https://vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives">
+                Using smartctl to get <span class="caps">SMART</span> status information on your hard&nbsp;drives
             </a>
         </h1>
     </header>
@@ -80,13 +93,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week's techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1389">Using smartctl to get SMART status information on your hard drives</a>.  Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning "oh crap, something is wrong, backup NOW!" that people can really use.  I know it's saved me a few times (and a few times it hasn't).  Since it comes with every Linux OS and is not "expensive" to run, I highly recommend taking advantage of it on the off-chance that it does give you that early warning.</p>
-<p>Of course, the use of SMART monitoring is not and never will be a replacement for having consistent and verified backups.</p>
+            <p>This week&#8217;s techmail is <a href="http://blogs.techrepublic.com/opensource/?p=1389">Using smartctl to get <span class="caps">SMART</span> status information on your hard drives</a>.  Smartctl is awesome, and having it monitor your drives on a constant basis will likely give you the early warning &#8220;oh crap, something is wrong, backup <span class="caps">NOW</span>!&#8221; that people can really use.  I know it&#8217;s saved me a few times (and a few times it hasn&#8217;t).  Since it comes with every Linux <span class="caps">OS</span> and is not &#8220;expensive&#8221; to run, I highly recommend taking advantage of it on the off-chance that it does give you that early&nbsp;warning.</p>
+<p>Of course, the use of <span class="caps">SMART</span> monitoring is not and never will be a replacement for having consistent and verified&nbsp;backups.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Using%20smartctl%20to%20get%20SMART%20status%20information%20on%20your%20hard%C2%A0drives&url=https%3A//vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives&hashtags=techmail" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives&title=Using%20smartctl%20to%20get%20SMART%20status%20information%20on%20your%20hard%C2%A0drives&summary=This%20week%E2%80%99s%20techmail%20is%20Using%20smartctl%20to%20get%20SMART%20status%20information%20on%20your%20hard%20drives.%20%20Smartctl%20is%20awesome%2C%20and%20having%20it%20monitor%20your%20drives%20on%20a%20constant%20basis%20will%20likely%20give%20you%20the%20early%20warning%20%E2%80%9Coh%20crap%2C%20something%20is%20wrong%2C%20backup%20NOW%21%E2%80%9D%20that%20people%20can%20really%20use.%20%20I%20know%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/using-smartctl-to-get-smart-status-information-on-your-hard-drives" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -97,19 +114,38 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/two-ssh-clients-to-consider-for-the-ipad" title="Two SSH clients to consider for the iPad">Two SSH clients to consider for the iPad</a></li>
+<li><a href="https://vdanen.github.io/blog/practical-selinux-port-contexts-and-handling-access-alerts" title="Practical SELinux: Port contexts and handling access alerts">Practical SELinux: Port contexts and handling access alerts</a></li>
+<li><a href="https://vdanen.github.io/blog/chromium-on-fedora-linux-is-closing-in-on-firefox" title="Chromium on Fedora Linux is closing in on Firefox">Chromium on Fedora Linux is closing in on Firefox</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring" title="Nagios XI wizards make setup a snap for network monitoring">Nagios XI wizards make setup a snap for network monitoring</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/replace-a-failed-drive-in-linux-raid" title="Previous: Replace a failed drive in Linux RAID">Replace a failed drive in Linux RAID</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/apple-mail-thunderbird-macpilot-and-tinkertool" title="Next: Apple Mail, Thunderbird, MacPilot, and TinkerTool">Apple Mail, Thunderbird, MacPilot, and TinkerTool</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-04-01T10:13:00-06:00">Thu 01 April 2010</time>
+            <time itemprop="dateCreated" datetime="2010-04-01T10:13:00-06:00">Apr 01, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -210,6 +246,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week’s TechMail is Enhanced history searching in zsh because I seem to always be doing the same thing over and over again and it’s good to save keystrokes. =) I imagine other people are in the same boat as well, so there you go… something simple yet useful …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, shell, Linux, " />
 
-<meta property="og:title" content="Enhanced history searching in zsh "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/enhanced-history-searching-in-zsh.html" />
-<meta property="og:description" content="This week&#39;s TechMail is Enhanced history searching in zsh because I seem to always be doing the same thing over and over again and it&#39;s good to save keystrokes. =) I imagine other people are in the same boat as well, so there you go... something simple yet useful." />
+<meta property="og:title" content="Enhanced history searching in zsh "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/enhanced-history-searching-in-zsh" />
+<meta property="og:description" content="This week’s TechMail is Enhanced history searching in zsh because I seem to always be doing the same thing over and over again and it’s good to save keystrokes. =) I imagine other people are in the same boat as well, so there you go… something simple yet useful …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-03-20T09:00:00-06:00" />
-<meta name="twitter:title" content="Enhanced history searching in zsh ">
-<meta name="twitter:description" content="This week&#39;s TechMail is Enhanced history searching in zsh because I seem to always be doing the same thing over and over again and it&#39;s good to save keystrokes. =) I imagine other people are in the same boat as well, so there you go... something simple yet useful.">
+<meta name="twitter:title" content="Enhanced history searching in zsh ">
+<meta name="twitter:description" content="This week’s TechMail is Enhanced history searching in zsh because I seem to always be doing the same thing over and over again and it’s good to save keystrokes. =) I imagine other people are in the same boat as well, so there you go… something simple yet useful …">
 
-        <title>Enhanced history searching in zsh  · Annvix
+        <title>Enhanced history searching in zsh  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/enhanced-history-searching-in-zsh.html">
-                Enhanced history searching in zsh
+            <a href="https://vdanen.github.io/blog/enhanced-history-searching-in-zsh">
+                Enhanced history searching in&nbsp;zsh
             </a>
         </h1>
     </header>
@@ -80,12 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week's TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=1347">Enhanced history searching in zsh</a> because I seem to always be doing the same thing over and over again and it's good to save keystrokes.  =)  I imagine other people are in the same boat as well, so there you go... something simple yet useful.</p>
+            <p>This week&#8217;s TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=1347">Enhanced history searching in zsh</a> because I seem to always be doing the same thing over and over again and it&#8217;s good to save keystrokes.  =)  I imagine other people are in the same boat as well, so there you go&#8230; something simple yet&nbsp;useful.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Enhanced%20history%20searching%20in%C2%A0zsh&url=https%3A//vdanen.github.io/blog/enhanced-history-searching-in-zsh&hashtags=techmail,shell" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/enhanced-history-searching-in-zsh&title=Enhanced%20history%20searching%20in%C2%A0zsh&summary=This%20week%E2%80%99s%20TechMail%20is%20Enhanced%20history%20searching%20in%20zsh%20because%20I%20seem%20to%20always%20be%20doing%20the%20same%20thing%20over%20and%20over%20again%20and%20it%E2%80%99s%20good%20to%20save%20keystrokes.%20%20%3D%29%20%20I%20imagine%20other%20people%20are%20in%20the%20same%20boat%20as%20well%2C%20so%20there%20you%20go%E2%80%A6%20something%20simple%20yet%C2%A0useful%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/enhanced-history-searching-in-zsh" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -96,22 +113,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/using-vi-key-bindings-in-bash-and-zsh" title="Using vi key bindings in bash and zsh">Using vi key bindings in bash and zsh</a></li>
+<li><a href="https://vdanen.github.io/blog/send-messages-and-alerts-from-the-command-line" title="Send messages and alerts from the command line">Send messages and alerts from the command line</a></li>
+<li><a href="https://vdanen.github.io/blog/try-command-line-looping-for-added-efficiency" title="Try command-line looping for added efficiency">Try command-line looping for added efficiency</a></li>
+<li><a href="https://vdanen.github.io/blog/tips-and-tricks-for-working-on-the-command-line" title="Tips and tricks for working on the command line">Tips and tricks for working on the command line</a></li>
+<li><a href="https://vdanen.github.io/blog/gui-scripting-in-bash" title="GUI scripting in bash">GUI scripting in bash</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/create-your-own-ssl-ca-with-the-os-x-keychain" title="Previous: Create your own SSL CA with the OS X Keychain">Create your own SSL CA with the OS X Keychain</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/install-open-source-software-on-your-mac-easily-with-fink" title="Next: Install open source software on your Mac easily with Fink">Install open source software on your Mac easily with Fink</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-03-20T09:00:00-06:00">Sat 20 March 2010</time>
+            <time itemprop="dateCreated" datetime="2010-03-20T09:00:00-06:00">Mar 20, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#shell-ref">shell
+                <li><a href="https://vdanen.github.io/tags#shell-ref">shell
                     <span class="superscript">13</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -212,6 +248,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

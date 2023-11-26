@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Probably most people who use git know about patch management and whatnot, so I’m writing this largely for myself as I keep forgetting (mostly because I don’t have to do it very often). Some code that I’m working on has a development branch which I’m working …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="git, Linux, " />
 
-<meta property="og:title" content="Git patch workflow "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/git-patch-workflow.html" />
-<meta property="og:description" content="Probably most people who use git know about patch management and whatnot, so I&#39;m writing this largely for myself as I keep forgetting (mostly because I don&#39;t have to do it very often). Some code that I&#39;m working on has a development branch which I&#39;m working on while other fixes …" />
+<meta property="og:title" content="Git patch workflow "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/git-patch-workflow" />
+<meta property="og:description" content="Probably most people who use git know about patch management and whatnot, so I’m writing this largely for myself as I keep forgetting (mostly because I don’t have to do it very often). Some code that I’m working on has a development branch which I’m working …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2013-12-24T11:14:00-07:00" />
-<meta name="twitter:title" content="Git patch workflow ">
-<meta name="twitter:description" content="Probably most people who use git know about patch management and whatnot, so I&#39;m writing this largely for myself as I keep forgetting (mostly because I don&#39;t have to do it very often). Some code that I&#39;m working on has a development branch which I&#39;m working on while other fixes …">
+<meta name="twitter:title" content="Git patch workflow ">
+<meta name="twitter:description" content="Probably most people who use git know about patch management and whatnot, so I’m writing this largely for myself as I keep forgetting (mostly because I don’t have to do it very often). Some code that I’m working on has a development branch which I’m working …">
 
-        <title>Git patch workflow  · Annvix
+        <title>Git patch workflow  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/git-patch-workflow.html">
-                Git patch workflow
+            <a href="https://vdanen.github.io/blog/git-patch-workflow">
+                Git patch&nbsp;workflow
             </a>
         </h1>
     </header>
@@ -80,28 +93,28 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Probably most people who use git know about patch management and whatnot, so I'm writing this largely for myself as I keep forgetting (mostly because I don't have to do it very often).</p>
-<p>Some code that I'm working on has a development branch which I'm working on while other fixes are being made to the master branch.  This is great, except for the fact that I need to apply any changes made to master to the development branch as well (we'll call it "feat/X").  And since I'm the only one working on feat/X, but others add fixes or necessary changes to master, I need to apply those changes.  Some changes will apply clean, others need to be modified due to one part that is receiving a major overhaul.</p>
-<p>There is probably a better way to do this and if so, please do let me know in the comments.  Even though I use git almost daily, I am by no means a power user and would love more "insider tips".</p>
-<p>So I have my working copy, and I need it to know about both branches.  By default, if you clone the repository you'll just be on the master branch.  So in this case I would have to <code>git checkout feat/X</code>.  Once I do that, I will see:</p>
+            <p>Probably most people who use git know about patch management and whatnot, so I&#8217;m writing this largely for myself as I keep forgetting (mostly because I don&#8217;t have to do it very&nbsp;often).</p>
+<p>Some code that I&#8217;m working on has a development branch which I&#8217;m working on while other fixes are being made to the master branch.  This is great, except for the fact that I need to apply any changes made to master to the development branch as well (we&#8217;ll call it &#8220;feat/X&#8221;).  And since I&#8217;m the only one working on feat/X, but others add fixes or necessary changes to master, I need to apply those changes.  Some changes will apply clean, others need to be modified due to one part that is receiving a major&nbsp;overhaul.</p>
+<p>There is probably a better way to do this and if so, please do let me know in the comments.  Even though I use git almost daily, I am by no means a power user and would love more &#8220;insider&nbsp;tips&#8221;.</p>
+<p>So I have my working copy, and I need it to know about both branches.  By default, if you clone the repository you&#8217;ll just be on the master branch.  So in this case I would have to <code>git checkout feat/X</code>.  Once I do that, I will&nbsp;see:</p>
 <pre>
 % git branch
 * feat/X
   master
 </pre>
 
-<p>So do a <code>git checkout master</code> to switch back to the master branch.  From here we can make a series of patches that represent code changes made to master after feat/X was branched:</p>
+<p>So do a <code>git checkout master</code> to switch back to the master branch.  From here we can make a series of patches that represent code changes made to master after feat/X was&nbsp;branched:</p>
 <pre>
 % git format-patch feat/X
 </pre>
 
-<p>The first time you do this, all the patches will be new.  But as you move along, you'll continue to see these patches show up so it's useful to keep them kicking around so you know which are new.  You'll see patches in the format "0001-The-commit-text.patch" and "0002-Other-commit-text.patch".</p>
-<p>I move the patches out of the way (I have horrid file management, so I just <code>mv *patch ~/</code>).  Then <code>git checkout feat/X</code> to switch to the feat/X branch.  Now we apply the patches one-by-one:</p>
+<p>The first time you do this, all the patches will be new.  But as you move along, you&#8217;ll continue to see these patches show up so it&#8217;s useful to keep them kicking around so you know which are new.  You&#8217;ll see patches in the format &#8220;0001-The-commit-text.patch&#8221; and&nbsp;&#8220;0002-Other-commit-text.patch&#8221;.</p>
+<p>I move the patches out of the way (I have horrid file management, so I just <code>mv *patch ~/</code>).  Then <code>git checkout feat/X</code> to switch to the feat/X branch.  Now we apply the patches&nbsp;one-by-one:</p>
 <pre>
 % git am <0001-The-commit-text.patch
 </pre>
 
-<p>If the patch is successful, you can do the same to the next.  If not, however, you need to fiddle with things a bit.  You'll see an error like this:</p>
+<p>If the patch is successful, you can do the same to the next.  If not, however, you need to fiddle with things a bit.  You&#8217;ll see an error like&nbsp;this:</p>
 <pre>
 % git am <~/0001-The-commit-text.patch
 Applying: The commit text
@@ -115,15 +128,19 @@ If you prefer to skip this patch, run "git am --skip" instead.
 To restore the original branch and stop patching, run "git am --abort".
 </pre>
 
-<p>You can run <code>git am --abort</code> which will revert the commit attempt, to allow you to manually apply the patch and commit.  You can also use <code>git am --skip</code> to do the same.  I suspect if you fed git something like <code>git am &lt;~/*patch</code> these commands would mean different things (abort the session versus skip the one patch) but if you're doing one patch at a time they both do the same thing.</p>
-<p>You can also check the log output with <code>git log master..HEAD --stat</code> which will show that our branch contains the update, along with the appropriate author information (might be you, might be me, might be someone else).  I tend to skip the log bit and just apply one patch at a time.  Rinse and repeat.</p>
-<p>Finally, if you don't move your patches like I did, you can use <code>git clean</code> to remove the patches from your working directory.  Use '-n' first though, so it runs in dry-run mode.</p>
-<p>Like I indicated earlier, there are probably simpler ways to do this, but this works for me.  I got all of this from <a href="http://rypress.com/tutorials/git/patch-workflows.html">Ry's Git Tutorial on Patch Workflows</a>.  Excellent tutorial.</p>
+<p>You can run <code>git am --abort</code> which will revert the commit attempt, to allow you to manually apply the patch and commit.  You can also use <code>git am --skip</code> to do the same.  I suspect if you fed git something like <code>git am &lt;~/*patch</code> these commands would mean different things (abort the session versus skip the one patch) but if you&#8217;re doing one patch at a time they both do the same&nbsp;thing.</p>
+<p>You can also check the log output with <code>git log master..HEAD --stat</code> which will show that our branch contains the update, along with the appropriate author information (might be you, might be me, might be someone else).  I tend to skip the log bit and just apply one patch at a time.  Rinse and&nbsp;repeat.</p>
+<p>Finally, if you don&#8217;t move your patches like I did, you can use <code>git clean</code> to remove the patches from your working directory.  Use &#8216;-n&#8217; first though, so it runs in dry-run&nbsp;mode.</p>
+<p>Like I indicated earlier, there are probably simpler ways to do this, but this works for me.  I got all of this from <a href="http://rypress.com/tutorials/git/patch-workflows.html">Ry&#8217;s Git Tutorial on Patch Workflows</a>.  Excellent&nbsp;tutorial.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Git%20patch%C2%A0workflow&url=https%3A//vdanen.github.io/blog/git-patch-workflow&hashtags=git" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/git-patch-workflow&title=Git%20patch%C2%A0workflow&summary=Probably%20most%20people%20who%20use%20git%20know%20about%20patch%20management%20and%20whatnot%2C%20so%20I%E2%80%99m%20writing%20this%20largely%20for%20myself%20as%20I%20keep%20forgetting%20%28mostly%20because%20I%20don%E2%80%99t%20have%20to%20do%20it%20very%C2%A0often%29.%0ASome%20code%20that%20I%E2%80%99m%20working%20on%20has%20a%20development%20branch%20which%20I%E2%80%99m%20working%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/git-patch-workflow" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -134,19 +151,38 @@ To restore the original branch and stop patching, run "git am --abort".
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/dissecting-part-of-a-subversion-repo-to-git" title="Dissecting part of a subversion repo to git">Dissecting part of a subversion repo to git</a></li>
+<li><a href="https://vdanen.github.io/blog/some-quick-git-tips" title="Some quick git tips">Some quick git tips</a></li>
+<li><a href="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" title="Git commit hook to bugzilla using git-notifier">Git commit hook to bugzilla using git-notifier</a></li>
+<li><a href="https://vdanen.github.io/blog/git-commits-on-xkcd" title="Git commits on xkcd">Git commits on xkcd</a></li>
+<li><a href="https://vdanen.github.io/blog/custom-email-notifications-in-gitlab" title="Custom Email Notifications in GitLab">Custom Email Notifications in GitLab</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/adventures-in-appleraid" title="Previous: Adventures in AppleRAID">Adventures in AppleRAID</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/merry-christmas-2013" title="Next: Merry Christmas 2013!">Merry Christmas 2013!</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2013-12-24T11:14:00-07:00">Tue 24 December 2013</time>
+            <time itemprop="dateCreated" datetime="2013-12-24T11:14:00-07:00">Dec 24, 2013</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#git-ref">git
+                <li><a href="https://vdanen.github.io/tags#git-ref">git
                     <span class="superscript">12</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -247,6 +283,9 @@ To restore the original branch and stop patching, run "git am --abort".
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

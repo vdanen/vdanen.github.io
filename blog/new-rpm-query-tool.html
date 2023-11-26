@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Just spent most of the day and quite a bit of yesterday porting a program Stew wrote for the secteam (called srpm) that builds a database of src.rpm files so you can do queries on source files (this is extremely useful for us in determining whether or not a …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="New rpm query tool "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/new-rpm-query-tool.html" />
+<meta property="og:title" content="New rpm query tool "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/new-rpm-query-tool" />
 <meta property="og:description" content="Just spent most of the day and quite a bit of yesterday porting a program Stew wrote for the secteam (called srpm) that builds a database of src.rpm files so you can do queries on source files (this is extremely useful for us in determining whether or not a …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-05-03T18:46:00-06:00" />
-<meta name="twitter:title" content="New rpm query tool ">
+<meta name="twitter:title" content="New rpm query tool ">
 <meta name="twitter:description" content="Just spent most of the day and quite a bit of yesterday porting a program Stew wrote for the secteam (called srpm) that builds a database of src.rpm files so you can do queries on source files (this is extremely useful for us in determining whether or not a …">
 
-        <title>New rpm query tool  · Annvix
+        <title>New rpm query tool  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/new-rpm-query-tool.html">
-                New rpm query tool
+            <a href="https://vdanen.github.io/blog/new-rpm-query-tool">
+                New rpm query&nbsp;tool
             </a>
         </h1>
     </header>
@@ -80,16 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Just spent most of the day and quite a bit of yesterday porting a program Stew wrote for the secteam (called srpm) that builds a database of src.rpm files so you can do queries on source files (this is extremely useful for us in determining whether or not a vulnerable source file exists in any supported distros).  For example, if there was a vulnerability in foo.c, we could do "srpm -q foo.c" to see if that source file exists anywhere; this helped us find a bunch of PDF-related programs that were vulnerable to issues in xpdf.  An invaluable tool.</p>
-<p>The problem with it was it was using sqlite, which is fine, but I've been thinking about a web frontend to it and wanted to make it more general (and due to PHP's sqlite module, I'd need both it and sqlite2 installed on Annvix).  So I took the liberty of rewriting parts of it and also making it use the PEAR MDB2 functionality to make it portable.  Right now I've got it working with a PostgreSQL database, which is kinda nice.</p>
-<p>The nice thing about the database abstraction stuff is that it doesn't seem to be slowing things down too much.  With srpm (which uses straight php sqlite functions), I get:</p>
+            <p>Just spent most of the day and quite a bit of yesterday porting a program Stew wrote for the secteam (called srpm) that builds a database of src.rpm files so you can do queries on source files (this is extremely useful for us in determining whether or not a vulnerable source file exists in any supported distros).  For example, if there was a vulnerability in foo.c, we could do &#8220;srpm -q foo.c&#8221; to see if that source file exists anywhere; this helped us find a bunch of <span class="caps">PDF</span>-related programs that were vulnerable to issues in xpdf.  An invaluable&nbsp;tool.</p>
+<p>The problem with it was it was using sqlite, which is fine, but I&#8217;ve been thinking about a web frontend to it and wanted to make it more general (and due to <span class="caps">PHP</span>&#8217;s sqlite module, I&#8217;d need both it and sqlite2 installed on Annvix).  So I took the liberty of rewriting parts of it and also making it use the <span class="caps">PEAR</span> <span class="caps">MDB2</span> functionality to make it portable.  Right now I&#8217;ve got it working with a PostgreSQL database, which is kinda&nbsp;nice.</p>
+<p>The nice thing about the database abstraction stuff is that it doesn&#8217;t seem to be slowing things down too much.  With srpm (which uses straight php sqlite functions), I&nbsp;get:</p>
 <pre>
 $ time srpm -q libgen.h -C
 39 matche(s) in database for substring (libgen.h)
 3.31user 0.60system 0:04.15elapsed 94%CPU (0avgtext+0avgdata 0maxresident)k
 </pre>
 
-<p>The same query with rqs results in:</p>
+<p>The same query with rqs results&nbsp;in:</p>
 <pre>
 % time ./rqs -q libgen.h -C 
 rqs $Id: rqs 175 2007-05-04 03:30:24Z vdanen $
@@ -97,8 +110,8 @@ rqs $Id: rqs 175 2007-05-04 03:30:24Z vdanen $
 ./rqs -q libgen.h -C  0.05s user 0.00s system 0% cpu 15.651 total
 </pre>
 
-<p>So about a 1s increase using database abstraction and postgresql vs using straight php sqlite functions and an sqlite database.</p>
-<p>The two databases are the same, in that they have data for CS3, CS4, 2007, and 2007.1.  According to rqs, this provides the following records:</p>
+<p>So about a 1s increase using database abstraction and postgresql vs using straight php sqlite functions and an sqlite&nbsp;database.</p>
+<p>The two databases are the same, in that they have data for <span class="caps">CS3</span>, <span class="caps">CS4</span>, 2007, and 2007.1.  According to rqs, this provides the following&nbsp;records:</p>
 <pre>
  $Id: rqs 173 2007-05-03 18:58:34Z vdanen $
 
@@ -108,13 +121,17 @@ Tag Records : 4               Package Records: 7791
 File Records: 4226875         Source Records : 40233 
 </pre>
 
-<p>The really interesting thing is importing.  Stew told me that srpm took quite a bit to import data, but I didn't realize how slow it was (I've never used srpm to import anything before).  To normalize the database I had to import the 2007.1 sources (and remove the 2006 sources from it).  The resulting import of 4.5GB of src.rpm files via srpm was 4:33:52 (yes, 4.5hrs).  With rqs, the import of the same src.rpm directory took 52:05, so just under an hour.  Scary.</p>
-<p>So now the next step is to write rqs' counterpart (rqp) which will do the same thing rqs does for src.rpms with binary rpms.  And then the web frontend to it as well.</p>
+<p>The really interesting thing is importing.  Stew told me that srpm took quite a bit to import data, but I didn&#8217;t realize how slow it was (I&#8217;ve never used srpm to import anything before).  To normalize the database I had to import the 2007.1 sources (and remove the 2006 sources from it).  The resulting import of 4.<span class="caps">5GB</span> of src.rpm files via srpm was 4:33:52 (yes, 4.5hrs).  With rqs, the import of the same src.rpm directory took 52:05, so just under an hour.&nbsp;Scary.</p>
+<p>So now the next step is to write rqs&#8217; counterpart (rqp) which will do the same thing rqs does for src.rpms with binary rpms.  And then the web frontend to it as&nbsp;well.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=New%20rpm%20query%C2%A0tool&url=https%3A//vdanen.github.io/blog/new-rpm-query-tool" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/new-rpm-query-tool&title=New%20rpm%20query%C2%A0tool&summary=Just%20spent%20most%20of%20the%20day%20and%20quite%20a%20bit%20of%20yesterday%20porting%20a%20program%20Stew%20wrote%20for%20the%20secteam%20%28called%20srpm%29%20that%20builds%20a%20database%20of%20src.rpm%20files%20so%20you%20can%20do%20queries%20on%20source%20files%20%28this%20is%20extremely%20useful%20for%20us%20in%20determining%20whether%20or%20not%20a%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/new-rpm-query-tool" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -125,13 +142,21 @@ File Records: 4226875         Source Records : 40233
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/new-mutt-1515-has-a-very-nice-new-feature" title="Previous: New mutt 1.5.15 has a very nice new feature!">New mutt 1.5.15 has a very nice new feature!</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/rpm-query-suite-has-impressive-benchmarks" title="Next: RPM Query Suite has impressive benchmarks">RPM Query Suite has impressive benchmarks</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-05-03T18:46:00-06:00">Thu 03 May 2007</time>
+            <time itemprop="dateCreated" datetime="2007-05-03T18:46:00-06:00">May 03, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -232,6 +257,9 @@ File Records: 4226875         Source Records : 40233
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

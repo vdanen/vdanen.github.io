@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’ve recently found and become a fan of the Dash documentation browser for OS X. It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use). So this post is to show how …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="dash, documentation, komodo, python, Macos, " />
 
 <meta property="og:title" content="Adding Dash support to Komodo IDE "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/adding-dash-support-to-komodo-ide.html" />
-<meta property="og:description" content="I&#39;ve recently found and become a fan of the Dash documentation browser for OS X. It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use). So this post is to show how easy …" />
+<meta property="og:url" content="https://vdanen.github.io/blog/adding-dash-support-to-komodo-ide" />
+<meta property="og:description" content="I’ve recently found and become a fan of the Dash documentation browser for OS X. It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use). So this post is to show how …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2016-02-24T22:00:00-07:00" />
 <meta name="twitter:title" content="Adding Dash support to Komodo IDE ">
-<meta name="twitter:description" content="I&#39;ve recently found and become a fan of the Dash documentation browser for OS X. It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use). So this post is to show how easy …">
+<meta name="twitter:description" content="I’ve recently found and become a fan of the Dash documentation browser for OS X. It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use). So this post is to show how …">
 
         <title>Adding Dash support to Komodo IDE  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/adding-dash-support-to-komodo-ide.html">
-                Adding Dash support to Komodo IDE
+            <a href="https://vdanen.github.io/blog/adding-dash-support-to-komodo-ide">
+                Adding Dash support to Komodo <span class="caps">IDE</span>
             </a>
         </h1>
     </header>
@@ -80,22 +93,22 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I've recently found and become a fan of the <a href="https://kapeli.com/dash">Dash</A> documentation browser for OS X.  It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo IDE (which I also use).  So this post is to show how easy it is to integrate the two.</p>
-<p>Dash uses a URL scheme of <pre>dash://[query]</pre> that makes it really easy to tie into any application that can callout to such URLs.  You can use URL scheme pretty much anywhere.  For instance, if you wanted to search for "os.getpid" (a Python function) you could type:</p>
+            <p>I&#8217;ve recently found and become a fan of the <a href="https://kapeli.com/dash">Dash</A> documentation browser for <span class="caps">OS</span> X.  It has some neat integration with some applications, like Sublime Text and PyCharm (both of which I use), but not for Komodo <span class="caps">IDE</span> (which I also use).  So this post is to show how easy it is to integrate the&nbsp;two.</p>
+<p>Dash uses a <span class="caps">URL</span> scheme of <pre>dash://[query]</pre> that makes it really easy to tie into any application that can callout to such URLs.  You can use <span class="caps">URL</span> scheme pretty much anywhere.  For instance, if you wanted to search for &#8220;os.getpid&#8221; (a Python function) you could&nbsp;type:</p>
 <pre>
 $ open dash://python2:os.getpid
 </pre>
 
-<p>on the commandline in the Terminal and it will open Dash, searching in the Python docset, for this function.  We will make use of that capability in our Komodo IDE toolbox.</p>
-<p>The first step is to create a new toolbox item of the type "Command".  The only things we need to do here is give it a name (like "dash lookup"), set the command to "open dash://%W" and check off the "Do not open output pane" (since there won't be any output).  Finally, on the "Key Binding" tab, assign a new key binding; I chose CTRL-H since that mimics what Sublime Text uses.</p>
+<p>on the commandline in the Terminal and it will open Dash, searching in the Python docset, for this function.  We will make use of that capability in our Komodo <span class="caps">IDE</span>&nbsp;toolbox.</p>
+<p>The first step is to create a new toolbox item of the type &#8220;Command&#8221;.  The only things we need to do here is give it a name (like &#8220;dash lookup&#8221;), set the command to &#8220;open dash://%W&#8221; and check off the &#8220;Do not open output pane&#8221; (since there won&#8217;t be any output).  Finally, on the &#8220;Key Binding&#8221; tab, assign a new key binding; I chose <span class="caps">CTRL</span>-H since that mimics what Sublime Text&nbsp;uses.</p>
 <p><img src="/static/uploads/komodo-toolbox.jpg" alt="komodo-toolbox" width="502" height="600" class="img-responsive" /></a></p>
-<p>Now when your cursor is on a function or item in your Python code, or if you highlight something (this is represented by the "%W" in the command), hitting CTRL-H will open Dash and display search results.</p>
-<p>If, however, you're like me, you probably have a lot of docsets installed in Dash and probably don't want to search all of them when you're working on your code.  If you're working on Python, which is what I pretty much exclusively write code in, you wouldn't want search results for bash or git commands to show up.</p>
-<p>Dash has this nice way of allowing you to restrict what docsets are searched based on what the former foreground application was (or the application that triggered the search).  So in our case, we want to restrict what we search in Dash when we launch it from Komodo.  When you click on the magnifying glass icon next to the search field in Dash, the following search profile editor pops up:</p>
+<p>Now when your cursor is on a function or item in your Python code, or if you highlight something (this is represented by the &#8220;%W&#8221; in the command), hitting <span class="caps">CTRL</span>-H will open Dash and display search&nbsp;results.</p>
+<p>If, however, you&#8217;re like me, you probably have a lot of docsets installed in Dash and probably don&#8217;t want to search all of them when you&#8217;re working on your code.  If you&#8217;re working on Python, which is what I pretty much exclusively write code in, you wouldn&#8217;t want search results for bash or git commands to show&nbsp;up.</p>
+<p>Dash has this nice way of allowing you to restrict what docsets are searched based on what the former foreground application was (or the application that triggered the search).  So in our case, we want to restrict what we search in Dash when we launch it from Komodo.  When you click on the magnifying glass icon next to the search field in Dash, the following search profile editor pops&nbsp;up:</p>
 <p><img src="/static/uploads/dash-search.jpg" alt="dash-search" width="637" height="475" class="img-responsive"  /></p>
-<p>In this case, I created a new search profile called "Komodo" and ensured that it's active only when Komodo becomes active.  And then we can add which docsets to search.  In this case, I only want to search the Flask, Jinja, and Python 2 docsets as well as the Python Format Strings cheatsheet.  This allows me to search for things that are relevant to what I use Komodo for.</p>
-<p>You can have as many search profiles as you like; you could define one for Sublime Text depending on what you use it for, you can define one for the Terminal (the aforementioned shell and git docsets would be a good candidate for searching from there), and so on.</p>
-<p>As an aside, because I find this useful also, if you want to search for something in Dash from the commandline, you could create this script to do that:</p>
+<p>In this case, I created a new search profile called &#8220;Komodo&#8221; and ensured that it&#8217;s active only when Komodo becomes active.  And then we can add which docsets to search.  In this case, I only want to search the Flask, Jinja, and Python 2 docsets as well as the Python Format Strings cheatsheet.  This allows me to search for things that are relevant to what I use Komodo&nbsp;for.</p>
+<p>You can have as many search profiles as you like; you could define one for Sublime Text depending on what you use it for, you can define one for the Terminal (the aforementioned shell and git docsets would be a good candidate for searching from there), and so&nbsp;on.</p>
+<p>As an aside, because I find this useful also, if you want to search for something in Dash from the commandline, you could create this script to do&nbsp;that:</p>
 <pre>
 $ cat ~/bin/dash
 
@@ -107,18 +120,22 @@ fi
 open "dash://$@"
 </pre>
 
-<p>Dash pretty much just wants a single argument for the most part so something like:</p>
+<p>Dash pretty much just wants a single argument for the most part so something&nbsp;like:</p>
 <pre>
 $ dash "vagrant suspend"
 </pre>
 
-<p>only shows you search results for "vagrant".  In this case you could type "vagrant:suspend" to have it search for the "suspend" command in the "vagrant" docset alone.</p>
-<p>Dash is pretty neat and I'm enjoying using it as an easy reference tool.  Using it has tidied up my browser window and I feel more productive with it and I really like how easy it is to summon it from almost any program that I'm using.</p>
+<p>only shows you search results for &#8220;vagrant&#8221;.  In this case you could type &#8220;vagrant:suspend&#8221; to have it search for the &#8220;suspend&#8221; command in the &#8220;vagrant&#8221; docset&nbsp;alone.</p>
+<p>Dash is pretty neat and I&#8217;m enjoying using it as an easy reference tool.  Using it has tidied up my browser window and I feel more productive with it and I really like how easy it is to summon it from almost any program that I&#8217;m&nbsp;using.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Adding%20Dash%20support%20to%20Komodo%20IDE&url=https%3A//vdanen.github.io/blog/adding-dash-support-to-komodo-ide&hashtags=dash,documentation,komodo,python" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/adding-dash-support-to-komodo-ide&title=Adding%20Dash%20support%20to%20Komodo%20IDE&summary=I%E2%80%99ve%20recently%20found%20and%20become%20a%20fan%20of%20the%20Dash%20documentation%20browser%20for%20OS%20X.%20%20It%20has%20some%20neat%20integration%20with%20some%20applications%2C%20like%20Sublime%20Text%20and%20PyCharm%20%28both%20of%20which%20I%20use%29%2C%20but%20not%20for%20Komodo%20IDE%20%28which%20I%20also%20use%29.%20%20So%20this%20post%20is%20to%20show%20how%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/adding-dash-support-to-komodo-ide" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -129,28 +146,47 @@ $ dash "vagrant suspend"
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/is-the-new-komodo-5-toolset-worth-the-upgrade" title="Is the new Komodo 5 toolset worth the upgrade?">Is the new Komodo 5 toolset worth the upgrade?</a></li>
+<li><a href="https://vdanen.github.io/blog/take-advantage-of-full-featured-komodo-ide-to-boost-productivity" title="Take advantage of full-featured Komodo IDE to boost productivity">Take advantage of full-featured Komodo IDE to boost productivity</a></li>
+<li><a href="https://vdanen.github.io/blog/review-of-the-new-komodo-ide-6-great-new-features-one-gripe" title="Review of the new Komodo IDE 6: Great new features, one gripe">Review of the new Komodo IDE 6: Great new features, one gripe</a></li>
+<li><a href="https://vdanen.github.io/blog/moved-to-python-anywhere" title="Moved to PythonAnywhere">Moved to PythonAnywhere</a></li>
+<li><a href="https://vdanen.github.io/blog/moving-from-python-2-to-python-3" title="Moving from python 2 to python 3">Moving from python 2 to python 3</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/bye-bye-mediawiki" title="Previous: Bye Bye Mediawiki">Bye Bye Mediawiki</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/welcome-to-the-new-journey" title="Next: Welcome to the new journey">Welcome to the new journey</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2016-02-24T22:00:00-07:00">Wed 24 February 2016</time>
+            <time itemprop="dateCreated" datetime="2016-02-24T22:00:00-07:00">Feb 24, 2016</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#dash-ref">dash
+                <li><a href="https://vdanen.github.io/tags#dash-ref">dash
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#documentation-ref">documentation
+                <li><a href="https://vdanen.github.io/tags#documentation-ref">documentation
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#komodo-ref">komodo
+                <li><a href="https://vdanen.github.io/tags#komodo-ref">komodo
                     <span class="superscript">4</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#python-ref">python
+                <li><a href="https://vdanen.github.io/tags#python-ref">python
                     <span class="superscript">10</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -251,6 +287,9 @@ $ dash "vagrant suspend"
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

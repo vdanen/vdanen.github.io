@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="A very useful tool for monitoring logfiles is Swatch (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance. Depending on the log file you …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using swatch to Monitor Logfiles "/>
-<meta property="og:url" content="https://vdanen.github.io/using_swatch_to_monitor_logfiles.html" />
-<meta property="og:description" content="A very useful tool for monitoring logfiles is Swatch (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance. Depending on the log file you …" />
+<meta property="og:title" content="Using swatch to Monitor Logfiles "/>
+<meta property="og:url" content="https://vdanen.github.io/using_swatch_to_monitor_logfiles" />
+<meta property="og:description" content="A very useful tool for monitoring logfiles is Swatch (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance. Depending on the log file you …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T11:43:00-06:00" />
-<meta name="twitter:title" content="Using swatch to Monitor Logfiles ">
-<meta name="twitter:description" content="A very useful tool for monitoring logfiles is Swatch (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance. Depending on the log file you …">
+<meta name="twitter:title" content="Using swatch to Monitor Logfiles ">
+<meta name="twitter:description" content="A very useful tool for monitoring logfiles is Swatch (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance. Depending on the log file you …">
 
-        <title>Using swatch to Monitor Logfiles  · Annvix
+        <title>Using swatch to Monitor Logfiles  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,60 +80,77 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_swatch_to_monitor_logfiles.html"> Using swatch to Monitor Logfiles  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_swatch_to_monitor_logfiles"> Using swatch to Monitor&nbsp;Logfiles  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
 
-            <p>A very useful tool for monitoring logfiles is <a rel="nofollow" class="external text" href="http://swatch.sourceforge.net/">Swatch</a> (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per instance.
+            <p>A very useful tool for monitoring logfiles is <a rel="nofollow" class="external text" href="http://swatch.sourceforge.net/">Swatch</a> (aka Simple WATCHer of Logfiles). This is a perl program that essentially watches a logfile. You can run as many instances of it as you want, but you can only watch one logfile per&nbsp;instance.
 </p>
-<p>Depending on the log file you want to watch, you may have to run swatch with some additional privilege. For instance, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> is likely to be the primary target for anyone interested in using swatch. But this file should be readable by root on most, if not all, systems. So Joe User can't just monitor the logfile.
+
+<p>Depending on the log file you want to watch, you may have to run swatch with some additional privilege. For instance, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> is likely to be the primary target for anyone interested in using swatch. But this file should be readable by root on most, if not all, systems. So Joe User can&#8217;t just monitor the&nbsp;logfile.
 </p>
-<p>A good solution here is to use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sudo</span> to give root priv to a given swatch command. This reduces the risk of a) opening a root shell and using it to execute swatch and b) giving root access to swatch, thus allowing one to view any file they want. For instance, you may use the following in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file:
+
+<p>A good solution here is to use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sudo</span> to give root priv to a given swatch command. This reduces the risk of a) opening a root shell and using it to execute swatch and b) giving root access to swatch, thus allowing one to view any file they want. For instance, you may use the following in your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span>&nbsp;file:
 </p>
+
 <pre>
 joe     ALL = /usr/local/swatch/swatchmsgs
 </pre>
-<p>Then create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchmsgs</span> script which may look like this:
+
+<p>Then create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchmsgs</span> script which may look like&nbsp;this:
 </p>
+
 <pre>
 #!/bin/sh
 /usr/bin/swatch --config-file=/usr/local/swatch/swatchrc \
   --script-dir=/usr/local/swatch \
   --tail-file=/var/log/messages
 </pre>
-<p>And make sure that the swatchmsgs script is mode 700 so that no user other than root can modify it (to change the --tail-file, for example). It is probably a good idea to make the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch</span> directory accessible only by root as well, and make <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchrc</span> (the configuration file) mode 600.
+
+<p>And make sure that the swatchmsgs script is mode 700 so that no user other than root can modify it (to change the &#8212;tail-file, for example). It is probably a good idea to make the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch</span> directory accessible only by root as well, and make <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchrc</span> (the configuration file) mode&nbsp;600.
 </p>
-<p>So now, user joe can execute:
+
+<p>So now, user joe can&nbsp;execute:
 </p>
+
 <pre>
 $ sudo /usr/local/swatch/swatchmsgs
 </pre>
-<p>and watch the log messages according to the system configuration in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchrc</span>. I suggest taking this sort of precaution because logfiles are sources for a wealth of information and you don't want the wrong person able to browse them.
+
+<p>and watch the log messages according to the system configuration in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/usr/local/swatch/swatchrc</span>. I suggest taking this sort of precaution because logfiles are sources for a wealth of information and you don&#8217;t want the wrong person able to browse&nbsp;them.
 </p>
-<p>Configuring swatch is pretty easy. The configuration file has an extremely straightforward syntax. A typical stanza for something to monitor begins with the keywords <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">watchfor</span> or <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ignore</span>. Each keyword takes a perl regular expression to match the message you wish to act upon. Following that, you can take a number of actions upon the matched line. You can use these actions:
+
+<p>Configuring swatch is pretty easy. The configuration file has an extremely straightforward syntax. A typical stanza for something to monitor begins with the keywords <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">watchfor</span> or <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ignore</span>. Each keyword takes a perl regular expression to match the message you wish to act upon. Following that, you can take a number of actions upon the matched line. You can use these&nbsp;actions:
 </p>
-<ul><li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">echo [modes]</span>; this echos the matched line to stdout and the text mode can be normal, bold, inverse, a color (red, green, magenta, etc.) or a highlighted color (red_h, green_h, magenta_h, etc.).</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">bell [N]</span>; echo the matched line and send a bell N times (default is once).</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">exec command</span>; executes command, and command may contain variables with are substituted with fields from the matched line. Ie. $N will be replaced with the Nth field of the line ($3 being the third field), while $0 or $* will be replaced with the entire line. (Note that this is why you want your configuration file to be writeable only by root if you do need root privilege to view a logfile).</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail [addresses=address:address:...][,subject=your_text_here]</span>; send an email to the address(es) containing the matched lines as they appear in the body of the message, with the specified subject.</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">pipe command[,keep_open]</span>; pipe matched lines into command. If you specify <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">keep_open</span> then the pipe will be forced to remain open until a different pipe action is run or until swatch exits.</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">write [user:user:...]</span>; use write to send matched lines to user(s) (the lines will show up on any terminals they have open).</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">regex]</span>; use this action to limit the number of times that the matched pattern has actions performed on it. If <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">use=regex</span> is specified, it will cause throttling to be based on the regular expression defined than on the returned message (using the message is the default).</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">continue</span>; this action causes swatch to continue to try to match other stanzas when it is finished with the current one.</li>
-<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">quit</span>; causes swatch to clean up and quit immediately.</li></ul>
-<p>There is one other special action that can be used with any of of the above:
+
+<ul><li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">echo [modes]</span>; this echos the matched line to stdout and the text mode can be normal, bold, inverse, a color (red, green, magenta, etc.) or a highlighted color (red_h, green_h, magenta_h,&nbsp;etc.).</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">bell [N]</span>; echo the matched line and send a bell N times (default is&nbsp;once).</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">exec command</span>; executes command, and command may contain variables with are substituted with fields from the matched line. Ie. $N will be replaced with the Nth field of the line ($3 being the third field), while $0 or $* will be replaced with the entire line. (Note that this is why you want your configuration file to be writeable only by root if you do need root privilege to view a&nbsp;logfile).</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail [addresses=address:address:&#8230;][,subject=your_text_here]</span>; send an email to the address(es) containing the matched lines as they appear in the body of the message, with the specified&nbsp;subject.</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">pipe command[,keep_open]</span>; pipe matched lines into command. If you specify <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">keep_open</span> then the pipe will be forced to remain open until a different pipe action is run or until swatch&nbsp;exits.</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">write [user:user:&#8230;]</span>; use write to send matched lines to user(s) (the lines will show up on any terminals they have&nbsp;open).</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">regex]</span>; use this action to limit the number of times that the matched pattern has actions performed on it. If <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">use=regex</span> is specified, it will cause throttling to be based on the regular expression defined than on the returned message (using the message is the&nbsp;default).</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">continue</span>; this action causes swatch to continue to try to match other stanzas when it is finished with the current&nbsp;one.</li>
+<li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">quit</span>; causes swatch to clean up and quit&nbsp;immediately.</li></ul>
+
+<p>There is one other special action that can be used with any of of the&nbsp;above:
 </p>
-<ul><li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">when=day_of_week:hour_of_day</span>; this specifies a window of times and days that this action can be performed.</li></ul>
-<p>For example, to send an email to a pager Monday through Saturday, from 8:00am to 5:00pm, you would use:
+
+<ul><li> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">when=day_of_week:hour_of_day</span>; this specifies a window of times and days that this action can be&nbsp;performed.</li></ul>
+
+<p>For example, to send an email to a pager Monday through Saturday, from 8:00am to 5:00pm, you would&nbsp;use:
 </p>
+
 <pre>
 mail=pager@somehost.com,when=1-6:8-17
 </pre>
-<p>All very straightforward. The big thing is to know some perl regular expressions so you can fine-tune your rules. Let's look at a few examples.
+
+<p>All very straightforward. The big thing is to know some perl regular expressions so you can fine-tune your rules. Let&#8217;s look at a few&nbsp;examples.
 </p>
+
 <pre>
 # Bad login attempts
 watchfor   /INVALID|REPEATED|INCOMPLETE|[Ff]ail /
@@ -129,8 +159,10 @@ watchfor   /INVALID|REPEATED|INCOMPLETE|[Ff]ail /
         mail addresses=sysadmin\@myhost.com,subject=Bad_login_attempt
         throttle 01:00
 </pre>
-<p>This stanza will send an email to the specified email address (note you have to escape the @ sign, like you would in a perl script), with the subject "Bad login attempt". It will echo the message to the screen in highlighted magenta and will throttle the message to display once per minute, and ring a bell three times.
+
+<p>This stanza will send an email to the specified email address (note you have to escape the @ sign, like you would in a perl script), with the subject &#8220;Bad login attempt&#8221;. It will echo the message to the screen in highlighted magenta and will throttle the message to display once per minute, and ring a bell three&nbsp;times.
 </p>
+
 <pre>
 # Logins, password changes and such
 watchfor   /workstation.*(LOGIN|passwd|ruserok|session opened|session closed)/
@@ -140,10 +172,13 @@ watchfor   /firewall.*(LOGIN|passwd|ruserok|session opened|session closed)/
         echo yellow_h
         bell 3
 </pre>
-<p>This is two different stanzas grouped together. They are almost identical except one uses a highlight yellow, and the regular expression to watchfor is slightly different. In this example, messages coming from the machine named "workstation" are echoed in yellow, while those coming from the machine named "firewall" are yellow highlighted. This illustrates how you can configure swatch on a central loghost to differentiate between messages from different machines. If you wanted, you could have emails sent for these attempts on the firewall machine, and nothing on the other machine. Specifying the machine name (on a machine that receives logs for more than just itself) is useful when trying to write some fine-grained rules.
+
+<p>This is two different stanzas grouped together. They are almost identical except one uses a highlight yellow, and the regular expression to watchfor is slightly different. In this example, messages coming from the machine named &#8220;workstation&#8221; are echoed in yellow, while those coming from the machine named &#8220;firewall&#8221; are yellow highlighted. This illustrates how you can configure swatch on a central loghost to differentiate between messages from different machines. If you wanted, you could have emails sent for these attempts on the firewall machine, and nothing on the other machine. Specifying the machine name (on a machine that receives logs for more than just itself) is useful when trying to write some fine-grained&nbsp;rules.
 </p>
-<p>Rules can be small and simple as well. Remember, swatch only displays what you tell it to, so if you want to see something without making it fancy, you still have to write a rule for it.
+
+<p>Rules can be small and simple as well. Remember, swatch only displays what you tell it to, so if you want to see something without making it fancy, you still have to write a rule for&nbsp;it.
 </p>
+
 <pre>
 watchfor   /(su|sudo):/
         echo bold
@@ -154,12 +189,16 @@ watchfor  /firewall kernel.*(DROP|REJECT)/
 watchfor   /rsyncd.*from/
         echo
 </pre>
-<p>This is three very simple rules. The first just bolds anything having to do with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">su</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sudo</span>. The second shows any iptables DROP or REJECT logs from the firewall machine, and the last simple echos to the screen (with absolutely no highlighting or coloring), messages from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">rsyncd</span> that contain the word "from" (these lines contain the IP address or reverse-DNS name of connecting systems), so we exclude statistical stuff from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">rsyncd</span> like how much was written or received.
+
+<p>This is three very simple rules. The first just bolds anything having to do with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">su</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">sudo</span>. The second shows any iptables <span class="caps">DROP</span> or <span class="caps">REJECT</span> logs from the firewall machine, and the last simple echos to the screen (with absolutely no highlighting or coloring), messages from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">rsyncd</span> that contain the word &#8220;from&#8221; (these lines contain the <span class="caps">IP</span> address or reverse-<span class="caps">DNS</span> name of connecting systems), so we exclude statistical stuff from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">rsyncd</span> like how much was written or&nbsp;received.
 </p>
-<p>As you can see, swatch is fairly flexible, particulary due to the use of perl regular expressions. And colorizing the output is nice if you have a virtual desktop you can spare to maximize an <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">xterm</span> (or transparent borderless <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Eterm</span> which looks very slick) and watch swatch's output. It doesn't prevent you from having to read log files; no program can really do that, but it can reduce the "noise" so that you're only reading what is important (to you).
+
+<p>As you can see, swatch is fairly flexible, particulary due to the use of perl regular expressions. And colorizing the output is nice if you have a virtual desktop you can spare to maximize an <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">xterm</span> (or transparent borderless <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Eterm</span> which looks very slick) and watch swatch&#8217;s output. It doesn&#8217;t prevent you from having to read log files; no program can really do that, but it can reduce the &#8220;noise&#8221; so that you&#8217;re only reading what is important (to&nbsp;you).
 </p>
+
 <h2><span class="mw-headline" id="References">References</span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="http://swatch.sourceforge.net/">swatch homepage</a></li></ul>
+
+<ul><li> <a rel="nofollow" class="external text" href="http://swatch.sourceforge.net/">swatch&nbsp;homepage</a></li></ul>
             
 
 
@@ -242,6 +281,9 @@ watchfor   /rsyncd.*from/
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="During the day I’m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I’m a sysadmin tinkerer. There’s just something about goofing off with operating systems that appeals to me; this …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="iohyve, freenas, centos, ipa, Bsd, " />
 
-<meta property="og:title" content="Virtualized Linux guest in FreeNAS 9.10 using iohyve "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve.html" />
-<meta property="og:description" content="During the day I&#39;m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I&#39;m a sysadmin tinkerer. There&#39;s just something about goofing off with operating systems that appeals to me; this is likely what …" />
+<meta property="og:title" content="Virtualized Linux guest in FreeNAS 9.10 using iohyve "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve" />
+<meta property="og:description" content="During the day I’m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I’m a sysadmin tinkerer. There’s just something about goofing off with operating systems that appeals to me; this …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2017-03-24T16:00:00-06:00" />
-<meta name="twitter:title" content="Virtualized Linux guest in FreeNAS 9.10 using iohyve ">
-<meta name="twitter:description" content="During the day I&#39;m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I&#39;m a sysadmin tinkerer. There&#39;s just something about goofing off with operating systems that appeals to me; this is likely what …">
+<meta name="twitter:title" content="Virtualized Linux guest in FreeNAS 9.10 using iohyve ">
+<meta name="twitter:description" content="During the day I’m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I’m a sysadmin tinkerer. There’s just something about goofing off with operating systems that appeals to me; this …">
 
-        <title>Virtualized Linux guest in FreeNAS 9.10 using iohyve  · Annvix
+        <title>Virtualized Linux guest in FreeNAS 9.10 using iohyve  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve.html">
-                Virtualized Linux guest in FreeNAS 9.10 using iohyve
+            <a href="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve">
+                Virtualized Linux guest in FreeNAS 9.10 using&nbsp;iohyve
             </a>
         </h1>
     </header>
@@ -80,14 +93,14 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://vdanen.github.io/images/freenas.jpg">During the day I'm a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I'm a sysadmin tinkerer.  There's just something about goofing off with operating systems that appeals to me; this is likely what caused me to devote five years of my life to working on Annvix back in the day.</p>
-<p>I've been running a local <a href="https://www.freeipa.org/page/Main_Page">IPA</a> install for quite a few years, but because you really need IPA to run on its own dedicated system (and given I have enough machines running in this house) I've been using KVM to handle the virtualization of an IPA server.  IPA is really cool and allowed me to discard my homegrown LDAP+Kerberos setup for something with some enterprise gusto to manage authentication, identification, and authorization policies for my home network (insert obligatory comment about overkill here).  I started using IPA on CentOS 6 and a year ago moved both guest and host to CentOS 7 which is working pretty good other than, for some odd reason, python is randomly segfaulting at times.  I don't know what the cause is, I've filed abrt reports, and it's a concern when the language that your system updater is based on decides to start crashing before installing updates or, even worse, during the installation of updates and making a mess of things (this does <em>not</em> make RPM happy!).  The oddest thing is that none of the other CentOS 7 systems (on bare metal) exhibit this behaviour.</p>
-<p>The other problem is if my IPA server decides to tip over, I don't have a failover setup (again this being at home).  So while I was thinking about the best way to stand up another IPA server as a replicating slave to then promote it to the master and migrate away from whatever is causing all these nasty segaults, I was reminded by FreeNAS that an update was available for it, and I started thinking about jails and whether they would run Linux.  After starting down the rabbit trail, I found out about <a href="ttps://github.com/pr1ntf/iohyve">iohyve</a> which is a FreeBSD (what FreeNAS is based on) <a href="https://en.wikipedia.org/wiki/Bhyve">bhyve</a> manager.  Byhve is a hypervisor that runs on FreeBSD, basically like KVM (which I've been using) or OpenVZ (which I've used with VPS hosting), or Xen.</p>
-<p>So bhyve is for FreeBSD what KVM is for Linux.  And this is where the sysadmin/tinkerer/geek in me thinks "cool" and away disappears a weekend.</p>
-<p>For the purposes of this post/tutorial, you need to be running FreeNAS 9.10 (you can probably do this easily enough with FreeBSD, but I've not tried).  There is also documentation on <a href="https://doc.freenas.org/9.10/jails.html#using-iohyve">Using iohyve</a>.</p>
-<p>From your FreeNAS system you need to know your ethernet interface name (in the web UI go to <strong>Network -&gt; Network Interfaces</strong>, in my case <em>em0</em>) and the storage pool name (<strong>Storage -&gt; Volumes</strong>, in my case the pool is named <em>storage</em>).  The actual setup of iohyve needs to be done as root over SSH, so you'll need that running as well.</p>
-<p>As root, we need to create the environment iohyve requires.   I used the following commands to create the pool for its use:</p>
-<div class="highlight"><pre><span></span><code><span class="cp"># iohyve setup pool=storage kmod=1 net=em0</span>
+            <p><img alt="Image" src="https://vdanen.github.io/images/freenas.jpg" />During the day I&#8217;m a manager of one of the greatest security teams on the planet (in my biased estimation), but at night (and random times throughout the day), I&#8217;m a sysadmin tinkerer.  There&#8217;s just something about goofing off with operating systems that appeals to me; this is likely what caused me to devote five years of my life to working on Annvix back in the&nbsp;day.</p>
+<p>I&#8217;ve been running a local <a href="https://www.freeipa.org/page/Main_Page"><span class="caps">IPA</span></a> install for quite a few years, but because you really need <span class="caps">IPA</span> to run on its own dedicated system (and given I have enough machines running in this house) I&#8217;ve been using <span class="caps">KVM</span> to handle the virtualization of an <span class="caps">IPA</span> server.  <span class="caps">IPA</span> is really cool and allowed me to discard my homegrown <span class="caps">LDAP</span>+Kerberos setup for something with some enterprise gusto to manage authentication, identification, and authorization policies for my home network (insert obligatory comment about overkill here).  I started using <span class="caps">IPA</span> on CentOS 6 and a year ago moved both guest and host to CentOS 7 which is working pretty good other than, for some odd reason, python is randomly segfaulting at times.  I don&#8217;t know what the cause is, I&#8217;ve filed abrt reports, and it&#8217;s a concern when the language that your system updater is based on decides to start crashing before installing updates or, even worse, during the installation of updates and making a mess of things (this does <em>not</em> make <span class="caps">RPM</span> happy!).  The oddest thing is that none of the other CentOS 7 systems (on bare metal) exhibit this&nbsp;behaviour.</p>
+<p>The other problem is if my <span class="caps">IPA</span> server decides to tip over, I don&#8217;t have a failover setup (again this being at home).  So while I was thinking about the best way to stand up another <span class="caps">IPA</span> server as a replicating slave to then promote it to the master and migrate away from whatever is causing all these nasty segaults, I was reminded by FreeNAS that an update was available for it, and I started thinking about jails and whether they would run Linux.  After starting down the rabbit trail, I found out about <a href="ttps://github.com/pr1ntf/iohyve">iohyve</a> which is a FreeBSD (what FreeNAS is based on) <a href="https://en.wikipedia.org/wiki/Bhyve">bhyve</a> manager.  Byhve is a hypervisor that runs on FreeBSD, basically like <span class="caps">KVM</span> (which I&#8217;ve been using) or OpenVZ (which I&#8217;ve used with <span class="caps">VPS</span> hosting), or&nbsp;Xen.</p>
+<p>So bhyve is for FreeBSD what <span class="caps">KVM</span> is for Linux.  And this is where the sysadmin/tinkerer/geek in me thinks &#8220;cool&#8221; and away disappears a&nbsp;weekend.</p>
+<p>For the purposes of this post/tutorial, you need to be running FreeNAS 9.10 (you can probably do this easily enough with FreeBSD, but I&#8217;ve not tried).  There is also documentation on <a href="https://doc.freenas.org/9.10/jails.html#using-iohyve">Using iohyve</a>.</p>
+<p>From your FreeNAS system you need to know your ethernet interface name (in the web <span class="caps">UI</span> go to <strong>Network -&gt; Network Interfaces</strong>, in my case <em>em0</em>) and the storage pool name (<strong>Storage -&gt; Volumes</strong>, in my case the pool is named <em>storage</em>).  The actual setup of iohyve needs to be done as root over <span class="caps">SSH</span>, so you&#8217;ll need that running as&nbsp;well.</p>
+<p>As root, we need to create the environment iohyve requires.   I used the following commands to create the pool for its&nbsp;use:</p>
+<div class="highlight"><pre><span></span><span class="cp"># iohyve setup pool=storage kmod=1 net=em0</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="n">pool</span><span class="p">...</span>
 <span class="n">On</span><span class="w"> </span><span class="n">FreeNAS</span><span class="w"> </span><span class="n">installation</span><span class="p">.</span>
 <span class="n">Checking</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">symbolic</span><span class="w"> </span><span class="n">link</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">/</span><span class="n">iohyve</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">iohyve</span><span class="p">...</span>
@@ -96,55 +109,61 @@
 <span class="n">bridge0</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">machine</span><span class="p">...</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">correct</span><span class="w"> </span><span class="n">sysctl</span><span class="w"> </span><span class="n">value</span><span class="p">...</span>
 <span class="n">net</span><span class="p">.</span><span class="n">link</span><span class="p">.</span><span class="n">tap</span><span class="p">.</span><span class="n">up_on_open</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">1</span>
-</code></pre></div>
+</pre></div>
 
-<p>This tells iohyve to install the required ZFS datasets and kernel modules.  We use <code>kmod=1</code> to tell iohyve to load the required kernel module, <code>pool=storage</code> tells it which pool to use for files (in this case, <em>storage</em>) and <code>net=em0</code> sets up the network bridge to this interface (iohyve can only be bound to a single interface).  You can use multiple pools for iohyve, however I only have one pool on the system.</p>
-<p>Next, you need to create a few tunables in FreeNAS.  Heading back to the web UI, go to <strong>System -&gt; Tunables</strong> and create the following two tunables:</p>
+
+<p>This tells iohyve to install the required <span class="caps">ZFS</span> datasets and kernel modules.  We use <code>kmod=1</code> to tell iohyve to load the required kernel module, <code>pool=storage</code> tells it which pool to use for files (in this case, <em>storage</em>) and <code>net=em0</code> sets up the network bridge to this interface (iohyve can only be bound to a single interface).  You can use multiple pools for iohyve, however I only have one pool on the&nbsp;system.</p>
+<p>Next, you need to create a few tunables in FreeNAS.  Heading back to the web <span class="caps">UI</span>, go to <strong>System -&gt; Tunables</strong> and create the following two&nbsp;tunables:</p>
 <ul>
-<li>variable: <strong>iohyve_enable</strong>, values: <strong>YES</strong>, type: <strong>rc_conf</strong></li>
+<li>variable: <strong>iohyve_enable</strong>, values: <strong><span class="caps">YES</span></strong>, type: <strong>rc_conf</strong></li>
 <li>variable: <strong>iohve_flags</strong>, values: <strong>kmod=1 net=em0</strong>, type: <strong>rc_conf</strong></li>
 </ul>
-<p>The <strong>iohyve_enable</strong> variable tells FreeNAS to load iohyve support at boot, and the <strong>iohyve_flags</strong> are the same kmod and net options we used when setting up iohyve initially.</p>
-<p>The next step is to download an ISO image for iohyve to use for installing a virtual machine.  In my case, I want to run CentOS 7.  There are plenty of <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso">mirrors</a> to choose from for the minimal ISO which is probably what you want since you can install any specific software required using yum after it's installed.</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> iohyve fetch http://centos.mirror.iweb.ca/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso
+<p>The <strong>iohyve_enable</strong> variable tells FreeNAS to load iohyve support at boot, and the <strong>iohyve_flags</strong> are the same kmod and net options we used when setting up iohyve&nbsp;initially.</p>
+<p>The next step is to download an <span class="caps">ISO</span> image for iohyve to use for installing a virtual machine.  In my case, I want to run CentOS 7.  There are plenty of <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso">mirrors</a> to choose from for the minimal <span class="caps">ISO</span> which is probably what you want since you can install any specific software required using yum after it&#8217;s&nbsp;installed.</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> iohyve fetch http://centos.mirror.iweb.ca/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso
 Fetching http://centos.mirror.iweb.ca/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso...
 /iohyve/ISO/CentOS-7-x86_64-Minimal-1611.iso/C100% of  680 MB    9 MBps 01m08s
-</code></pre></div>
+</pre></div>
 
-<p>You need to use iohyve to fetch the ISO image (somewhat annoyingly) so you can't just copy an existing ISO over (although I believe you can do a fetch over NFS or provide it locally via HTTP from another system on your network).</p>
-<p>Once you have the ISO downloaded, you can configure a new virtual machine.  Check to make sure you have the ISO available:</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> iohyve isolist
+
+<p>You need to use iohyve to fetch the <span class="caps">ISO</span> image (somewhat annoyingly) so you can&#8217;t just copy an existing <span class="caps">ISO</span> over (although I believe you can do a fetch over <span class="caps">NFS</span> or provide it locally via <span class="caps">HTTP</span> from another system on your&nbsp;network).</p>
+<p>Once you have the <span class="caps">ISO</span> downloaded, you can configure a new virtual machine.  Check to make sure you have the <span class="caps">ISO</span>&nbsp;available:</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> iohyve isolist
 Listing ISO&#39;s...
 CentOS-7-x86_64-Minimal-1611.iso
-</code></pre></div>
+</pre></div>
 
-<p>Then, to create the machine with 20GB of space (the same size as my existing KVM machine for IPA, which is more than enough):</p>
-<div class="highlight"><pre><span></span><code># iohyve create ipa-slave 20G
+
+<p>Then, to create the machine with <span class="caps">20GB</span> of space (the same size as my existing <span class="caps">KVM</span> machine for <span class="caps">IPA</span>, which is more than&nbsp;enough):</p>
+<div class="highlight"><pre><span></span># iohyve create ipa-slave 20G
 Creating ipa-slave...
 # iohyve list
 Guest      VMM?  Running  rcboot?  Description
 ipa-slave  NO    NO       NO       Sun Mar 12 16:39:10 MDT 2017
-</code></pre></div>
+</pre></div>
 
-<p>Now you can configure the specifics of the machine:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># iohyve set ipa-slave ram=1G cpu=1 os=custom loader=grub-bhyve</span>
+
+<p>Now you can configure the specifics of the&nbsp;machine:</p>
+<div class="highlight"><pre><span></span><span class="c1"># iohyve set ipa-slave ram=1G cpu=1 os=custom loader=grub-bhyve</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="w"> </span><span class="n">ram</span><span class="o">=</span><span class="mi">1</span><span class="n">G</span><span class="o">...</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="w"> </span><span class="n">cpu</span><span class="o">=</span><span class="mf">1.</span><span class="o">..</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="w"> </span><span class="n">os</span><span class="o">=</span><span class="n">cuscom</span><span class="o">...</span>
 <span class="n">Setting</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="w"> </span><span class="n">loader</span><span class="o">=</span><span class="n">grub</span><span class="o">-</span><span class="n">bhyve</span><span class="o">...</span>
-</code></pre></div>
+</pre></div>
 
-<p>This sets my virtual machine to have 1GB of RAM, use one virtual CPU, use the "custom" operating system type (we need this later, even though we will be using CentOS 7), and uses the grub-bhyve loader which is required by Linux guests.  The <a href="https://github.com/pr1ntf/iohyve/wiki">iohyve wiki</a> has more details on operating system types and which values to use depending on which Linux operating system you intend to install.</p>
-<p>When using a CentOS 7 guest, iohyve currently cannot boot from an XFS partition (which is the default), and due to the limitations of the commandline installer, we can't tell Anaconda to use something other than XFS.  Another thing I found, with some trial and error, is you want to use traditional partitions and not the LVM-based partition scheme (so plan out your filesystem in advance to ensure you have enough size!).  This is the main reason for using the "custom" operating system type.  We'll fix that later.</p>
-<p>To work around this, we'll use a simple kickstart file to get us to a minimal working system from which we can install the rest of what we want.</p>
-<p>In order to make grub boot and use the kickstart file, you need to edit <code>/iohyve/ipa-slave/grub.cfg</code> so it looks like:</p>
-<div class="highlight"><pre><span></span><code>linux (cd0)/isolinux/vmlinuz inst.ks=http://somewhere.internal/ks.cfg
+
+<p>This sets my virtual machine to have <span class="caps">1GB</span> of <span class="caps">RAM</span>, use one virtual <span class="caps">CPU</span>, use the &#8220;custom&#8221; operating system type (we need this later, even though we will be using CentOS 7), and uses the grub-bhyve loader which is required by Linux guests.  The <a href="https://github.com/pr1ntf/iohyve/wiki">iohyve wiki</a> has more details on operating system types and which values to use depending on which Linux operating system you intend to&nbsp;install.</p>
+<p>When using a CentOS 7 guest, iohyve currently cannot boot from an <span class="caps">XFS</span> partition (which is the default), and due to the limitations of the commandline installer, we can&#8217;t tell Anaconda to use something other than <span class="caps">XFS</span>.  Another thing I found, with some trial and error, is you want to use traditional partitions and not the <span class="caps">LVM</span>-based partition scheme (so plan out your filesystem in advance to ensure you have enough size!).  This is the main reason for using the &#8220;custom&#8221; operating system type.  We&#8217;ll fix that&nbsp;later.</p>
+<p>To work around this, we&#8217;ll use a simple kickstart file to get us to a minimal working system from which we can install the rest of what we&nbsp;want.</p>
+<p>In order to make grub boot and use the kickstart file, you need to edit <code>/iohyve/ipa-slave/grub.cfg</code> so it looks&nbsp;like:</p>
+<div class="highlight"><pre><span></span>linux (cd0)/isolinux/vmlinuz inst.ks=http://somewhere.internal/ks.cfg
 initrd (cd0)/isolinux/initrd.img
 boot
-</code></pre></div>
+</pre></div>
 
-<p>and the <code>ks.cfg</code> file would look something like (see the <a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Installation_Guide/sect-kickstart-syntax.html">documentation</a> for more info):</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#version=RHEL7</span>
+
+<p>and the <code>ks.cfg</code> file would look something like (see the <a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Installation_Guide/sect-kickstart-syntax.html">documentation</a> for more&nbsp;info):</p>
+<div class="highlight"><pre><span></span><span class="cp">#version=RHEL7</span>
 <span class="cp"># System authorization information</span>
 <span class="n">auth</span><span class="w"> </span><span class="o">--</span><span class="n">enableshadow</span><span class="w"> </span><span class="o">--</span><span class="n">passalgo</span><span class="o">=</span><span class="n">sha512</span>
 
@@ -183,20 +202,22 @@ boot
 <span class="nf">%addon</span><span class="w"> </span><span class="n">com_redhat_kdump</span><span class="w"> </span><span class="o">--</span><span class="n">disable</span><span class="w"> </span><span class="o">--</span><span class="n">reserve</span><span class="o">-</span><span class="n">mb</span><span class="o">=</span><span class="err">&#39;</span><span class="k">auto</span><span class="err">&#39;</span>
 
 <span class="nf">%end</span>
-</code></pre></div>
+</pre></div>
 
-<p>Before starting the installation, make sure you can retrieve that file with something like curl.  Next, start the installation:</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> iohyve isolist
+
+<p>Before starting the installation, make sure you can retrieve that file with something like curl.  Next, start the&nbsp;installation:</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> iohyve isolist
 Listing ISO&#39;s...
 CentOS-7-x86_64-Minimal-1611.iso
 <span class="gh">#</span> iohyve install ipa-slave CentOS-7-x86_64-Minimal-1611.iso
 Installing ipa-slave...
 GRUB Process does not run in background....
 If your terminal appears to be hanging, check iohyve console ipa-slave in second terminal to complete GRUB process...
-</code></pre></div>
+</pre></div>
 
-<p>From another terminal, ssh into your FreeNAS server again in order to connect to the serial console by using:</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> iohyve console ipa-slave
+
+<p>From another terminal, ssh into your FreeNAS server again in order to connect to the serial console by&nbsp;using:</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> iohyve console ipa-slave
 Starting console on ipa-slave...
 ~~. to escape console [uses cu(1) for console]
 Connected
@@ -211,35 +232,39 @@ anaconda 21.48.22.93-1 for CentOS Linux 7 started.
 
 Starting automated install..
 ...
-</code></pre></div>
+</pre></div>
 
-<p>Now sit back while it automatically installs.  This will be quite the minimal install, however it will get you up and running with an ext4-based system that iohyve can boot up, and from there you can install individual packages or package groups.</p>
-<p>When the install is complete, you will see something like this on the console:</p>
-<div class="highlight"><pre><span></span><code>[  OK  ] Started Restore /run/initramfs.
+
+<p>Now sit back while it automatically installs.  This will be quite the minimal install, however it will get you up and running with an ext4-based system that iohyve can boot up, and from there you can install individual packages or package&nbsp;groups.</p>
+<p>When the install is complete, you will see something like this on the&nbsp;console:</p>
+<div class="highlight"><pre><span></span>[  OK  ] Started Restore /run/initramfs.
 [  OK  ] Reached target Shutdown.
 dracut Warning: Killing all remaining processes
 Rebooting.
 [  819.859124] Restarting system.
-</code></pre></div>
+</pre></div>
 
-<p>However, it's not actually restarting the system.  Switch back to the other console and you will see:</p>
-<div class="highlight"><pre><span></span><code>Unhandled ps2 keyboard command 0xf6
+
+<p>However, it&#8217;s not actually restarting the system.  Switch back to the other console and you will&nbsp;see:</p>
+<div class="highlight"><pre><span></span>Unhandled ps2 keyboard command 0xf6
 
 # iohyve list
 Guest      VMM?  Running  rcboot?  Description
 ipa-slave  YES   NO       NO       Sun Mar 12 16:39:10 MDT 2017
-</code></pre></div>
+</pre></div>
 
-<p>As you can see from the <code>list</code> command, the virtual machine is not running even though it said it was restarting.  In order to start the machine, you must use:</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span>
+
+<p>As you can see from the <code>list</code> command, the virtual machine is not running even though it said it was restarting.  In order to start the machine, you must&nbsp;use:</p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span>
 <span class="n">Starting</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="p">...</span><span class="w"> </span><span class="p">(</span><span class="n">Takes</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">FreeBSD</span><span class="w"> </span><span class="n">guests</span><span class="p">)</span>
 <span class="o">[</span><span class="n">root@heimdall</span><span class="o">]</span><span class="w"> </span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">GRUB</span><span class="w"> </span><span class="n">Process</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">background</span><span class="p">....</span>
 <span class="k">If</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="n">appears</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">hanging</span><span class="p">,</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">second</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">complete</span><span class="w"> </span><span class="n">GRUB</span><span class="w"> </span><span class="n">process</span><span class="p">...</span>
-</code></pre></div>
+</pre></div>
 
-<p>Now switch back to the original console (that you've not disconnected) and you will see the system booting.  I had some difficulty with dracut-initqueue warning about incessant timeouts, so it took some time for the system to boot and even then I ended up in a rescue shell.</p>
-<p>As annoying as this is, it's not too terribly difficult to solve although I hate how hackish it needs to be.  The root of the problem <em>seems</em> to be that dracut wants to connect to this kickstart file before the network is up.  So we need to do some chroot shenanigans and fix the initramfs:</p>
-<div class="highlight"><pre><span></span><code><span class="gh">#</span> mkdir /mnt
+
+<p>Now switch back to the original console (that you&#8217;ve not disconnected) and you will see the system booting.  I had some difficulty with dracut-initqueue warning about incessant timeouts, so it took some time for the system to boot and even then I ended up in a rescue&nbsp;shell.</p>
+<p>As annoying as this is, it&#8217;s not too terribly difficult to solve although I hate how hackish it needs to be.  The root of the problem <em>seems</em> to be that dracut wants to connect to this kickstart file before the network is up.  So we need to do some chroot shenanigans and fix the&nbsp;initramfs:</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> mkdir /mnt
 <span class="gh">#</span> mount /dev/sda3 /mnt
 <span class="gh">#</span> mount /dev/sda1 /mnt/boot
 <span class="gh">#</span> chroot /mnt
@@ -250,49 +275,58 @@ ipa-slave  YES   NO       NO       Sun Mar 12 16:39:10 MDT 2017
 -rw-------  1 root root 45180381 Mar 14 08:24 initramfs-0-rescue-715baff9360a47a89af2ddbc55b9f0cf.img
 -rw-------  1 root root 44766225 Mar 14 09:26 initramfs-3.10.0-514.el7.x86_64.img
 -rw-------  1 root root 17437682 Mar 14 09:25 initramfs-3.10.0-514.el7.x86_64.img.bak
-</code></pre></div>
+</pre></div>
 
-<p>Judging by the difference in size between the rescue image, the newly created image, and the previous one that was copied, this is a pretty strong indication that something is missing.</p>
-<p>Also, there are a few more steps to do before we can get CentOS 7 booted properly.  The first is to edit <code>/iohyve/ipa-slave/grub.conf</code> and remove the kickstart reference.  I'm not 100% sure this is required after we perform the next action, but after a lot of beard-tugging (and to spare you the same) I'm suggesting you remove it.  Also, you need to set the operating system type back to CentOS 7:</p>
-<div class="highlight"><pre><span></span><code># iohyve set ipa-slave os=centos7
+
+<p>Judging by the difference in size between the rescue image, the newly created image, and the previous one that was copied, this is a pretty strong indication that something is&nbsp;missing.</p>
+<p>Also, there are a few more steps to do before we can get CentOS 7 booted properly.  The first is to edit <code>/iohyve/ipa-slave/grub.conf</code> and remove the kickstart reference.  I&#8217;m not 100% sure this is required after we perform the next action, but after a lot of beard-tugging (and to spare you the same) I&#8217;m suggesting you remove it.  Also, you need to set the operating system type back to CentOS&nbsp;7:</p>
+<div class="highlight"><pre><span></span># iohyve set ipa-slave os=centos7
 Setting ipa-slave os=centos7...
-</code></pre></div>
+</pre></div>
 
-<p>If you've stopped the virtual machine, great, if it's still waiting for network timeouts, you can forcibly stop it with <code>iohyve destroy ipa-slave</code> and then we can use <code>iohyve start ipa-slave</code> to start it back up again (this from the session not attached to the console, of course).</p>
-<p>Now on the console, you should be able to watch the virtual machine boot and arrive at a login prompt.</p>
-<p>Once you login, you probably want to install a few other things given we opted for the minimal install:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># yum update -y</span>
+
+<p>If you&#8217;ve stopped the virtual machine, great, if it&#8217;s still waiting for network timeouts, you can forcibly stop it with <code>iohyve destroy ipa-slave</code> and then we can use <code>iohyve start ipa-slave</code> to start it back up again (this from the session not attached to the console, of&nbsp;course).</p>
+<p>Now on the console, you should be able to watch the virtual machine boot and arrive at a login&nbsp;prompt.</p>
+<p>Once you login, you probably want to install a few other things given we opted for the minimal&nbsp;install:</p>
+<div class="highlight"><pre><span></span><span class="c1"># yum update -y</span>
 <span class="c1"># yum install net-tools vim-enhanced zsh ipa-server</span>
 <span class="c1"># systemctl status sshd</span>
-</code></pre></div>
+</pre></div>
 
-<p>The last is to make sure that sshd is running so you can ssh in and carry on (at least for me, an 80x25 console is pretty darn tiny).  I also prefer the enhanced vim, and having tools like ipaddr and ifconfig are just plain old handy, and of course the whole point of this exercise was to set this up as an IPA server.</p>
-<p>Finally, once you verify you can ssh into the server, disconnect from the console by typing the tilde and CTRL-D (so <code>~ + CTRL-D</code>).</p>
-<p>To finish up, let's give the virtual machine a decent description and tell it to start at boot:</p>
-<div class="highlight"><pre><span></span><code># iohyve set ipa-slave description=&quot;IPA Slave server&quot;
+
+<p>The last is to make sure that sshd is running so you can ssh in and carry on (at least for me, an 80x25 console is pretty darn tiny).  I also prefer the enhanced vim, and having tools like ipaddr and ifconfig are just plain old handy, and of course the whole point of this exercise was to set this up as an <span class="caps">IPA</span>&nbsp;server.</p>
+<p>Finally, once you verify you can ssh into the server, disconnect from the console by typing the tilde and <span class="caps">CTRL</span>-D (so <code>~ + CTRL-D</code>).</p>
+<p>To finish up, let&#8217;s give the virtual machine a decent description and tell it to start at&nbsp;boot:</p>
+<div class="highlight"><pre><span></span># iohyve set ipa-slave description=&quot;IPA Slave server&quot;
 Setting ipa-slave description=IPA Slave server...
 #  iohyve set ipa-slave boot=1
 Setting ipa-slave boot=1...
 # iohyve list
 Guest      VMM?  Running  rcboot?  Description
 ipa-slave  YES   YES      YES      IPA Slave server
-</code></pre></div>
+</pre></div>
 
-<p>At this point, you can make a backup or snapshot of the virtual machine (which is one of the first things I wanted to do after all of the effort of figuring out the above!):</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="n">snap</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="nv">@base</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="mi">20170314</span>
+
+<p>At this point, you can make a backup or snapshot of the virtual machine (which is one of the first things I wanted to do after all of the effort of figuring out the&nbsp;above!):</p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="n">snap</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="nv">@base</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="mi">20170314</span>
 <span class="n">Taking</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="nv">@base</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="mi">20170314</span>
 <span class="err">#</span><span class="w"> </span><span class="n">iohyve</span><span class="w"> </span><span class="n">snaplist</span>
 <span class="n">ipa</span><span class="o">-</span><span class="n">slave</span><span class="nv">@base</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="mi">20170314</span>
-</code></pre></div>
+</pre></div>
 
-<p>Currently there doesn't seem to be a way to remove snapshots.</p>
-<p>I haven't played with it enough to know whether or not the performance is better than KVM on Linux, but I enjoyed fiddling with this to get it figured out and working.  Hopefully this is helpful to others; there have been quite a few references to the desire to run CentOS 7 on FreeNAS using iohyve, but even the upstream site indicates it is currently not possible (although according to <a href="https://github.com/pr1ntf/iohyve/issues/224#issuecomment-274279896">this comment</a>, it's on the roadmap).  With a bit of fiddling, it <em>is</em> possible.</p>
-<p>The next step now is to figure out how to get an IPA replication slave setup because the documentation is <em>not</em> intuitive at all and setting up a replicated slave is about the only way to migrate IPA from one machine to another.  Wish me luck, and I hope this is helpful to people interested in running CentOS 7 with iohyve.</p>
+
+<p>Currently there doesn&#8217;t seem to be a way to remove&nbsp;snapshots.</p>
+<p>I haven&#8217;t played with it enough to know whether or not the performance is better than <span class="caps">KVM</span> on Linux, but I enjoyed fiddling with this to get it figured out and working.  Hopefully this is helpful to others; there have been quite a few references to the desire to run CentOS 7 on FreeNAS using iohyve, but even the upstream site indicates it is currently not possible (although according to <a href="https://github.com/pr1ntf/iohyve/issues/224#issuecomment-274279896">this comment</a>, it&#8217;s on the roadmap).  With a bit of fiddling, it <em>is</em>&nbsp;possible.</p>
+<p>The next step now is to figure out how to get an <span class="caps">IPA</span> replication slave setup because the documentation is <em>not</em> intuitive at all and setting up a replicated slave is about the only way to migrate <span class="caps">IPA</span> from one machine to another.  Wish me luck, and I hope this is helpful to people interested in running CentOS 7 with&nbsp;iohyve.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Virtualized%20Linux%20guest%20in%20FreeNAS%209.10%20using%C2%A0iohyve&url=https%3A//vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve&hashtags=iohyve,freenas,centos,ipa" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve&title=Virtualized%20Linux%20guest%20in%20FreeNAS%209.10%20using%C2%A0iohyve&summary=During%20the%20day%20I%E2%80%99m%20a%20manager%20of%20one%20of%20the%20greatest%20security%20teams%20on%20the%20planet%20%28in%20my%20biased%20estimation%29%2C%20but%20at%20night%20%28and%20random%20times%20throughout%20the%20day%29%2C%20I%E2%80%99m%20a%20sysadmin%20tinkerer.%20%20There%E2%80%99s%20just%20something%20about%20goofing%20off%20with%20operating%20systems%20that%20appeals%20to%20me%3B%20this%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -303,28 +337,47 @@ ipa-slave  YES   YES      YES      IPA Slave server
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail" title="Migrate plex from a warden jail to an iocage jail">Migrate plex from a warden jail to an iocage jail</a></li>
+<li><a href="https://vdanen.github.io/blog/using-letsencrypt-on-freenas" title="Using LetsEncrypt on FreeNAS">Using LetsEncrypt on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas" title="Updating iocage jails in FreeNAS">Updating iocage jails in FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" title="Inkdrop with CouchDB on FreeNAS">Inkdrop with CouchDB on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core" title="Upgrading FreeNAS to TrueNAS Core">Upgrading FreeNAS to TrueNAS Core</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/replaced-gpg-key" title="Previous: Replaced GPG Key">Replaced GPG Key</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/red-hat-container-health-index" title="Next: Red Hat Container Health Index">Red Hat Container Health Index</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2017-03-24T16:00:00-06:00">Fri 24 March 2017</time>
+            <time itemprop="dateCreated" datetime="2017-03-24T16:00:00-06:00">Mar 24, 2017</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#bsd-ref">Bsd</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#bsd-ref">Bsd</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#centos-ref">centos
+                <li><a href="https://vdanen.github.io/tags#centos-ref">centos
                     <span class="superscript">5</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#freenas-ref">freenas
+                <li><a href="https://vdanen.github.io/tags#freenas-ref">freenas
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#iohyve-ref">iohyve
+                <li><a href="https://vdanen.github.io/tags#iohyve-ref">iohyve
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#ipa-ref">ipa
+                <li><a href="https://vdanen.github.io/tags#ipa-ref">ipa
                     <span class="superscript">3</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -425,6 +478,9 @@ ipa-slave  YES   YES      YES      IPA Slave server
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

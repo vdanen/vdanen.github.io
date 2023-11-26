@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Last week’s techmail was Obtaining network information with netstat where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, Linux, " />
 
-<meta property="og:title" content="Obtaining network information with netstat "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/obtaining-network-information-with-netstat.html" />
-<meta property="og:description" content="Last week&#39;s techmail was Obtaining network information with netstat where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound and …" />
+<meta property="og:title" content="Obtaining network information with netstat "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/obtaining-network-information-with-netstat" />
+<meta property="og:description" content="Last week’s techmail was Obtaining network information with netstat where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2011-02-12T09:10:00-07:00" />
-<meta name="twitter:title" content="Obtaining network information with netstat ">
-<meta name="twitter:description" content="Last week&#39;s techmail was Obtaining network information with netstat where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound and …">
+<meta name="twitter:title" content="Obtaining network information with netstat ">
+<meta name="twitter:description" content="Last week’s techmail was Obtaining network information with netstat where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound …">
 
-        <title>Obtaining network information with netstat  · Annvix
+        <title>Obtaining network information with netstat  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/obtaining-network-information-with-netstat.html">
-                Obtaining network information with netstat
+            <a href="https://vdanen.github.io/blog/obtaining-network-information-with-netstat">
+                Obtaining network information with&nbsp;netstat
             </a>
         </h1>
     </header>
@@ -80,12 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Last week's techmail was <a href="http://www.techrepublic.com/blog/opensource/obtaining-network-information-with-netstat/2194?tag=nl.e011">Obtaining network information with netstat</a> where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound and outbound).  netstat is a really useful little troubleshooting tool, and this post gets you started with seeing how you can use it.</p>
+            <p>Last week&#8217;s techmail was <a href="http://www.techrepublic.com/blog/opensource/obtaining-network-information-with-netstat/2194?tag=nl.e011">Obtaining network information with netstat</a> where we take a look at some of the nifty little things you can do with the netstat program including listing which ports are being actively listened to and by which programs and what active connections there are (both inbound and outbound).  netstat is a really useful little troubleshooting tool, and this post gets you started with seeing how you can use&nbsp;it.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Obtaining%20network%20information%20with%C2%A0netstat&url=https%3A//vdanen.github.io/blog/obtaining-network-information-with-netstat&hashtags=techmail" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/obtaining-network-information-with-netstat&title=Obtaining%20network%20information%20with%C2%A0netstat&summary=Last%20week%E2%80%99s%20techmail%20was%20Obtaining%20network%20information%20with%20netstat%20where%20we%20take%20a%20look%20at%20some%20of%20the%20nifty%20little%20things%20you%20can%20do%20with%20the%20netstat%20program%20including%20listing%20which%20ports%20are%20being%20actively%20listened%20to%20and%20by%20which%20programs%20and%20what%20active%20connections%20there%20are%20%28both%20inbound%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/obtaining-network-information-with-netstat" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -96,19 +113,38 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/two-ssh-clients-to-consider-for-the-ipad" title="Two SSH clients to consider for the iPad">Two SSH clients to consider for the iPad</a></li>
+<li><a href="https://vdanen.github.io/blog/practical-selinux-port-contexts-and-handling-access-alerts" title="Practical SELinux: Port contexts and handling access alerts">Practical SELinux: Port contexts and handling access alerts</a></li>
+<li><a href="https://vdanen.github.io/blog/chromium-on-fedora-linux-is-closing-in-on-firefox" title="Chromium on Fedora Linux is closing in on Firefox">Chromium on Fedora Linux is closing in on Firefox</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring" title="Nagios XI wizards make setup a snap for network monitoring">Nagios XI wizards make setup a snap for network monitoring</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/use-fail2ban-to-blacklist-ip-addresses-and-alert-you-to-attacks" title="Previous: Use Fail2ban to blacklist IP addresses and alert you to attacks">Use Fail2ban to blacklist IP addresses and alert you to attacks</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/how-to-reassign-the-primary-display-on-multi-display-macs" title="Next: How to reassign the primary display on multi-display Macs">How to reassign the primary display on multi-display Macs</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2011-02-12T09:10:00-07:00">Sat 12 February 2011</time>
+            <time itemprop="dateCreated" datetime="2011-02-12T09:10:00-07:00">Feb 12, 2011</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -209,6 +245,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

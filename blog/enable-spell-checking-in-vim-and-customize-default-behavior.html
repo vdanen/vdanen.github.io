@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Last week’s techmail was Enable spell-checking in Vim and customize default behavior which talks about how to get spell checking enabled in vim. I actually wasn’t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, vim, Linux, " />
 
-<meta property="og:title" content="Enable spell-checking in Vim and customize default behavior "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior.html" />
-<meta property="og:description" content="Last week&#39;s techmail was Enable spell-checking in Vim and customize default behavior which talks about how to get spell checking enabled in vim. I actually wasn&#39;t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of it with …" />
+<meta property="og:title" content="Enable spell-checking in Vim and customize default behavior "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior" />
+<meta property="og:description" content="Last week’s techmail was Enable spell-checking in Vim and customize default behavior which talks about how to get spell checking enabled in vim. I actually wasn’t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-10-12T07:00:00-06:00" />
-<meta name="twitter:title" content="Enable spell-checking in Vim and customize default behavior ">
-<meta name="twitter:description" content="Last week&#39;s techmail was Enable spell-checking in Vim and customize default behavior which talks about how to get spell checking enabled in vim. I actually wasn&#39;t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of it with …">
+<meta name="twitter:title" content="Enable spell-checking in Vim and customize default behavior ">
+<meta name="twitter:description" content="Last week’s techmail was Enable spell-checking in Vim and customize default behavior which talks about how to get spell checking enabled in vim. I actually wasn’t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of …">
 
-        <title>Enable spell-checking in Vim and customize default behavior  · Annvix
+        <title>Enable spell-checking in Vim and customize default behavior  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior.html">
-                Enable spell-checking in Vim and customize default behavior
+            <a href="https://vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior">
+                Enable spell-checking in Vim and customize default&nbsp;behavior
             </a>
         </h1>
     </header>
@@ -80,12 +93,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Last week's techmail was <a href="http://blogs.techrepublic.com/opensource/?p=1864">Enable spell-checking in Vim and customize default behavior</a> which talks about how to get spell checking enabled in vim.  I actually wasn't even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of it with mutt so much nicer.  On the other hand, having spell checking enabled all the time isn't ideal because doing any programming in vim will have the spell check highlighting off the charts, so this tip shows how to enable it for certain file types, and leave it off for others, so it is enabled only when you want it, and it's out of the way when you don't.</p>
+            <p>Last week&#8217;s techmail was <a href="http://blogs.techrepublic.com/opensource/?p=1864">Enable spell-checking in Vim and customize default behavior</a> which talks about how to get spell checking enabled in vim.  I actually wasn&#8217;t even aware that vim could do spell checking natively until a little while ago, and it sure makes for my use of it with mutt so much nicer.  On the other hand, having spell checking enabled all the time isn&#8217;t ideal because doing any programming in vim will have the spell check highlighting off the charts, so this tip shows how to enable it for certain file types, and leave it off for others, so it is enabled only when you want it, and it&#8217;s out of the way when you&nbsp;don&#8217;t.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Enable%20spell-checking%20in%20Vim%20and%20customize%20default%C2%A0behavior&url=https%3A//vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior&hashtags=techmail,vim" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior&title=Enable%20spell-checking%20in%20Vim%20and%20customize%20default%C2%A0behavior&summary=Last%20week%E2%80%99s%20techmail%20was%20Enable%20spell-checking%20in%20Vim%20and%20customize%20default%20behavior%20which%20talks%20about%20how%20to%20get%20spell%20checking%20enabled%20in%20vim.%20%20I%20actually%20wasn%E2%80%99t%20even%20aware%20that%20vim%20could%20do%20spell%20checking%20natively%20until%20a%20little%20while%20ago%2C%20and%20it%20sure%20makes%20for%20my%20use%20of%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/enable-spell-checking-in-vim-and-customize-default-behavior" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -96,22 +113,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/create-custom-keybindings-in-vim" title="Create custom keybindings in vim">Create custom keybindings in vim</a></li>
+<li><a href="https://vdanen.github.io/blog/use-tabs-to-open-multiple-files-in-vim" title="Use tabs to open multiple files in vim">Use tabs to open multiple files in vim</a></li>
+<li><a href="https://vdanen.github.io/blog/hacking-vim-covers-the-basics-and-reveals-tips-for-power-users" title="Hacking Vim covers the basics and reveals tips for power users">Hacking Vim covers the basics and reveals tips for power users</a></li>
+<li><a href="https://vdanen.github.io/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://vdanen.github.io/blog/nagios-xi-wizards-make-setup-a-snap-for-network-monitoring" title="Nagios XI wizards make setup a snap for network monitoring">Nagios XI wizards make setup a snap for network monitoring</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/working-with-safari-extensions-a-few-to-try" title="Previous: Working with Safari Extensions: A few to try">Working with Safari Extensions: A few to try</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/how-to-set-up-an-openvpn-server" title="Next: How to set up an OpenVPN server">How to set up an OpenVPN server</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-10-12T07:00:00-06:00">Tue 12 October 2010</time>
+            <time itemprop="dateCreated" datetime="2010-10-12T07:00:00-06:00">Oct 12, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#vim-ref">vim
+                <li><a href="https://vdanen.github.io/tags#vim-ref">vim
                     <span class="superscript">5</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -212,6 +248,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

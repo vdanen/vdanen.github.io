@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Dear lazyweb, I’m having severe issues with Apache’s mod_rewrite on my VPS. I’m pretty sure what I want to do is doable, but I can’t figure out the rewrite rules to allow it. In my httpd.conf I have something similar to this: &lt;IfModule mod_dav.c …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="apache, mod_rewrite, Linux, " />
 
-<meta property="og:title" content="Apache mod_rewrite frustration "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/apache-mod_rewrite-frustration.html" />
-<meta property="og:description" content="Dear lazyweb, I&#39;m having severe issues with Apache&#39;s mod_rewrite on my VPS. I&#39;m pretty sure what I want to do is doable, but I can&#39;t figure out the rewrite rules to allow it. In my httpd.conf I have something similar to this: &lt;IfModule mod_dav.c&gt; LimitXMLRequestBody 131072 DavLockDB /var …" />
+<meta property="og:title" content="Apache mod_rewrite frustration "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/apache-mod_rewrite-frustration" />
+<meta property="og:description" content="Dear lazyweb, I’m having severe issues with Apache’s mod_rewrite on my VPS. I’m pretty sure what I want to do is doable, but I can’t figure out the rewrite rules to allow it. In my httpd.conf I have something similar to this: &lt;IfModule mod_dav.c …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2012-05-05T16:00:00-06:00" />
-<meta name="twitter:title" content="Apache mod_rewrite frustration ">
-<meta name="twitter:description" content="Dear lazyweb, I&#39;m having severe issues with Apache&#39;s mod_rewrite on my VPS. I&#39;m pretty sure what I want to do is doable, but I can&#39;t figure out the rewrite rules to allow it. In my httpd.conf I have something similar to this: &lt;IfModule mod_dav.c&gt; LimitXMLRequestBody 131072 DavLockDB /var …">
+<meta name="twitter:title" content="Apache mod_rewrite frustration ">
+<meta name="twitter:description" content="Dear lazyweb, I’m having severe issues with Apache’s mod_rewrite on my VPS. I’m pretty sure what I want to do is doable, but I can’t figure out the rewrite rules to allow it. In my httpd.conf I have something similar to this: &lt;IfModule mod_dav.c …">
 
-        <title>Apache mod_rewrite frustration  · Annvix
+        <title>Apache mod_rewrite frustration  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/apache-mod_rewrite-frustration.html">
-                Apache mod_rewrite frustration
+            <a href="https://vdanen.github.io/blog/apache-mod_rewrite-frustration">
+                Apache mod_rewrite&nbsp;frustration
             </a>
         </h1>
     </header>
@@ -80,8 +93,8 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Dear lazyweb, I'm having severe issues with Apache's mod_rewrite on my VPS.  I'm pretty sure what I want to do is doable, but I can't figure out the rewrite rules to allow it.</p>
-<p>In my httpd.conf I have something similar to this:</p>
+            <p>Dear lazyweb, I&#8217;m having severe issues with Apache&#8217;s mod_rewrite on my <span class="caps">VPS</span>.  I&#8217;m pretty sure what I want to do is doable, but I can&#8217;t figure out the rewrite rules to allow&nbsp;it.</p>
+<p>In my httpd.conf I have something similar to&nbsp;this:</p>
 <pre>
 &lt;IfModule mod_dav.c>
     LimitXMLRequestBody 131072
@@ -103,8 +116,8 @@
 &lt;/IfModule>
 </pre>
 
-<p>This worked fine when the root of the site had nothing but a simple index.html in it.  Now I've got Drupal7 installed, so it does all the fancy mod_rewrite stuff to get the clean urls, etc.  And now when I go to https://site/dav, Drupal is answering and saying "no such directory".  If I have /home/user/dav for the private WebDAV share, I'm using /home/user/public_html/ for the accessible web site (I do this to prevent any accidental exposure to those data files).  Incidentally I tried with both &lt;Location&gt; and &lt;Directory&gt; and it makes no difference.</p>
-<p>The .htaccess in /home/user/public_html/ looks like this (just the important bits):</p>
+<p>This worked fine when the root of the site had nothing but a simple index.html in it.  Now I&#8217;ve got Drupal7 installed, so it does all the fancy mod_rewrite stuff to get the clean urls, etc.  And now when I go to https://site/dav, Drupal is answering and saying &#8220;no such directory&#8221;.  If I have /home/user/dav for the private WebDAV share, I&#8217;m using /home/user/public_html/ for the accessible web site (I do this to prevent any accidental exposure to those data files).  Incidentally I tried with both &lt;Location&gt; and &lt;Directory&gt; and it makes no&nbsp;difference.</p>
+<p>The .htaccess in /home/user/public_html/ looks like this (just the important&nbsp;bits):</p>
 <pre>
 &lt;IfModule mod_rewrite.c>
   RewriteEngine on
@@ -119,18 +132,22 @@
 &lt;/IfModule>
 </pre>
 
-<p>I've tried a number of variations (the above is my latest try).  Also tried things like:</p>
+<p>I&#8217;ve tried a number of variations (the above is my latest try).  Also tried things&nbsp;like:</p>
 <pre>
   RewriteCond %{REQUEST_URI} !^/dav
 </pre>
 
-<p>With and without the extra .* bits, etc.</p>
-<p>I am literally tearing my hear out here.  Does anyone have any idea what I'm doing wrong?  I basically want it to go "hey, you want /dav?  ok, I won't rewrite anything and you can have it) and have /dav/[whatever] loaded requiring auth to access.  Something in the mod_rewrite is killing it, and I suspect it might have to do with Alias.  Maybe all this stuff needs to be in httpd.conf instead of .htaccess?</p>
+<p>With and without the extra .* bits,&nbsp;etc.</p>
+<p>I am literally tearing my hear out here.  Does anyone have any idea what I&#8217;m doing wrong?  I basically want it to go &#8220;hey, you want /dav?  ok, I won&#8217;t rewrite anything and you can have it) and have /dav/[whatever] loaded requiring auth to access.  Something in the mod_rewrite is killing it, and I suspect it might have to do with Alias.  Maybe all this stuff needs to be in httpd.conf instead of&nbsp;.htaccess?</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Apache%20mod_rewrite%C2%A0frustration&url=https%3A//vdanen.github.io/blog/apache-mod_rewrite-frustration&hashtags=apache,mod_rewrite" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/apache-mod_rewrite-frustration&title=Apache%20mod_rewrite%C2%A0frustration&summary=Dear%20lazyweb%2C%20I%E2%80%99m%20having%20severe%20issues%20with%20Apache%E2%80%99s%20mod_rewrite%20on%20my%20VPS.%20%20I%E2%80%99m%20pretty%20sure%20what%20I%20want%20to%20do%20is%20doable%2C%20but%20I%20can%E2%80%99t%20figure%20out%20the%20rewrite%20rules%20to%20allow%C2%A0it.%0AIn%20my%20httpd.conf%20I%20have%20something%20similar%20to%C2%A0this%3A%0A%0A%3CIfModule%20mod_dav.c%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/apache-mod_rewrite-frustration" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -141,22 +158,40 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/control-apache-with-the-apachectl-command" title="Control Apache with the apachectl command">Control Apache with the apachectl command</a></li>
+<li><a href="https://vdanen.github.io/blog/configure-apache-to-support-multiple-ssl-sites-on-a-single-ip-address" title="Configure Apache to support multiple SSL sites on a single IP address">Configure Apache to support multiple SSL sites on a single IP address</a></li>
+<li><a href="https://vdanen.github.io/blog/how-to-set-up-webdav-hosting-on-apache" title="How to set up WebDAV hosting on Apache">How to set up WebDAV hosting on Apache</a></li>
+<li><a href="https://vdanen.github.io/blog/merged-annvix-org-with-linsec-ca" title="Merged Annvix.org with linsec.ca">Merged Annvix.org with linsec.ca</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/starting-second-sleeve" title="Previous: Starting second sleeve">Starting second sleeve</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/teagan-needs-help" title="Next: Teagan needs help">Teagan needs help</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2012-05-05T16:00:00-06:00">Sat 05 May 2012</time>
+            <time itemprop="dateCreated" datetime="2012-05-05T16:00:00-06:00">May 05, 2012</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#apache-ref">apache
+                <li><a href="https://vdanen.github.io/tags#apache-ref">apache
                     <span class="superscript">4</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#mod_rewrite-ref">mod_rewrite
+                <li><a href="https://vdanen.github.io/tags#mod_rewrite-ref">mod_rewrite
                     <span class="superscript">2</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -257,6 +292,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It’s popularity has increased to the point that any web-hosting service worth it’s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
 <meta property="og:title" content="Security with PHP "/>
-<meta property="og:url" content="https://vdanen.github.io/security_with_php.html" />
-<meta property="og:description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It&#39;s popularity has increased to the point that any web-hosting service worth it&#39;s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment …" />
+<meta property="og:url" content="https://vdanen.github.io/security_with_php" />
+<meta property="og:description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It’s popularity has increased to the point that any web-hosting service worth it’s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T13:06:00-06:00" />
 <meta name="twitter:title" content="Security with PHP ">
-<meta name="twitter:description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It&#39;s popularity has increased to the point that any web-hosting service worth it&#39;s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment …">
+<meta name="twitter:description" content="PHP is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It’s popularity has increased to the point that any web-hosting service worth it’s salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a …">
 
         <title>Security with PHP  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,37 +80,42 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/security_with_php.html"> Security with PHP  </a></h1>
+    <h1><a href="https://vdanen.github.io/security_with_php"> Security with <span class="caps">PHP</span>  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p><a rel="nofollow" class="external text" href="http://www.php.net/">PHP</a> is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It's popularity has increased to the point that any web-hosting service worth it's salt provides the capabilities to use it. That being said, PHP can also be dangerous, especially in a web-hosting environment, if configured incorrectly. Because PHP is server-side, and because it can interact with the filesystem of the host environment, it can be used to obtain data that should otherwise remain confidential from the client. For instance, a web hosting company may do appropriate checks to disallow CGI scripts for their clients, or wrap them in suexec so that they have no privilege than the user who owns them. They may limit shell access, or disallow it entirely, and they may chroot FTP users who connect to the site to maintain web pages. But unless they chroot the web server itself, which is almost impossible to do on a client-by-client basis (unless you run one web server per client, run as that client), chances are if PHP is permitted, a client can write a PHP program, upload it, and use it to traverse the filesystem. They may even be able to get access to other client's web data, a very dangerous thing.
-</p>
-<p>Fortunately, PHP allows us to restrict a lot of this if configured properly. Out of the box, a lot of vendors who ship PHP do not do this type of enforcement. A lot of PHP applications do not respect or work with this type of enforcement. Your best bet is to reconfigure PHP for maximal security, and then find software that works with it, or reduce some of these security settings only if you need to, and only if you know the risks involved.
-</p>
-<p>Some of PHP's security is built in and one doesn't need to think about it. For instance, if PHP is compiled as a CGI binary, it will not interpret commandline arguments. This is a good thing. Unfortunately, you can use another type of attack, such as interpretting any file on the file system. One means of avoiding this type of attack is to compile PHP with the <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure.">enable-force-cgi-redirect --enable-force-cgi-redirect</a> configure directive. This is, of course, only really necessary if you use PHP as a CGI binary. If you use Apache as your webserver, chances are you are using PHP as an Apache module. The other option, if you must use PHP as a CGI binary, is to have the PHP parser outside of the web tree; for instance, install it as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/local/bin/php</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin/php</span>. Don't include it as a binary in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/cgi-bin</span> directory for a given host.
-</p>
-<p>The more popular method of using PHP is as an Apache module, and for the rest of this document we will assume it is installed as such. The benefits to using PHP in this manner is that you can take advantage of Apache's access controls and security features as well. The drawback is the inheritence of the script being run as the same user Apache, typically "nobody" or "apache". This gives the script the same user to run as as everyone else on the system, which could cause issues when database access, file access, etc. are involved.
-</p>
-<p>The following are various points on some methods of securing PHP:
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Error_Reporting"><span class="tocnumber">1</span> <span class="toctext">Error Reporting</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Register_Globals"><span class="tocnumber">2</span> <span class="toctext">Register Globals</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Safe_Mode"><span class="tocnumber">3</span> <span class="toctext">Safe Mode</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Additional_Directives"><span class="tocnumber">4</span> <span class="toctext">Additional Directives</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Setting_PHP_Configuration_Settings"><span class="tocnumber">5</span> <span class="toctext">Setting PHP Configuration Settings</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#A_VirtualHost_Example"><span class="tocnumber">6</span> <span class="toctext">A VirtualHost Example</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Error_Reporting"><span class="tocnumber">1</span> <span class="toctext">Error Reporting</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Register_Globals"><span class="tocnumber">2</span> <span class="toctext">Register Globals</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Safe_Mode"><span class="tocnumber">3</span> <span class="toctext">Safe Mode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Additional_Directives"><span class="tocnumber">4</span> <span class="toctext">Additional Directives</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Setting_PHP_Configuration_Settings"><span class="tocnumber">5</span> <span class="toctext">Setting <span class="caps">PHP</span> Configuration Settings</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#A_VirtualHost_Example"><span class="tocnumber">6</span> <span class="toctext">A VirtualHost Example</span></a></li>
 <li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h2><span class="mw-headline" id="Error_Reporting">Error Reporting</span></h2>
-<p>When PHP encounters an error on a site, it reports the error to the browser. This is great for development, but poor for a live site. It can expose the value of variables, file locations, etc. There are two ways this can be done. The first, and best, is to modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> (usually found in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc</span>) as follows:
+            <p><a class="external text" href="http://www.php.net/" rel="nofollow"><span class="caps">PHP</span></a> is a server-side scripting language that is extremely versatile, powerful, and in use by many systems. It’s popularity has increased to the point that any web-hosting service worth it’s salt provides the capabilities to use it. That being said, <span class="caps">PHP</span> can also be dangerous, especially in a web-hosting environment, if configured incorrectly. Because <span class="caps">PHP</span> is server-side, and because it can interact with the filesystem of the host environment, it can be used to obtain data that should otherwise remain confidential from the client. For instance, a web hosting company may do appropriate checks to disallow <span class="caps">CGI</span> scripts for their clients, or wrap them in suexec so that they have no privilege than the user who owns them. They may limit shell access, or disallow it entirely, and they may chroot <span class="caps">FTP</span> users who connect to the site to maintain web pages. But unless they chroot the web server itself, which is almost impossible to do on a client-by-client basis (unless you run one web server per client, run as that client), chances are if <span class="caps">PHP</span> is permitted, a client can write a <span class="caps">PHP</span> program, upload it, and use it to traverse the filesystem. They may even be able to get access to other client’s web data, a very dangerous thing.
+</p>
+<p>Fortunately, <span class="caps">PHP</span> allows us to restrict a lot of this if configured properly. Out of the box, a lot of vendors who ship <span class="caps">PHP</span> do not do this type of enforcement. A lot of <span class="caps">PHP</span> applications do not respect or work with this type of enforcement. Your best bet is to reconfigure <span class="caps">PHP</span> for maximal security, and then find software that works with it, or reduce some of these security settings only if you need to, and only if you know the risks involved.
+</p>
+<p>Some of <span class="caps">PHP</span>’s security is built in and one doesn’t need to think about it. For instance, if <span class="caps">PHP</span> is compiled as a <span class="caps">CGI</span> binary, it will not interpret commandline arguments. This is a good thing. Unfortunately, you can use another type of attack, such as interpretting any file on the file system. One means of avoiding this type of attack is to compile <span class="caps">PHP</span> with the <a class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure." rel="nofollow">enable-force-cgi-redirect —enable-force-cgi-redirect</a> configure directive. This is, of course, only really necessary if you use <span class="caps">PHP</span> as a <span class="caps">CGI</span> binary. If you use Apache as your webserver, chances are you are using <span class="caps">PHP</span> as an Apache module. The other option, if you must use <span class="caps">PHP</span> as a <span class="caps">CGI</span> binary, is to have the <span class="caps">PHP</span> parser outside of the web tree; for instance, install it as <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/local/bin/php</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin/php</span>. Don’t include it as a binary in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/cgi-bin</span> directory for a given host.
+</p>
+<p>The more popular method of using <span class="caps">PHP</span> is as an Apache module, and for the rest of this document we will assume it is installed as such. The benefits to using <span class="caps">PHP</span> in this manner is that you can take advantage of Apache’s access controls and security features as well. The drawback is the inheritence of the script being run as the same user Apache, typically “nobody” or “apache”. This gives the script the same user to run as as everyone else on the system, which could cause issues when database access, file access, etc. are involved.
+</p>
+<p>The following are various points on some methods of securing <span class="caps">PHP</span>:
+</p>
+
+<h2><span class="mw-headline" id="Error_Reporting">Error Reporting</span></h2>
+<p>When <span class="caps">PHP</span> encounters an error on a site, it reports the error to the browser. This is great for development, but poor for a live site. It can expose the value of variables, file locations, etc. There are two ways this can be done. The first, and best, is to modify your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> (usually found in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc</span>) as follows:
 </p>
 <pre>
 register_globals Off
@@ -105,55 +123,55 @@ log_errors On
 display_errors Off
 error_log /var/log/php/errors
 </pre>
-<p>This will log errors to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php/errors</span> (make sure the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php</span> directory exists first!) instead of to the client viewing the page. The other option, which is not advisable (because many programmers do not do it, so unless you only use PHP scripts you wrote (impossible in a virtual hosting environment), you may not even want to consider this), is to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting()</span> function in PHP. You can set it to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_ALL)</span> during development and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_NONE)</span> during deployment.
+<p>This will log errors to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php/errors</span> (make sure the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/php</span> directory exists first!) instead of to the client viewing the page. The other option, which is not advisable (because many programmers do not do it, so unless you only use <span class="caps">PHP</span> scripts you wrote (impossible in a virtual hosting environment), you may not even want to consider this), is to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting()</span> function in <span class="caps">PHP</span>. You can set it to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_ALL)</span> during development and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">error_reporting(E_NONE)</span> during deployment.
 </p>
-<h2><span class="mw-headline" id="Register_Globals">Register Globals</span></h2>
-<p>In the code above, we turned Register Globals off (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span>). This disables the ability for any user-submitted variable to be injected directly into PHP code. This reduces the amount of variable poisoning that may occur, and internal variables are pretty much isolated from user-submitted data. For instance, assume the URL <a rel="nofollow" class="external free" href="http://localhost/script.php?user_val=1">http://localhost/script.php?user_val=1</a>. With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals</span> on the variable <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> has a value of 1. If <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is an internal variable that permits access to secret documents, an attacker can give themself access without providing any credentials.
+<h2><span class="mw-headline" id="Register_Globals">Register Globals</span></h2>
+<p>In the code above, we turned Register Globals off (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span>). This disables the ability for any user-submitted variable to be injected directly into <span class="caps">PHP</span> code. This reduces the amount of variable poisoning that may occur, and internal variables are pretty much isolated from user-submitted data. For instance, assume the <span class="caps">URL</span> <a class="external free" href="http://localhost/script.php?user_val=1" rel="nofollow">http://localhost/script.php?user_val=1</a>. With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals</span> on the variable <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> has a value of 1. If <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is an internal variable that permits access to secret documents, an attacker can give themself access without providing any credentials.
 </p>
-<p>With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span> this cannot be done. You have to explicitly request the value of a variable; it cannot be injected in the manner above. For instance, in the above example, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is likely an internal variable that gets set depending upon certain conditions. Let's assume one of these conditions is a username that is obtained via a form. You would use something like the following:
+<p>With <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals Off</span> this cannot be done. You have to explicitly request the value of a variable; it cannot be injected in the manner above. For instance, in the above example, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$user_val</span> is likely an internal variable that gets set depending upon certain conditions. Let’s assume one of these conditions is a username that is obtained via a form. You would use something like the following:
 </p>
 <pre>
 &lt;?
 if($_REQUEST['username']) {
   $username = $_REQUEST['username'];
 } else {
-  $username = &quot;&quot;;
+  $username = "";
 }
 ?&gt;
 </pre>
-<p>The above could be considered transitional code. For instance, if you make reference to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> throughout your code, changing each instance of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$_REQUEST['username']</span> may be troublesome. Of course, with the above, someone cannot simply manually call a script and inject any variable they want, or change the value of known internal variables.
+<p>The above could be considered transitional code. For instance, if you make reference to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> throughout your code, changing each instance of <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$username</span> to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">$_REQUEST[‘username’]</span> may be troublesome. Of course, with the above, someone cannot simply manually call a script and inject any variable they want, or change the value of known internal variables.
 </p>
 <p>You can also turn <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">register_globals</span> on or off on a virtualhost-by-virtualhost basis. You can do this by modifying your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> and setting <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_value register_globals 0</span> in your VirtualHost directive for a specific site, or using the Apache <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> file and specifying <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_flag register_globals 0</span> (0 for off, 1 for on). If you use the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> route, ensure your VirtualHost has a Directory stanza that enables Overrides (<span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">AllowOverride Options</span> (or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">All</span>)).
 </p>
-<h2><span class="mw-headline" id="Safe_Mode">Safe Mode</span></h2>
-<p>PHP comes with a feature called "Safe Mode" which tries to ease security implications of virtual hosting or shared-server instances. Things like being able to read other user's datafiles and scripts is part of what Safe Mode guards against. There are a few <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> directives related to Safe Mode:
+<h2><span class="mw-headline" id="Safe_Mode">Safe Mode</span></h2>
+<p><span class="caps">PHP</span> comes with a feature called “Safe Mode” which tries to ease security implications of virtual hosting or shared-server instances. Things like being able to read other user’s datafiles and scripts is part of what Safe Mode guards against. There are a few <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> directives related to Safe Mode:
 </p>
-<ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode</span> <i>(0|1)</i> - whether or not to enable Safe Mode.</li>
-<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span> <i>(string)</i> - allows to set directories for including files (with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">include()</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">require()</span>, etc.). This can be more than one path, separated by colons. This restriction is by prefix, not complete path, unless you add a trailing slash at the end of the path.</li>
-<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_exec_dir</span> <i>(string)</i> - only allow programs in this directory to be called using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">system()</span> and other similar functions.</li>
-<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_allowed_env_vars</span> <i>(string)</i> - allows to define a comma-delimited list of what environment variables can be altered by users; string here is the prefix of the environment variables. By default, PHP only allows users to set environment variables that begin with PHP_ (ie. PHP_FOO=BAR).</li>
+<ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode</span> <i>(0|1)</i> - whether or not to enable Safe Mode.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span> <i>(string)</i> - allows to set directories for including files (with <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">include()</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">require()</span>, etc.). This can be more than one path, separated by colons. This restriction is by prefix, not complete path, unless you add a trailing slash at the end of the path.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_exec_dir</span> <i>(string)</i> - only allow programs in this directory to be called using <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">system()</span> and other similar functions.</li>
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_allowed_env_vars</span> <i>(string)</i> - allows to define a comma-delimited list of what environment variables can be altered by users; string here is the prefix of the environment variables. By default, <span class="caps">PHP</span> only allows users to set environment variables that begin with PHP_ (ie. PHP_FOO=<span class="caps">BAR</span>).</li>
 <li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_protected_env_vars</span> <i>(string)</i> - allows to define a comma-delimited list of what environment variables a user cannot change, even if it should be allowed by <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_allowed_env_vars</span>.</li></ul>
-<h2><span class="mw-headline" id="Additional_Directives">Additional Directives</span></h2>
-<p>There are two more directives that can be set in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> that are very useful:
+<h2><span class="mw-headline" id="Additional_Directives">Additional Directives</span></h2>
+<p>There are two more directives that can be set in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> that are very useful:
 </p>
 <ul><li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">disable_functions</span> <i>(string)</i> - this allows you disable certain functions. It is a comma-delimited list of function names to disable. It is not affected by whether Safe Mode is on or off, and can only be set in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>.</li>
-<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> <i>(string)</i> - this limits the files that can be opened by PHP to the specified directory tree, including the file itself. It is also not affected by whether or not Safe Mode is enabled. Like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, the string here is a prefix; to make it absolute, include the trailing slash of the directory path.</li></ul>
-<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> is extremely useful because it can effectively "jail" scripts from operating on their own directories. It is essential to a web-sharing or virtual hosting system. For instance, assume you had the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com/html</span> as the base directory for the website somewhere.com. The user may wish to put files outside of the web tree, such as configuration files, etc. (for added security or to prevent casual exposure). You chroot them, via FTP, to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com</span> and they've created the subdirectory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">includes/</span>.
+<li> <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> <i>(string)</i> - this limits the files that can be opened by <span class="caps">PHP</span> to the specified directory tree, including the file itself. It is also not affected by whether or not Safe Mode is enabled. Like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, the string here is a prefix; to make it absolute, include the trailing slash of the directory path.</li></ul>
+<p><span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">open_basedir</span> is extremely useful because it can effectively “jail” scripts from operating on their own directories. It is essential to a web-sharing or virtual hosting system. For instance, assume you had the directory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com/html</span> as the base directory for the website somewhere.com. The user may wish to put files outside of the web tree, such as configuration files, etc. (for added security or to prevent casual exposure). You chroot them, via <span class="caps">FTP</span>, to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/www/somewhere.com</span> and they’ve created the subdirectory <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">includes/</span>.
 </p>
 <pre>
 open_basedir /home/www/somewhere.com
 </pre>
-<p>This will allow the user to include files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">html/</span> (where the PHP scripts would live), and includes/ (where configuration data may live). Unlike <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openbase_dir</span> not only limits included files, but all files; it resolves symlinks and if they point to a file outside of the specified directory tree, it cannot be opened. This will work with system-type functions like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">fopen()</span> and others; essentially any function that tries to open a file on the local file system. You can make this a comma-delimited list so that you can have more than one directory specified.
+<p>This will allow the user to include files in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">html/</span> (where the <span class="caps">PHP</span> scripts would live), and includes/ (where configuration data may live). Unlike <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">safe_mode_include_dir</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">openbase_dir</span> not only limits included files, but all files; it resolves symlinks and if they point to a file outside of the specified directory tree, it cannot be opened. This will work with system-type functions like <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">fopen()</span> and others; essentially any function that tries to open a file on the local file system. You can make this a comma-delimited list so that you can have more than one directory specified.
 </p>
-<h2><span class="mw-headline" id="Setting_PHP_Configuration_Settings">Setting PHP Configuration Settings</span></h2>
-<p>There are a few ways you can set PHP configuration settings outside of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> is the global file to cover the entire system, so it should contain sane defaults, however some administrative options can be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> file or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files (for Apache).
+<h2><span class="mw-headline" id="Setting_PHP_Configuration_Settings">Setting <span class="caps">PHP</span> Configuration Settings</span></h2>
+<p>There are a few ways you can set <span class="caps">PHP</span> configuration settings outside of <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span>. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">php.ini</span> is the global file to cover the entire system, so it should contain sane defaults, however some administrative options can be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> file or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files (for Apache).
 </p>
-<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_value</span> <i>(name value)</i> directive will set the directive <i>name</i> to <i>value</i>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_flag</span> <i>(name on|off)</i> directive will set a boolean configuration directive, on or off. Both of these directives can be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files.
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_value</span> <i>(name value)</i> directive will set the directive <i>name</i> to <i>value</i>. The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_flag</span> <i>(name on|off)</i> directive will set a boolean configuration directive, on or off. Both of these directives can be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files.
 </p>
-<p>The administrative equivalents, which can only be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> files, are <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_value</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_flag</span>, which take the same arguments and do the same thing except that they cannot be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files, and they cannot be overriden by <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> or virtualhost directives.
+<p>The administrative equivalents, which can only be set in the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">httpd.conf</span> files, are <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_value</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">php_admin_flag</span>, which take the same arguments and do the same thing except that they cannot be used within <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> files, and they cannot be overriden by <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">.htaccess</span> or virtualhost directives.
 </p>
-<h2><span class="mw-headline" id="A_VirtualHost_Example">A VirtualHost Example</span></h2>
-<p>Taking the following information, a reasonable template for an Apache VirtualHost directive may look like this:
+<h2><span class="mw-headline" id="A_VirtualHost_Example">A VirtualHost Example</span></h2>
+<p>Taking the following information, a reasonable template for an Apache VirtualHost directive may look like this:
 </p>
 <pre>
 &lt;VirtualHost 127.0.0.1&gt;
@@ -172,12 +190,12 @@ log_errors On
 display_errors Off
 error_log /var/log/php/errors
 </pre>
-<p>Also see the PHP manual for <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php">Functions restricted/disabled by safe mode</a> to see what else is affected when you enable Safe Mode.
+<p>Also see the <span class="caps">PHP</span> manual for <a class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php" rel="nofollow">Functions restricted/disabled by safe mode</a> to see what else is affected when you enable Safe Mode.
 </p>
 <h2><span class="mw-headline" id="References">References</span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.php.net/">PHP Home</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure.">enable-force-cgi-redirect http://www.php.net/manual/en/install.configure. php#install.configure.enable-force-cgi-redirect</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php">Functions restricted/disabled by safe mode</a></li></ul>
+<ul><li> <a class="external text" href="http://www.php.net/" rel="nofollow"><span class="caps">PHP</span> Home</a></li>
+<li> <a class="external text" href="http://www.php.net/manual/en/install.configure.php#install.configure." rel="nofollow">enable-force-cgi-redirect http://www.php.net/manual/en/install.configure. php#install.configure.enable-force-cgi-redirect</a></li>
+<li> <a class="external text" href="http://www.php.net/manual/en/features.safe-mode.functions.php" rel="nofollow">Functions restricted/disabled by safe mode</a></li></ul>
             
 
 
@@ -260,6 +278,9 @@ error_log /var/log/php/errors
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

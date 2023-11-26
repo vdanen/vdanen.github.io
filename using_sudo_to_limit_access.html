@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="One of my favorite security tools is sudo. This isn’t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using Sudo to Limit Access "/>
-<meta property="og:url" content="https://vdanen.github.io/using_sudo_to_limit_access.html" />
-<meta property="og:description" content="One of my favorite security tools is sudo. This isn&#39;t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root) privilege …" />
+<meta property="og:title" content="Using Sudo to Limit Access "/>
+<meta property="og:url" content="https://vdanen.github.io/using_sudo_to_limit_access" />
+<meta property="og:description" content="One of my favorite security tools is sudo. This isn’t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T13:03:00-06:00" />
-<meta name="twitter:title" content="Using Sudo to Limit Access ">
-<meta name="twitter:description" content="One of my favorite security tools is sudo. This isn&#39;t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root) privilege …">
+<meta name="twitter:title" content="Using Sudo to Limit Access ">
+<meta name="twitter:description" content="One of my favorite security tools is sudo. This isn’t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root …">
 
-        <title>Using Sudo to Limit Access  · Annvix
+        <title>Using Sudo to Limit Access  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,72 +80,77 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_sudo_to_limit_access.html"> Using Sudo to Limit Access  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_sudo_to_limit_access"> Using Sudo to Limit&nbsp;Access  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>One of my favorite security tools is <a rel="nofollow" class="external text" href="http://www.courtesan.com/sudo/">sudo</a>. This isn't a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root) privilege.
-</p>
-<p>Let's look at a simple example. You run a web server and you have an important client who you have given shell access to your account. If you need to be away from your system for prolonged access, you need a system with which you can restart Apache should something happen to it. You can give this client, or another administrator on site, su access to your system to allow them to restart the web server. Because Apache binds to port 80, you need to be root in order to restart it, so you can bind to the port. You have three options. The first is to give this person the root password to your system, in case they need to restart the server. You can <i>not</i> give them access, and have the server down until you are able to bring it up (a viable option, perhaps, but not too good for business). Or you can use sudo to grant the person access to restart the web server, as root, without the root password and without giving them global root access to your system.
-</p>
-<p>Which of these choices do you think is the best?
-</p>
-<p>Obviously, the last. But su doesn't work this way. Sudo does. With sudo, you can have tight control over your system, allowing certain users access to certain tasks as root without giving them control of your entire box. You don't need to have 100% trust with sudo as you would with su. After all, if you only want them able to restart the web server, what more should they be able to do? Should they be able to modify your Apache config files? Add new users? Restart your mail server? Absolutely not!
-</p>
-<p>Sudo comes to the rescue here. It is a simple tool with enough flexibility to accomplish your needs. Fortunately, it comes with all versions of Mandrakelinux. Unfortunately, it isn't installed by default so if you didn't explicitly select to install sudo, you will need to do so yourself. Grab your CDs and install it.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Configuring_sudo"><span class="tocnumber">1</span> <span class="toctext">Configuring sudo</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Using_sudo"><span class="tocnumber">2</span> <span class="toctext">Using sudo</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="#Configuring_sudo"><span class="tocnumber">1</span> <span class="toctext">Configuring sudo</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_sudo"><span class="tocnumber">2</span> <span class="toctext">Using sudo</span></a></li>
 <li class="toclevel-1 tocsection-3"><a href="#References"><span class="tocnumber">3</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-<h2><span class="mw-headline" id="Configuring_sudo">Configuring sudo</span></h2>
-<p>Sudo is easy to configure and uses a straightforward syntax. You use the command <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> to edit the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span>. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> is a wrapper around your favorite editor that does syntax checking on the file when you are finished editing it. By default, if you don't have the EDITOR variable set, visudo will use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vi</span> editor. Arguments of editors aside, it is easy to change the editor that <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> calls. Simply type the following, as root, to use your favorite editor (in this example we use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">emacs</span>):
+            <p>One of my favorite security tools is <a class="external text" href="http://www.courtesan.com/sudo/" rel="nofollow">sudo</a>. This isn’t a tool to help you monitor security, but it is a tool to allow you to secure your system a little further, especially if you run a box that needs to at times allow other users some extra (root) privilege.
+</p>
+<p>Let’s look at a simple example. You run a web server and you have an important client who you have given shell access to your account. If you need to be away from your system for prolonged access, you need a system with which you can restart Apache should something happen to it. You can give this client, or another administrator on site, su access to your system to allow them to restart the web server. Because Apache binds to port 80, you need to be root in order to restart it, so you can bind to the port. You have three options. The first is to give this person the root password to your system, in case they need to restart the server. You can <i>not</i> give them access, and have the server down until you are able to bring it up (a viable option, perhaps, but not too good for business). Or you can use sudo to grant the person access to restart the web server, as root, without the root password and without giving them global root access to your system.
+</p>
+<p>Which of these choices do you think is the best?
+</p>
+<p>Obviously, the last. But su doesn’t work this way. Sudo does. With sudo, you can have tight control over your system, allowing certain users access to certain tasks as root without giving them control of your entire box. You don’t need to have 100% trust with sudo as you would with su. After all, if you only want them able to restart the web server, what more should they be able to do? Should they be able to modify your Apache config files? Add new users? Restart your mail server? Absolutely not!
+</p>
+<p>Sudo comes to the rescue here. It is a simple tool with enough flexibility to accomplish your needs. Fortunately, it comes with all versions of Mandrakelinux. Unfortunately, it isn’t installed by default so if you didn’t explicitly select to install sudo, you will need to do so yourself. Grab your CDs and install it.
+</p>
+
+<h2><span class="mw-headline" id="Configuring_sudo">Configuring sudo</span></h2>
+<p>Sudo is easy to configure and uses a straightforward syntax. You use the command <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> to edit the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span>. <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> is a wrapper around your favorite editor that does syntax checking on the file when you are finished editing it. By default, if you don’t have the <span class="caps">EDITOR</span> variable set, visudo will use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vi</span> editor. Arguments of editors aside, it is easy to change the editor that <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">visudo</span> calls. Simply type the following, as root, to use your favorite editor (in this example we use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">emacs</span>):
 </p>
 <pre>
 # export EDITOR=emacs; visudo
 </pre>
-<p>This will open <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">emacs</span> editor. You can use any editor you like... <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">joe</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">jed</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vim</span>, whatever. It's entirely up to you. Now that you have the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file open, it's time to configure sudo.
+<p>This will open <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> in the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">emacs</span> editor. You can use any editor you like… <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">joe</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">jed</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">vim</span>, whatever. It’s entirely up to you. Now that you have the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file open, it’s time to configure sudo.
 </p>
-<p>Sudo commands use a basic syntax. By default, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file will have one stanza:
+<p>Sudo commands use a basic syntax. By default, the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file will have one stanza:
 </p>
 <pre>
 root      ALL=(ALL) ALL
 </pre>
-<p>This tells sudo to give root sudo access to everything on every host. The syntax is simple:
+<p>This tells sudo to give root sudo access to everything on every host. The syntax is simple:
 </p>
 <pre>
 user       host = (user) command
 </pre>
-<p>The first column defines the <i>user</i> the command applies to. The <i>host</i> section defines the host this stanza applies to. The <i>(user)</i> section defines the user to run the command as, while the <i>command</i> section defines the command itself.
+<p>The first column defines the <i>user</i> the command applies to. The <i>host</i> section defines the host this stanza applies to. The <i>(user)</i> section defines the user to run the command as, while the <i>command</i> section defines the command itself.
 </p>
-<p>You can also define aliases for Hosts, Users, and Commands by using the keywords <i>Host_Alias</i>, <i>User_Alias</i>, and <i>Cmnd_Alias</i> respectively.
+<p>You can also define aliases for Hosts, Users, and Commands by using the keywords <i>Host_Alias</i>, <i>User_Alias</i>, and <i>Cmnd_Alias</i> respectively.
 </p>
-<p>Let's take a look at a few examples of the different aliases you can use.
+<p>Let’s take a look at a few examples of the different aliases you can use.
 </p>
 <pre>
 Host_Alias      LAN = vader.somehost.com, luke.somehost.com
 Host_Alias      SRV = deathstar.somehost.com, dagobah.somehost.com, han.somehost.com
 Host_Alias      MAIL = tattoine.somehost.com
 </pre>
-<p>Here we've defined three Host aliases. The first we've given the alias of LAN, to signify our internal LAN, and in it we've placed two machines: vader.somehost.com, and luke.somehost.com. The second alias is SRV, to signify our web servers, and these are deathstar.somehost.com, dagobah.somehost.com, and han.somehost.com. The final Host alias is MAIL, which signifies our mail server, and it contains one machine called tattoine.somehost.com.
+<p>Here we’ve defined three Host aliases. The first we’ve given the alias of <span class="caps">LAN</span>, to signify our internal <span class="caps">LAN</span>, and in it we’ve placed two machines: vader.somehost.com, and luke.somehost.com. The second alias is <span class="caps">SRV</span>, to signify our web servers, and these are deathstar.somehost.com, dagobah.somehost.com, and han.somehost.com. The final Host alias is <span class="caps">MAIL</span>, which signifies our mail server, and it contains one machine called tattoine.somehost.com.
 </p>
-<p>Next, lets define some User aliases:
+<p>Next, lets define some User aliases:
 </p>
 <pre>
 User_Alias        WEBADMIN = joe, bob
 User_Alias        MAILADMIN = joe, cathy
 User_Alias        BINADMIN = joe, doug
 </pre>
-<p>Here we've also defined three User aliases. The first user alias has the name WEBADMIN for web administrators. Here we've define Joe and Bob. The second alias is MAILADMIN, for mail administrators, and here we have Joe and Cathy. Finally, we define an alias of BINADMIN for the regular sysadmins, again Joe, but with Doug as well.
+<p>Here we’ve also defined three User aliases. The first user alias has the name <span class="caps">WEBADMIN</span> for web administrators. Here we’ve define Joe and Bob. The second alias is <span class="caps">MAILADMIN</span>, for mail administrators, and here we have Joe and Cathy. Finally, we define an alias of <span class="caps">BINADMIN</span> for the regular sysadmins, again Joe, but with Doug as well.
 </p>
-<p>So far we've defined some hosts and some users. Now we get to define what commands they may be able to run, also using some aliases:
+<p>So far we’ve defined some hosts and some users. Now we get to define what commands they may be able to run, also using some aliases:
 </p>
 <pre>
 Cmnd_Alias         SU = /bin/su
@@ -141,9 +159,9 @@ Cmnd_Alias         SWATCH = /usr/bin/swatch, /bin/touch
 Cmnd_Alias         HTTPD = /etc/rc.d/init.d/httpd, /etc/rc.d/init.d/mysql
 Cmnd_Alias         SMTP = /etc/rc.d/init.d/qmail
 </pre>
-<p>Here we have a few aliases. The first we call SU, and enables the user to run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> command. The second we call BIN, which enables the user to run the commands: <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/rpm</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/rm</span>, and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/sbin/linuxconf</span>. The next is the SWATCH alias which allows the user to run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin/swatch</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/touch</span>. Then we define the HTTPD alias which allows the user to execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/httpd</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/mysql</span>, for web maintenance. Finally, we define SMTP, which allows the user to manipulate the running of the qmail SMTP server.
+<p>Here we have a few aliases. The first we call <span class="caps">SU</span>, and enables the user to run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> command. The second we call <span class="caps">BIN</span>, which enables the user to run the commands: <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/rpm</span>, <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/rm</span>, and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/sbin/linuxconf</span>. The next is the <span class="caps">SWATCH</span> alias which allows the user to run <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/usr/bin/swatch</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/touch</span>. Then we define the <span class="caps">HTTPD</span> alias which allows the user to execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/httpd</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/etc/rc.d/init.d/mysql</span>, for web maintenance. Finally, we define <span class="caps">SMTP</span>, which allows the user to manipulate the running of the qmail <span class="caps">SMTP</span> server.
 </p>
-<p>Now you have to define how they all work together. This is where you give everyone permission to use certain commands on certain hosts. We do this with the same stanza we initially saw at the beginning, which gave root the ability to run everything on every host as root. Obviously, we want to limit access somewhat here. Here's a sample based on the aliases we looked at previously:
+<p>Now you have to define how they all work together. This is where you give everyone permission to use certain commands on certain hosts. We do this with the same stanza we initially saw at the beginning, which gave root the ability to run everything on every host as root. Obviously, we want to limit access somewhat here. Here’s a sample based on the aliases we looked at previously:
 </p>
 <pre>
 WEBADMIN     SRV = HTTPD
@@ -152,49 +170,49 @@ BINADMIN     ALL = BIN, SWATCH
 joe          ALL = NOPASSWD: SU
 bob          LAN = BIN
 </pre>
-<p>This may take a little explanation, but it's really easy to follow. The first stanza tells sudo to allow those users defined in the alias WEBADMIN (Joe and Bob) to restart Apache and MySQL (defined in the alias HTTPD) on the systems defined by the SRV alias (the web servers). This means that on the systems in the LAN or the mail server, Joe and Bob do <i>not</i> have access to do this, only on the three systems defined in the SRV alias.
+<p>This may take a little explanation, but it’s really easy to follow. The first stanza tells sudo to allow those users defined in the alias <span class="caps">WEBADMIN</span> (Joe and Bob) to restart Apache and MySQL (defined in the alias <span class="caps">HTTPD</span>) on the systems defined by the <span class="caps">SRV</span> alias (the web servers). This means that on the systems in the <span class="caps">LAN</span> or the mail server, Joe and Bob do <i>not</i> have access to do this, only on the three systems defined in the <span class="caps">SRV</span> alias.
 </p>
-<p>The second tells sudo to allow the users in the MAILADMIN alias (Joe and Cathy) to restart qmail on tattoine.somehost.com (defined by the MAIL host alias).
+<p>The second tells sudo to allow the users in the <span class="caps">MAILADMIN</span> alias (Joe and Cathy) to restart qmail on tattoine.somehost.com (defined by the <span class="caps">MAIL</span> host alias).
 </p>
-<p>The third tells sudo to allow the users in BINADMIN (Joe and Doug) to access the commands in the BIN and SWATCH aliases (ability to manipulate the RPM database as root, remove any file, execute linuxconf to configure the system, run swatch, and use the touch command as root) on all systems.
+<p>The third tells sudo to allow the users in <span class="caps">BINADMIN</span> (Joe and Doug) to access the commands in the <span class="caps">BIN</span> and <span class="caps">SWATCH</span> aliases (ability to manipulate the <span class="caps">RPM</span> database as root, remove any file, execute linuxconf to configure the system, run swatch, and use the touch command as root) on all systems.
 </p>
-<p>The fourth tells sudo to let Joe, who is our main sysadmin, to use the SU alias (to run su) on all machines without entering a password (more on this in a moment).
+<p>The fourth tells sudo to let Joe, who is our main sysadmin, to use the <span class="caps">SU</span> alias (to run su) on all machines without entering a password (more on this in a moment).
 </p>
-<p>And the final stanza tells sudo to allow Bob, who is sometimes required to do maintenance on the LAN machines, to run the commands in the BIN alias on the machines in the LAN alias.
+<p>And the final stanza tells sudo to allow Bob, who is sometimes required to do maintenance on the <span class="caps">LAN</span> machines, to run the commands in the <span class="caps">BIN</span> alias on the machines in the <span class="caps">LAN</span> alias.
 </p>
-<p>So what does this all mean, from your point of view? Well, Joe is pretty much able to do anything. Having su access on all machines via sudo grants him this right. But he's our main sysadmin and knows the root password anyways, so this is a matter of convenience for him. It allows Doug to run administrative commands such as linuxconf and rpm on all systems. He's Joe's right-hand man. But he doesn't have access to stop/start the web, MySQL, or qmail servers. Cathy can stop and start qmail, however. But that's about all she can do. Bob, on the other hand, can stop and start Apache and MySQL on the web server, and he can also do some administrative work on the LAN (via rpm and linuxconf). But he has no other rights on any machine.
+<p>So what does this all mean, from your point of view? Well, Joe is pretty much able to do anything. Having su access on all machines via sudo grants him this right. But he’s our main sysadmin and knows the root password anyways, so this is a matter of convenience for him. It allows Doug to run administrative commands such as linuxconf and rpm on all systems. He’s Joe’s right-hand man. But he doesn’t have access to stop/start the web, MySQL, or qmail servers. Cathy can stop and start qmail, however. But that’s about all she can do. Bob, on the other hand, can stop and start Apache and MySQL on the web server, and he can also do some administrative work on the <span class="caps">LAN</span> (via rpm and linuxconf). But he has no other rights on any machine.
 </p>
-<p>You'll have noticed the NOPASSWD keyword above. Each user, when using sudo, must enter their own password. For instance, when Cathy wants to restart qmail, sudo will prompt her for a password. She enters her own password, not root's. This tells sudo that it is executing the command for the right person. But, in Joe's case, he's lazy and doesn't want to type his password all the time, and since he's the fellow writing the sudoers file, he decided to give himself NOPASSWD rights to when he runs su. So when Joe runs su, he doesn't have to supply a password, but when he runs linuxconf (for example), he does.
+<p>You’ll have noticed the <span class="caps">NOPASSWD</span> keyword above. Each user, when using sudo, must enter their own password. For instance, when Cathy wants to restart qmail, sudo will prompt her for a password. She enters her own password, not root’s. This tells sudo that it is executing the command for the right person. But, in Joe’s case, he’s lazy and doesn’t want to type his password all the time, and since he’s the fellow writing the sudoers file, he decided to give himself <span class="caps">NOPASSWD</span> rights to when he runs su. So when Joe runs su, he doesn’t have to supply a password, but when he runs linuxconf (for example), he does.
 </p>
-<p>Already, you must realize the flexibility that sudo provides. With one single file, you can define access rights to multiple machines for multiple users. The only thing you need to do is have the file shared across your network. You can do this by using tools like rsync to synchronize the file, or you can use NIS to do it. Either way, you will only need to maintain one sudoers file for all systems.
+<p>Already, you must realize the flexibility that sudo provides. With one single file, you can define access rights to multiple machines for multiple users. The only thing you need to do is have the file shared across your network. You can do this by using tools like rsync to synchronize the file, or you can use <span class="caps">NIS</span> to do it. Either way, you will only need to maintain one sudoers file for all systems.
 </p>
-<p>Sudo also provides a means to track users that utilize it. By adding a specific stanza to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file, you can have sudo write to a specific logfile for you to audit. For example:
+<p>Sudo also provides a means to track users that utilize it. By adding a specific stanza to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sudoers</span> file, you can have sudo write to a specific logfile for you to audit. For example:
 </p>
 <pre>
 Defaults      logfile=/var/log/sudo.log, log_year
 </pre>
-<p>Will write sudo's activities to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/sudo.log</span> file. This file will look something like this:
+<p>Will write sudo’s activities to the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/sudo.log</span> file. This file will look something like this:
 </p>
 <pre>
-Nov  1 13:44:06 2001&#160;: joe&#160;: HOST=vader&#160;: TTY=pts/3&#160;; PWD=/home/joe/mail&#160;;
-    USER=root&#160;; COMMAND=/bin/su
-Nov  2 13:34:59 2001&#160;: doug&#160;: HOST=dagobah&#160;: TTY=pts/4&#160;; PWD=/var/www/html&#160;;
-    USER=root&#160;; COMMAND=/bin/rpm -ivh
+Nov  1 13:44:06 2001 : joe : HOST=vader : TTY=pts/3 ; PWD=/home/joe/mail ;
+    USER=root ; COMMAND=/bin/su
+Nov  2 13:34:59 2001 : doug : HOST=dagobah : TTY=pts/4 ; PWD=/var/www/html ;
+    USER=root ; COMMAND=/bin/rpm -ivh
 /mnt/updates/BIG/dis/8.1/RPMS/ucd-snmp-4.2.1-5mdk.i586.rpm
 /mnt/updates/BIG/dis/8.1/RPMS/ucd-snmp-utils-4.2.1-5mdk.i586.rpm
 </pre>
-<p>Here you can see that on November 1st, Joe used the su command on the host vader. Likewise, you can see that on the 2nd, Doug decided to install ucd-snmp and ucd-snmp-utils on the host dagobah. This makes for an extremely useful means of tracking who is doing what via sudo.
+<p>Here you can see that on November 1st, Joe used the su command on the host vader. Likewise, you can see that on the 2nd, Doug decided to install ucd-snmp and ucd-snmp-utils on the host dagobah. This makes for an extremely useful means of tracking who is doing what via sudo.
 </p>
-<p>You don't necessarily need to make the users be root in order to use sudo. If, for instance, you were running eggdrop under the uid of some other user (for example, someone named Stew), you could tell sudo to use the id of another user rather than root. For example, you may use something like this:
+<p>You don’t necessarily need to make the users be root in order to use sudo. If, for instance, you were running eggdrop under the uid of some other user (for example, someone named Stew), you could tell sudo to use the id of another user rather than root. For example, you may use something like this:
 </p>
 <pre>
 Cmnd_Alias     IRC = /home/stew/bin/eggdrop, /home/stew/bin/irc/ircd
 joe            deathstar.somehost.com = (stew) IRC
 </pre>
-<p>This will let Joe execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">eggdrop</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ircd</span> in Stew's home directory as if he were Stew, and not root, on the machine with the hostname of deathstar.
+<p>This will let Joe execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">eggdrop</span> and <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ircd</span> in Stew’s home directory as if he were Stew, and not root, on the machine with the hostname of deathstar.
 </p>
-<h2><span class="mw-headline" id="Using_sudo">Using sudo</span></h2>
-<p>Now that you have seen how to configure sudo, how do you use it? Sudo is very easy to use, as you will see. To determine what commands you have available to you via sudo, you can execute:
+<h2><span class="mw-headline" id="Using_sudo">Using sudo</span></h2>
+<p>Now that you have seen how to configure sudo, how do you use it? Sudo is very easy to use, as you will see. To determine what commands you have available to you via sudo, you can execute:
 </p>
 <pre>
 [joe@deathstar]$ sudo -l
@@ -206,44 +224,44 @@ User joe may run the following commands on this host:
      (root) NOPASSWD: /bin/su
      (stew) /home/stew/bin/eggdrop, /home/stew/bin/irc/ircd
 </pre>
-<p>This will show you exactly what commands you can run, and as what user. To use sudo to restart Apache, for example, you would use:
+<p>This will show you exactly what commands you can run, and as what user. To use sudo to restart Apache, for example, you would use:
 </p>
 <pre>
 [joe@deathstar]$ sudo /etc/rc.d/init.d/httpd restart
 Password:
 </pre>
-<p>After supplying his password, Apache will restart for Joe. If he wanted to start eggdrop as Stew, however, he would have to approach it somewhat differently:
+<p>After supplying his password, Apache will restart for Joe. If he wanted to start eggdrop as Stew, however, he would have to approach it somewhat differently:
 </p>
 <pre>
 [joe@deathstar]$ sudo -u stew /home/stew/bin/eggdrop&amp;
 Password:
 </pre>
-<p>This will launch eggdrop in the background running as Stew's uid. Because sudo will, by default, try to run something as root, you must supply the user's username if it is a non-root user, as is the case here. Observe what happens if Joe neglects to specify Stew's username:
+<p>This will launch eggdrop in the background running as Stew’s uid. Because sudo will, by default, try to run something as root, you must supply the user’s username if it is a non-root user, as is the case here. Observe what happens if Joe neglects to specify Stew’s username:
 </p>
 <pre>
 [joe@deathstar]$ sudo /home/stew/bin/eggdrop
 Sorry, user joe is not allowed to execute '/home/stew/bin/eggdrop' as root
 on deathstar.somehost.com.
 </pre>
-<p>As you can see, sudo is very flexible, and very willing to replace su. In fact, I would even go so far as to make su only available through sudo. In order for su to work for non-root users (ie. allow non-root users to become root or any other user), <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> must have the setuid bit enabled, so it can run as root. If you remove the setuid bit from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span>, then even if a user knows the root password, they cannot su to root or any other user. Stripping setuid from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> and restricting root logins from the console and via SSH is a very effective means of locking down unauthorized root access on your system. To do this, simply give yourself sudo access to run su (as illustrated with Joe previously), and strip the setuid bit from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> by executing (as root):
+<p>As you can see, sudo is very flexible, and very willing to replace su. In fact, I would even go so far as to make su only available through sudo. In order for su to work for non-root users (ie. allow non-root users to become root or any other user), <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> must have the setuid bit enabled, so it can run as root. If you remove the setuid bit from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span>, then even if a user knows the root password, they cannot su to root or any other user. Stripping setuid from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> and restricting root logins from the console and via <span class="caps">SSH</span> is a very effective means of locking down unauthorized root access on your system. To do this, simply give yourself sudo access to run su (as illustrated with Joe previously), and strip the setuid bit from <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">/bin/su</span> by executing (as root):
 </p>
 <pre>
 [root@deathstar]# chmod u-s /bin/su
 [root@deathstar]# ls -l /bin/su
 -rwxr-xr-x      1 root     root      18172 Sep 14 09:16 /bin/su*
 </pre>
-<p>Now if you try to run the command <i>su -</i> as a non-root user, even if you type in the right password for root, you will not change to root. In order for someone to use su, they must exist in sudoers with the appropriate permissions, and must run su through sudo like this:
+<p>Now if you try to run the command <i>su -</i> as a non-root user, even if you type in the right password for root, you will not change to root. In order for someone to use su, they must exist in sudoers with the appropriate permissions, and must run su through sudo like this:
 </p>
 <pre>
 [joe@deathstar]$ sudo su -
 [root@deathstar]#
 </pre>
-<p>I find this a much better approach to restricting access to root. By having su as a setuid application, any user on the system can attempt to execute su; if they have the root password or can guess it, they can become root. By having su access restricted through sudo, and with the setuid bit removed, the chances of breaking into root are much more limited. Think of it this way. If someone can compromise your box and obtain shell access as the user "apache" or "nobody", with su setuid, they can attempt to login as root, and if they find the password, there's no stopping them. With su being stripped of the setuid bit, even if someone obtains shell access as the user "apache", they are limited only to being able to do what the user "apache" has rights to. Even if they know your root password, they cannot su to root. They would need to guess Joe's password in order to become Joe, who could then become root via sudo. But even then, they could not use su to become Joe, they would have to log into the system as Joe.
+<p>I find this a much better approach to restricting access to root. By having su as a setuid application, any user on the system can attempt to execute su; if they have the root password or can guess it, they can become root. By having su access restricted through sudo, and with the setuid bit removed, the chances of breaking into root are much more limited. Think of it this way. If someone can compromise your box and obtain shell access as the user “apache” or “nobody”, with su setuid, they can attempt to login as root, and if they find the password, there’s no stopping them. With su being stripped of the setuid bit, even if someone obtains shell access as the user “apache”, they are limited only to being able to do what the user “apache” has rights to. Even if they know your root password, they cannot su to root. They would need to guess Joe’s password in order to become Joe, who could then become root via sudo. But even then, they could not use su to become Joe, they would have to log into the system as Joe.
 </p>
-<p>To take the illustration further, this would mean they would need local console access to login as Joe (if they had his password), or via SSH (since Joe knows better than to run telnet). But Joe's smart. He hasn't gone through the trouble of setting up sudo to let something like this stop him. He's also configured SSH to reject all password logins and only allow key-based authentication. Without Joe's private key, no one is logging into his account via SSH. So even if your Apache server, or sendmail server, or DNS server, allowed someone to obtain shell access to your system with an unprivileged account, the damage they could do would be minimal. Without su being available to them as an unprivileged user, without having local console access, and without being able to log in to a user's account via SSH without having his private key, an attacker must resort to more difficult means of attacking your server to obtain root access. You can rest assured that you haven't made his job any easier by taking a few simple steps to protect yourself.
+<p>To take the illustration further, this would mean they would need local console access to login as Joe (if they had his password), or via <span class="caps">SSH</span> (since Joe knows better than to run telnet). But Joe’s smart. He hasn’t gone through the trouble of setting up sudo to let something like this stop him. He’s also configured <span class="caps">SSH</span> to reject all password logins and only allow key-based authentication. Without Joe’s private key, no one is logging into his account via <span class="caps">SSH</span>. So even if your Apache server, or sendmail server, or <span class="caps">DNS</span> server, allowed someone to obtain shell access to your system with an unprivileged account, the damage they could do would be minimal. Without su being available to them as an unprivileged user, without having local console access, and without being able to log in to a user’s account via <span class="caps">SSH</span> without having his private key, an attacker must resort to more difficult means of attacking your server to obtain root access. You can rest assured that you haven’t made his job any easier by taking a few simple steps to protect yourself.
 </p>
 <h2><span class="mw-headline" id="References">References</span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.courtesan.com/sudo/">Sudo homepage</a></li></ul>
+<ul><li> <a class="external text" href="http://www.courtesan.com/sudo/" rel="nofollow">Sudo homepage</a></li></ul>
             
 
 
@@ -326,6 +344,9 @@ on deathstar.somehost.com.
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

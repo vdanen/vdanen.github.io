@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I’m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="bugzilla, git, Linux, " />
 
-<meta property="og:title" content="Git commit hook to bugzilla using git-notifier "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier.html" />
-<meta property="og:description" content="I&#39;m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I&#39;m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla if &#34;bug …" />
+<meta property="og:title" content="Git commit hook to bugzilla using git-notifier "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" />
+<meta property="og:description" content="I’m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I’m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2012-09-21T18:49:00-06:00" />
-<meta name="twitter:title" content="Git commit hook to bugzilla using git-notifier ">
-<meta name="twitter:description" content="I&#39;m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I&#39;m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla if &#34;bug …">
+<meta name="twitter:title" content="Git commit hook to bugzilla using git-notifier ">
+<meta name="twitter:description" content="I’m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I’m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla …">
 
-        <title>Git commit hook to bugzilla using git-notifier  · Annvix
+        <title>Git commit hook to bugzilla using git-notifier  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier.html">
-                Git commit hook to bugzilla using git-notifier
+            <a href="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier">
+                Git commit hook to bugzilla using&nbsp;git-notifier
             </a>
         </h1>
     </header>
@@ -80,9 +93,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I'm a big fan of the <a href="http://www.icir.org/robin/git-notifier/">git-notifier</a> script, which acts as a hook in git to send you nice emails about things that have changed in your git repos.  I'm also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla if "bug #X" is in the commit log.  Initially I was intending to use <a href="http://www.theoldmonk.net/gitzilla/">gitzilla</a> for this, but I didn't feel like attempting to make it work with the latest release of <a href="https://github.com/williamh/pybugz">pybugz</a> (says it is tested with version 0.8.0 but the current version is 0.10.1.  In retrospect, that might have actually been easier.  =)</p>
-<p>Anyways, I decided to use git-notifier to send an email to bugzilla (while gitzilla uses XMLRPC, which would have been preferable, I also have incoming email support enabled in bugzilla).  It took some trial and error, but I got it working (although I suspect there are easier ways to do it).</p>
-<p>The first thing I had to do was patch git-notifier to accept a bug id, because bugzilla needs to know what bug to route the incoming email to.  This was very easy to do (I'll be sending this upstream to see if they want to include it, but I may also change it to pull more info from the git config so that the post-receive hook doesn't have to be so obscene:</p>
+            <p>I&#8217;m a big fan of the <a href="http://www.icir.org/robin/git-notifier/">git-notifier</a> script, which acts as a hook in git to send you nice emails about things that have changed in your git repos.  I&#8217;m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla if &#8220;bug #X&#8221; is in the commit log.  Initially I was intending to use <a href="http://www.theoldmonk.net/gitzilla/">gitzilla</a> for this, but I didn&#8217;t feel like attempting to make it work with the latest release of <a href="https://github.com/williamh/pybugz">pybugz</a> (says it is tested with version 0.8.0 but the current version is 0.10.1.  In retrospect, that might have actually been easier.&nbsp;=)</p>
+<p>Anyways, I decided to use git-notifier to send an email to bugzilla (while gitzilla uses <span class="caps">XMLRPC</span>, which would have been preferable, I also have incoming email support enabled in bugzilla).  It took some trial and error, but I got it working (although I suspect there are easier ways to do&nbsp;it).</p>
+<p>The first thing I had to do was patch git-notifier to accept a bug id, because bugzilla needs to know what bug to route the incoming email to.  This was very easy to do (I&#8217;ll be sending this upstream to see if they want to include it, but I may also change it to pull more info from the git config so that the post-receive hook doesn&#8217;t have to be so&nbsp;obscene:</p>
 <pre>
 --- git-notifier.orig   2012-09-21 10:04:21.283442085 -0600
 +++ git-notifier    2012-09-21 10:25:04.811307023 -0600
@@ -120,14 +133,14 @@
      return (out, fname)
 </pre>
 
-<p>This works, and works well, but the post-receive hook is messy.  What used to just be:</p>
+<p>This works, and works well, but the post-receive hook is messy.  What used to just&nbsp;be:</p>
 <pre>
 #!/bin/sh
 /srv/git/hooks/git-notifier $@ --link="http://[url];a=commitdiff;h=%s" \
   --emailprefix="[git: [repo]]"
 </pre>
 
-<p>Has now turned into this monstrosity:</p>
+<p>Has now turned into this&nbsp;monstrosity:</p>
 <pre>
 #!/bin/sh
 while read oldrev newrev refname
@@ -154,16 +167,20 @@ for BUG in $(git log ${commit} -n 1 | sed 's/bug #/bug#/g' | \
 done
 </pre>
 
-<p>(lines wrapped for readability)</p>
-<p>So while it's fugly, there's quite a bit of magic to it.  Seems that when you call git-notifier again, it won't send an email because it knows it's already been sent, which is why we need the commit hash, and feed it to it with the --manual option.  The --mailinglist option is used to point to bugzilla (again, the git-notifier config is pointing to another email address to receive the commits already, so we need to override it).  The --sender option takes the committer's email address as the value (the $EMAIL variable), which also overrides the default git-notifier sender (which is the local user on the system unless you're using gitolite (which I'm not)).  The --bug_id is a digit to reference the bug in the commit (this should also send multiple mails if more than one bug is referenced in the commit, but I've not tested that yet).  The end result is you get a copy of the git commit directly into bugzilla, in the same format that you would get it via email.</p>
-<p>I may spend some time later on trying to make gitzilla play nicely with the newer version of pybugz, but for now this scratches my itch.  Like I said, not the prettiest solution, but it works as a quick-n-dirty hack.  The inspiration for using email to send this to bugzilla was from Gentoo's <a href="http://en.gentoo-wiki.com/wiki/Bugzilla_Email#Subversion_Integration">Bugzilla Email</a> wiki entry (the subversion integration part in particular).</p>
-<p>Note that since the email is being sent as the committer, the committer needs to have an account with that email address in your bugzilla.  If not, bugzilla's email_in.pl will bounce it back.  So you may want to have a bugzilla "commits" account as a dummy account from which you can email these things if not all of your committers have bugzilla access or use the same email address in bugzilla that they do in git.</p>
-<p>If anyone has any suggestions on a better way to do this (particularly via XMLRPC which I think would be a nicer way to go), I'm all ears.  (Short of writing my own -- I could do this, having worked with bugzilla and lately with XMLRPC access, quite a bit -- I'm too lazy to write something from scratch)</p>
+<p>(lines wrapped for&nbsp;readability)</p>
+<p>So while it&#8217;s fugly, there&#8217;s quite a bit of magic to it.  Seems that when you call git-notifier again, it won&#8217;t send an email because it knows it&#8217;s already been sent, which is why we need the commit hash, and feed it to it with the &#8212;manual option.  The &#8212;mailinglist option is used to point to bugzilla (again, the git-notifier config is pointing to another email address to receive the commits already, so we need to override it).  The &#8212;sender option takes the committer&#8217;s email address as the value (the $<span class="caps">EMAIL</span> variable), which also overrides the default git-notifier sender (which is the local user on the system unless you&#8217;re using gitolite (which I&#8217;m not)).  The &#8212;bug_id is a digit to reference the bug in the commit (this should also send multiple mails if more than one bug is referenced in the commit, but I&#8217;ve not tested that yet).  The end result is you get a copy of the git commit directly into bugzilla, in the same format that you would get it via&nbsp;email.</p>
+<p>I may spend some time later on trying to make gitzilla play nicely with the newer version of pybugz, but for now this scratches my itch.  Like I said, not the prettiest solution, but it works as a quick-n-dirty hack.  The inspiration for using email to send this to bugzilla was from Gentoo&#8217;s <a href="http://en.gentoo-wiki.com/wiki/Bugzilla_Email#Subversion_Integration">Bugzilla Email</a> wiki entry (the subversion integration part in&nbsp;particular).</p>
+<p>Note that since the email is being sent as the committer, the committer needs to have an account with that email address in your bugzilla.  If not, bugzilla&#8217;s email_in.pl will bounce it back.  So you may want to have a bugzilla &#8220;commits&#8221; account as a dummy account from which you can email these things if not all of your committers have bugzilla access or use the same email address in bugzilla that they do in&nbsp;git.</p>
+<p>If anyone has any suggestions on a better way to do this (particularly via <span class="caps">XMLRPC</span> which I think would be a nicer way to go), I&#8217;m all ears.  (Short of writing my own &#8212; I could do this, having worked with bugzilla and lately with <span class="caps">XMLRPC</span> access, quite a bit &#8212; I&#8217;m too lazy to write something from&nbsp;scratch)</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&url=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier&hashtags=bugzilla,git" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier&title=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&summary=I%E2%80%99m%20a%20big%20fan%20of%20the%20git-notifier%20script%2C%20which%20acts%20as%20a%20hook%20in%20git%20to%20send%20you%20nice%20emails%20about%20things%20that%20have%20changed%20in%20your%20git%20repos.%20%20I%E2%80%99m%20also%20a%20bugzilla%20user%2C%20so%20I%20wanted%20to%20be%20able%20to%20put%20git%20commit%20notifications%2C%20automatically%2C%20in%20bugzilla%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -174,22 +191,41 @@ done
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/new-bugzilla-in-the-works" title="New bugzilla in the works">New bugzilla in the works</a></li>
+<li><a href="https://vdanen.github.io/blog/bugzilla-and-maintainer-groups" title="Bugzilla and maintainer groups">Bugzilla and maintainer groups</a></li>
+<li><a href="https://vdanen.github.io/blog/bugzilla-is-done-dangit" title="Bugzilla is DONE dangit!!">Bugzilla is DONE dangit!!</a></li>
+<li><a href="https://vdanen.github.io/blog/new-mandriva-bugzilla-update-in-the-works" title="New Mandriva Bugzilla update in the works">New Mandriva Bugzilla update in the works</a></li>
+<li><a href="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail" title="Of bugzilla, python, fetchmail, and procmail">Of bugzilla, python, fetchmail, and procmail</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/software-update-service-on-os-x-lion-server" title="Previous: Software Update Service on OS X Lion Server">Software Update Service on OS X Lion Server</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/replaced-my-kerberosldap-setup-with-freeipa" title="Next: Replaced my Kerberos+LDAP setup with FreeIPA">Replaced my Kerberos+LDAP setup with FreeIPA</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2012-09-21T18:49:00-06:00">Fri 21 September 2012</time>
+            <time itemprop="dateCreated" datetime="2012-09-21T18:49:00-06:00">Sep 21, 2012</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#bugzilla-ref">bugzilla
+                <li><a href="https://vdanen.github.io/tags#bugzilla-ref">bugzilla
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#git-ref">git
+                <li><a href="https://vdanen.github.io/tags#git-ref">git
                     <span class="superscript">12</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -290,6 +326,9 @@ done
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

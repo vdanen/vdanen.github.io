@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we’ve re-implemented “Testzilla”. Sorta. Instead of integrating with bugzilla, we’ve used the mediawiki framework. The reasons for this many. The biggest reason is to make …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="mandriva, Linux, " />
 
-<meta property="og:title" content="Mandriva Testcases "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/mandriva-testcases.html" />
-<meta property="og:description" content="Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we&#39;ve re-implemented &#34;Testzilla&#34;. Sorta. Instead of integrating with bugzilla, we&#39;ve used the mediawiki framework. The reasons for this many. The biggest reason is to make the &#34;Testzilla …" />
+<meta property="og:title" content="Mandriva Testcases "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/mandriva-testcases" />
+<meta property="og:description" content="Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we’ve re-implemented “Testzilla”. Sorta. Instead of integrating with bugzilla, we’ve used the mediawiki framework. The reasons for this many. The biggest reason is to make …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-11-06T17:40:00-07:00" />
-<meta name="twitter:title" content="Mandriva Testcases ">
-<meta name="twitter:description" content="Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we&#39;ve re-implemented &#34;Testzilla&#34;. Sorta. Instead of integrating with bugzilla, we&#39;ve used the mediawiki framework. The reasons for this many. The biggest reason is to make the &#34;Testzilla …">
+<meta name="twitter:title" content="Mandriva Testcases ">
+<meta name="twitter:description" content="Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we’ve re-implemented “Testzilla”. Sorta. Instead of integrating with bugzilla, we’ve used the mediawiki framework. The reasons for this many. The biggest reason is to make …">
 
-        <title>Mandriva Testcases  · Annvix
+        <title>Mandriva Testcases  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/mandriva-testcases.html">
-                Mandriva Testcases
+            <a href="https://vdanen.github.io/blog/mandriva-testcases">
+                Mandriva&nbsp;Testcases
             </a>
         </h1>
     </header>
@@ -80,17 +93,21 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we've re-implemented "Testzilla".  Sorta.</p>
-<p>Instead of integrating with bugzilla, we've used the mediawiki framework.  The reasons for this many.  The biggest reason is to make the "Testzilla" as accessible as possible to as many people as possible.  It is also to lower the bar to usability... anyone can look at information on the wiki, but dealing with Testzilla can be trickier (perhaps).  Also, Testzilla itself hasn't been updated in many years, which means a lot of hacking to make it work.  Other solutions were either too complicated (Testopia) or didn't integrate with anything else we currently had (using mediawiki allows us to re-use our authentication from my.mandriva.com).</p>
-<p>Anyways, the basic idea is to have a page per package (urpmi, eclipse, evolution, whatever) and on this page will be testcases -- descriptions of ways to test programs in that package.  Where possible, automated or semi-automated testcases should be written and these get committed to subversion and referenced from the wiki page (the downside here is we need a mechanism to get testcases from people without commit access in, but the upside is it is faster, provides versioning, and won't bog down the wiki with (hopefully!) numerous testcases).</p>
-<p>I've already implemented the main page, which can be found at <a href="http://wiki.mandriva.com/en/Testing">wiki.mandriva.com/en/Testing</a>, and from there you can get to the various testcases (there's only one on there right now).  There is a cookie-cutter template to be used to start new testcases pages, and there are some new macros that make integrating with subversion and bugzilla a little easier/nicer.</p>
-<p>All in all, I think this has the potential to do really good things for Mandriva, and probably other distributions as well.  With the ability for anyone to create testcase pages, testcases, send an email with an automated testcase attached to our new testcases_@_mandrivalinux_dot_org "exploder" to get committed to subversion, it should be extremely easy and straightforward for people to get involved.</p>
-<p>This is something that quite a few people on the cooker list expressed an interest in, so I'm hoping this will nicely take off and become yet another useful resource for the Mandriva community.</p>
+            <p>Well, after some discussion on cooker and, quite frankly, needing a resource myself to speed up security update testing (particularly looking for regressions), we&#8217;ve re-implemented &#8220;Testzilla&#8221;.&nbsp;Sorta.</p>
+<p>Instead of integrating with bugzilla, we&#8217;ve used the mediawiki framework.  The reasons for this many.  The biggest reason is to make the &#8220;Testzilla&#8221; as accessible as possible to as many people as possible.  It is also to lower the bar to usability&#8230; anyone can look at information on the wiki, but dealing with Testzilla can be trickier (perhaps).  Also, Testzilla itself hasn&#8217;t been updated in many years, which means a lot of hacking to make it work.  Other solutions were either too complicated (Testopia) or didn&#8217;t integrate with anything else we currently had (using mediawiki allows us to re-use our authentication from&nbsp;my.mandriva.com).</p>
+<p>Anyways, the basic idea is to have a page per package (urpmi, eclipse, evolution, whatever) and on this page will be testcases &#8212; descriptions of ways to test programs in that package.  Where possible, automated or semi-automated testcases should be written and these get committed to subversion and referenced from the wiki page (the downside here is we need a mechanism to get testcases from people without commit access in, but the upside is it is faster, provides versioning, and won&#8217;t bog down the wiki with (hopefully!) numerous&nbsp;testcases).</p>
+<p>I&#8217;ve already implemented the main page, which can be found at <a href="http://wiki.mandriva.com/en/Testing">wiki.mandriva.com/en/Testing</a>, and from there you can get to the various testcases (there&#8217;s only one on there right now).  There is a cookie-cutter template to be used to start new testcases pages, and there are some new macros that make integrating with subversion and bugzilla a little&nbsp;easier/nicer.</p>
+<p>All in all, I think this has the potential to do really good things for Mandriva, and probably other distributions as well.  With the ability for anyone to create testcase pages, testcases, send an email with an automated testcase attached to our new testcases_@_mandrivalinux_dot_org &#8220;exploder&#8221; to get committed to subversion, it should be extremely easy and straightforward for people to get&nbsp;involved.</p>
+<p>This is something that quite a few people on the cooker list expressed an interest in, so I&#8217;m hoping this will nicely take off and become yet another useful resource for the Mandriva&nbsp;community.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Mandriva%C2%A0Testcases&url=https%3A//vdanen.github.io/blog/mandriva-testcases&hashtags=mandriva" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/mandriva-testcases&title=Mandriva%C2%A0Testcases&summary=Well%2C%20after%20some%20discussion%20on%20cooker%20and%2C%20quite%20frankly%2C%20needing%20a%20resource%20myself%20to%20speed%20up%20security%20update%20testing%20%28particularly%20looking%20for%20regressions%29%2C%20we%E2%80%99ve%20re-implemented%20%E2%80%9CTestzilla%E2%80%9D.%C2%A0Sorta.%0AInstead%20of%20integrating%20with%20bugzilla%2C%20we%E2%80%99ve%20used%20the%20mediawiki%20framework.%20%20The%20reasons%20for%20this%20many.%20%20The%20biggest%20reason%20is%20to%20make%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/mandriva-testcases" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -101,19 +118,38 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/upgrading-mandriva-20090-to-centos-52" title="Upgrading Mandriva 2009.0 to CentOS 5.2">Upgrading Mandriva 2009.0 to CentOS 5.2</a></li>
+<li><a href="https://vdanen.github.io/blog/a-mandriva-user-kicks-around-fedora-core-10-how-does-it-compare" title="A Mandriva user kicks around Fedora Core 10: How does it compare?">A Mandriva user kicks around Fedora Core 10: How does it compare?</a></li>
+<li><a href="https://vdanen.github.io/blog/open-source-is-20-lets-wander-down-memory-lane" title="Open Source is 20; Let’s Wander Down Memory Lane">Open Source is 20; Let’s Wander Down Memory Lane</a></li>
+<li><a href="https://vdanen.github.io/blog/an-unexpected-journey" title="An Unexpected Journey">An Unexpected Journey</a></li>
+<li><a href="https://vdanen.github.io/blog/zerobytesgiven-podcast-appearance" title="ZeroBytesGiven podcast appearance">ZeroBytesGiven podcast appearance</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/using-dnsmasq-for-dns-and-dhcp-services" title="Previous: Using dnsmasq for DNS and DHCP services">Using dnsmasq for DNS and DHCP services</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/zsh-tab-completion-with-subversion-15" title="Next: Zsh tab completion with subversion 1.5">Zsh tab completion with subversion 1.5</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-11-06T17:40:00-07:00">Thu 06 November 2008</time>
+            <time itemprop="dateCreated" datetime="2008-11-06T17:40:00-07:00">Nov 06, 2008</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#mandriva-ref">mandriva
+                <li><a href="https://vdanen.github.io/tags#mandriva-ref">mandriva
                     <span class="superscript">28</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -214,6 +250,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

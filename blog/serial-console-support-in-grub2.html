@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This is another one of those “just so I don’t forget” posts. I’m working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="grub, kvm, Linux, " />
 
-<meta property="og:title" content="Serial console support in Grub2 "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/serial-console-support-in-grub2.html" />
-<meta property="og:description" content="This is another one of those &#34;just so I don&#39;t forget&#34; posts. I&#39;m working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in 6 because CentOS …" />
+<meta property="og:title" content="Serial console support in Grub2 "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/serial-console-support-in-grub2" />
+<meta property="og:description" content="This is another one of those “just so I don’t forget” posts. I’m working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2015-08-16T16:03:00-06:00" />
-<meta name="twitter:title" content="Serial console support in Grub2 ">
-<meta name="twitter:description" content="This is another one of those &#34;just so I don&#39;t forget&#34; posts. I&#39;m working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in 6 because CentOS …">
+<meta name="twitter:title" content="Serial console support in Grub2 ">
+<meta name="twitter:description" content="This is another one of those “just so I don’t forget” posts. I’m working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in …">
 
-        <title>Serial console support in Grub2  · Annvix
+        <title>Serial console support in Grub2  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/serial-console-support-in-grub2.html">
-                Serial console support in Grub2
+            <a href="https://vdanen.github.io/blog/serial-console-support-in-grub2">
+                Serial console support in&nbsp;Grub2
             </a>
         </h1>
     </header>
@@ -80,29 +93,33 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This is another one of those "just so I don't forget" posts.  I'm working towards migrating from IPA in a KVM-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in 6 because CentOS 7 (and thus RHEL7) use Grub2.</p>
-<p>Instead of editing /boot/grub.cfg, you need to edit /etc/defaults/grub and add:</p>
+            <p>This is another one of those &#8220;just so I don&#8217;t forget&#8221; posts.  I&#8217;m working towards migrating from <span class="caps">IPA</span> in a <span class="caps">KVM</span>-based virtual machine running CentOS 6 to one running CentOS 7 and the way of making serial consoles work in 7 is different than it was in 6 because CentOS 7 (and thus <span class="caps">RHEL7</span>) use&nbsp;Grub2.</p>
+<p>Instead of editing /boot/grub.cfg, you need to edit /etc/defaults/grub and&nbsp;add:</p>
 <pre>
 GRUB_TERMINAL="serial"
 GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200"
 </pre>
 
-<p>The above will enable Grub output to the serial console.  Next, change the GRUB_CMDLINE_LINUX command to the following so you can use "virsh console" to connect to the guest:</p>
+<p>The above will enable Grub output to the serial console.  Next, change the GRUB_CMDLINE_LINUX command to the following so you can use &#8220;virsh console&#8221; to connect to the&nbsp;guest:</p>
 <pre>
 GRUB_CMDLINE_LINUX="rhgb quiet console=tty0 console=ttyS0,115200"
 </pre>
 
-<p>Once you have saved the file, you need to recreate the grub.cfg file with grub2-mkconfig:</p>
+<p>Once you have saved the file, you need to recreate the grub.cfg file with&nbsp;grub2-mkconfig:</p>
 <pre>
 # grub2-mkconfig -o /boot/grub2/grub.cfg
 </pre>
 
-<p>Now, reboot the system and you should be able to use "virsh console [VMNAME]" to have a serial console to the guest.</p>
+<p>Now, reboot the system and you should be able to use &#8220;virsh console [<span class="caps">VMNAME</span>]&#8221; to have a serial console to the&nbsp;guest.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Serial%20console%20support%20in%C2%A0Grub2&url=https%3A//vdanen.github.io/blog/serial-console-support-in-grub2&hashtags=grub,kvm" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/serial-console-support-in-grub2&title=Serial%20console%20support%20in%C2%A0Grub2&summary=This%20is%20another%20one%20of%20those%20%E2%80%9Cjust%20so%20I%20don%E2%80%99t%20forget%E2%80%9D%20posts.%20%20I%E2%80%99m%20working%20towards%20migrating%20from%20IPA%20in%20a%20KVM-based%20virtual%20machine%20running%20CentOS%206%20to%20one%20running%20CentOS%207%20and%20the%20way%20of%20making%20serial%20consoles%20work%20in%207%20is%20different%20than%20it%20was%20in%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/serial-console-support-in-grub2" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -113,22 +130,38 @@ GRUB_CMDLINE_LINUX="rhgb quiet console=tty0 console=ttyS0,115200"
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/how-to-use-virtual-machine-manager-on-fedora-11" title="How to use Virtual Machine Manager on Fedora 11">How to use Virtual Machine Manager on Fedora 11</a></li>
+<li><a href="https://vdanen.github.io/blog/converting-a-vmware-fusion-virtual-machine-to-kvm" title="Converting a VMware Fusion virtual machine to KVM">Converting a VMware Fusion virtual machine to KVM</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/getting-started-with-firewalld" title="Previous: Getting started with firewalld">Getting started with firewalld</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/bye-bye-mediawiki" title="Next: Bye Bye Mediawiki">Bye Bye Mediawiki</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-08-16T16:03:00-06:00">Sun 16 August 2015</time>
+            <time itemprop="dateCreated" datetime="2015-08-16T16:03:00-06:00">Aug 16, 2015</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#grub-ref">grub
+                <li><a href="https://vdanen.github.io/tags#grub-ref">grub
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#kvm-ref">kvm
+                <li><a href="https://vdanen.github.io/tags#kvm-ref">kvm
                     <span class="superscript">3</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -229,6 +262,9 @@ GRUB_CMDLINE_LINUX="rhgb quiet console=tty0 console=ttyS0,115200"
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

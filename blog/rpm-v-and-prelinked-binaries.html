@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="rpm, aide, Linux, " />
 
-<meta property="og:title" content="rpm -V and prelinked binaries "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/rpm-v-and-prelinked-binaries.html" />
-<meta property="og:description" content="I&#39;v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to track …" />
+<meta property="og:title" content="rpm -V and prelinked binaries "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/rpm-v-and-prelinked-binaries" />
+<meta property="og:description" content="I’v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2012-01-23T16:38:00-07:00" />
-<meta name="twitter:title" content="rpm -V and prelinked binaries ">
-<meta name="twitter:description" content="I&#39;v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to track …">
+<meta name="twitter:title" content="rpm -V and prelinked binaries ">
+<meta name="twitter:description" content="I’v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to …">
 
-        <title>rpm -V and prelinked binaries  · Annvix
+        <title>rpm -V and prelinked binaries  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/rpm-v-and-prelinked-binaries.html">
-                rpm -V and prelinked binaries
+            <a href="https://vdanen.github.io/blog/rpm-v-and-prelinked-binaries">
+                rpm -V and prelinked&nbsp;binaries
             </a>
         </h1>
     </header>
@@ -80,23 +93,27 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I'v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to track down strange MD5/SHA1 changes to binaries.</p>
-<p>By default, and for nearly a decade now, prelink has shipped with Red Hat Enterprise Linux and Fedora.  What it does is modify the ELF code in binaries and libraries to speed up load times, so that fewer relocations need to be resolved when executing a program.  I can't explain all the details and technicalities of it because, quite frankly, they are above my limited brainpower to explain.  Suffice it to say, prelinking is a good thing.  Unless you are using AIDE or Tripwire.  These programs determine whether or not a file has changed based on their MD5SUM or SHA1SUM (or any other *SUM of the binary).  So when you install a program, AIDE sees a certain MD5SUM of the binary.  Later, when prelink runs, that binary might be modified to do the aforementioned relocations.  This will result in a different MD5SUM of the binary, and AIDE will most certainly tell you about the change.  What does not inform you of the change, however, is rpm -V (or rpm --verify).</p>
-<p>The verification command in RPM tells it to compare the MD5SUM of the files in certain package to what is on the filesystem.  It's a poor man's AIDE, and can also tell you what has changed on your system (from what RPM expects according to when it was installed).  In theory, you would expect rpm -V to report the same discrepancy that AIDE does.  The fact that it doesn't is what's led to a few questions regarding this.</p>
-<p>The "problem" (if you can call it that) is that rpm knows about prelink, and knows how to deal with it.  As is succinctly explained in this <a href="http://www.redhat.com/archives/shrike-list/2003-April/msg00592.html">mailing list email</a>, "rpm when --verify will prelink --verify, which is essentially --undo followed by prelinking again and comparing."  So the reason that rpm doesn't fail the verification is that it is basically turning off prelink for the file(s) to check, running the verification, then turning prelink back on.  This is why rpm won't report on a MD5SUM change, but AIDE will.</p>
-<p>So for those of us who use AIDE, we know that we need to do things like daily runs to make sure nothing has changed.  The problem is that if you do this and run a yum update, X number of hours later you'll get an email telling you that files have changed.  You might, at that point, update AIDE but there is a window of opportunity there where you may miss things.  We can minimize this by doing an AIDE check, then yum update, then force a prelink run, then update AIDE.  I've been doing this for a few years on Red Hat Enterprise Linux 5 and it essentially gets rid of all false positives.  It's a little script called <b>do-update</b> that I execute as root and it runs this:</p>
+            <p>I&#8217;v been asked this question a few times over the last year or so, so I thought I would explain some of why you might see some issues on a Fedora or Red Hat Enterprise Linux system (or any other Linux distribution that uses prelinked binaries) when trying to track down strange <span class="caps">MD5</span>/<span class="caps">SHA1</span> changes to&nbsp;binaries.</p>
+<p>By default, and for nearly a decade now, prelink has shipped with Red Hat Enterprise Linux and Fedora.  What it does is modify the <span class="caps">ELF</span> code in binaries and libraries to speed up load times, so that fewer relocations need to be resolved when executing a program.  I can&#8217;t explain all the details and technicalities of it because, quite frankly, they are above my limited brainpower to explain.  Suffice it to say, prelinking is a good thing.  Unless you are using <span class="caps">AIDE</span> or Tripwire.  These programs determine whether or not a file has changed based on their <span class="caps">MD5SUM</span> or <span class="caps">SHA1SUM</span> (or any other *<span class="caps">SUM</span> of the binary).  So when you install a program, <span class="caps">AIDE</span> sees a certain <span class="caps">MD5SUM</span> of the binary.  Later, when prelink runs, that binary might be modified to do the aforementioned relocations.  This will result in a different <span class="caps">MD5SUM</span> of the binary, and <span class="caps">AIDE</span> will most certainly tell you about the change.  What does not inform you of the change, however, is rpm -V (or rpm&nbsp;&#8212;verify).</p>
+<p>The verification command in <span class="caps">RPM</span> tells it to compare the <span class="caps">MD5SUM</span> of the files in certain package to what is on the filesystem.  It&#8217;s a poor man&#8217;s <span class="caps">AIDE</span>, and can also tell you what has changed on your system (from what <span class="caps">RPM</span> expects according to when it was installed).  In theory, you would expect rpm -V to report the same discrepancy that <span class="caps">AIDE</span> does.  The fact that it doesn&#8217;t is what&#8217;s led to a few questions regarding&nbsp;this.</p>
+<p>The &#8220;problem&#8221; (if you can call it that) is that rpm knows about prelink, and knows how to deal with it.  As is succinctly explained in this <a href="http://www.redhat.com/archives/shrike-list/2003-April/msg00592.html">mailing list email</a>, &#8220;rpm when &#8212;verify will prelink &#8212;verify, which is essentially &#8212;undo followed by prelinking again and comparing.&#8221;  So the reason that rpm doesn&#8217;t fail the verification is that it is basically turning off prelink for the file(s) to check, running the verification, then turning prelink back on.  This is why rpm won&#8217;t report on a <span class="caps">MD5SUM</span> change, but <span class="caps">AIDE</span>&nbsp;will.</p>
+<p>So for those of us who use <span class="caps">AIDE</span>, we know that we need to do things like daily runs to make sure nothing has changed.  The problem is that if you do this and run a yum update, X number of hours later you&#8217;ll get an email telling you that files have changed.  You might, at that point, update <span class="caps">AIDE</span> but there is a window of opportunity there where you may miss things.  We can minimize this by doing an <span class="caps">AIDE</span> check, then yum update, then force a prelink run, then update <span class="caps">AIDE</span>.  I&#8217;ve been doing this for a few years on Red Hat Enterprise Linux 5 and it essentially gets rid of all false positives.  It&#8217;s a little script called <b>do-update</b> that I execute as root and it runs&nbsp;this:</p>
 <pre>
 #!/bin/sh
 aidecheck && yum update -y && /etc/cron.daily/prelink && aideupdate
 </pre>
 
-<p>This doesn't eliminate the window of opportunity completely, but it does lessen it considerably.  This uses my <a href="https://github.com/vdanen/AIDE_gpg">AIDE_gpg</a> scripts (aidecheck and aideupdate).  The rest is pretty self-explanatory.</p>
-<p>Hopefully this information will be useful to someone.  It took me a bit to dig up the mailing list message I link to above; I knew that prelink was had some special relationship with rpm, but I didn't know the particulars.  Now I do, and so do you.  =)</p>
+<p>This doesn&#8217;t eliminate the window of opportunity completely, but it does lessen it considerably.  This uses my <a href="https://github.com/vdanen/AIDE_gpg">AIDE_gpg</a> scripts (aidecheck and aideupdate).  The rest is pretty&nbsp;self-explanatory.</p>
+<p>Hopefully this information will be useful to someone.  It took me a bit to dig up the mailing list message I link to above; I knew that prelink was had some special relationship with rpm, but I didn&#8217;t know the particulars.  Now I do, and so do you.&nbsp;=)</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=rpm%20-V%20and%20prelinked%C2%A0binaries&url=https%3A//vdanen.github.io/blog/rpm-v-and-prelinked-binaries&hashtags=rpm,aide" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/rpm-v-and-prelinked-binaries&title=rpm%20-V%20and%20prelinked%C2%A0binaries&summary=I%E2%80%99v%20been%20asked%20this%20question%20a%20few%20times%20over%20the%20last%20year%20or%20so%2C%20so%20I%20thought%20I%20would%20explain%20some%20of%20why%20you%20might%20see%20some%20issues%20on%20a%20Fedora%20or%20Red%20Hat%20Enterprise%20Linux%20system%20%28or%20any%20other%20Linux%20distribution%20that%20uses%20prelinked%20binaries%29%20when%20trying%20to%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/rpm-v-and-prelinked-binaries" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -107,22 +124,41 @@ aidecheck && yum update -y && /etc/cron.daily/prelink && aideupdate
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/obtaining-file-information-with-rpm" title="Obtaining file information with RPM">Obtaining file information with RPM</a></li>
+<li><a href="https://vdanen.github.io/blog/no-longer-a-bs-virgin" title="No longer a BS virgin">No longer a BS virgin</a></li>
+<li><a href="https://vdanen.github.io/blog/converting-new-rpm-databases-to-old-format" title="Converting new rpm databases to old format">Converting new rpm databases to old format</a></li>
+<li><a href="https://vdanen.github.io/blog/learning-python-module-import-issues" title="Learning Python: module import issues">Learning Python: module import issues</a></li>
+<li><a href="https://vdanen.github.io/blog/rq-tool-now-on-fedorahosted" title="rq tool now on fedorahosted">rq tool now on fedorahosted</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/some-quick-git-tips" title="Previous: Some quick git tips">Some quick git tips</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/ssd-speed-ups-on-mac-pro" title="Next: SSD Speed-ups on Mac Pro">SSD Speed-ups on Mac Pro</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2012-01-23T16:38:00-07:00">Mon 23 January 2012</time>
+            <time itemprop="dateCreated" datetime="2012-01-23T16:38:00-07:00">Jan 23, 2012</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#aide-ref">aide
+                <li><a href="https://vdanen.github.io/tags#aide-ref">aide
                     <span class="superscript">2</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#rpm-ref">rpm
+                <li><a href="https://vdanen.github.io/tags#rpm-ref">rpm
                     <span class="superscript">6</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -223,6 +259,9 @@ aidecheck && yum update -y && /etc/cron.daily/prelink && aideupdate
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Syslog and Klog "/>
-<meta property="og:url" content="https://vdanen.github.io/syslog_and_klog.html" />
+<meta property="og:title" content="Syslog and Klog "/>
+<meta property="og:url" content="https://vdanen.github.io/syslog_and_klog" />
 <meta property="og:description" content="Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T11:40:00-06:00" />
-<meta name="twitter:title" content="Syslog and Klog ">
+<meta name="twitter:title" content="Syslog and Klog ">
 <meta name="twitter:description" content="Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems …">
 
-        <title>Syslog and Klog  · Annvix
+        <title>Syslog and Klog  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,34 +80,39 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/syslog_and_klog.html"> Syslog and Klog  </a></h1>
+    <h1><a href="https://vdanen.github.io/syslog_and_klog"> Syslog and&nbsp;Klog  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Facilities.2C_Levels.2C_and_Actions"><span class="tocnumber">1</span> <span class="toctext">Facilities, Levels, and Actions</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_syslog"><span class="tocnumber">2</span> <span class="toctext">Configuring syslog</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Remote_and_Central_Logging"><span class="tocnumber">3</span> <span class="toctext">Remote and Central Logging</span></a></li>
+</ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
 
-            <p>Most UNIX implementations (Linux, BSD, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems also come with a daemon called klogd, the Linux kernel log daemon.
+            <p>Most <span class="caps">UNIX</span> implementations (Linux, <span class="caps">BSD</span>, etc.) use a program called syslogd to handle most of the logging. syslogd is a system logging daemon and what it does is sit and receive messages from various applications. It will receive log messages from other daemons, programs, and even the kernel. Linux systems also come with a daemon called klogd, the Linux kernel log daemon.
 </p>
-<p>Configuration of syslog is done via the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Each Linux distribution, and other systems like FreeBSD, Mac OS X, etc. may have their default syslog configurations slightly different, and each may run a slightly different syslogd that may offer enhanced or reduced functionality. The basic syntax of the logfiles are similar, however.
+<p>Configuration of syslog is done via the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Each Linux distribution, and other systems like FreeBSD, Mac <span class="caps">OS</span> X, etc. may have their default syslog configurations slightly different, and each may run a slightly different syslogd that may offer enhanced or reduced functionality. The basic syntax of the logfiles are similar, however.
 </p>
-<p>What syslog does is receive messages from various "facilities" on the system. Each received message will also have an importance level assigned to it. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">syslog.conf</span> file tells syslogd what to do with these messages, based upon their facility and level of importance. The basic syntax of syslog.conf is as follows:
+<p>What syslog does is receive messages from various “facilities” on the system. Each received message will also have an importance level assigned to it. The <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">syslog.conf</span> file tells syslogd what to do with these messages, based upon their facility and level of importance. The basic syntax of syslog.conf is as follows:
 </p>
 <pre>
 facility.level       action
 </pre>
-<p>The selector (the first field; "facility.level"), must be separated from the action by one or more TAB characters. While some syslog implementations understand using spaces as a separator, others do not so if you're unsure, use tabs. You can also include blank lines and comments (lines beginning with the # character) in the configuration file. You may also have multiple facilities specified, separated by a comma.
+<p>The selector (the first field; “facility.level”), must be separated from the action by one or more <span class="caps">TAB</span> characters. While some syslog implementations understand using spaces as a separator, others do not so if you’re unsure, use tabs. You can also include blank lines and comments (lines beginning with the # character) in the configuration file. You may also have multiple facilities specified, separated by a comma.
 </p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Facilities.2C_Levels.2C_and_Actions"><span class="tocnumber">1</span> <span class="toctext">Facilities, Levels, and Actions</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Configuring_syslog"><span class="tocnumber">2</span> <span class="toctext">Configuring syslog</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Remote_and_Central_Logging"><span class="tocnumber">3</span> <span class="toctext">Remote and Central Logging</span></a></li>
-</ul>
-</div>
 
-<h2><span class="mw-headline" id="Facilities.2C_Levels.2C_and_Actions">Facilities, Levels, and Actions</span></h2>
-<p>The following is a list of syslog facilities:
+<h2><span class="mw-headline" id="Facilities.2C_Levels.2C_and_Actions">Facilities, Levels, and Actions</span></h2>
+<p>The following is a list of syslog facilities:
 </p>
 <table border="0">
 <tr>
@@ -112,7 +130,7 @@ facility.level       action
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">console</span> </td>
-<td> Messages written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span> by the kernel console output driver [BSD only]
+<td> Messages written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span> by the kernel console output driver [<span class="caps">BSD</span> only]
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">cron</span> </td>
@@ -124,7 +142,7 @@ facility.level       action
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ftp</span> </td>
-<td> Messages from FTP daemons
+<td> Messages from <span class="caps">FTP</span> daemons
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern</span> </td>
@@ -144,11 +162,11 @@ facility.level       action
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">news</span> </td>
-<td> Messages from NNTP daemons such as innd or leafnode
+<td> Messages from <span class="caps">NNTP</span> daemons such as innd or leafnode
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">security</span> </td>
-<td> Messages from the security subsystem, such as ipfw [BSD only]
+<td> Messages from the security subsystem, such as ipfw [<span class="caps">BSD</span> only]
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">syslog</span> </td>
@@ -160,7 +178,7 @@ facility.level       action
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">uucp</span> </td>
-<td> Messages from UUCP
+<td> Messages from <span class="caps">UUCP</span>
 </td></tr>
 <tr>
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">local0-local7</span> </td>
@@ -170,7 +188,7 @@ facility.level       action
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> </td>
 <td> All facilities except <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mark</span>
 </td></tr></table>
-<p>The following table describes the various syslog levels:
+<p>The following table describes the various syslog levels:
 </p>
 <table border="0">
 <tr>
@@ -218,7 +236,7 @@ facility.level       action
 <td> <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">*</span> </td>
 <td> All levels, except none
 </td></tr></table>
-<p>Finally, the following table illustrates the different actions syslog can take. Not all of these actions may be available with all implementations of syslog, however.
+<p>Finally, the following table illustrates the different actions syslog can take. Not all of these actions may be available with all implementations of syslog, however.
 </p>
 <table border="0">
 <tr>
@@ -228,7 +246,7 @@ facility.level       action
 </th></tr>
 <tr>
 <td> file or device </td>
-<td> The absolute pathname to a file (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>). The message will be written to the specified file. You can also use the full path to a device such as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/tty1</span>, or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/lp0</span>, etc. This can be useful for writing to a serial port, printer, or specific console. On Linux systems, you can prefix a file with the "-" character to tell syslog not to sync the file after every logging, which can have some performance benefits, but may also result in missing messages in the event of a system crash.
+<td> The absolute pathname to a file (ie. <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>). The message will be written to the specified file. You can also use the full path to a device such as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/console</span>, <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/tty1</span>, or <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/dev/lp0</span>, etc. This can be useful for writing to a serial port, printer, or specific console. On Linux systems, you can prefix a file with the “-” character to tell syslog not to sync the file after every logging, which can have some performance benefits, but may also result in missing messages in the event of a system crash.
 </td></tr>
 <tr>
 <td> @hostname </td>
@@ -236,114 +254,114 @@ facility.level       action
 </td></tr>
 <tr>
 <td> username </td>
-<td> Sends the message to the specified user(s) using write, provided they are logged in. Multiple users can be specified by using a comma-separated list (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">root,vdanen,joe</span>. To write to everyone, use "*".
+<td> Sends the message to the specified user(s) using write, provided they are logged in. Multiple users can be specified by using a comma-separated list (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">root,vdanen,joe</span>. To write to everyone, use “*”.
 </td></tr>
 <tr>
 <td> named pipe </td>
-<td>) symbol. This tells syslog to write into the FIFO (pipe), and other programs like swatch can read from the FIFO and act on the message. [Linux only]
+<td>) symbol. This tells syslog to write into the <span class="caps">FIFO</span> (pipe), and other programs like swatch can read from the <span class="caps">FIFO</span> and act on the message. [Linux only]
 </td></tr></table>
-<p>You can also specify multiple selectors by separating them with a semi-colon (ie. you can use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.emerg;mail.crit</span> to specify two facilities to log to the same place. Each specified level indicates that level and higher; so if you specifiy "crit", you will actually be logging "crit", "alert", and "emerg". To specify one level and that level only, prefix it with the "=" character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.=crit</span>). To negate a specific level use the "!" character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.info;kern.!err</span>) tells syslog to log everything from facility <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern</span> with level "info" and higher, except everything with level "err" and higher (basically, log levels "info", "notice", and "warning")).
+<p>You can also specify multiple selectors by separating them with a semi-colon (ie. you can use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.emerg;mail.crit</span> to specify two facilities to log to the same place. Each specified level indicates that level and higher; so if you specifiy “crit”, you will actually be logging “crit”, “alert”, and “emerg”. To specify one level and that level only, prefix it with the “=” character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.=crit</span>). To negate a specific level use the “!” character (ie. <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern.info;kern.!err</span>) tells syslog to log everything from facility <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">kern</span> with level “info” and higher, except everything with level “err” and higher (basically, log levels “info”, “notice”, and “warning”)).
 </p>
-<h2><span class="mw-headline" id="Configuring_syslog">Configuring syslog</span></h2>
-<p>With the above information, you can finetune your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Most vendors provide sane defaults for syslog and likely you will not need to change anything. The logfile that usually contains the most "centralized" information and will be the one most people will likely want to monitor closely is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (on Linux) and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span> (on BSD). For instance, on Linux, the following is used to determine what to write to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (taken from Mandrakelinux 9.1):
+<h2><span class="mw-headline" id="Configuring_syslog">Configuring syslog</span></h2>
+<p>With the above information, you can finetune your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file. Most vendors provide sane defaults for syslog and likely you will not need to change anything. The logfile that usually contains the most “centralized” information and will be the one most people will likely want to monitor closely is <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (on Linux) and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span> (on <span class="caps">BSD</span>). For instance, on Linux, the following is used to determine what to write to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span> (taken from Mandrakelinux 9.1):
 </p>
 <pre>
 *.info;mail.none;news.none;authpriv.none           -/var/log/messages
 </pre>
-<p>This tells syslog to log every facility, of level "info" and higher, except the facilities "mail", "news", and "authpriv" to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>, and to not sync the file after every write.
+<p>This tells syslog to log every facility, of level “info” and higher, except the facilities “mail”, “news”, and “authpriv” to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/messages</span>, and to not sync the file after every write.
 </p>
-<p>On Mac OS X, the default is as follows:
+<p>On Mac <span class="caps">OS</span> X, the default is as follows:
 </p>
 <pre>
 *.notice;*.info;authpriv,remoteauth,ftp.none;kern.debug;mail.crit  /var/log/system.log
 </pre>
-<p>This tells syslog to log every facility of level "notice" and "info" except for facilities "authpriv", "remoteauth", and "ftp", as well as debug kernel messages, and critical mail messages to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span>.
+<p>This tells syslog to log every facility of level “notice” and “info” except for facilities “authpriv”, “remoteauth”, and “ftp”, as well as debug kernel messages, and critical mail messages to the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/system.log</span>.
 </p>
-<p><b>NOTE</b>: I'm not sure where this remoteauth facility is coming from for OS X as Apple neglected to include a manpage for syslog.conf, and the syslog manpage makes no reference to this facility, nor does it look like FreeBSD has it, so I don't know if this is a valid facility or where it comes from or what it specifically does (although I suspect perhaps telnet logins by the name, as OpenSSH seems to be logging to <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">auth.info</span>, which is it's default (unless Apple patched it for some reason)). Using logger to test it does indeed show that it is a working facility, but I don't know what systems use it.
+<p><b><span class="caps">NOTE</span></b>: I’m not sure where this remoteauth facility is coming from for <span class="caps">OS</span> X as Apple neglected to include a manpage for syslog.conf, and the syslog manpage makes no reference to this facility, nor does it look like FreeBSD has it, so I don’t know if this is a valid facility or where it comes from or what it specifically does (although I suspect perhaps telnet logins by the name, as OpenSSH seems to be logging to <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">auth.info</span>, which is it’s default (unless Apple patched it for some reason)). Using logger to test it does indeed show that it is a working facility, but I don’t know what systems use it.
 </p>
-<p>When you make changes to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span>, you need to tell syslog to re-read it's configuration file. This can be done by executing, as root, "killall -HUP syslogd" or restarting the service itself (ie. executing "/etc/init.d/syslog restart" on some Linux systems). Some implementations of syslog will create any newly specified logfiles from the configuration upon startup; others may not so you may want to do a simple "touch /var/log/mynewlogfile" before restarting syslogd.
+<p>When you make changes to your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span>, you need to tell syslog to re-read it’s configuration file. This can be done by executing, as root, “killall -<span class="caps">HUP</span> syslogd” or restarting the service itself (ie. executing “/etc/init.d/syslog restart” on some Linux systems). Some implementations of syslog will create any newly specified logfiles from the configuration upon startup; others may not so you may want to do a simple “touch /var/log/mynewlogfile” before restarting syslogd.
 </p>
-<p>You can also test your syslog changes quite easily by using the logger tool. For instance, I wanted to test if <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">remoteauth.crit</span> was actually being logged on OS X, so I executed:
+<p>You can also test your syslog changes quite easily by using the logger tool. For instance, I wanted to test if <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">remoteauth.crit</span> was actually being logged on <span class="caps">OS</span> X, so I executed:
 </p>
 <pre>
-$ logger -p remoteauth.crit -t TEST &quot;This is a test&quot;
+$ logger -p remoteauth.crit -t TEST "This is a test"
 </pre>
-<p>syslog dutifully wrote it to my <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/secure.log</span> file in OS X and the file contained:
+<p>syslog dutifully wrote it to my <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/secure.log</span> file in <span class="caps">OS</span> X and the file contained:
 </p>
 <pre>
 Feb 21 14:36:59 tibook TEST: This is a test
 </pre>
-<p>You can make use of this in your scripts so you can have, for example, some auditing script or archival script record it's start and end (and any errors it may have encountered) to a logfile via syslog.
+<p>You can make use of this in your scripts so you can have, for example, some auditing script or archival script record it’s start and end (and any errors it may have encountered) to a logfile via syslog.
 </p>
-<h2><span class="mw-headline" id="Remote_and_Central_Logging">Remote and Central Logging</span></h2>
-<p>Logging remotely, to a central loghost, is a great idea, especially if you have machines that are publically accessible, such as web servers in a DMZ. One thing that crackers attempt to do after gaining access to a system is to srub the logfiles to remove as much evidence that they were there as possible. By having your system logger log remotely, they are unlikely to be able to do this without also breaking into your log host.
+<h2><span class="mw-headline" id="Remote_and_Central_Logging">Remote and Central Logging</span></h2>
+<p>Logging remotely, to a central loghost, is a great idea, especially if you have machines that are publically accessible, such as web servers in a <span class="caps">DMZ</span>. One thing that crackers attempt to do after gaining access to a system is to srub the logfiles to remove as much evidence that they were there as possible. By having your system logger log remotely, they are unlikely to be able to do this without also breaking into your log host.
 </p>
-<p>There are two simple steps to accomplishing this. The first is to configure syslog appropriately, the second is to have the system time synchronized between machines. For the latter, using something like ntp is appropriate; you can use it to match your clock to a specified time server. If all machines use the same time server, the time between machines should match to a high degree.
+<p>There are two simple steps to accomplishing this. The first is to configure syslog appropriately, the second is to have the system time synchronized between machines. For the latter, using something like ntp is appropriate; you can use it to match your clock to a specified time server. If all machines use the same time server, the time between machines should match to a high degree.
 </p>
-<p>In your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> configuration file, you need to tell it to log data to a log server. For redundancy, have syslog log both locally and remotely, except on the central log server. For instance, you may add the following to the end of your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file:
+<p>In your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> configuration file, you need to tell it to log data to a log server. For redundancy, have syslog log both locally and remotely, except on the central log server. For instance, you may add the following to the end of your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> file:
 </p>
 <pre>
 *.info              @loghost.mydomain.com
 </pre>
-<p>where loghost.mydomain.com is a fully resolveable domain name that points to your log server. This will log all messages of level "info" and higher to the log server.
+<p>where loghost.mydomain.com is a fully resolveable domain name that points to your log server. This will log all messages of level “info” and higher to the log server.
 </p>
-<p>On the log server itself, you must start syslog with the "-r" commandline parameter (on Linux) or "-u" on Mac OS X. On FreeBSD, syslog listens to the network with no commandline options, but is configured to run in "secure mode" (with the commandline parameter "-s") by default. This tells syslog to listen to UDP port 514 for logging messages. It will write to the local system as per the rules defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> on the host. So if you have, for instance, <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> being written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mail/info</span> on your server, but written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> on the log server, the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> messages will be also be logged to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> as syslog pays attention to the rules on the host it is running on; it knows nothing of the rules on the remote server.
+<p>On the log server itself, you must start syslog with the “-r” commandline parameter (on Linux) or “-u” on Mac <span class="caps">OS</span> X. On FreeBSD, syslog listens to the network with no commandline options, but is configured to run in “secure mode” (with the commandline parameter “-s”) by default. This tells syslog to listen to <span class="caps">UDP</span> port 514 for logging messages. It will write to the local system as per the rules defined in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/syslog.conf</span> on the host. So if you have, for instance, <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> being written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mail/info</span> on your server, but written to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> on the log server, the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">mail.info</span> messages will be also be logged to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/var/log/mailinfo</span> as syslog pays attention to the rules on the host it is running on; it knows nothing of the rules on the remote server.
 </p>
-<p>On a Mandrakelinux system, you would modify the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/syslog</span> file and change:
+<p>On a Mandrakelinux system, you would modify the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/syslog</span> file and change:
 </p>
 <pre>
-SYSLOGD_OPTIONS=&quot;-m 0&quot;
+SYSLOGD_OPTIONS="-m 0"
 </pre>
 <p>to:
 </p>
 <pre>
-SYSLOGD_OPTIONS=&quot;-r -m 0&quot;
+SYSLOGD_OPTIONS="-r -m 0"
 </pre>
-<p>and then restart the syslogd daemon.
+<p>and then restart the syslogd daemon.
 </p>
-<p>In Mac OS X, you need to modify the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/StartupItems/SystemLog/SystemLog</span>. In the StartService() function is a line that simply reads "syslogd"; replace it with "syslogd -u", like in the following illustration.
+<p>In Mac <span class="caps">OS</span> X, you need to modify the file <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/System/Library/StartupItems/SystemLog/SystemLog</span>. In the StartService() function is a line that simply reads “syslogd”; replace it with “syslogd -u”, like in the following illustration.
 </p>
 <pre>
 StartService ()
 {
-    ConsoleMessage &quot;Starting system log&quot;
+    ConsoleMessage "Starting system log"
 
     if [ -f /etc/syslog.conf ]; then
-        if&#160;! pid=$(GetPID syslog); then
+        if ! pid=$(GetPID syslog); then
             rm -f /dev/log
             syslogd -u
         fi
     else
-        echo &quot;Warning: syslogd was not started&quot;
+        echo "Warning: syslogd was not started"
     fi
 }
 </pre>
-<p>You will either need to reboot to have the change take effect, or kill and start syslogd manually in order to see the immediate change.
+<p>You will either need to reboot to have the change take effect, or kill and start syslogd manually in order to see the immediate change.
 </p>
-<p>On a FreeBSD system,syslog is started in "safe mode" to begin with, so you need to disable it. To do this, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.conf</span> and add:
+<p>On a FreeBSD system,syslog is started in “safe mode” to begin with, so you need to disable it. To do this, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/rc.conf</span> and add:
 </p>
 <pre>
-syslogd_flags=&quot;&quot;
+syslogd_flags=""
 </pre>
-<p>to the end of the file. You will need to restart syslog completely in order for this to take effect, which can be accomplished by doing a reboot or killing syslogd and then starting it again manually.
+<p>to the end of the file. You will need to restart syslog completely in order for this to take effect, which can be accomplished by doing a reboot or killing syslogd and then starting it again manually.
 </p>
-<p>Perhaps one of the most frustrating things with syslog is the differences across various platforms. It performs the same function, but as you can see with three different, yet similar, operating systems, there are three very different syslog implementations in terms of how it's run (the configurations are very similar across the board).
+<p>Perhaps one of the most frustrating things with syslog is the differences across various platforms. It performs the same function, but as you can see with three different, yet similar, operating systems, there are three very different syslog implementations in terms of how it’s run (the configurations are very similar across the board).
 </p>
-<p>On a final note, you will need to modify your firewall to allow inbound traffic on UDP port 514. You will want to limit this to the client systems that will be sending logs to you, to ensure you receive only legitimate log entries. If you leave it open for the world, an attacker can DoS your system by just filling your filesystem full of bogus log entries.
+<p>On a final note, you will need to modify your firewall to allow inbound traffic on <span class="caps">UDP</span> port 514. You will want to limit this to the client systems that will be sending logs to you, to ensure you receive only legitimate log entries. If you leave it open for the world, an attacker can DoS your system by just filling your filesystem full of bogus log entries.
 </p>
-<p>On a Linux system, using iptables, you would use the following rule on the logging client (the machine from which you will receive syslog messages). It assumes a default OUTPUT policy of DENY:
+<p>On a Linux system, using iptables, you would use the following rule on the logging client (the machine from which you will receive syslog messages). It assumes a default <span class="caps">OUTPUT</span> policy of <span class="caps">DENY</span>:
 </p>
 <pre>
 iptables -A OUTPUT -o $IFACE -p udp -s $MYIP -d $LOGHOST --dport 514 -j ACCEPT
 </pre>
-<p>This implied $IFACE being equal to your external ethernet interface (ie. eth0), $MYIP being the IP address of the server (the machine you are adding this iptables rule to) and $LOGHOST is the IP address of the machine you wish to send the logs to.
+<p>This implied $<span class="caps">IFACE</span> being equal to your external ethernet interface (ie. eth0), $<span class="caps">MYIP</span> being the <span class="caps">IP</span> address of the server (the machine you are adding this iptables rule to) and $<span class="caps">LOGHOST</span> is the <span class="caps">IP</span> address of the machine you wish to send the logs to.
 </p>
-<p>On the receiving system, you would use a similar rule:
+<p>On the receiving system, you would use a similar rule:
 </p>
 <pre>
 iptables -A INPUT -o $IFACE -p udp -s $LOGCLIENT -d $MYIP --dport 514 -j ACCEPT
 </pre>
-<p>In this case, $LOGCLIENT is the IP address of the machine sending the logs, and $MYIP is the IP address of the log server.
+<p>In this case, $<span class="caps">LOGCLIENT</span> is the <span class="caps">IP</span> address of the machine sending the logs, and $<span class="caps">MYIP</span> is the <span class="caps">IP</span> address of the log server.
 </p>
             
 
@@ -427,6 +445,9 @@ iptables -A INPUT -o $IFACE -p udp -s $LOGCLIENT -d $MYIP --dport 514 -j ACCEPT
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

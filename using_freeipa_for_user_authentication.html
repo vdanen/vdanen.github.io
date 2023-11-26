@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="After many years of using Using OpenLDAP for User Authentication, and Using Kerberos 5 for Single Sign-On Authentication, it was time to look at FreeIPA as a way of streamlining everything. Important Note: You will want to have FreeIPA on it’s own system (whether this is a virtual machine …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Using FreeIPA for User Authentication "/>
-<meta property="og:url" content="https://vdanen.github.io/using_freeipa_for_user_authentication.html" />
-<meta property="og:description" content="After many years of using Using OpenLDAP for User Authentication, and Using Kerberos 5 for Single Sign-On Authentication, it was time to look at FreeIPA as a way of streamlining everything. Important Note: You will want to have FreeIPA on it&#39;s own system (whether this is a virtual machine using …" />
+<meta property="og:title" content="Using FreeIPA for User Authentication "/>
+<meta property="og:url" content="https://vdanen.github.io/using_freeipa_for_user_authentication" />
+<meta property="og:description" content="After many years of using Using OpenLDAP for User Authentication, and Using Kerberos 5 for Single Sign-On Authentication, it was time to look at FreeIPA as a way of streamlining everything. Important Note: You will want to have FreeIPA on it’s own system (whether this is a virtual machine …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2015-12-05T12:00:00-07:00" />
-<meta name="twitter:title" content="Using FreeIPA for User Authentication ">
-<meta name="twitter:description" content="After many years of using Using OpenLDAP for User Authentication, and Using Kerberos 5 for Single Sign-On Authentication, it was time to look at FreeIPA as a way of streamlining everything. Important Note: You will want to have FreeIPA on it&#39;s own system (whether this is a virtual machine using …">
+<meta name="twitter:title" content="Using FreeIPA for User Authentication ">
+<meta name="twitter:description" content="After many years of using Using OpenLDAP for User Authentication, and Using Kerberos 5 for Single Sign-On Authentication, it was time to look at FreeIPA as a way of streamlining everything. Important Note: You will want to have FreeIPA on it’s own system (whether this is a virtual machine …">
 
-        <title>Using FreeIPA for User Authentication  · Annvix
+        <title>Using FreeIPA for User Authentication  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,45 +80,42 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/using_freeipa_for_user_authentication.html"> Using FreeIPA for User Authentication  </a></h1>
+    <h1><a href="https://vdanen.github.io/using_freeipa_for_user_authentication"> Using FreeIPA for User&nbsp;Authentication  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>After many years of using <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">Using OpenLDAP for User Authentication</a>, and <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication" title="Using Kerberos 5 for Single Sign-On Authentication">Using Kerberos 5 for Single Sign-On Authentication</a>, it was time to look at <a rel="nofollow" class="external text" href="http://freeipa.org">FreeIPA</a> as a way of streamlining everything.
-</p>
-<p><b>Important Note:</b> You <i>will</i> want to have FreeIPA on it's own system (whether this is a virtual machine using something like KVM, or dedicated hardware).  Making FreeIPA try to place nice with existing services (like Apache, etc) will lead to copious amounts of frustration!
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
 <li class="toclevel-1 tocsection-1"><a href="#Pre-requisites"><span class="tocnumber">1</span> <span class="toctext">Pre-requisites</span></a>
 <ul>
-<li class="toclevel-2 tocsection-2"><a href="#Network_Changes"><span class="tocnumber">1.1</span> <span class="toctext">Network Changes</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="#Network_Changes"><span class="tocnumber">1.1</span> <span class="toctext">Network Changes</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-3"><a href="#Configuring_the_IPA_Server"><span class="tocnumber">2</span> <span class="toctext">Configuring the IPA Server</span></a>
+<li class="toclevel-1 tocsection-3"><a href="#Configuring_the_IPA_Server"><span class="tocnumber">2</span> <span class="toctext">Configuring the <span class="caps">IPA</span> Server</span></a>
 <ul>
-<li class="toclevel-2 tocsection-4"><a href="#Post-installation_Configuration"><span class="tocnumber">2.1</span> <span class="toctext">Post-installation Configuration</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Adding_Users"><span class="tocnumber">2.2</span> <span class="toctext">Adding Users</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Adding_Services"><span class="tocnumber">2.3</span> <span class="toctext">Adding Services</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Post-installation_Configuration"><span class="tocnumber">2.1</span> <span class="toctext">Post-installation Configuration</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Adding_Users"><span class="tocnumber">2.2</span> <span class="toctext">Adding Users</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Adding_Services"><span class="tocnumber">2.3</span> <span class="toctext">Adding Services</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-7"><a href="#Configuring_IPA_Clients"><span class="tocnumber">3</span> <span class="toctext">Configuring IPA Clients</span></a>
+<li class="toclevel-1 tocsection-7"><a href="#Configuring_IPA_Clients"><span class="tocnumber">3</span> <span class="toctext">Configuring <span class="caps">IPA</span> Clients</span></a>
 <ul>
-<li class="toclevel-2 tocsection-8"><a href="#Red_Hat_Enterprise_Linux_.2F_CentOS"><span class="tocnumber">3.1</span> <span class="toctext">Red Hat Enterprise Linux / CentOS</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Red_Hat_Enterprise_Linux_.2F_CentOS"><span class="tocnumber">3.1</span> <span class="toctext">Red Hat Enterprise Linux / CentOS</span></a></li>
 <li class="toclevel-2 tocsection-9"><a href="#Fedora"><span class="tocnumber">3.2</span> <span class="toctext">Fedora</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="#Mac_OS_X_10.7.2F10.8"><span class="tocnumber">3.3</span> <span class="toctext">Mac OS X 10.7/10.8</span></a>
+<li class="toclevel-2 tocsection-10"><a href="#Mac_OS_X_10.7.2F10.8"><span class="tocnumber">3.3</span> <span class="toctext">Mac <span class="caps">OS</span> X 10.7/10.8</span></a>
 <ul>
-<li class="toclevel-3 tocsection-11"><a href="#Kerberos_Setup"><span class="tocnumber">3.3.1</span> <span class="toctext">Kerberos Setup</span></a></li>
-<li class="toclevel-3 tocsection-12"><a href="#IPA_Enrollment"><span class="tocnumber">3.3.2</span> <span class="toctext">IPA Enrollment</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Kerberos_Setup"><span class="tocnumber">3.3.1</span> <span class="toctext">Kerberos Setup</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#IPA_Enrollment"><span class="tocnumber">3.3.2</span> <span class="toctext"><span class="caps">IPA</span> Enrollment</span></a></li>
 <li class="toclevel-3 tocsection-13"><a href="#Directory_Utility_Setup"><span class="tocnumber">3.3.3</span> <span class="toctext">Directory Utility Setup</span></a>
 <ul>
-<li class="toclevel-4 tocsection-14"><a href="#User_Mapping"><span class="tocnumber">3.3.3.1</span> <span class="toctext">User Mapping</span></a></li>
-<li class="toclevel-4 tocsection-15"><a href="#Group_Mapping"><span class="tocnumber">3.3.3.2</span> <span class="toctext">Group Mapping</span></a></li>
-<li class="toclevel-4 tocsection-16"><a href="#Creating_Home_Directories"><span class="tocnumber">3.3.3.3</span> <span class="toctext">Creating Home Directories</span></a></li>
-<li class="toclevel-4 tocsection-17"><a href="#System_Preferences:_Login"><span class="tocnumber">3.3.3.4</span> <span class="toctext">System Preferences: Login</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="#User_Mapping"><span class="tocnumber">3.3.3.1</span> <span class="toctext">User Mapping</span></a></li>
+<li class="toclevel-4 tocsection-15"><a href="#Group_Mapping"><span class="tocnumber">3.3.3.2</span> <span class="toctext">Group Mapping</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="#Creating_Home_Directories"><span class="tocnumber">3.3.3.3</span> <span class="toctext">Creating Home Directories</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#System_Preferences:_Login"><span class="tocnumber">3.3.3.4</span> <span class="toctext">System Preferences: Login</span></a></li>
 </ul>
 </li>
 </ul>
@@ -116,66 +126,74 @@
 <ul>
 <li class="toclevel-2 tocsection-19"><a href="#Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Server"><span class="tocnumber">4.1</span> <span class="toctext">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Server</span></a>
 <ul>
-<li class="toclevel-3 tocsection-20"><a href="#Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Client"><span class="tocnumber">4.1.1</span> <span class="toctext">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Client</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Client"><span class="tocnumber">4.1.1</span> <span class="toctext">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Client</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-21"><a href="#Setting_up_a_Kerberized_AFP_Server"><span class="tocnumber">5</span> <span class="toctext">Setting up a Kerberized AFP Server</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Setting_up_a_Kerberized_AFP_Server"><span class="tocnumber">5</span> <span class="toctext">Setting up a Kerberized <span class="caps">AFP</span> Server</span></a></li>
 <li class="toclevel-1 tocsection-22"><a href="#Browser_Configuration"><span class="tocnumber">6</span> <span class="toctext">Browser Configuration</span></a>
 <ul>
 <li class="toclevel-2 tocsection-23"><a href="#Firefox"><span class="tocnumber">6.1</span> <span class="toctext">Firefox</span></a></li>
-<li class="toclevel-2 tocsection-24"><a href="#Google_Chrome_.2F_Chromium"><span class="tocnumber">6.2</span> <span class="toctext">Google Chrome / Chromium</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Google_Chrome_.2F_Chromium"><span class="tocnumber">6.2</span> <span class="toctext">Google Chrome / Chromium</span></a></li>
 <li class="toclevel-2 tocsection-25"><a href="#Safari"><span class="tocnumber">6.3</span> <span class="toctext">Safari</span></a></li>
 </ul>
 </li>
 <li class="toclevel-1 tocsection-26"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
-<li class="toclevel-1 tocsection-27"><a href="#Revision_History"><span class="tocnumber">8</span> <span class="toctext">Revision History</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#Revision_History"><span class="tocnumber">8</span> <span class="toctext">Revision History</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <p>After many years of using <a href="/Using_OpenLDAP_for_User_Authentication" title="Using OpenLDAP for User Authentication">Using OpenLDAP for User Authentication</a>, and <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication" title="Using Kerberos 5 for Single Sign-On Authentication">Using Kerberos 5 for Single Sign-On Authentication</a>, it was time to look at <a class="external text" href="http://freeipa.org" rel="nofollow">FreeIPA</a> as a way of streamlining everything.
+</p>
+<p><b>Important Note:</b> You <i>will</i> want to have FreeIPA on it’s own system (whether this is a virtual machine using something like <span class="caps">KVM</span>, or dedicated hardware).  Making FreeIPA try to place nice with existing services (like Apache, etc) will lead to copious amounts of frustration!
+</p>
 
 <h2><span class="mw-headline" id="Pre-requisites">Pre-requisites</span></h2>
-<p>This install is done on CentOS 6.3 with IPA 2.2.0 (which is what comes with CentOS 6).  The first thing that needs to be done is for the IPA server to be installed on the system that you intend to have as the IPA master:
+<p>This install is done on CentOS 6.3 with <span class="caps">IPA</span> 2.2.0 (which is what comes with CentOS 6).  The first thing that needs to be done is for the <span class="caps">IPA</span> server to be installed on the system that you intend to have as the <span class="caps">IPA</span> master:
 </p>
 <pre>
 # yum install ipa-server
 </pre>
-<p>This will result in quite a lot of packages being installed, if you did not elect to install the IPA server during the initial system install.
+<p>This will result in quite a lot of packages being installed, if you did not elect to install the <span class="caps">IPA</span> server during the initial system install.
 </p>
-<h3><span class="mw-headline" id="Network_Changes">Network Changes</span></h3>
-<p>You must also change the network configuration.  By default, NetworkManager may be managing the network interfaces.  You do not want this!  You need to change the networking to not use NetworkManager (and use the regular network service).  This can done via:
+<h3><span class="mw-headline" id="Network_Changes">Network Changes</span></h3>
+<p>You must also change the network configuration.  By default, NetworkManager may be managing the network interfaces.  You do not want this!  You need to change the networking to not use NetworkManager (and use the regular network service).  This can done via:
 </p>
 <pre>
 # chkconfig NetworkManager off; service NetworkManager stop
 # chkconfig network on; service network start
 </pre>
-<p>Before doing this, you may need to modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/network-scripts/ifcfg-eth0</span> and change:
+<p>Before doing this, you may need to modify <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/network-scripts/ifcfg-eth0</span> and change:
 </p>
 <pre>
-NM_CONTROLLED=&quot;yes&quot;
+NM_CONTROLLED="yes"
 </pre>
 <p>to:
 </p>
 <pre>
-NM_CONTROLLED=&quot;no&quot;
+NM_CONTROLLED="no"
 </pre>
-<p>Finally, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> and ensure that the IPA server address is listed.  This is required for Apache to work properly:
+<p>Finally, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/hosts</span> and ensure that the <span class="caps">IPA</span> server address is listed.  This is required for Apache to work properly:
 </p>
 <pre>
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 192.168.0.10 ipa.linsec.ca ipa
 </pre>
-<h2><span class="mw-headline" id="Configuring_the_IPA_Server">Configuring the IPA Server</span></h2>
-<p>The next step is to start the server configuration process.  The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-server-install</span> program is used to set everything up.  It's interactive, but essentially it configures a stand-alone CA (dogtag) for certificate management, configures <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ntpd</span> which is important for Kerberos, configures the directory server (which uses the 389 Directory Server rather than OpenLDAP), configures the KDC, and also configures Apache.
+<h2><span class="mw-headline" id="Configuring_the_IPA_Server">Configuring the <span class="caps">IPA</span> Server</span></h2>
+<p>The next step is to start the server configuration process.  The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-server-install</span> program is used to set everything up.  It’s interactive, but essentially it configures a stand-alone <span class="caps">CA</span> (dogtag) for certificate management, configures <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ntpd</span> which is important for Kerberos, configures the directory server (which uses the 389 Directory Server rather than OpenLDAP), configures the <span class="caps">KDC</span>, and also configures Apache.
 </p>
-<p>The things you will need to know pre-install:
+<p>The things you will need to know pre-install:
 </p>
-<ul><li> the fully qualified domain name of the server (example: ipa.linsec.ca; note this must be resolvable forwards and backwards!)</li>
-<li> the Kerberos realm name (example: LINSEC.CA)</li>
-<li> the directory manager password (similar to a root password, but for the Directory Server)</li>
-<li> the IPA server admin password (like the above)</li></ul>
-<p>That is all you need to begin with.  Below is a transcript of the entire process:
+<ul><li> the fully qualified domain name of the server (example: ipa.linsec.ca; note this must be resolvable forwards and backwards!)</li>
+<li> the Kerberos realm name (example: <span class="caps">LINSEC</span>.<span class="caps">CA</span>)</li>
+<li> the directory manager password (similar to a root password, but for the Directory Server)</li>
+<li> the <span class="caps">IPA</span> server admin password (like the above)</li></ul>
+<p>That is all you need to begin with.  Below is a transcript of the entire process:
 </p>
 <pre>
 # ipa-server-install
@@ -367,15 +385,15 @@ This file is required to create replicas. The password for this
 file is the Directory Manager password
 #
 </pre>
-<p>And that's all there is to setting it up.   Next, there are a few things to clean-up.
+<p>And that’s all there is to setting it up.   Next, there are a few things to clean-up.
 </p>
-<h3><span class="mw-headline" id="Post-installation_Configuration">Post-installation Configuration</span></h3>
-<p>If you have not configured BIND already, notice that during the installation <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-server-install</span> spit out this notice:
+<h3><span class="mw-headline" id="Post-installation_Configuration">Post-installation Configuration</span></h3>
+<p>If you have not configured <span class="caps">BIND</span> already, notice that during the installation <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-server-install</span> spit out this notice:
 </p>
 <pre>
 Sample zone file for bind has been created in /tmp/sample.zone.QBsBwU.db
 </pre>
-<p>The contents of this file contain:
+<p>The contents of this file contain:
 </p>
 <pre>
 $ORIGIN linsec.ca.
@@ -407,11 +425,11 @@ _kpasswd._udp       IN SRV 0 100 464    ipa
 ;ntp server
 _ntp._udp       IN SRV 0 100 123    ipa
 </pre>
-<p>If you're not running BIND already, it's sufficient to use this file alone.  If you already have a BIND server setup, you will need to include these LDAP/Kerberos/NTP-related lines in your existing zone file.
+<p>If you’re not running <span class="caps">BIND</span> already, it’s sufficient to use this file alone.  If you already have a <span class="caps">BIND</span> server setup, you will need to include these <span class="caps">LDAP</span>/Kerberos/<span class="caps">NTP</span>-related lines in your existing zone file.
 </p>
-<p>Essentially, these are the records that define the services provided by the IPA server so that they can be found via DNS.  All the service (SRV) records include the service name (_kerberos) and protocol (tcp) as well as the port (so port 389 for LDAP, 88 for Kerberos, etc.) and then the host that answers (ipa, in this case).  BIND must be restarted after either adding this temporary file, or cutting-and-pasting the relevant parts to your own configuration file.
+<p>Essentially, these are the records that define the services provided by the <span class="caps">IPA</span> server so that they can be found via <span class="caps">DNS</span>.  All the service (<span class="caps">SRV</span>) records include the service name (_kerberos) and protocol (tcp) as well as the port (so port 389 for <span class="caps">LDAP</span>, 88 for Kerberos, etc.) and then the host that answers (ipa, in this case).  <span class="caps">BIND</span> must be restarted after either adding this temporary file, or cutting-and-pasting the relevant parts to your own configuration file.
 </p>
-<p>Next, test that you can obtain a Kerberos ticket:
+<p>Next, test that you can obtain a Kerberos ticket:
 </p>
 <pre>
 # kinit admin
@@ -423,9 +441,9 @@ Default principal: admin@LINSEC.CA
 Valid starting     Expires            Service principal
 12/09/12 14:23:22  12/10/12 14:23:18  krbtgt/LINSEC.CA@LINSEC.CA
 </pre>
-<p>If you get output similar to the above, the Kerberos aspect of IPA is working properly.  Note that the password you provided during the install for the IPA administrator is the password you would use here.  Also note that when you are making any changes to IPA (via the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa</span> commandline tool), you must have a valid Kerberos ticket.
+<p>If you get output similar to the above, the Kerberos aspect of <span class="caps">IPA</span> is working properly.  Note that the password you provided during the install for the <span class="caps">IPA</span> administrator is the password you would use here.  Also note that when you are making any changes to <span class="caps">IPA</span> (via the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa</span> commandline tool), you must have a valid Kerberos ticket.
 </p>
-<p>You must also make sure that these ports are open in your iptables configuration.  Edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/iptables</span> and ensure the following is set:
+<p>You must also make sure that these ports are open in your iptables configuration.  Edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/iptables</span> and ensure the following is set:
 </p>
 <pre>
 # for IPA
@@ -441,16 +459,16 @@ Valid starting     Expires            Service principal
 </pre>
 <p>Once you have made the changes, remember to issue <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">service iptables restart</span>.
 </p>
-<h3><span class="mw-headline" id="Adding_Users">Adding Users</span></h3>
-<p>The next step would be to add users to IPA.  This allows you to authenticate against the IPA system -- without a user account, you can't login to a system that uses IPA for authentication.
+<h3><span class="mw-headline" id="Adding_Users">Adding Users</span></h3>
+<p>The next step would be to add users to <span class="caps">IPA</span>.  This allows you to authenticate against the <span class="caps">IPA</span> system — without a user account, you can’t login to a system that uses <span class="caps">IPA</span> for authentication.
 </p>
-<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa</span> tool provides a lot of functionality, one of which is to add users.  Because I'm replacing an OpenLDAP directory, I've already got some defaults that are in use on my systems, so I want to be able to specify the shell and a specific UID/GID.  <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa</span> lets me do so.
+<p>The <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa</span> tool provides a lot of functionality, one of which is to add users.  Because I’m replacing an OpenLDAP directory, I’ve already got some defaults that are in use on my systems, so I want to be able to specify the shell and a specific <span class="caps">UID</span>/<span class="caps">GID</span>.  <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa</span> lets me do so.
 </p>
 <pre>
-# ipa user-add vdanen --first=Vincent --last=Danen --cn=&quot;Vincent Danen&quot; \
-  --displayname=&quot;Vincent Danen&quot; --shell=/bin/zsh --uid=1001 --gid=1001
+# ipa user-add vdanen --first=Vincent --last=Danen --cn="Vincent Danen" \
+  --displayname="Vincent Danen" --shell=/bin/zsh --uid=1001 --gid=1001
 -------------------
-Added user &quot;vdanen&quot;
+Added user "vdanen"
 -------------------
   User login: vdanen
   First name: Vincent
@@ -471,15 +489,15 @@ Try `ipa --help` for a list of global options.
 New Password:
 Enter New Password again to verify:
 ---------------------------------------
-Changed password for &quot;vdanen@LINSEC.CA&quot;
+Changed password for "vdanen@LINSEC.CA"
 ---------------------------------------
 </pre>
-<h3><span class="mw-headline" id="Adding_Services">Adding Services</span></h3>
-<p>IPA clients are added to the directory by enrolling them.  Operating systems that do not have the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> program (like OS X), will need to follow the steps in the <a href="#Configuring_IPA_Clients">#Configuring IPA Clients</a> section to enroll properly.
+<h3><span class="mw-headline" id="Adding_Services">Adding Services</span></h3>
+<p><span class="caps">IPA</span> clients are added to the directory by enrolling them.  Operating systems that do not have the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> program (like <span class="caps">OS</span> X), will need to follow the steps in the <a href="#Configuring_IPA_Clients">#Configuring <span class="caps">IPA</span> Clients</a> section to enroll properly.
 </p>
-<p>The enrolment only adds hosts, and thus only generates the keytab for the host, which is fine for things like SSH.  However, if you want to use mod_auth_kerb or something similar for Kerberos-authenticated HTTP/HTTPS, you will need to add a service.  The web UI for IPA 2.2.x is not very good for adding services, so it's off to the command-line again.
+<p>The enrolment only adds hosts, and thus only generates the keytab for the host, which is fine for things like <span class="caps">SSH</span>.  However, if you want to use mod_auth_kerb or something similar for Kerberos-authenticated <span class="caps">HTTP</span>/<span class="caps">HTTPS</span>, you will need to add a service.  The web <span class="caps">UI</span> for <span class="caps">IPA</span> 2.2.x is not very good for adding services, so it’s off to the command-line again.
 </p>
-<p>The first thing to do is to SSH into  the IPA server, using Kerberos authentication:
+<p>The first thing to do is to <span class="caps">SSH</span> into  the <span class="caps">IPA</span> server, using Kerberos authentication:
 </p>
 <pre>
 $ kinit
@@ -488,38 +506,38 @@ $ ssh ipa.linsec.ca
 $ kinit admin
 Password for admin@LINSEC.CA:
 </pre>
-<p>Now you are authenticated to IPA as the admin Kerberos principal and can use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa</span> program to configure things.
+<p>Now you are authenticated to <span class="caps">IPA</span> as the admin Kerberos principal and can use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa</span> program to configure things.
 </p>
-<p>To add an HTTP service, use:
+<p>To add an <span class="caps">HTTP</span> service, use:
 </p>
 <pre>
 $ ipa service-add HTTP/intranet.linsec.ca
 ---------------------------------------------
-Added service &quot;HTTP/intranet.linsec.ca@LINSEC.CA&quot;
+Added service "HTTP/intranet.linsec.ca@LINSEC.CA"
 ---------------------------------------------
   Principal: HTTP/thor.linsec.ca@LINSEC.CA
   Managed by: thor.linsec.ca
 $ ipa-getkeytab -s ipa.linsec.ca -p HTTP/intranet.linsec.ca -k ~/http.keytab
 Keytab successfully retrieved and stored in: /home/vdanen/http.keytab
 </pre>
-<p>The hostname in question must already be enrolled with IPA, so you will need to use the server's fully qualified domain name.  Once the service is created and the keytab exported, copy the file to the server in question.
+<p>The hostname in question must already be enrolled with <span class="caps">IPA</span>, so you will need to use the server’s fully qualified domain name.  Once the service is created and the keytab exported, copy the file to the server in question.
 </p>
-<p>This will work for other services as well: LDAP, NFS, etc.
+<p>This will work for other services as well: <span class="caps">LDAP</span>, <span class="caps">NFS</span>, etc.
 </p>
-<p>As an aside, there is a fantastic write-up on how to use MediaWiki with FreeIPA: <a rel="nofollow" class="external text" href="http://freeipa.org/page/Setting_up_MediaWiki_to_run_against_FreeIPA">Setting up MediaWiki to run against FreeIPA</a>.  I highly recommend this, even if it's not for setting up a MediaWiki instance (the nice thing with MediaWiki is you can make it use your kerberos credentials).  It also details how to create an SSL certificate for a web service, which you can use the IPA CA (DogTag) to manage.  By default, the instructions use mod_nss versus mod_ssl, which was a little strange as I've never used mod_nss before, but it seems to work quite well.
+<p>As an aside, there is a fantastic write-up on how to use MediaWiki with FreeIPA: <a class="external text" href="http://freeipa.org/page/Setting_up_MediaWiki_to_run_against_FreeIPA" rel="nofollow">Setting up MediaWiki to run against FreeIPA</a>.  I highly recommend this, even if it’s not for setting up a MediaWiki instance (the nice thing with MediaWiki is you can make it use your kerberos credentials).  It also details how to create an <span class="caps">SSL</span> certificate for a web service, which you can use the <span class="caps">IPA</span> <span class="caps">CA</span> (DogTag) to manage.  By default, the instructions use mod_nss versus mod_ssl, which was a little strange as I’ve never used mod_nss before, but it seems to work quite well.
 </p>
-<h2><span class="mw-headline" id="Configuring_IPA_Clients">Configuring IPA Clients</span></h2>
-<p>How you configure the IPA clients depends on the client operating system.
+<h2><span class="mw-headline" id="Configuring_IPA_Clients">Configuring <span class="caps">IPA</span> Clients</span></h2>
+<p>How you configure the <span class="caps">IPA</span> clients depends on the client operating system.
 </p>
-<h3><span class="mw-headline" id="Red_Hat_Enterprise_Linux_.2F_CentOS">Red Hat Enterprise Linux / CentOS</span></h3>
-<p>These instructions work for Red Hat Enterprise Linux 5, 6, and 7 (and the equivalent versions of CentOS).
+<h3><span class="mw-headline" id="Red_Hat_Enterprise_Linux_.2F_CentOS">Red Hat Enterprise Linux / CentOS</span></h3>
+<p>These instructions work for Red Hat Enterprise Linux 5, 6, and 7 (and the equivalent versions of CentOS).
 </p>
-<p>The first thing you need to do is install the <span style="color: #7a0a7f; font-weight: bold;">ipa-client</span> package:
+<p>The first thing you need to do is install the <span style="color: #7a0a7f; font-weight: bold;">ipa-client</span> package:
 </p>
 <pre>
 # yum install ipa-client
 </pre>
-<p>Then you need to run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> program:
+<p>Then you need to run the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> program:
 </p>
 <pre>
 # ipa-client-install --hostname=foo.linsec.ca
@@ -529,7 +547,6 @@ Realm: LINSEC.CA
 DNS Domain: linsec.ca
 IPA Server: ipa.linsec.ca
 BaseDN: dc=linsec,dc=ca
-
 
 Continue to configure the system with these values? [no]: yes
 User authorized to enroll computers: admin
@@ -545,9 +562,9 @@ SSSD enabled
 NTP enabled
 Client configuration complete.
 </pre>
-<p>You can verify the enrolment in the IPA web UI, under <b>Identity</b>, then <b>Hosts</b>.  You should see the newly enrolled server here, and if you click on it you should see things like the MAC address, the SSH pubkeys of the server, and whether or not it was setup with a kerberos host.
+<p>You can verify the enrolment in the <span class="caps">IPA</span> web <span class="caps">UI</span>, under <b>Identity</b>, then <b>Hosts</b>.  You should see the newly enrolled server here, and if you click on it you should see things like the <span class="caps">MAC</span> address, the <span class="caps">SSH</span> pubkeys of the server, and whether or not it was setup with a kerberos host.
 </p>
-<p>As well, on the server, you can do:
+<p>As well, on the server, you can do:
 </p>
 <pre>
 # ipa host-find foo
@@ -583,11 +600,11 @@ Number of entries returned 1
 # ipa-client-install --hostname=fedora.linsec.ca
 ...
 </pre>
-<h3><span class="mw-headline" id="Mac_OS_X_10.7.2F10.8">Mac OS X 10.7/10.8</span></h3>
-<p>Unlike with Fedora or Red Hat Enterprise Linux (and variants), there is no <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> tool written for OS X, so the process is quite manual and very similar to that outlined in <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication#Setting_up_a_Mac_OS_X_Client" title="Using Kerberos 5 for Single Sign-On Authentication">Using Kerberos for Single Sign-On Authentication</a>, except that we will attempt to configure OS X to handle everything that a Linux client would, not just Kerberos.
+<h3><span class="mw-headline" id="Mac_OS_X_10.7.2F10.8">Mac <span class="caps">OS</span> X 10.7/10.8</span></h3>
+<p>Unlike with Fedora or Red Hat Enterprise Linux (and variants), there is no <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-client-install</span> tool written for <span class="caps">OS</span> X, so the process is quite manual and very similar to that outlined in <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication#Setting_up_a_Mac_OS_X_Client" title="Using Kerberos 5 for Single Sign-On Authentication">Using Kerberos for Single Sign-On Authentication</a>, except that we will attempt to configure <span class="caps">OS</span> X to handle everything that a Linux client would, not just Kerberos.
 </p>
-<h4><span class="mw-headline" id="Kerberos_Setup">Kerberos Setup</span></h4>
-<p>First, you need to enable Kerberos support, which is done by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/Preferences/edu.mit.Kerberos</span>, and it should look like:
+<h4><span class="mw-headline" id="Kerberos_Setup">Kerberos Setup</span></h4>
+<p>First, you need to enable Kerberos support, which is done by editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Library/Preferences/edu.mit.Kerberos</span>, and it should look like:
 </p>
 <pre>
 [domain_realm]
@@ -609,7 +626,7 @@ Number of entries returned 1
         pkinit_anchors = FILE:/etc/ipa/ca.crt
     }
 </pre>
-<p>Next, you need to download the ca.crt from the IPA server:
+<p>Next, you need to download the ca.crt from the <span class="caps">IPA</span> server:
 </p>
 <pre>
 # sudo su -
@@ -618,8 +635,8 @@ Number of entries returned 1
 # cd ipa
 # curl -OL http://ipa.linsec.ca/ipa/config/ca.crt
 </pre>
-<p>The one thing to note is that you will almost definitely need to set "allow_weak_crypto = yes", unfortunately.
-The next step is to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span>. This is done instead of editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span> as was done in the past. OS X now uses PAM to handle Kerberos authentication, and has the required pam_krb5 module already noted. A working <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span> file follows:
+<p>The one thing to note is that you will almost definitely need to set “allow_weak_crypto = yes”, unfortunately.
+The next step is to edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span>. This is done instead of editing <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/authorization</span> as was done in the past. <span class="caps">OS</span> X now uses <span class="caps">PAM</span> to handle Kerberos authentication, and has the required pam_krb5 module already noted. A working <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/pam.d/authorization</span> file follows:
 </p>
 <pre>
 # authorization: auth account
@@ -629,23 +646,23 @@ auth       optional       pam_ntlm.so use_first_pass
 auth       required       pam_opendirectory.so use_first_pass nullok
 account    required       pam_opendirectory.so
 </pre>
-<p>This will allow you to kinit on the system and access kerberized services.  By adding "default_principal" and calling pam_krb5.so <i>twice</i> you ensure that you get a Kerberos ticket when you log in.  Otherwise the system will authenticate against Kerberos with your password, but will <i>not</i> obtain a ticket.
+<p>This will allow you to kinit on the system and access kerberized services.  By adding “default_principal” and calling pam_krb5.so <i>twice</i> you ensure that you get a Kerberos ticket when you log in.  Otherwise the system will authenticate against Kerberos with your password, but will <i>not</i> obtain a ticket.
 </p>
-<p><b>NOTE:</b> there is one really annoying caveat here, as noted in <a rel="nofollow" class="external text" href="http://tech.its.iastate.edu/macosx/howtos/kerberized-login.shtml">IOWA State University's Kerberized Login</a> document (or the <a rel="nofollow" class="external text" href="http://tech.its.iastate.edu/macosx/bugs/lion-pam-kerberos.shtml">bug report</a> in particular).  If you call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> from the commandline, the login window will <i>not</i> grant a new ticket on subsequent logins.  If you never call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> from the commandline, then the login window will always obtain the ticket for you.  If you do happen to call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> on the commandline, make sure you also call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kdestroy</span> before you log out.
+<p><b><span class="caps">NOTE</span>:</b> there is one really annoying caveat here, as noted in <a class="external text" href="http://tech.its.iastate.edu/macosx/howtos/kerberized-login.shtml" rel="nofollow"><span class="caps">IOWA</span> State University’s Kerberized Login</a> document (or the <a class="external text" href="http://tech.its.iastate.edu/macosx/bugs/lion-pam-kerberos.shtml" rel="nofollow">bug report</a> in particular).  If you call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> from the commandline, the login window will <i>not</i> grant a new ticket on subsequent logins.  If you never call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> from the commandline, then the login window will always obtain the ticket for you.  If you do happen to call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kinit</span> on the commandline, make sure you also call <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">kdestroy</span> before you log out.
 </p>
-<p>Safari, out of the box, supports kerberos tickets.  Google Chrome <i>does</i> support Kerberos tickets, but only if you call it with the --auth-server argument.  One simple way to do this is to create an AppleScript that calls Google Chrome appropriately:
+<p>Safari, out of the box, supports kerberos tickets.  Google Chrome <i>does</i> support Kerberos tickets, but only if you call it with the —auth-server argument.  One simple way to do this is to create an AppleScript that calls Google Chrome appropriately:
 </p>
 <pre>
 $ cat ~/bin/Kerberized-Chrome.applescript
-do shell script &quot;open -n -a 'Google Chrome.app' --args --auth-server-whitelist='*linsec.ca' \
-  --user-data-dir=/Users/${USER}/Library/Application\\ Support/Google/kerberized&quot;
+do shell script "open -n -a 'Google Chrome.app' --args --auth-server-whitelist='*linsec.ca' \
+  --user-data-dir=/Users/${USER}/Library/Application\\ Support/Google/kerberized"
 </pre>
-<p>Firefox can be configured the same on OS X as it is on other platforms, see <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication#Configure_Firefox_to_use_Kerberos" title="Using Kerberos 5 for Single Sign-On Authentication">Configuring Firefox to use Kerberos</a> for details.
+<p>Firefox can be configured the same on <span class="caps">OS</span> X as it is on other platforms, see <a href="/Using_Kerberos_5_for_Single_Sign-On_Authentication#Configure_Firefox_to_use_Kerberos" title="Using Kerberos 5 for Single Sign-On Authentication">Configuring Firefox to use Kerberos</a> for details.
 </p>
-<h4><span class="mw-headline" id="IPA_Enrollment">IPA Enrollment</span></h4>
-<p>Because we cannot enroll the system into IPA the easy way, we need to visit the web UI and add a new host.  In the IPA web UI, go the <b>Identity</b> and then the <b>Hosts</b> page.  Click the "Add" button, where you will need to add the fully qualified domain name of the host (e.g. mac.linsec.ca), and then click the "Add and Edit" button.  You don't need to add much here, other than the MAC address of the system, and the SSH public keys, which can be found in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh_host_dsa_key.pub</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh_host_rsa_key.pub</span>.  The Ethernet MAC address can be found via either <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ifconfig</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span>.
+<h4><span class="mw-headline" id="IPA_Enrollment"><span class="caps">IPA</span> Enrollment</span></h4>
+<p>Because we cannot enroll the system into <span class="caps">IPA</span> the easy way, we need to visit the web <span class="caps">UI</span> and add a new host.  In the <span class="caps">IPA</span> web <span class="caps">UI</span>, go the <b>Identity</b> and then the <b>Hosts</b> page.  Click the “Add” button, where you will need to add the fully qualified domain name of the host (e.g. mac.linsec.ca), and then click the “Add and Edit” button.  You don’t need to add much here, other than the <span class="caps">MAC</span> address of the system, and the <span class="caps">SSH</span> public keys, which can be found in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh_host_dsa_key.pub</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/ssh_host_rsa_key.pub</span>.  The Ethernet <span class="caps">MAC</span> address can be found via either <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ifconfig</span> or <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span>.
 </p>
-<p>This, unfortunately, does not generate a keytab file for the host, so on the server, using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-getkeytab</span> program, we will create an obtain the keytab for our new host:
+<p>This, unfortunately, does not generate a keytab file for the host, so on the server, using the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">ipa-getkeytab</span> program, we will create an obtain the keytab for our new host:
 </p>
 <pre>
 # ipa-getkeytab -s ipa.linsec.ca -p host/mac.linsec.ca -k ~/mac.keytab
@@ -660,65 +677,61 @@ Keytab successfully retrieved and stored in: ~/mac.keytab
   Keytab: True
   Managed by: mac.linsec.ca
 </pre>
-<p>The key here is we want to use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">host/[FQDN]</span> as the kerberos principal.
+<p>The key here is we want to use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">host/[<span class="caps">FQDN</span>]</span> as the kerberos principal.
 </p>
-<p>Incidentally, you can add the host from the command line using <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa host-add</span> as well, but with the web UI you can cut and paste the SSH pubkeys.
+<p>Incidentally, you can add the host from the command line using <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">ipa host-add</span> as well, but with the web <span class="caps">UI</span> you can cut and paste the <span class="caps">SSH</span> pubkeys.
 </p>
-<p>Now that the keytab is generated, just copy it from the server to the new workstation and place it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.keytab</span>.  Make sure the file is owned by the user root and group wheel (root:wheel) and is mode 0600.
+<p>Now that the keytab is generated, just copy it from the server to the new workstation and place it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/krb5.keytab</span>.  Make sure the file is owned by the user root and group wheel (root:wheel) and is mode 0600.
 </p>
-<h4><span class="mw-headline" id="Directory_Utility_Setup">Directory Utility Setup</span></h4>
-<p>This one is a bit of a bear to get right.  The <a rel="nofollow" class="external text" href="http://freeipa.org/docs/1.2/Client_Setup_Guide/en-US/html/sect-Client_Configuration_Guide-Configuring_Macintosh_OS_X_as_an_IPA_Client-Configuring_LDAP_Authorization.html">FreeIPA documentation on OS X Client Configuration</a> is out-dated (written for OS X 10.4), and the Fedora documentation has absolutely nothing about OS X clients.
+<h4><span class="mw-headline" id="Directory_Utility_Setup">Directory Utility Setup</span></h4>
+<p>This one is a bit of a bear to get right.  The <a class="external text" href="http://freeipa.org/docs/1.2/Client_Setup_Guide/en-US/html/sect-Client_Configuration_Guide-Configuring_Macintosh_OS_X_as_an_IPA_Client-Configuring_LDAP_Authorization.html" rel="nofollow">FreeIPA documentation on <span class="caps">OS</span> X Client Configuration</a> is out-dated (written for <span class="caps">OS</span> X 10.4), and the Fedora documentation has absolutely nothing about <span class="caps">OS</span> X clients.
 </p>
-<p>As we've already seen, setting up OS X is a pretty manual affair and getting the LDAP lookups to work correctly is no different.
+<p>As we’ve already seen, setting up <span class="caps">OS</span> X is a pretty manual affair and getting the <span class="caps">LDAP</span> lookups to work correctly is no different.
 </p>
-<p>To begin, launch <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Directory Utility</span>.  On the <b>Services</b> pane will be three service names: Active Directory, LDAPv3, and NIS.  After authenticating (click the padlock), click the "LDAPv3" line to highlight it, then click the little pencil icon to edit.
+<p>To begin, launch <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Directory Utility</span>.  On the <b>Services</b> pane will be three service names: Active Directory, LDAPv3, and <span class="caps">NIS</span>.  After authenticating (click the padlock), click the “LDAPv3” line to highlight it, then click the little pencil icon to edit.
 </p>
-<p>Click the "New..." button and enter the IPA server name in the "Server Name or IP Address" field.  Make sure that "Encrypt using SSL" is unchecked, as well as the "Use for contacts" (you could, optionally, use the LDAP directory for contact information but the point of this particular exercise is for authentication, so at this point turn it off).
+<p>Click the “New…” button and enter the <span class="caps">IPA</span> server name in the “Server Name or <span class="caps">IP</span> Address” field.  Make sure that “Encrypt using <span class="caps">SSL</span>” is unchecked, as well as the “Use for contacts” (you could, optionally, use the <span class="caps">LDAP</span> directory for contact information but the point of this particular exercise is for authentication, so at this point turn it off).
 </p>
-<p>You should be back at the option list.  Enter "IPA LDAP" for the configuration name, and select "Custom" for the LDAP Mappings.  Make sure the SSL checkbox is <i>not</i> checked.  Now highlight the new entry and click the "Edit..." button.
+<p>You should be back at the option list.  Enter “<span class="caps">IPA</span> <span class="caps">LDAP</span>” for the configuration name, and select “Custom” for the <span class="caps">LDAP</span> Mappings.  Make sure the <span class="caps">SSL</span> checkbox is <i>not</i> checked.  Now highlight the new entry and click the “Edit…” button.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Ipa-pic1.jpg" class="img-responsive" /></center></p>
-<p>Under the "Connection" tab, change a few of the defaults:
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Ipa-pic1.jpg"/></center></p>
+<p>Under the “Connection” tab, change a few of the defaults:
 </p>
-<ul><li> Open/close times out in <b>10</b> seconds</li>
-<li> Query times out in <b>10</b> seconds</li>
-<li> Connection idles out in <b>1</b> minutes</li></ul>
-<p>Unfortunately, at least in OS X 10.8, you cannot change the re-bind attempts timeout from the default of 120 seconds; you can change it in OS X 10.7, so if using that version set it to 10s as well.  Also ensure that SSL encryption and the custom port are unchecked.
+<ul><li> Open/close times out in <b>10</b> seconds</li>
+<li> Query times out in <b>10</b> seconds</li>
+<li> Connection idles out in <b>1</b> minutes</li></ul>
+<p>Unfortunately, at least in <span class="caps">OS</span> X 10.8, you cannot change the re-bind attempts timeout from the default of 120 seconds; you can change it in <span class="caps">OS</span> X 10.7, so if using that version set it to 10s as well.  Also ensure that <span class="caps">SSL</span> encryption and the custom port are unchecked.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Ipa-pic2.jpg" class="img-responsive" /></center></p>
-<h5><span class="mw-headline" id="User_Mapping">User Mapping</span></h5>
-<p>Under the "Search &amp; Mappings" tab, you will need to add a few record types and attributes.  In the first pane, click the "Add..." button and add the Record Type of "Users".   This should show up in the first pane, so in the second pane click the "Add..." button and you'll have an entry field.  Type in <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">inetOrgPerson</span> here and press enter or click outside of the edit box.
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Ipa-pic2.jpg"/></center></p>
+<h5><span class="mw-headline" id="User_Mapping">User Mapping</span></h5>
+<p>Under the “Search <span class="amp">&amp;</span> Mappings” tab, you will need to add a few record types and attributes.  In the first pane, click the “Add…” button and add the Record Type of “Users”.   This should show up in the first pane, so in the second pane click the “Add…” button and you’ll have an entry field.  Type in <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">inetOrgPerson</span> here and press enter or click outside of the edit box.
 </p>
-<p>Now you should be able to define the Search base near the bottom of the window; set it to <b>dc=linsec,dc=ca</b> or whatever the search base might be (e.g. dc=example,dc=com, etc.) and make sure the "all subtrees" radio button is selected.
+<p>Now you should be able to define the Search base near the bottom of the window; set it to <b>dc=linsec,dc=ca</b> or whatever the search base might be (e.g. dc=example,dc=com, etc.) and make sure the “all subtrees” radio button is selected.
 </p>
-<p>Click on "Users" in the first pane and then click the "Add..." button.  We will be adding  a number of Attribute Types and setting the associated map, similar to how we mapped "Users" to "inetOrgPerson".  The Attribute Types and their respective values are noted below:
+<p>Click on “Users” in the first pane and then click the “Add…” button.  We will be adding  a number of Attribute Types and setting the associated map, similar to how we mapped “Users” to “inetOrgPerson”.  The Attribute Types and their respective values are noted below:
 </p>
 <ul><li> AuthenticationAuthority: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">uid</span></li>
 <li> HomeDirectory: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">#/Users/$uid$</span></li>
-<li> NFSHomeDirectory: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">#/Users/$uid$</span> (NOTE: odd as it sounds, this seems to be required, even if you're not using NFS)</li>
+<li> NFSHomeDirectory: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">#/Users/$uid$</span> (<span class="caps">NOTE</span>: odd as it sounds, this seems to be required, even if you’re not using <span class="caps">NFS</span>)</li>
 <li> PrimaryGroupID: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">gidNumber</span></li>
 <li> RealName: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">cn</span></li>
 <li> RecordName: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">uid</span></li>
 <li> UniqueID: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">uidNumber</span></li>
 <li> UserShell: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">loginShell</span></li></ul>
-<p>For the above you, you have a choice for the <b>HomeDirectory</b> and <b>NFSHomeDirectory</b> options.  If you use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">homeDirectory</span> for both, it will map to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/[user]</span> which is fine for automounted home directories (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/</span> is an automount on OS X).  However, if you want a <i>local</i> directory on the machine for the user (not an automounted/shared home directory), use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">#/Users/$uid$</span> instead.
+<p>For the above you, you have a choice for the <b>HomeDirectory</b> and <b>NFSHomeDirectory</b> options.  If you use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">homeDirectory</span> for both, it will map to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/[user]</span> which is fine for automounted home directories (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/home/</span> is an automount on <span class="caps">OS</span> X).  However, if you want a <i>local</i> directory on the machine for the user (not an automounted/shared home directory), use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">#/Users/$uid$</span> instead.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Ipa-pic3.jpg" class="img-responsive" /></center></p>
-<p>Once this is done, click the "OK" button to save and return to the server list.  Click "OK" again and head to the <b>Search Policy</b> pane.  In the "Authentication" page, click the "+" button and add your new LDAP server definition (e.g. "/LDAPv3/ipa.linsec.ca").  It will show up after the "/Local/Default" domain.  Make sure that the "Search" field is set to "Custom path".
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Ipa-pic3.jpg"/></center></p>
+<p>Once this is done, click the “<span class="caps">OK</span>” button to save and return to the server list.  Click “<span class="caps">OK</span>” again and head to the <b>Search Policy</b> pane.  In the “Authentication” page, click the “+” button and add your new <span class="caps">LDAP</span> server definition (e.g. “/LDAPv3/ipa.linsec.ca”).  It will show up after the “/Local/Default” domain.  Make sure that the “Search” field is set to “Custom path”.
 </p>
-<p>Now move to the <b>Directory Editor</b> pane.  If everything is setup correctly, you should see a list of users pulled from the IPA server's LDAP directory on the right.  If you click one of the user names, you should see a pane full of name and value pairs, which is what OS X is mapping locally from the directory server.  The items in grey are the static bits that OS X generates, and the names starting with "dsAttrTypeNative:" are the un-mapped bits from the LDAP directory.  You should see quite a few of them, including kerberos principal name, password policy references, the "dsAttrTypeNative:ipaUniqueID", and so on.  More importantly, you should see at the top various bits that are being mapped properly.
+<p>Now move to the <b>Directory Editor</b> pane.  If everything is setup correctly, you should see a list of users pulled from the <span class="caps">IPA</span> server’s <span class="caps">LDAP</span> directory on the right.  If you click one of the user names, you should see a pane full of name and value pairs, which is what <span class="caps">OS</span> X is mapping locally from the directory server.  The items in grey are the static bits that <span class="caps">OS</span> X generates, and the names starting with “dsAttrTypeNative:” are the un-mapped bits from the <span class="caps">LDAP</span> directory.  You should see quite a few of them, including kerberos principal name, password policy references, the “dsAttrTypeNative:ipaUniqueID”, and so on.  More importantly, you should see at the top various bits that are being mapped properly.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Ipa-pic4.jpg" class="img-responsive" /></center></p>
-<p>To see the results of your changes without rebooting, go to the Terminal and use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dscacheutil</span> to empty the cache which will allow it to pick up the changes:
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Ipa-pic4.jpg"/></center></p>
+<p>To see the results of your changes without rebooting, go to the Terminal and use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dscacheutil</span> to empty the cache which will allow it to pick up the changes:
 </p>
 <pre>
 $ dscacheutil -flushcache
 </pre>
-<p>Next, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dscacheutil</span> to do a lookup to make sure that the user is actually found:
+<p>Next, use <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">dscacheutil</span> to do a lookup to make sure that the user is actually found:
 </p>
 <pre>
 $ dscacheutil -q user -a name vdanen
@@ -730,18 +743,17 @@ dir: /Users/vdanen
 shell: /bin/zsh
 gecos: Vincent Danen
 </pre>
-<h5><span class="mw-headline" id="Group_Mapping">Group Mapping</span></h5>
-<p>Now that the user information is present, the last step is to setup the groups (from the above, you can see that the group names are missing).  Once again, in <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Directory Utility</span> you want to go to the "Search &amp; Mappings" pane and this time add a "Groups" record type, which should map to "posixgroup".  There are only a few attributes to add under the Groups record type:
+<h5><span class="mw-headline" id="Group_Mapping">Group Mapping</span></h5>
+<p>Now that the user information is present, the last step is to setup the groups (from the above, you can see that the group names are missing).  Once again, in <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">Directory Utility</span> you want to go to the “Search <span class="amp">&amp;</span> Mappings” pane and this time add a “Groups” record type, which should map to “posixgroup”.  There are only a few attributes to add under the Groups record type:
 </p>
 <ul><li> PrimaryGroupID: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">gidNumber</span></li>
 <li> RecordName: <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">cn</span></li></ul>
-<p>As with the Users record type, you will need to set the search base for groups.  Click the "Groups" record type and use <b>cn=groups,cn=accounts,dc=linsec,dc=ca</b> for the search base.
+<p>As with the Users record type, you will need to set the search base for groups.  Click the “Groups” record type and use <b>cn=groups,cn=accounts,dc=linsec,dc=ca</b> for the search base.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Ipa-pic5.jpg" class="img-responsive" /></center></p>
-<p>Click "OK" to save.  You can now go to the "Directory Editor" and select "Groups" from the "Viewing" pulldown menu and you should see all of the groups from your directory, just as you did for the users.   Should also see a lot of information in the Name/Value screen showing that the groups were properly found.
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Ipa-pic5.jpg"/></center></p>
+<p>Click “<span class="caps">OK</span>” to save.  You can now go to the “Directory Editor” and select “Groups” from the “Viewing” pulldown menu and you should see all of the groups from your directory, just as you did for the users.   Should also see a lot of information in the Name/Value screen showing that the groups were properly found.
 </p>
-<p>Once again, head back to the Terminal, flush the cache, and do a lookup:
+<p>Once again, head back to the Terminal, flush the cache, and do a lookup:
 </p>
 <pre>
 $ dscacheutil -flushcache
@@ -752,86 +764,86 @@ gid: 1001
 $ id vdanen
 uid=1001(vdanen) gid=1001(vdanen) groups=1001(vdanen),402(com.apple.sharepoint.group.1),12(everyone),62(netaccounts)
 </pre>
-<h5><span class="mw-headline" id="Creating_Home_Directories">Creating Home Directories</span></h5>
-<p>If you elected to have the home directory on the local system (using <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Users/[user]</span>), you have one further step to make.  OS X does not auto-create home directories for LDAP-based users, so you will need to create them yourself.  All you need to do is create the directory, upon first login, the rest will be populated:
+<h5><span class="mw-headline" id="Creating_Home_Directories">Creating Home Directories</span></h5>
+<p>If you elected to have the home directory on the local system (using <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Users/[user]</span>), you have one further step to make.  <span class="caps">OS</span> X does not auto-create home directories for <span class="caps">LDAP</span>-based users, so you will need to create them yourself.  All you need to do is create the directory, upon first login, the rest will be populated:
 </p>
 <pre>
 $ sudo su -
 # mkdir /Users/vdanen
 # chown vdanen:vdanen /Users/vdanen
 </pre>
-<p>The default group for local OS X users is <b>staff</b> which is not used with IPA.  So for remote users, you will want to use the user's group and private group as defined in IPA (usually the same name, like vdanen:vdanen).  So home directories, when created, will propagate group ownership; if you create the home directory as [user]:staff then all files beneath it will be owned [user]:staff; if you create it [user]:[group], then all files beneath the home directory will be created with the same ownership.
+<p>The default group for local <span class="caps">OS</span> X users is <b>staff</b> which is not used with <span class="caps">IPA</span>.  So for remote users, you will want to use the user’s group and private group as defined in <span class="caps">IPA</span> (usually the same name, like vdanen:vdanen).  So home directories, when created, will propagate group ownership; if you create the home directory as [user]:staff then all files beneath it will be owned [user]:staff; if you create it [user]:[group], then all files beneath the home directory will be created with the same ownership.
 </p>
-<p>So, when creating the home directory use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chown vdanen:vdanen</span> (or [user]:[group]) and then all files created beneath the directory will have the correct ownership.
+<p>So, when creating the home directory use <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">chown vdanen:vdanen</span> (or [user]:[group]) and then all files created beneath the directory will have the correct ownership.
 </p>
-<h5><span class="mw-headline" id="System_Preferences:_Login">System Preferences: Login</span></h5>
-<p>Finally, make a trip to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span>, in particular the <b>Users &amp; Groups</b> settings.  Click the "Login Options".  Here you will want to ensure that the following are set:
+<h5><span class="mw-headline" id="System_Preferences:_Login">System Preferences: Login</span></h5>
+<p>Finally, make a trip to <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">System Preferences</span>, in particular the <b>Users <span class="amp">&amp;</span> Groups</b> settings.  Click the “Login Options”.  Here you will want to ensure that the following are set:
 </p>
-<ul><li> Display login window as: Name and password (otherwise network users cannot login)</li>
-<li> Allow network users to log in at login window (checked, you can restrict to certain users by clicking "Options..."</li>
-<li> Network Account Server is set and has a green light (should display the IPA server's hostname)</li></ul>
-<h2><span class="mw-headline" id="Setting_up_Kerberized_NFSv4_Server">Setting up Kerberized NFSv4 Server</span></h2>
-<p>Setting up file sharing with NFSv4 is quite straightforward.  On the IPA server, you need to create a service entry and generate a keytab for the NFSv4 server:
+<ul><li> Display login window as: Name and password (otherwise network users cannot login)</li>
+<li> Allow network users to log in at login window (checked, you can restrict to certain users by clicking “Options…”</li>
+<li> Network Account Server is set and has a green light (should display the <span class="caps">IPA</span> server’s hostname)</li></ul>
+<h2><span class="mw-headline" id="Setting_up_Kerberized_NFSv4_Server">Setting up Kerberized NFSv4 Server</span></h2>
+<p>Setting up file sharing with NFSv4 is quite straightforward.  On the <span class="caps">IPA</span> server, you need to create a service entry and generate a keytab for the NFSv4 server:
 </p>
 <pre>
 # kinit admin
 Password for admin@LINSEC.CA:
 [root@ipa .ssh]# ipa service-add nfs/nfs.linsec.ca
 --------------------------------------------
-Added service &quot;nfs/nfs.linsec.ca@LINSEC.CA&quot;
+Added service "nfs/nfs.linsec.ca@LINSEC.CA"
 --------------------------------------------
   Principal: nfs/nfs.linsec.ca@LINSEC.CA
   Managed by: nfs.linsec.ca
 [root@ipa .ssh]# ipa-getkeytab -s ipa.linsec.ca -p nfs/nfs.linsec.ca -k ~/nfs.keytab
 Keytab successfully retrieved and stored in: /root/nfs.keytab
 </pre>
-<p>Copy this new keytab to the actual NFSv4 server and add it to the host keytab:
+<p>Copy this new keytab to the actual NFSv4 server and add it to the host keytab:
 </p>
 <pre>
-# (echo rkt ~/nfs.keytab&#160;; echo wkt /etc/krb5.keytab) | ktutil
+# (echo rkt ~/nfs.keytab ; echo wkt /etc/krb5.keytab) | ktutil
 # klist -k /etc/krb5.keytab
 </pre>
-<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> output should show both host and nfs entries for the system.
+<p>The <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">klist</span> output should show both host and nfs entries for the system.
 </p>
-<h3><span class="mw-headline" id="Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Server">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Server</span></h3>
-<p>If the server in question is running Fedora, Red Hat Enterprise Linux, or CentOS (and similar operating systems, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/nfs</span> and set:
+<h3><span class="mw-headline" id="Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Server">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Server</span></h3>
+<p>If the server in question is running Fedora, Red Hat Enterprise Linux, or CentOS (and similar operating systems, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/nfs</span> and set:
 </p>
 <pre>
-SECURE_NFS=&quot;yes&quot;
+SECURE_NFS="yes"
 </pre>
-<p>Create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/exports</span> file to contain:
+<p>Create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/exports</span> file to contain:
 </p>
 <pre>
 /export *(rw,sec=sys:krb5:krb5i:krb5p,fsid=0)
 /export/users *(rw,sec=sys:krb5:krb5i:krb5p,nohide)
 </pre>
-<p>And create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/export</span> directory.  In this example, we're going to make the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/srv/userfiles</span> directory available as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/export/users</span>:
+<p>And create the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/export</span> directory.  In this example, we’re going to make the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/srv/userfiles</span> directory available as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/export/users</span>:
 </p>
 <pre>
 # mkdir -p /export/users
 # chmod 1777 /export
 # mount --bind /srv/userfiles /export/users
-# echo &quot;/srv/userfiles     /export/users       none    bind        0 0&quot; &gt;&gt;/etc/fstab
+# echo "/srv/userfiles     /export/users       none    bind        0 0" &gt;&gt;/etc/fstab
 </pre>
-<p>(The last command is to make this persist across reboots via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/fstab</span>).  Configuring other aspects of the NFSv4 server is beyond the scope of this article; there are lots of docs about setting up an NFS server, including the article I wrote for TechRepublic: <a rel="nofollow" class="external text" href="http://www.techrepublic.com/blog/opensource/kerberos-authentication-with-nfsv4/1965">Kerberos Authentication with NFSv4</a> or a general NFSv4 setup guide from the <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/NFS">Archlinux wiki</a>.  Finally, start (or restart) the NFS service:
+<p>(The last command is to make this persist across reboots via <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/fstab</span>).  Configuring other aspects of the NFSv4 server is beyond the scope of this article; there are lots of docs about setting up an <span class="caps">NFS</span> server, including the article I wrote for TechRepublic: <a class="external text" href="http://www.techrepublic.com/blog/opensource/kerberos-authentication-with-nfsv4/1965" rel="nofollow">Kerberos Authentication with NFSv4</a> or a general NFSv4 setup guide from the <a class="external text" href="https://wiki.archlinux.org/index.php/NFS" rel="nofollow">Archlinux wiki</a>.  Finally, start (or restart) the <span class="caps">NFS</span> service:
 </p>
 <pre>
 # service nfs restart
 </pre>
-<h4><span class="mw-headline" id="Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Client">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Client</span></h4>
-<p>If the client system has not yet been enrolled with IPA, do that first.  Once that is done, simply edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/nfs</span> and set:
+<h4><span class="mw-headline" id="Configuring_a_Fedora.2FRed_Hat_Enterprise_Linux.2FCentOS_Client">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Client</span></h4>
+<p>If the client system has not yet been enrolled with <span class="caps">IPA</span>, do that first.  Once that is done, simply edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/sysconfig/nfs</span> and set:
 </p>
 <pre>
-SECURE_NFS=&quot;yes&quot;
+SECURE_NFS="yes"
 </pre>
-<p>Then start the appropriate services:
+<p>Then start the appropriate services:
 </p>
 <pre>
 # service rpcgssd start
 # service rpcbind start
 # service rpcidmapd start
 </pre>
-<p>Then, to see what exports are available from the NFS server:
+<p>Then, to see what exports are available from the <span class="caps">NFS</span> server:
 </p>
 <pre>
 # showmount -e nfs.linsec.ca:
@@ -839,102 +851,101 @@ SECURE_NFS=&quot;yes&quot;
 /export       *
 
 </pre>
-<p>Finally, to have the NFS directory mounted at boot, add to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/fstab</span>
+<p>Finally, to have the <span class="caps">NFS</span> directory mounted at boot, add to <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/fstab</span>
 </p>
 <pre>
 nfs.linsec.ca:/ /mnt/nfs nfs4 sec=krb5i,rw,proto=tcp,port=2049
 </pre>
-<h2><span class="mw-headline" id="Setting_up_a_Kerberized_AFP_Server">Setting up a Kerberized AFP Server</span></h2>
-<p>The AFP (Apple Filer Protocol) server will typically only be used by OS X clients.  While using NFSv4 is arguably better, AFP is easier to setup on both the client and the server.  First, install the <span style="color: #7a0a7f; font-weight: bold;">netatalk</span> package (this assumes you are setting up the AFP server on Linux):
+<h2><span class="mw-headline" id="Setting_up_a_Kerberized_AFP_Server">Setting up a Kerberized <span class="caps">AFP</span> Server</span></h2>
+<p>The <span class="caps">AFP</span> (Apple Filer Protocol) server will typically only be used by <span class="caps">OS</span> X clients.  While using NFSv4 is arguably better, <span class="caps">AFP</span> is easier to setup on both the client and the server.  First, install the <span style="color: #7a0a7f; font-weight: bold;">netatalk</span> package (this assumes you are setting up the <span class="caps">AFP</span> server on Linux):
 </p>
 <pre>
 # yum install netatalk
 </pre>
-<p>Next, create the service entry and obtain a service ticket.  For this example, we're going to assume that the server is also nfs.linsec.ca, so this will be providing both NFSv4 and AFP services.
+<p>Next, create the service entry and obtain a service ticket.  For this example, we’re going to assume that the server is also nfs.linsec.ca, so this will be providing both NFSv4 and <span class="caps">AFP</span> services.
 </p>
 <pre>
 # kinit admin
 Password for admin@LINSEC.CA:
 [root@ipa .ssh]# ipa service-add afpserver/nfs.linsec.ca
 --------------------------------------------
-Added service &quot;afpserver/nfs.linsec.ca@LINSEC.CA&quot;
+Added service "afpserver/nfs.linsec.ca@LINSEC.CA"
 --------------------------------------------
   Principal: afpserver/nfs.linsec.ca@LINSEC.CA
   Managed by: nfs.linsec.ca
 [root@ipa .ssh]# ipa-getkeytab -s ipa.linsec.ca -p afpserver/nfs.linsec.ca -k ~/afp.keytab
 Keytab successfully retrieved and stored in: /root/afp.keytab
 </pre>
-<p>Copy the keytab to the server and store it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/</span>.  Next, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/afpd.conf</span> and add the following to the bottom (on one line, wrapped for readability):
+<p>Copy the keytab to the server and store it in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/</span>.  Next, edit <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/afpd.conf</span> and add the following to the bottom (on one line, wrapped for readability):
 </p>
 <pre>
 - -tcp -uamlist uams_gss.so -k5service afpserver -k5realm LINSEC.CA
   -k5keytab /etc/netatalk/krb5.keytab  -fqdn nfs.linsec.ca:548
 </pre>
-<p>This tells <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">afpd</span> to use TCP-only, to use GSSAPI for authentication, provides the kerberos service name (afpserver), the kerberos realm (LINSEC.CA), the location of the keytab, and the fully qualified domain name of the server, and the port that <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">afpd</span> is listening to.
+<p>This tells <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">afpd</span> to use <span class="caps">TCP</span>-only, to use <span class="caps">GSSAPI</span> for authentication, provides the kerberos service name (afpserver), the kerberos realm (<span class="caps">LINSEC</span>.<span class="caps">CA</span>), the location of the keytab, and the fully qualified domain name of the server, and the port that <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">afpd</span> is listening to.
 </p>
-<p>Configure your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/AppleVolumes.default</span> to suit and (re)start the netatalk service.
+<p>Configure your <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/netatalk/AppleVolumes.default</span> to suit and (re)start the netatalk service.
 </p>
-<p><br />
+<p><br/>
 </p>
-<h2><span class="mw-headline" id="Browser_Configuration">Browser Configuration</span></h2>
+<h2><span class="mw-headline" id="Browser_Configuration">Browser Configuration</span></h2>
 <h3><span class="mw-headline" id="Firefox">Firefox</span></h3>
-<p>For the Firefox web browser, if you set <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.trusted-uris</span> to the domain, as per the documentation, it will work -- on Linux.  On OS X it does not; you must also tell Firefox to allow for delegation.  This means you will also need to set <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.using-native-gsslib</span> and <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.delegation-uris</span>, so it will look like:
+<p>For the Firefox web browser, if you set <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.trusted-uris</span> to the domain, as per the documentation, it will work — on Linux.  On <span class="caps">OS</span> X it does not; you must also tell Firefox to allow for delegation.  This means you will also need to set <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.using-native-gsslib</span> and <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">network.negotiate-auth.delegation-uris</span>, so it will look like:
 </p>
 <pre>
 network.negotiate-auth.delegation-uris: .linsec.ca
 network.negotiate-auth.gsslib: true
 network.negotiate-auth.trusted-uris: .linsec.ca
 </pre>
-<p>These can be set in the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">about:config</span> settings of the browser.
+<p>These can be set in the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">about:config</span> settings of the browser.
 </p>
-<h3><span class="mw-headline" id="Google_Chrome_.2F_Chromium">Google Chrome / Chromium</span></h3>
-<p>Note: prior to Chrome 101; the Allowlist noted below was Whitelist.</p>
-
-<p>Out of the box, Google Chrome must be told about any kerberos authentication and unfortunately it isn't exposed via the settings in the browser.  You will need to add some command-line options to Chrome (or Chromium) in order for this to work.  Using <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">--auth-server-allowlist</span> will work for most kerberos-enabled sites, however it will not properly authenticate against the IPA web service itself because it does not perform delegation.  In that case you will also need to add <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">--auth-negotiate-delegate-allowlist</span>.  For example, to write an AppleScript that will launch Chrome appropriately, use something like the following:
+<h3><span class="mw-headline" id="Google_Chrome_.2F_Chromium">Google Chrome / Chromium</span></h3>
+<p>Note: prior to Chrome 101; the Allowlist noted below was Whitelist.</p>
+<p>Out of the box, Google Chrome must be told about any kerberos authentication and unfortunately it isn’t exposed via the settings in the browser.  You will need to add some command-line options to Chrome (or Chromium) in order for this to work.  Using <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">—auth-server-allowlist</span> will work for most kerberos-enabled sites, however it will not properly authenticate against the <span class="caps">IPA</span> web service itself because it does not perform delegation.  In that case you will also need to add <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">—auth-negotiate-delegate-allowlist</span>.  For example, to write an AppleScript that will launch Chrome appropriately, use something like the following:
 </p>
 <pre>
-do shell script &quot;open -n -a 'Google Chrome.app' --args --auth-server-allowlist='*.linsec.ca' --auth-negotiate-delegate-allowlist='*.linsec.ca'; echo&quot;
+do shell script "open -n -a 'Google Chrome.app' --args --auth-server-allowlist='*.linsec.ca' --auth-negotiate-delegate-allowlist='*.linsec.ca'; echo"
 </pre>
-<p>And on Linux you can use a shellscript like the following:
+<p>And on Linux you can use a shellscript like the following:
 </p>
 <pre>
 #!/bin/sh
-/usr/bin/google-chrome &quot;--auth-serverallowlist=*.linsec.ca&quot;
+/usr/bin/google-chrome "--auth-serverallowlist=*.linsec.ca"
 </pre>
-<p>An alternative to the above is to configure the preference files to make the settings permanent.  On Linux, this is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/opt/chrome/policies/managed/organization-corp.json</span> with the following contents:
+<p>An alternative to the above is to configure the preference files to make the settings permanent.  On Linux, this is the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/etc/opt/chrome/policies/managed/organization-corp.json</span> with the following contents:
 </p>
 <pre>
-{ &quot;AuthServerAllowlist&quot;: &quot;*.linsec.ca&quot;,
-&quot;AuthNegotiateDelegateAllowlist&quot;: &quot;*.linsec.ca&quot; }
+{ "AuthServerAllowlist": "*.linsec.ca",
+"AuthNegotiateDelegateAllowlist": "*.linsec.ca" }
 </pre>
-<p>On OS X, you need to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Library/Preferences/com.google.Chrome.plist</span> file (it will be created after Google Chrome first runs).  By default it's a binary plist, so the easiest way to edit it is to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">defaults</span> program:
+<p>On <span class="caps">OS</span> X, you need to edit the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Library/Preferences/com.google.Chrome.plist</span> file (it will be created after Google Chrome first runs).  By default it’s a binary plist, so the easiest way to edit it is to use the <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">defaults</span> program:
 </p>
 <pre>
-$ defaults write com.google.Chrome AuthServerAllowlist &quot;*.linsec.ca&quot;
-$ defaults write com.google.Chrome AuthNegotiateDelegateAllowlist &quot;*.linsec.ca&quot;
+$ defaults write com.google.Chrome AuthServerAllowlist "*.linsec.ca"
+$ defaults write com.google.Chrome AuthNegotiateDelegateAllowlist "*.linsec.ca"
 </pre>
-<p>If you are using the Chromium browser, you would use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">org.chromium.Chromium</span> instead.
+<p>If you are using the Chromium browser, you would use <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">org.chromium.Chromium</span> instead.
 </p>
-<p>To see whether or not the configuration worked, you can look at the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">about:policy</span> page in the web browser.
+<p>To see whether or not the configuration worked, you can look at the <span style="font-family: courier; color: #7a4707; background-color: #e8e8e8; font-size: 13px; font-weight: bold;">about:policy</span> page in the web browser.
 </p>
 <h3><span class="mw-headline" id="Safari">Safari</span></h3>
-<p>At this time, at least with Safari 6.0.4, it does not look like it supports delegation.  So while Safari may work transparently with some kerberos-authenticated sites, for any sites that require delegation, Safari will not work (this includes the IPA web interface).  Safari does work, when the host operating system is properly configured, with web interfaces that do not require delegation (for instance, it may work with a site using Apache's mod_auth_kerb (such as MediaWiki), but will not with IPA).
+<p>At this time, at least with Safari 6.0.4, it does not look like it supports delegation.  So while Safari may work transparently with some kerberos-authenticated sites, for any sites that require delegation, Safari will not work (this includes the <span class="caps">IPA</span> web interface).  Safari does work, when the host operating system is properly configured, with web interfaces that do not require delegation (for instance, it may work with a site using Apache’s mod_auth_kerb (such as MediaWiki), but will not with <span class="caps">IPA</span>).
 </p>
 <h2><span class="mw-headline" id="References">References</span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="https://docs.fedoraproject.org/en-US/Fedora/17/html/FreeIPA_Guide/index.html">Fedora 17 FreeIPA Installation Guide</a></li>
-<li> <a rel="nofollow" class="external text" href="http://clc.its.psu.edu/UnivServices/itadmins/mac/kerbldaplogins">Logging in to Mac OS X using Kerberos and LDAP</a> (useful guide, but only to OS X 10.7)</li>
-<li> <a rel="nofollow" class="external text" href="http://freeipa.org/page/Setting_up_MediaWiki_to_run_against_FreeIPA">Setting up MediaWiki to run against FreeIPA</a> (also details generating and using SSL certs with mod_nss and the IPA Certificate Authority)</li>
-<li> <a rel="nofollow" class="external text" href="http://www.techrepublic.com/blog/opensource/kerberos-authentication-with-nfsv4/1965">Kerberos Authentication with NFSv4</a></li></ul>
-<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
+<ul><li> <a class="external text" href="https://docs.fedoraproject.org/en-US/Fedora/17/html/FreeIPA_Guide/index.html" rel="nofollow">Fedora 17 FreeIPA Installation Guide</a></li>
+<li> <a class="external text" href="http://clc.its.psu.edu/UnivServices/itadmins/mac/kerbldaplogins" rel="nofollow">Logging in to Mac <span class="caps">OS</span> X using Kerberos and <span class="caps">LDAP</span></a> (useful guide, but only to <span class="caps">OS</span> X 10.7)</li>
+<li> <a class="external text" href="http://freeipa.org/page/Setting_up_MediaWiki_to_run_against_FreeIPA" rel="nofollow">Setting up MediaWiki to run against FreeIPA</a> (also details generating and using <span class="caps">SSL</span> certs with mod_nss and the <span class="caps">IPA</span> Certificate Authority)</li>
+<li> <a class="external text" href="http://www.techrepublic.com/blog/opensource/kerberos-authentication-with-nfsv4/1965" rel="nofollow">Kerberos Authentication with NFSv4</a></li></ul>
+<h1><span class="mw-headline" id="Revision_History">Revision History</span></h1>
 <ul>
-<li> 05/16/2022 - update Chrome's kerberos key names
-<li> 12/04/2015 - using 'defaults write' is easier than editing plist files on OS X</li>
-<li> 06/23/2013 - permanent configuration files in Chrome/Chromium</li>
-<li> 05/30/2013 - add information on how to properly setup Chrome and Firefox</li>
-<li> 12/18/2012 - setting up a kerberized netatalk server on linux</li>
-<li> 12/15/2012 - add information on nfs client/server setup for linux</li>
-<li> 12/13/2012 - add information on group lookups on OS X, note how to obtain kerberos ticket at login on OS X</li>
-<li> 12/11/2012 - Initial article</li></ul>
+<li> 05/16/2022 - update Chrome’s kerberos key names
+<li> 12/04/2015 - using ‘defaults write’ is easier than editing plist files on <span class="caps">OS</span> X</li>
+<li> 06/23/2013 - permanent configuration files in Chrome/Chromium</li>
+<li> 05/30/2013 - add information on how to properly setup Chrome and Firefox</li>
+<li> 12/18/2012 - setting up a kerberized netatalk server on linux</li>
+<li> 12/15/2012 - add information on nfs client/server setup for linux</li>
+<li> 12/13/2012 - add information on group lookups on <span class="caps">OS</span> X, note how to obtain kerberos ticket at login on <span class="caps">OS</span> X</li>
+<li> 12/11/2012 - Initial article</li></li></ul>
             
 
 
@@ -1017,6 +1028,9 @@ $ defaults write com.google.Chrome AuthNegotiateDelegateAllowlist &quot;*.linsec
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

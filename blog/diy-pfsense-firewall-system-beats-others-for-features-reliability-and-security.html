@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="This week’s TechMail was DIY pfSense firewall system beats others for features, reliability, and security which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around. I’ve used quite a few, and for a long time when I was …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="techmail, firewall, Linux, " />
 
-<meta property="og:title" content="DIY pfSense firewall system beats others for features, reliability, and security "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security.html" />
-<meta property="og:description" content="This week&#39;s TechMail was DIY pfSense firewall system beats others for features, reliability, and security which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around. I&#39;ve used quite a few, and for a long time when I was developing Annvix …" />
+<meta property="og:title" content="DIY pfSense firewall system beats others for features, reliability, and security "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security" />
+<meta property="og:description" content="This week’s TechMail was DIY pfSense firewall system beats others for features, reliability, and security which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around. I’ve used quite a few, and for a long time when I was …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2009-12-10T22:00:00-07:00" />
-<meta name="twitter:title" content="DIY pfSense firewall system beats others for features, reliability, and security ">
-<meta name="twitter:description" content="This week&#39;s TechMail was DIY pfSense firewall system beats others for features, reliability, and security which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around. I&#39;ve used quite a few, and for a long time when I was developing Annvix …">
+<meta name="twitter:title" content="DIY pfSense firewall system beats others for features, reliability, and security ">
+<meta name="twitter:description" content="This week’s TechMail was DIY pfSense firewall system beats others for features, reliability, and security which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around. I’ve used quite a few, and for a long time when I was …">
 
-        <title>DIY pfSense firewall system beats others for features, reliability, and security  · Annvix
+        <title>DIY pfSense firewall system beats others for features, reliability, and security  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security.html">
-                DIY pfSense firewall system beats others for features, reliability, and security
+            <a href="https://vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security">
+                <span class="caps">DIY</span> pfSense firewall system beats others for features, reliability, and&nbsp;security
             </a>
         </h1>
     </header>
@@ -80,13 +93,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week's TechMail was <a href="http://blogs.techrepublic.com/opensource/?p=1110">DIY pfSense firewall system beats others for features, reliability, and security</a> which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around.  I've used quite a few, and for a long time when I was developing Annvix, used it as a firewall (using shorewall), but pfSense has so much slick awesomeness to it that once I found it and played with it, I've never looked back.  I've got a few pfSense firewalls out there for companies I've consulted for and being able to (securely) remotely administrate it, and all the cool add-ons and plugins you can stick in this thing make it absolutely wonderful.</p>
-<p>If I get a chance this weekend or next, I plan on installing freeradius on my pfSense box to use it in conjunction with my wireless.  Should be a fun thing to do.</p>
+            <p>This week&#8217;s TechMail was <a href="http://blogs.techrepublic.com/opensource/?p=1110"><span class="caps">DIY</span> pfSense firewall system beats others for features, reliability, and security</a> which takes a look at pfSense which is, in my opinion, one of the best open source firewall systems around.  I&#8217;ve used quite a few, and for a long time when I was developing Annvix, used it as a firewall (using shorewall), but pfSense has so much slick awesomeness to it that once I found it and played with it, I&#8217;ve never looked back.  I&#8217;ve got a few pfSense firewalls out there for companies I&#8217;ve consulted for and being able to (securely) remotely administrate it, and all the cool add-ons and plugins you can stick in this thing make it absolutely&nbsp;wonderful.</p>
+<p>If I get a chance this weekend or next, I plan on installing freeradius on my pfSense box to use it in conjunction with my wireless.  Should be a fun thing to&nbsp;do.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=DIY%20pfSense%20firewall%20system%20beats%20others%20for%20features%2C%20reliability%2C%20and%C2%A0security&url=https%3A//vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security&hashtags=techmail,firewall" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security&title=DIY%20pfSense%20firewall%20system%20beats%20others%20for%20features%2C%20reliability%2C%20and%C2%A0security&summary=This%20week%E2%80%99s%20TechMail%20was%20DIY%20pfSense%20firewall%20system%20beats%20others%20for%20features%2C%20reliability%2C%20and%20security%20which%20takes%20a%20look%20at%20pfSense%20which%20is%2C%20in%20my%20opinion%2C%20one%20of%20the%20best%20open%20source%20firewall%20systems%20around.%20%20I%E2%80%99ve%20used%20quite%20a%20few%2C%20and%20for%20a%20long%20time%20when%20I%20was%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/diy-pfsense-firewall-system-beats-others-for-features-reliability-and-security" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -97,22 +114,41 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/protect-your-privacy-with-little-snitch-for-mac" title="Protect your privacy with Little Snitch for Mac">Protect your privacy with Little Snitch for Mac</a></li>
+<li><a href="https://vdanen.github.io/blog/firewall-configuration-with-system-config-firewall" title="Firewall configuration with system-config-firewall">Firewall configuration with system-config-firewall</a></li>
+<li><a href="https://vdanen.github.io/blog/use-fail2ban-to-blacklist-ip-addresses-and-alert-you-to-attacks" title="Use Fail2ban to blacklist IP addresses and alert you to attacks">Use Fail2ban to blacklist IP addresses and alert you to attacks</a></li>
+<li><a href="https://vdanen.github.io/blog/use-apf-to-manage-your-firewall" title="Use APF to manage your firewall">Use APF to manage your firewall</a></li>
+<li><a href="https://vdanen.github.io/blog/enhance-security-on-your-mac-with-hands-off" title="Enhance security on your Mac with Hands Off!">Enhance security on your Mac with Hands Off!</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/dont-need-groupware-organize-your-life-with-osmo" title="Previous: Don’t need groupware? Organize your life with Osmo">Don’t need groupware? Organize your life with Osmo</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/cross-platform-dropbox-provides-easy-backups-and-file-syncing-between-computers" title="Next: Cross-platform Dropbox provides easy backups and file-syncing between computers">Cross-platform Dropbox provides easy backups and file-syncing between computers</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-12-10T22:00:00-07:00">Thu 10 December 2009</time>
+            <time itemprop="dateCreated" datetime="2009-12-10T22:00:00-07:00">Dec 10, 2009</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#firewall-ref">firewall
+                <li><a href="https://vdanen.github.io/tags#firewall-ref">firewall
                     <span class="superscript">8</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags.html#techmail-ref">techmail
+                <li><a href="https://vdanen.github.io/tags#techmail-ref">techmail
                     <span class="superscript">236</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -213,6 +249,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

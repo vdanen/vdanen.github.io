@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’ve been running FreeNAS as a file and application server for quite a while and love it. The FreeBSD jails are awesome for running applications like Plex or gitea in isolation. Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="freenas, Bsd, " />
 
-<meta property="og:title" content="Updating iocage jails in FreeNAS "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas.html" />
-<meta property="og:description" content="I&#39;ve been running FreeNAS as a file and application server for quite a while and love it. The FreeBSD jails are awesome for running applications like Plex or gitea in isolation. Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new stable version (actually …" />
+<meta property="og:title" content="Updating iocage jails in FreeNAS "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas" />
+<meta property="og:description" content="I’ve been running FreeNAS as a file and application server for quite a while and love it. The FreeBSD jails are awesome for running applications like Plex or gitea in isolation. Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2020-02-17T19:00:00-07:00" />
-<meta name="twitter:title" content="Updating iocage jails in FreeNAS ">
-<meta name="twitter:description" content="I&#39;ve been running FreeNAS as a file and application server for quite a while and love it. The FreeBSD jails are awesome for running applications like Plex or gitea in isolation. Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new stable version (actually …">
+<meta name="twitter:title" content="Updating iocage jails in FreeNAS ">
+<meta name="twitter:description" content="I’ve been running FreeNAS as a file and application server for quite a while and love it. The FreeBSD jails are awesome for running applications like Plex or gitea in isolation. Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new …">
 
-        <title>Updating iocage jails in FreeNAS  · Annvix
+        <title>Updating iocage jails in FreeNAS  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas.html">
-                Updating iocage jails in FreeNAS
+            <a href="https://vdanen.github.io/blog/updating-iocage-jails-in-freenas">
+                Updating iocage jails in&nbsp;FreeNAS
             </a>
         </h1>
     </header>
@@ -80,11 +93,11 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://vdanen.github.io/images/freenas.jpg"></p>
-<p>I've been running FreeNAS as a file and application server for quite a while and love it.  The FreeBSD jails are awesome for running applications like Plex or gitea in isolation.  Recently the base FreeBSD 11.2-RELEASE went end of life and 11.3-RELEASE was the new stable version (actually, it went EOL last October but I only realized it the other day).  Updates for packages can still be done within the jails, but upgrading the base jail can't be done from within the jail itself.</p>
-<p>Instructions are around on how to do it, however I like blogging things that I know I'll be coming back to and "consumer 1" for this blog is me.  If you're looking for a quick tutorial on how to upgrade the base jail on FreeNAS, then this may be of use to you.  Undoubtably it will be useful to future me.</p>
-<p>Unfortunately, as of the current FreeNAS 11.3-RELEASE this cannot be done in the GUI, so we need to resort to the shell.  Open a console or ssh into your FreeNAS server, to an account with sudo privileges, and get a list of jails:</p>
-<div class="highlight"><pre><span></span><code><span class="c">$ sudo iocage list</span>
+            <p><img alt="Image" src="https://vdanen.github.io/images/freenas.jpg" /></p>
+<p>I&#8217;ve been running FreeNAS as a file and application server for quite a while and love it.  The FreeBSD jails are awesome for running applications like Plex or gitea in isolation.  Recently the base FreeBSD 11.2-<span class="caps">RELEASE</span> went end of life and 11.3-<span class="caps">RELEASE</span> was the new stable version (actually, it went <span class="caps">EOL</span> last October but I only realized it the other day).  Updates for packages can still be done within the jails, but upgrading the base jail can&#8217;t be done from within the jail&nbsp;itself.</p>
+<p>Instructions are around on how to do it, however I like blogging things that I know I&#8217;ll be coming back to and &#8220;consumer 1&#8221; for this blog is me.  If you&#8217;re looking for a quick tutorial on how to upgrade the base jail on FreeNAS, then this may be of use to you.  Undoubtably it will be useful to future&nbsp;me.</p>
+<p>Unfortunately, as of the current FreeNAS 11.3-<span class="caps">RELEASE</span> this cannot be done in the <span class="caps">GUI</span>, so we need to resort to the shell.  Open a console or ssh into your FreeNAS server, to an account with sudo privileges, and get a list of&nbsp;jails:</p>
+<div class="highlight"><pre><span></span><span class="c">$ sudo iocage list</span>
 <span class="c">Password:</span>
 <span class="nb">+-----+-------------+-------+--------------+------+</span>
 <span class="c">| JID |    NAME     | STATE |   RELEASE    | IP4  |</span>
@@ -97,11 +110,12 @@
 <span class="nb">+-----+-------------+-------+--------------+------+</span>
 <span class="c">| 1   | plex        | up    | 11</span><span class="nt">.</span><span class="c">2</span><span class="nb">-</span><span class="c">RELEASE | DHCP |</span>
 <span class="nb">+-----+-------------+-------+--------------+------+</span>
-</code></pre></div>
+</pre></div>
 
-<p>On my system. the plex, gitea, and openproject jails were created quite some time ago and are running the 11.2-RELEASE version of FreeBSD.  The inkdrop jail was created recently using the 11.3-RELEASE template.  We'll upgrade the openproject jail first since that one means less to me than plex or gitea.</p>
-<p>The first step is to make sure it is at the latest patch release:</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">iocage</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">openproject</span>
+
+<p>On my system. the plex, gitea, and openproject jails were created quite some time ago and are running the 11.2-<span class="caps">RELEASE</span> version of FreeBSD.  The inkdrop jail was created recently using the 11.3-<span class="caps">RELEASE</span> template.  We&#8217;ll upgrade the openproject jail first since that one means less to me than plex or&nbsp;gitea.</p>
+<p>The first step is to make sure it is at the latest patch&nbsp;release:</p>
+<div class="highlight"><pre><span></span><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">iocage</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">openproject</span>
 <span class="n">Snapshot</span><span class="p">:</span><span class="w"> </span><span class="n">storage</span><span class="o">/</span><span class="n">iocage</span><span class="o">/</span><span class="n">jails</span><span class="o">/</span><span class="n">openproject</span><span class="err">@</span><span class="n">ioc_update_11</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">RELEASE</span><span class="o">-</span><span class="n">p15_2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">16</span><span class="n">_08</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="mi">35</span><span class="w"> </span><span class="n">created</span><span class="o">.</span>
 <span class="n">Updating</span><span class="w"> </span><span class="n">jail</span><span class="o">...</span>
 
@@ -121,10 +135,11 @@
 <span class="n">src</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="p">,</span><span class="w"> </span><span class="n">skipped</span>
 <span class="n">No</span><span class="w"> </span><span class="n">updates</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">install</span><span class="o">.</span>
 <span class="n">Run</span><span class="w"> </span><span class="s1">&#39;/tmp/tmpqduc4ubh fetch&#39;</span><span class="w"> </span><span class="n">first</span><span class="o">.</span>
-</code></pre></div>
+</pre></div>
 
-<p>When I did this first, update it looked like it created a snapshot.  I don't know if this is a feature or not (or I did something by accident?), but either way it's a good idea to make sure you have a current snapshot.  You can examine whether or not that is the case:</p>
-<div class="highlight"><pre><span></span><code><span class="c">$ sudo iocage snaplist openproject</span>
+
+<p>When I did this first, update it looked like it created a snapshot.  I don&#8217;t know if this is a feature or not (or I did something by accident?), but either way it&#8217;s a good idea to make sure you have a current snapshot.  You can examine whether or not that is the&nbsp;case:</p>
+<div class="highlight"><pre><span></span><span class="c">$ sudo iocage snaplist openproject</span>
 <span class="nb">+------------------------------------------------------+-----------------------+-------+-------+</span>
 <span class="c">|                         NAME                         |        CREATED        | RSIZE | USED  |</span>
 <span class="nb">+</span><span class="c">======================================================</span><span class="nb">+</span><span class="c">=======================</span><span class="nb">+</span><span class="c">=======</span><span class="nb">+</span><span class="c">=======</span><span class="nb">+</span>
@@ -136,12 +151,13 @@
 <span class="nb">+------------------------------------------------------+-----------------------+-------+-------+</span>
 <span class="c">| ioc_update_11</span><span class="nt">.</span><span class="c">2</span><span class="nb">-</span><span class="c">RELEASE</span><span class="nb">-</span><span class="c">p15_2020</span><span class="nb">-</span><span class="c">02</span><span class="nb">-</span><span class="c">16_08</span><span class="nb">-</span><span class="c">14</span><span class="nb">-</span><span class="c">35/root | Sun Feb 16  8:14 2020 | 2</span><span class="nt">.</span><span class="c">67G | 1</span><span class="nt">.</span><span class="c">44M |</span>
 <span class="nb">+------------------------------------------------------+-----------------------+-------+-------+</span>
-</code></pre></div>
+</pre></div>
 
-<p>If you do see your snapshots are out of date, you can create one using <code>sudo iocage snapshot openproject</code>.  It also appears that it creates a snapshot as part of the upgrade, but I personally wouldn't rely on the good will of computers and would create a snapshot anyways.</p>
-<p>The snapshots look current so we'll go ahead and do the upgrade to the new version.  This will take about 10 minutes and may interactively ask you to do things like merge or edit configuration files.  I note this not because it asked me for any of the three systems I upgraded, but because I had read elsewhere that it could happen.</p>
-<p>The output below is trimmed but you should get a sense of what to expect.  You need to specify the version to upgrade to (<code>11.3-RELEASE</code>) and the jail name (<code>openproject</code> in this case).  When you're asked about the the components that appear to be installed or not, and are asked whether it looks reasonable, answer <code>y</code> to continue (to be honest, I have no idea but it seemed reasonable enough to me!).</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">iocage</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="mf">11.3</span><span class="o">-</span><span class="n">RELEASE</span><span class="w"> </span><span class="n">openproject</span>
+
+<p>If you do see your snapshots are out of date, you can create one using <code>sudo iocage snapshot openproject</code>.  It also appears that it creates a snapshot as part of the upgrade, but I personally wouldn&#8217;t rely on the good will of computers and would create a snapshot&nbsp;anyways.</p>
+<p>The snapshots look current so we&#8217;ll go ahead and do the upgrade to the new version.  This will take about 10 minutes and may interactively ask you to do things like merge or edit configuration files.  I note this not because it asked me for any of the three systems I upgraded, but because I had read elsewhere that it could&nbsp;happen.</p>
+<p>The output below is trimmed but you should get a sense of what to expect.  You need to specify the version to upgrade to (<code>11.3-RELEASE</code>) and the jail name (<code>openproject</code> in this case).  When you&#8217;re asked about the the components that appear to be installed or not, and are asked whether it looks reasonable, answer <code>y</code> to continue (to be honest, I have no idea but it seemed reasonable enough to&nbsp;me!).</p>
+<div class="highlight"><pre><span></span><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">iocage</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="mf">11.3</span><span class="o">-</span><span class="n">RELEASE</span><span class="w"> </span><span class="n">openproject</span>
 <span class="n">src</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="p">,</span><span class="w"> </span><span class="n">skipped</span>
 <span class="n">Looking</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">update</span><span class="o">.</span><span class="n">FreeBSD</span><span class="o">.</span><span class="n">org</span><span class="w"> </span><span class="n">mirrors</span><span class="o">...</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">mirrors</span><span class="w"> </span><span class="n">found</span><span class="o">.</span>
 <span class="n">Fetching</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mf">11.2</span><span class="o">-</span><span class="n">RELEASE</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">update1</span><span class="o">.</span><span class="n">freebsd</span><span class="o">.</span><span class="n">org</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span>
@@ -173,15 +189,20 @@
 <span class="n">Installing</span><span class="w"> </span><span class="n">updates</span><span class="o">...</span><span class="w"> </span><span class="n">done</span><span class="o">.</span>
 
 <span class="n">openproject</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">upgraded</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">11.2</span><span class="o">-</span><span class="n">RELEASE</span><span class="o">-</span><span class="n">p15</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="mf">11.3</span><span class="o">-</span><span class="n">RELEASE</span><span class="o">-</span><span class="n">p6</span><span class="o">!</span>
-</code></pre></div>
+</pre></div>
 
-<p>When this is done, enter the jail using <code>sudo iocage console openproject</code> and run <code>pkg update &amp;&amp; pkg upgrade</code> to upgrade all of the packages inside.</p>
-<p>At this point you can use <code>sudo iocage list</code> to verify the release is as expected as well, or use the web UI to verify.  That's pretty much all there is to it.  Everything should work properly.  I successfully did this with all three jails with a minimum of fuss.</p>
+
+<p>When this is done, enter the jail using <code>sudo iocage console openproject</code> and run <code>pkg update &amp;&amp; pkg upgrade</code> to upgrade all of the packages&nbsp;inside.</p>
+<p>At this point you can use <code>sudo iocage list</code> to verify the release is as expected as well, or use the web <span class="caps">UI</span> to verify.  That&#8217;s pretty much all there is to it.  Everything should work properly.  I successfully did this with all three jails with a minimum of&nbsp;fuss.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Updating%20iocage%20jails%20in%C2%A0FreeNAS&url=https%3A//vdanen.github.io/blog/updating-iocage-jails-in-freenas&hashtags=freenas" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/updating-iocage-jails-in-freenas&title=Updating%20iocage%20jails%20in%C2%A0FreeNAS&summary=I%E2%80%99ve%20been%20running%20FreeNAS%20as%20a%20file%20and%20application%20server%20for%20quite%20a%20while%20and%20love%20it.%20%20The%20FreeBSD%20jails%20are%20awesome%20for%20running%20applications%20like%20Plex%20or%20gitea%20in%20isolation.%20%20Recently%20the%20base%20FreeBSD%2011.2-RELEASE%20went%20end%20of%20life%20and%2011.3-RELEASE%20was%20the%20new%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/updating-iocage-jails-in-freenas" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -192,19 +213,38 @@
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/virtualized-linux-guest-in-freenas-9-10-using-iohyve" title="Virtualized Linux guest in FreeNAS 9.10 using iohyve">Virtualized Linux guest in FreeNAS 9.10 using iohyve</a></li>
+<li><a href="https://vdanen.github.io/blog/migrate-plex-from-a-warden-jail-to-an-iocage-jail" title="Migrate plex from a warden jail to an iocage jail">Migrate plex from a warden jail to an iocage jail</a></li>
+<li><a href="https://vdanen.github.io/blog/using-letsencrypt-on-freenas" title="Using LetsEncrypt on FreeNAS">Using LetsEncrypt on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" title="Inkdrop with CouchDB on FreeNAS">Inkdrop with CouchDB on FreeNAS</a></li>
+<li><a href="https://vdanen.github.io/blog/upgrading-freenas-to-truenas-core" title="Upgrading FreeNAS to TrueNAS Core">Upgrading FreeNAS to TrueNAS Core</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/2019-a-retrospective-grit" title="Previous: 2019: A Retrospective - Grit">2019: A Retrospective - Grit</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/inkdrop-with-couchdb-on-freenas" title="Next: Inkdrop with CouchDB on FreeNAS">Inkdrop with CouchDB on FreeNAS</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2020-02-17T19:00:00-07:00">Mon 17 February 2020</time>
+            <time itemprop="dateCreated" datetime="2020-02-17T19:00:00-07:00">Feb 17, 2020</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#bsd-ref">Bsd</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#bsd-ref">Bsd</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#freenas-ref">freenas
+                <li><a href="https://vdanen.github.io/tags#freenas-ref">freenas
                     <span class="superscript">7</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -305,6 +345,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

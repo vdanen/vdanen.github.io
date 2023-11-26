@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="My one gripe a few months ago about OS X was the lack of sshfs and fuse support… I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn’t work on OS X (sshfs absolutely rocks …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Macos, " />
 
-<meta property="og:title" content="MacFUSE and sshfs "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/macfuse-and-sshfs.html" />
-<meta property="og:description" content="My one gripe a few months ago about OS X was the lack of sshfs and fuse support... I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn&#39;t work on OS X (sshfs absolutely rocks!). Anyways …" />
+<meta property="og:title" content="MacFUSE and sshfs "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/macfuse-and-sshfs" />
+<meta property="og:description" content="My one gripe a few months ago about OS X was the lack of sshfs and fuse support… I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn’t work on OS X (sshfs absolutely rocks …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-01-30T10:18:00-07:00" />
-<meta name="twitter:title" content="MacFUSE and sshfs ">
-<meta name="twitter:description" content="My one gripe a few months ago about OS X was the lack of sshfs and fuse support... I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn&#39;t work on OS X (sshfs absolutely rocks!). Anyways …">
+<meta name="twitter:title" content="MacFUSE and sshfs ">
+<meta name="twitter:description" content="My one gripe a few months ago about OS X was the lack of sshfs and fuse support… I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn’t work on OS X (sshfs absolutely rocks …">
 
-        <title>MacFUSE and sshfs  · Annvix
+        <title>MacFUSE and sshfs  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/macfuse-and-sshfs.html">
-                MacFUSE and sshfs
+            <a href="https://vdanen.github.io/blog/macfuse-and-sshfs">
+                MacFUSE and&nbsp;sshfs
             </a>
         </h1>
     </header>
@@ -80,16 +93,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>My one gripe a few months ago about OS X was the lack of sshfs and fuse support... I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn't work on OS X (sshfs absolutely rocks!).  Anyways, the fine folks at Google have created <a href="http://code.google.com/p/macfuse/">MacFUSE</a> and I got around to installing it this morning.  Very slick.  Unfortunately, the sshfs.app that you can use with it doesn't have a very nice frontend, and this other GUI frontend I found called <a href="http://jan.prima.de/SecureRemoteDisk.html">Secure Remote Disk</a> is only marginally better.</p>
-<p>Reading a thread on the PathFinder forums (sshfs volumes don't show up as volumes in PathFinder yet although they do in the Finder), I saw a shellscript posted that was a little better than the quicky I whipped up, so it inspired me to write an even better one that puts these GUI apps to shame (I think).</p>
-<p>You can grab it here: <a href="http://linsec.ca/files/sshfsmount">sshfsmount</a>.  Save it to disk, make it executable, and put it somewhere like ~/bin or /usr/local/bin.  The options are pretty straightforward, use "sshfsmount -h" to get help.</p>
-<p>Others would ask for donations (ala the Secure Remote Disk fellow), but it took me maybe 20 minutes to whip this up, so I won't ask for any donations.  <em>However</em>, if you do feel like donating, I won't stop you.  =)  Hit <a href="http://linsec.ca/">the main page</a> for a PayPal button if you're so inclined.</p>
-<p>Oh, and I suppose this would work as a login item and can probably be called via applescript to mount multiple sshfs mount points at login although I haven't tried.</p>
+            <p>My one gripe a few months ago about <span class="caps">OS</span> X was the lack of sshfs and fuse support&#8230; I wrote about this for a TechRepublic tip quite a few months ago and when I did I was pretty ticked that it didn&#8217;t work on <span class="caps">OS</span> X (sshfs absolutely rocks!).  Anyways, the fine folks at Google have created <a href="http://code.google.com/p/macfuse/">MacFUSE</a> and I got around to installing it this morning.  Very slick.  Unfortunately, the sshfs.app that you can use with it doesn&#8217;t have a very nice frontend, and this other <span class="caps">GUI</span> frontend I found called <a href="http://jan.prima.de/SecureRemoteDisk.html">Secure Remote Disk</a> is only marginally&nbsp;better.</p>
+<p>Reading a thread on the PathFinder forums (sshfs volumes don&#8217;t show up as volumes in PathFinder yet although they do in the Finder), I saw a shellscript posted that was a little better than the quicky I whipped up, so it inspired me to write an even better one that puts these <span class="caps">GUI</span> apps to shame (I&nbsp;think).</p>
+<p>You can grab it here: <a href="http://linsec.ca/files/sshfsmount">sshfsmount</a>.  Save it to disk, make it executable, and put it somewhere like ~/bin or /usr/local/bin.  The options are pretty straightforward, use &#8220;sshfsmount -h&#8221; to get&nbsp;help.</p>
+<p>Others would ask for donations (ala the Secure Remote Disk fellow), but it took me maybe 20 minutes to whip this up, so I won&#8217;t ask for any donations.  <em>However</em>, if you do feel like donating, I won&#8217;t stop you.  =)  Hit <a href="http://linsec.ca/">the main page</a> for a PayPal button if you&#8217;re so&nbsp;inclined.</p>
+<p>Oh, and I suppose this would work as a login item and can probably be called via applescript to mount multiple sshfs mount points at login although I haven&#8217;t&nbsp;tried.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=MacFUSE%20and%C2%A0sshfs&url=https%3A//vdanen.github.io/blog/macfuse-and-sshfs" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/macfuse-and-sshfs&title=MacFUSE%20and%C2%A0sshfs&summary=My%20one%20gripe%20a%20few%20months%20ago%20about%20OS%20X%20was%20the%20lack%20of%20sshfs%20and%20fuse%20support%E2%80%A6%20I%20wrote%20about%20this%20for%20a%20TechRepublic%20tip%20quite%20a%20few%20months%20ago%20and%20when%20I%20did%20I%20was%20pretty%20ticked%20that%20it%20didn%E2%80%99t%20work%20on%20OS%20X%20%28sshfs%20absolutely%20rocks%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/macfuse-and-sshfs" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -100,13 +117,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/feb-1st-the-day-to-quit-smoking" title="Previous: Feb 1st… the day to quit smoking">Feb 1st… the day to quit smoking</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/port-forwarding-with-shorewall" title="Next: Port forwarding with shorewall">Port forwarding with shorewall</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-01-30T10:18:00-07:00">Tue 30 January 2007</time>
+            <time itemprop="dateCreated" datetime="2007-01-30T10:18:00-07:00">Jan 30, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -207,6 +232,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

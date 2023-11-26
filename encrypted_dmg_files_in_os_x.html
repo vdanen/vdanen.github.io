@@ -11,21 +11,34 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Making an encrypted DMG file (a mountable filesystem that most software for the Mac is distributed with) is extremely simple. The ability to mount these filesystems comes with the OS, using the Disk Copy application. There are many ways of creating an encrypted DMG file in OS X; one is …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 
-<meta property="og:title" content="Encrypted DMG Files in OS X "/>
-<meta property="og:url" content="https://vdanen.github.io/encrypted_dmg_files_in_os_x.html" />
+<meta property="og:title" content="Encrypted DMG Files in OS X "/>
+<meta property="og:url" content="https://vdanen.github.io/encrypted_dmg_files_in_os_x" />
 <meta property="og:description" content="Making an encrypted DMG file (a mountable filesystem that most software for the Mac is distributed with) is extremely simple. The ability to mount these filesystems comes with the OS, using the Disk Copy application. There are many ways of creating an encrypted DMG file in OS X; one is …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2008-03-25T14:00:00-06:00" />
-<meta name="twitter:title" content="Encrypted DMG Files in OS X ">
+<meta name="twitter:title" content="Encrypted DMG Files in OS X ">
 <meta name="twitter:description" content="Making an encrypted DMG file (a mountable filesystem that most software for the Mac is distributed with) is extremely simple. The ability to mount these filesystems comes with the OS, using the Disk Copy application. There are many ways of creating an encrypted DMG file in OS X; one is …">
 
-        <title>Encrypted DMG Files in OS X  · Annvix
+        <title>Encrypted DMG Files in OS X  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -49,12 +62,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -67,42 +80,46 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://vdanen.github.io/encrypted_dmg_files_in_os_x.html"> Encrypted DMG Files in OS X  </a></h1>
+    <h1><a href="https://vdanen.github.io/encrypted_dmg_files_in_os_x"> Encrypted <span class="caps">DMG</span> Files in <span class="caps">OS</span>&nbsp;X  </a></h1>
     </header>
 </div>
 
 <div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            <p>Making an encrypted DMG file (a mountable filesystem that most software for the Mac is distributed with) is extremely simple. The ability to mount these filesystems comes with the OS, using the Disk Copy application. There are many ways of creating an encrypted DMG file in OS X; one is to use the bundled Disk Copy tool and the other is to use the shareware program <a rel="nofollow" class="external text" href="http://www.c-command.com/dropdmg/">DropDMG</a>. Depending upon your needs, one or the other may be better suited for you. Both tools offer AES128 encryption for encrypting the DMG file.
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
 <li class="toclevel-1 tocsection-1"><a href="#DropDMG"><span class="tocnumber">1</span> <span class="toctext">DropDMG</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Disk_Copy"><span class="tocnumber">2</span> <span class="toctext">Disk Copy</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Disk_Copy"><span class="tocnumber">2</span> <span class="toctext">Disk Copy</span></a></li>
 <li class="toclevel-1 tocsection-3"><a href="#References"><span class="tocnumber">3</span> <span class="toctext">References</span></a></li>
 </ul>
 </div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            <p>Making an encrypted <span class="caps">DMG</span> file (a mountable filesystem that most software for the Mac is distributed with) is extremely simple. The ability to mount these filesystems comes with the <span class="caps">OS</span>, using the Disk Copy application. There are many ways of creating an encrypted <span class="caps">DMG</span> file in <span class="caps">OS</span> X; one is to use the bundled Disk Copy tool and the other is to use the shareware program <a class="external text" href="http://www.c-command.com/dropdmg/" rel="nofollow">DropDMG</a>. Depending upon your needs, one or the other may be better suited for you. Both tools offer <span class="caps">AES128</span> encryption for encrypting the <span class="caps">DMG</span> file.
+</p>
 
 <h1><span class="mw-headline" id="DropDMG">DropDMG</span></h1>
-<p>The first tool we'll look at that can do this is DropDMG. Obviously, DropDMG has many other uses as well, but it is well suited for this task. DropDMG is shareware, and costs $10USD to register, although it can be used unregistered for evaluation.
+<p>The first tool we’ll look at that can do this is DropDMG. Obviously, DropDMG has many other uses as well, but it is well suited for this task. DropDMG is shareware, and costs $<span class="caps">10USD</span> to register, although it can be used unregistered for evaluation.
 </p>
-<p>We'll illustrate using DropDMG to create a DMG file that stores GPG and SSH data. Typically, you will have <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.ssh</span> directories to store the data for each respective application.
+<p>We’ll illustrate using DropDMG to create a <span class="caps">DMG</span> file that stores <span class="caps">GPG</span> and <span class="caps">SSH</span> data. Typically, you will have <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.gnupg</span> and <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/.ssh</span> directories to store the data for each respective application.
 </p>
-<p>First create a staging area:
+<p>First create a staging area:
 </p>
 <pre>
 $ mkdir ~/Documents/encrypted
 $ cp -av ~/.gnupg ~/Documents/encrypted/gpg
 $ cp -av ~/.ssh ~/Documents/encrypted/ssh
 </pre>
-<p>After you've installed DropDMG, start up the application and go into the Preferences. The screenshot below shows the Preferences pane for DropDMG. The important things to note are in the Image Format section: Setting the type to Read-write and that it is Encrypted. Other than that, you can pretty much configure it however you like.
+<p>After you’ve installed DropDMG, start up the application and go into the Preferences. The screenshot below shows the Preferences pane for DropDMG. The important things to note are in the Image Format section: Setting the type to Read-write and that it is Encrypted. Other than that, you can pretty much configure it however you like.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Dropdmgpref.png" class="img-responsive" /></center></p>
-<p>Now, open the Finder and drag the encrypted folder (from the Documents folder) onto the DropDMG application icon. This will tell DropDMG to create an image based on the contents of the encrypted folder. You'll have to provide a passphrase to access the data when you mount it. Keep in mind, the important thing is to make a DMG file that is read/write; if you make it read-only (or use compression on it), you will be unable to add new keys to your keychain, make modifications to your ssh <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">known_hosts</span> file, etc.
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Dropdmgpref.png"/></center></p>
+<p>Now, open the Finder and drag the encrypted folder (from the Documents folder) onto the DropDMG application icon. This will tell DropDMG to create an image based on the contents of the encrypted folder. You’ll have to provide a passphrase to access the data when you mount it. Keep in mind, the important thing is to make a <span class="caps">DMG</span> file that is read/write; if you make it read-only (or use compression on it), you will be unable to add new keys to your keychain, make modifications to your ssh <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">known_hosts</span> file, etc.
 </p>
-<p>Mount the DMG file (we'll call it <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">encrypted.dmg</span>). Enter your passphrase. An icon representing the filesystem should appear on your desktop. If you enter the terminal and execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">df</span>, you should see the fileystem mounted as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted</span>. Go to your home directory and execute the following:
+<p>Mount the <span class="caps">DMG</span> file (we’ll call it <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">encrypted.dmg</span>). Enter your passphrase. An icon representing the filesystem should appear on your desktop. If you enter the terminal and execute <span style="font-family: courier; color: #2a2c7e; font-size: 13px; font-weight: bold;">df</span>, you should see the fileystem mounted as <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Volumes/encrypted</span>. Go to your home directory and execute the following:
 </p>
 <pre>
 $ mv ~/.gnupg ~/.gnupg-bk
@@ -110,27 +127,25 @@ $ mv ~/.ssh ~/.ssh-bk
 $ ln -s /Volumes/encrypted/gpg ~/.gnupg
 $ ln -s /Volumes/encrypted/ssh ~/.ssh
 </pre>
-<p>Now you can only use your data if the DMG file is mounted. The DMG can be stored on removeable media as well. The nice thing is if using a laptop and putting it to sleep, upon waking the laptop you'll be asked to enter your passphrase. Enter the wrong passphrase and the DMG is forcefully dismounted.
+<p>Now you can only use your data if the <span class="caps">DMG</span> file is mounted. The <span class="caps">DMG</span> can be stored on removeable media as well. The nice thing is if using a laptop and putting it to sleep, upon waking the laptop you’ll be asked to enter your passphrase. Enter the wrong passphrase and the <span class="caps">DMG</span> is forcefully dismounted.
 </p>
-<p>Once you are convinced that the DMG file is working properly for you, remove your backup directories.
+<p>Once you are convinced that the <span class="caps">DMG</span> file is working properly for you, remove your backup directories.
 </p>
-<p>On a final note, you will be able to add the passphrase for your encrypted DMG to your keychain in OS X. <b>Do not do this!</b> Adding the passphrase to your keychain removes that added layer of defense that doing this in the first place would achieve (unless you properly manage your keychain).
+<p>On a final note, you will be able to add the passphrase for your encrypted <span class="caps">DMG</span> to your keychain in <span class="caps">OS</span> X. <b>Do not do this!</b> Adding the passphrase to your keychain removes that added layer of defense that doing this in the first place would achieve (unless you properly manage your keychain).
 </p>
-<h1><span class="mw-headline" id="Disk_Copy">Disk Copy</span></h1>
-<p>Disk Copy works quite similarly. It is bundled with OS X so there is no associated cost with using it. It also offers AES128 encryption. For those who will only be creating encrypted DMG files and don't require the extra features of DropDMG, Disk Copy is your best bet. The basic premise is the same, although the options for Disk Copy are slightly different. Create your staging directory as above (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Documents/encrypted</span>) and fire up Disk Copy, which lives in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Applications/Utilities</span>. You will have a little drop box that you can drag the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">encrypted</span> folder onto.
+<h1><span class="mw-headline" id="Disk_Copy">Disk Copy</span></h1>
+<p>Disk Copy works quite similarly. It is bundled with <span class="caps">OS</span> X so there is no associated cost with using it. It also offers <span class="caps">AES128</span> encryption. For those who will only be creating encrypted <span class="caps">DMG</span> files and don’t require the extra features of DropDMG, Disk Copy is your best bet. The basic premise is the same, although the options for Disk Copy are slightly different. Create your staging directory as above (<span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">~/Documents/encrypted</span>) and fire up Disk Copy, which lives in <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">/Applications/Utilities</span>. You will have a little drop box that you can drag the <span style="font-family: courier; color: #891214; font-style: italic; font-size: 13px; font-weight: bold;">encrypted</span> folder onto.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Diskcopydrop.png" class="img-responsive" /></center></p>
-<p>Once you have done this, you will be asked for a location to save the DMG file, an Image format to use (select Read/Write), and the Encryption to use (AES128). At this point, Disk Copy will ask you to provide a passphrase to unlock the DMG file and then will create the DMG.
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Diskcopydrop.png"/></center></p>
+<p>Once you have done this, you will be asked for a location to save the <span class="caps">DMG</span> file, an Image format to use (select Read/Write), and the Encryption to use (<span class="caps">AES128</span>). At this point, Disk Copy will ask you to provide a passphrase to unlock the <span class="caps">DMG</span> file and then will create the <span class="caps">DMG</span>.
 </p>
-
-<p><center><img src="https://vdanen.github.io/images/Diskcopycreate.png" class="img-responsive" /></center></p>
-<p>One problem with creating encrypted DMG files this way is that they are created with a set size, and if you run out of room on the DMG, what do you do? Create a new DMG file? Fortunately, Disk Copy will allow you to resize a DMG file, provided it is not mounted. When you first create the DMG with Disk Copy, it will select an arbitary size for the resulting file. If this is too little, you can increase the size by opening Disk Copy, choosing the File menu and then Resize. Select the DMG file you wish to resize, give it your preferred size, and then do the resize.
+<p><center><img class="img-responsive" src="https://vdanen.github.io/images/Diskcopycreate.png"/></center></p>
+<p>One problem with creating encrypted <span class="caps">DMG</span> files this way is that they are created with a set size, and if you run out of room on the <span class="caps">DMG</span>, what do you do? Create a new <span class="caps">DMG</span> file? Fortunately, Disk Copy will allow you to resize a <span class="caps">DMG</span> file, provided it is not mounted. When you first create the <span class="caps">DMG</span> with Disk Copy, it will select an arbitary size for the resulting file. If this is too little, you can increase the size by opening Disk Copy, choosing the File menu and then Resize. Select the <span class="caps">DMG</span> file you wish to resize, give it your preferred size, and then do the resize.
 </p>
-<p>There is one unfortunate caveat to this. When you resize a DMG, it creates extra space in the DMG, but does not resize the partition, so you'll have free space available that you can partition, similar to a hard drive. This may or may not be what you want.
+<p>There is one unfortunate caveat to this. When you resize a <span class="caps">DMG</span>, it creates extra space in the <span class="caps">DMG</span>, but does not resize the partition, so you’ll have free space available that you can partition, similar to a hard drive. This may or may not be what you want.
 </p>
 <h1><span class="mw-headline" id="References">References</span></h1>
-<ul><li> <a rel="nofollow" class="external text" href="http://www.c-command.com/dropdmg/">DropDMG Home</a></li></ul>
+<ul><li> <a class="external text" href="http://www.c-command.com/dropdmg/" rel="nofollow">DropDMG Home</a></li></ul>
             
 
 
@@ -213,6 +228,9 @@ $ ln -s /Volumes/encrypted/ssh ~/.ssh
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

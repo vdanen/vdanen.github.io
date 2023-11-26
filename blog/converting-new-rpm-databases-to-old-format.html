@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I better post this before I forget about it. One of the issues I had today was getting corp3/x86_64 installed in a chroot with Mandriva 2009.0 as the host. Of course, the db4 version had changed, so I had to take advantage of some conversion tools. urpmi is …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="rpm, Linux, " />
 
-<meta property="og:title" content="Converting new rpm databases to old format "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/converting-new-rpm-databases-to-old-format.html" />
+<meta property="og:title" content="Converting new rpm databases to old format "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/converting-new-rpm-databases-to-old-format" />
 <meta property="og:description" content="I better post this before I forget about it. One of the issues I had today was getting corp3/x86_64 installed in a chroot with Mandriva 2009.0 as the host. Of course, the db4 version had changed, so I had to take advantage of some conversion tools. urpmi is …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2009-01-30T13:43:00-07:00" />
-<meta name="twitter:title" content="Converting new rpm databases to old format ">
+<meta name="twitter:title" content="Converting new rpm databases to old format ">
 <meta name="twitter:description" content="I better post this before I forget about it. One of the issues I had today was getting corp3/x86_64 installed in a chroot with Mandriva 2009.0 as the host. Of course, the db4 version had changed, so I had to take advantage of some conversion tools. urpmi is …">
 
-        <title>Converting new rpm databases to old format  · Annvix
+        <title>Converting new rpm databases to old format  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/converting-new-rpm-databases-to-old-format.html">
-                Converting new rpm databases to old format
+            <a href="https://vdanen.github.io/blog/converting-new-rpm-databases-to-old-format">
+                Converting new rpm databases to old&nbsp;format
             </a>
         </h1>
     </header>
@@ -80,7 +93,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I better post this before I forget about it.  One of the issues I had today was getting corp3/x86_64 installed in a chroot with Mandriva 2009.0 as the host.  Of course, the db4 version had changed, so I had to take advantage of some conversion tools.  urpmi is supposed to do this magically, but it doesn't seem consistent.  Anyways, the problem lies with 2009.0's rpm using a newer version of the database than the older version.  For instance:</p>
+            <p>I better post this before I forget about it.  One of the issues I had today was getting corp3/x86_64 installed in a chroot with Mandriva 2009.0 as the host.  Of course, the db4 version had changed, so I had to take advantage of some conversion tools.  urpmi is supposed to do this magically, but it doesn&#8217;t seem consistent.  Anyways, the problem lies with 2009.0&#8217;s rpm using a newer version of the database than the older version.  For&nbsp;instance:</p>
 <pre>
 # file /var/lib/rpm/Packages 
 /var/lib/rpm/Packages: Berkeley DB (Hash, version 9, native byte-order)
@@ -88,14 +101,14 @@
 /chroots/64/cs3/var/lib/rpm/Packages: Berkeley DB (Hash, version 8, native byte-order)
 </pre>
 
-<p>So the trick is to convert them from the new format to the old format, which is easy enough to do once you know <i>what</i> to do.  On the host (Mandriva 2009 in this case), make sure you have db46_utils and db42_utils installed:</p>
+<p>So the trick is to convert them from the new format to the old format, which is easy enough to do once you know <i>what</i> to do.  On the host (Mandriva 2009 in this case), make sure you have db46_utils and db42_utils&nbsp;installed:</p>
 <pre>
 # rpm -qa|grep "db.*\-utils"
 db46-utils-4.6.21-9mdv2009.0
 db42-utils-4.2.52-24mdv2009.0
 </pre>
 
-<p>Then you can use this rough-n-dirty script I wrote to convert them:</p>
+<p>Then you can use this rough-n-dirty script I wrote to convert&nbsp;them:</p>
 <pre>
 #!/bin/sh
 #
@@ -112,12 +125,16 @@ for i in $(ls -1); do
 done
 </pre>
 
-<p>That should fix the errors you would see in the chroot, plus make it so that rpm -qa and friends actually work.  </p>
+<p>That should fix the errors you would see in the chroot, plus make it so that rpm -qa and friends actually&nbsp;work.  </p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Converting%20new%20rpm%20databases%20to%20old%C2%A0format&url=https%3A//vdanen.github.io/blog/converting-new-rpm-databases-to-old-format&hashtags=rpm" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/converting-new-rpm-databases-to-old-format&title=Converting%20new%20rpm%20databases%20to%20old%C2%A0format&summary=I%20better%20post%20this%20before%20I%20forget%20about%20it.%20%20One%20of%20the%20issues%20I%20had%20today%20was%20getting%20corp3/x86_64%20installed%20in%20a%20chroot%20with%20Mandriva%202009.0%20as%20the%20host.%20%20Of%20course%2C%20the%20db4%20version%20had%20changed%2C%20so%20I%20had%20to%20take%20advantage%20of%20some%20conversion%20tools.%20%20urpmi%20is%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/converting-new-rpm-databases-to-old-format" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -128,19 +145,38 @@ done
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/obtaining-file-information-with-rpm" title="Obtaining file information with RPM">Obtaining file information with RPM</a></li>
+<li><a href="https://vdanen.github.io/blog/no-longer-a-bs-virgin" title="No longer a BS virgin">No longer a BS virgin</a></li>
+<li><a href="https://vdanen.github.io/blog/learning-python-module-import-issues" title="Learning Python: module import issues">Learning Python: module import issues</a></li>
+<li><a href="https://vdanen.github.io/blog/rq-tool-now-on-fedorahosted" title="rq tool now on fedorahosted">rq tool now on fedorahosted</a></li>
+<li><a href="https://vdanen.github.io/blog/rpm-v-and-prelinked-binaries" title="rpm -V and prelinked binaries">rpm -V and prelinked binaries</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/never-a-dull-moment-with-mandriva" title="Previous: Never a dull moment with Mandriva…">Never a dull moment with Mandriva…</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/get-started-with-the-security-tool-ossec" title="Next: Get started with the security tool OSSEC">Get started with the security tool OSSEC</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-01-30T13:43:00-07:00">Fri 30 January 2009</time>
+            <time itemprop="dateCreated" datetime="2009-01-30T13:43:00-07:00">Jan 30, 2009</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#rpm-ref">rpm
+                <li><a href="https://vdanen.github.io/tags#rpm-ref">rpm
                     <span class="superscript">6</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -241,6 +277,9 @@ done
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

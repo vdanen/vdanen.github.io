@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I’m sure I’ve mentioned this before, but I maintain a repository of packages for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I’ve not had time to get into the Fedora side of things as of yet… someone will beat me with …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content="rhel, Linux, " />
 
-<meta property="og:title" content="runit and supervised services on RHEL/CentOS 5 "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5.html" />
-<meta property="og:description" content="I&#39;m sure I&#39;ve mentioned this before, but I maintain a repository of packages for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I&#39;ve not had time to get into the Fedora side of things as of yet... someone will beat me with a wet noodle …" />
+<meta property="og:title" content="runit and supervised services on RHEL/CentOS 5 "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5" />
+<meta property="og:description" content="I’m sure I’ve mentioned this before, but I maintain a repository of packages for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I’ve not had time to get into the Fedora side of things as of yet… someone will beat me with …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2010-04-07T15:55:00-06:00" />
-<meta name="twitter:title" content="runit and supervised services on RHEL/CentOS 5 ">
-<meta name="twitter:description" content="I&#39;m sure I&#39;ve mentioned this before, but I maintain a repository of packages for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I&#39;ve not had time to get into the Fedora side of things as of yet... someone will beat me with a wet noodle …">
+<meta name="twitter:title" content="runit and supervised services on RHEL/CentOS 5 ">
+<meta name="twitter:description" content="I’m sure I’ve mentioned this before, but I maintain a repository of packages for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I’ve not had time to get into the Fedora side of things as of yet… someone will beat me with …">
 
-        <title>runit and supervised services on RHEL/CentOS 5  · Annvix
+        <title>runit and supervised services on RHEL/CentOS 5  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5.html">
-                runit and supervised services on RHEL/CentOS 5
+            <a href="https://vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5">
+                runit and supervised services on <span class="caps">RHEL</span>/CentOS&nbsp;5
             </a>
         </h1>
     </header>
@@ -80,10 +93,10 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I'm sure I've mentioned this before, but I maintain a <a href="http://repo.annvix.org/">repository of packages</a> for Red Hat Enterprise Linux 5 (arguably these could/should be in EPEL but I've not had time to get into the Fedora side of things as of yet... someone will beat me with a wet noodle, no doubt).  It's a very small set of packages so I don't feel too awful about it.</p>
-<p>Anyways, one of my favourite features in Annvix was being able to run the entire system out of runit (Annvix used runit in place of SysVinit).  This gave us nicely supervised services using runit (much like DJB's daemontools).  Feeling crappy with the first day of a head cold, I spent some time today over lunch to get runit working with RHEL5.  I had to re-tool the package since I don't want it to replace SysVinit, but run under init and just supervise services (like sshd, exim, etc. -- call me weird, but runit/daemontools makes a fantastic watchdog and with sshd running from tcpsvd, I get some nice ACLs to use as well).</p>
-<p>At any rate, runit now installs and works properly.  Sorry to anyone who wanted to use it (I've been meaning to do this for the last year, ever since I switched all of my servers over to CentOS).  The runit package also comes with a bunch of run scripts; I've not tested them all yet so if you do end up using it and have issues, let me know.  I did have to fix a few minor things in a few of them.</p>
-<p>At any rate, I've chkconfig'd off a few services and have them running supervised now:</p>
+            <p>I&#8217;m sure I&#8217;ve mentioned this before, but I maintain a <a href="http://repo.annvix.org/">repository of packages</a> for Red Hat Enterprise Linux 5 (arguably these could/should be in <span class="caps">EPEL</span> but I&#8217;ve not had time to get into the Fedora side of things as of yet&#8230; someone will beat me with a wet noodle, no doubt).  It&#8217;s a very small set of packages so I don&#8217;t feel too awful about&nbsp;it.</p>
+<p>Anyways, one of my favourite features in Annvix was being able to run the entire system out of runit (Annvix used runit in place of SysVinit).  This gave us nicely supervised services using runit (much like <span class="caps">DJB</span>&#8217;s daemontools).  Feeling crappy with the first day of a head cold, I spent some time today over lunch to get runit working with <span class="caps">RHEL5</span>.  I had to re-tool the package since I don&#8217;t want it to replace SysVinit, but run under init and just supervise services (like sshd, exim, etc. &#8212; call me weird, but runit/daemontools makes a fantastic watchdog and with sshd running from tcpsvd, I get some nice ACLs to use as&nbsp;well).</p>
+<p>At any rate, runit now installs and works properly.  Sorry to anyone who wanted to use it (I&#8217;ve been meaning to do this for the last year, ever since I switched all of my servers over to CentOS).  The runit package also comes with a bunch of run scripts; I&#8217;ve not tested them all yet so if you do end up using it and have issues, let me know.  I did have to fix a few minor things in a few of&nbsp;them.</p>
+<p>At any rate, I&#8217;ve chkconfig&#8217;d off a few services and have them running supervised&nbsp;now:</p>
 <pre>
 # srv --list|grep -v '-'
 
@@ -102,12 +115,16 @@ sshd                      up       2732     04/07/2010 02:16:32 PM
 sshd/log                  up       2730     04/07/2010 02:16:32 PM
 </pre>
 
-<p>One thing knocked off my TODO list.  Replaced it with going to bed early tonight.</p>
+<p>One thing knocked off my <span class="caps">TODO</span> list.  Replaced it with going to bed early&nbsp;tonight.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=runit%20and%20supervised%20services%20on%20RHEL/CentOS%C2%A05&url=https%3A//vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5&hashtags=rhel" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5&title=runit%20and%20supervised%20services%20on%20RHEL/CentOS%C2%A05&summary=I%E2%80%99m%20sure%20I%E2%80%99ve%20mentioned%20this%20before%2C%20but%20I%20maintain%20a%20repository%20of%20packages%20for%20Red%20Hat%20Enterprise%20Linux%205%20%28arguably%20these%20could/should%20be%20in%20EPEL%20but%20I%E2%80%99ve%20not%20had%20time%20to%20get%20into%20the%20Fedora%20side%20of%20things%20as%20of%20yet%E2%80%A6%20someone%20will%20beat%20me%20with%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/runit-and-supervised-services-on-rhelcentos-5" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -118,19 +135,37 @@ sshd/log                  up       2730     04/07/2010 02:16:32 PM
 
 
             <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://vdanen.github.io/blog/the-most-important-updates-in-red-hat-enterprise-linux-6" title="The most important updates in Red Hat Enterprise Linux 6">The most important updates in Red Hat Enterprise Linux 6</a></li>
+<li><a href="https://vdanen.github.io/blog/my-adventure-upgrading-rhel5-to-rhel6" title="My adventure upgrading RHEL5 to RHEL6">My adventure upgrading RHEL5 to RHEL6</a></li>
+<li><a href="https://vdanen.github.io/blog/getting-started-with-firewalld" title="Getting started with firewalld">Getting started with firewalld</a></li>
+<li><a href="https://vdanen.github.io/blog/from-there-to-here-but-not-back-again" title="From There to Here (But Not Back Again) - 15 years of Red Hat Product Security">From There to Here (But Not Back Again) - 15 years of Red Hat Product Security</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/mounting-nfs-volumes-in-os-x" title="Previous: Mounting NFS volumes in OS X">Mounting NFS volumes in OS X</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/using-rsnapshot-to-back-up-and-retain-snapshots" title="Next: Using rsnapshot to back up and retain snapshots">Using rsnapshot to back up and retain snapshots</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-04-07T15:55:00-06:00">Wed 07 April 2010</time>
+            <time itemprop="dateCreated" datetime="2010-04-07T15:55:00-06:00">Apr 07, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags.html#rhel-ref">rhel
+                <li><a href="https://vdanen.github.io/tags#rhel-ref">rhel
                     <span class="superscript">5</span>
 </a></li>
             </ul>
-<h4>Contact</h4>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -231,6 +266,9 @@ sshd/log                  up       2730     04/07/2010 02:16:32 PM
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

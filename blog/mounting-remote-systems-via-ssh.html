@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I write these little things called TechMails for TechRepublic every month and this month I was looking at Konqueror and it’s fish:// Kioslave stuff. I’ve never actually played with fish before, probably because I don’t really like KDE and never use it but this stuff is pretty …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
-<meta property="og:title" content="Mounting remote systems via ssh "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/mounting-remote-systems-via-ssh.html" />
-<meta property="og:description" content="I write these little things called TechMails for TechRepublic every month and this month I was looking at Konqueror and it&#39;s fish:// Kioslave stuff. I&#39;ve never actually played with fish before, probably because I don&#39;t really like KDE and never use it but this stuff is pretty neat. I have …" />
+<meta property="og:title" content="Mounting remote systems via ssh "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/mounting-remote-systems-via-ssh" />
+<meta property="og:description" content="I write these little things called TechMails for TechRepublic every month and this month I was looking at Konqueror and it’s fish:// Kioslave stuff. I’ve never actually played with fish before, probably because I don’t really like KDE and never use it but this stuff is pretty …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2006-06-09T17:50:00-06:00" />
-<meta name="twitter:title" content="Mounting remote systems via ssh ">
-<meta name="twitter:description" content="I write these little things called TechMails for TechRepublic every month and this month I was looking at Konqueror and it&#39;s fish:// Kioslave stuff. I&#39;ve never actually played with fish before, probably because I don&#39;t really like KDE and never use it but this stuff is pretty neat. I have …">
+<meta name="twitter:title" content="Mounting remote systems via ssh ">
+<meta name="twitter:description" content="I write these little things called TechMails for TechRepublic every month and this month I was looking at Konqueror and it’s fish:// Kioslave stuff. I’ve never actually played with fish before, probably because I don’t really like KDE and never use it but this stuff is pretty …">
 
-        <title>Mounting remote systems via ssh  · Annvix
+        <title>Mounting remote systems via ssh  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/mounting-remote-systems-via-ssh.html">
-                Mounting remote systems via ssh
+            <a href="https://vdanen.github.io/blog/mounting-remote-systems-via-ssh">
+                Mounting remote systems via&nbsp;ssh
             </a>
         </h1>
     </header>
@@ -80,17 +93,21 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I write these little things called TechMails for <a href="http://www.techrepublic.com/">TechRepublic</a> every month and this month I was looking at Konqueror and it's fish:// Kioslave stuff.  I've never actually played with fish before, probably because I don't really like KDE and never use it but this stuff is pretty neat.  I have no idea if GNOME/Nautilus can do this too (I hope so!), but if not I know I can use stuff like sshfs which is pretty cool too.</p>
-<p>So, thinking about my use of OS X on the desktop, I did a half-hearted poke to see if anything like that existed for OS X.  I don't expect to see the Finder allow me to mount remote systems via sftp or anything (although it would be really cool if it did), but I can't seem to find anything that would let me do that, which is disappointing.  About the closest I can get is BBEdit's support for opening FTP/SFTP locations for file editing.  That is handy, definitely, but navigating the remote "filesystem" in BBEdit's open file dialog is less than... nice.  Not only that, but I like Konq's preview and whatnot capabilities with fish://.</p>
-<p>So here's to hoping that someone at Apple, or one of the other fine developers for OS X, think about implementing a filesystem browser or something for OS X that works kinda like the fish KIOslave.  Maybe the fine folks at CocoaTech who make the excellent Path Finder app (a Finder replacement) could implement something like this.</p>
-<p>As cool as this is, it sure won't make me use KDE day to day, especially seeing as how easy sshfs is to setup and use.  KDE's fish:// support is great as a proof-of-concept, but if it means using KDE to use it, I'll wait for another implementation.  =)  Sorry, but I can't stand KDE.</p>
-<p>I'm surprised tho, that more people/programs don't have support like this especially considering that ssh/sftp are so commonplace now.  I see a lot of FTP clients with this support, but no real filesystem "navigators".</p>
-<p>Heck, I'd even use Konqueror under GNOME if I didn't think it'd make my eyes bleed.</p>
+            <p>I write these little things called TechMails for <a href="http://www.techrepublic.com/">TechRepublic</a> every month and this month I was looking at Konqueror and it&#8217;s fish:// Kioslave stuff.  I&#8217;ve never actually played with fish before, probably because I don&#8217;t really like <span class="caps">KDE</span> and never use it but this stuff is pretty neat.  I have no idea if <span class="caps">GNOME</span>/Nautilus can do this too (I hope so!), but if not I know I can use stuff like sshfs which is pretty cool&nbsp;too.</p>
+<p>So, thinking about my use of <span class="caps">OS</span> X on the desktop, I did a half-hearted poke to see if anything like that existed for <span class="caps">OS</span> X.  I don&#8217;t expect to see the Finder allow me to mount remote systems via sftp or anything (although it would be really cool if it did), but I can&#8217;t seem to find anything that would let me do that, which is disappointing.  About the closest I can get is BBEdit&#8217;s support for opening <span class="caps">FTP</span>/<span class="caps">SFTP</span> locations for file editing.  That is handy, definitely, but navigating the remote &#8220;filesystem&#8221; in BBEdit&#8217;s open file dialog is less than&#8230; nice.  Not only that, but I like Konq&#8217;s preview and whatnot capabilities with&nbsp;fish://.</p>
+<p>So here&#8217;s to hoping that someone at Apple, or one of the other fine developers for <span class="caps">OS</span> X, think about implementing a filesystem browser or something for <span class="caps">OS</span> X that works kinda like the fish KIOslave.  Maybe the fine folks at CocoaTech who make the excellent Path Finder app (a Finder replacement) could implement something like&nbsp;this.</p>
+<p>As cool as this is, it sure won&#8217;t make me use <span class="caps">KDE</span> day to day, especially seeing as how easy sshfs is to setup and use.  <span class="caps">KDE</span>&#8217;s fish:// support is great as a proof-of-concept, but if it means using <span class="caps">KDE</span> to use it, I&#8217;ll wait for another implementation.  =)  Sorry, but I can&#8217;t stand <span class="caps">KDE</span>.</p>
+<p>I&#8217;m surprised tho, that more people/programs don&#8217;t have support like this especially considering that ssh/sftp are so commonplace now.  I see a lot of <span class="caps">FTP</span> clients with this support, but no real filesystem&nbsp;&#8220;navigators&#8221;.</p>
+<p>Heck, I&#8217;d even use Konqueror under <span class="caps">GNOME</span> if I didn&#8217;t think it&#8217;d make my eyes&nbsp;bleed.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Mounting%20remote%20systems%20via%C2%A0ssh&url=https%3A//vdanen.github.io/blog/mounting-remote-systems-via-ssh" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/mounting-remote-systems-via-ssh&title=Mounting%20remote%20systems%20via%C2%A0ssh&summary=I%20write%20these%20little%20things%20called%20TechMails%20for%20TechRepublic%20every%20month%20and%20this%20month%20I%20was%20looking%20at%20Konqueror%20and%20it%E2%80%99s%20fish%3A//%20Kioslave%20stuff.%20%20I%E2%80%99ve%20never%20actually%20played%20with%20fish%20before%2C%20probably%20because%20I%20don%E2%80%99t%20really%20like%20KDE%20and%20never%20use%20it%20but%20this%20stuff%20is%20pretty%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/mounting-remote-systems-via-ssh" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -101,13 +118,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/of-vacations-and-surgeries" title="Previous: Of vacations and surgeries">Of vacations and surgeries</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/proprietary-ati-and-fresh-install-of-mandriva-2006x86_64" title="Next: Proprietary ATI and fresh install of Mandriva 2006/x86_64">Proprietary ATI and fresh install of Mandriva 2006/x86_64</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2006-06-09T17:50:00-06:00">Fri 09 June 2006</time>
+            <time itemprop="dateCreated" datetime="2006-06-09T17:50:00-06:00">Jun 09, 2006</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -208,6 +233,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

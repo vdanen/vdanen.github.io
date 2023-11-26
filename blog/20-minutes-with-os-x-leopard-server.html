@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it’s extremely “wow”. It’s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Macos, " />
 
-<meta property="og:title" content="20 minutes with OS X Leopard Server "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server.html" />
-<meta property="og:description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it&#39;s extremely &#34;wow&#34;. It&#39;s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some …" />
+<meta property="og:title" content="20 minutes with OS X Leopard Server "/>
+<meta property="og:url" content="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server" />
+<meta property="og:description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it’s extremely “wow”. It’s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-11-09T16:36:00-07:00" />
-<meta name="twitter:title" content="20 minutes with OS X Leopard Server ">
-<meta name="twitter:description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it&#39;s extremely &#34;wow&#34;. It&#39;s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some …">
+<meta name="twitter:title" content="20 minutes with OS X Leopard Server ">
+<meta name="twitter:description" content="I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server). I can honestly say it’s extremely “wow”. It’s got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos …">
 
-        <title>20 minutes with OS X Leopard Server  · Annvix
+        <title>20 minutes with OS X Leopard Server  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server.html">
-                20 minutes with OS X Leopard Server
+            <a href="https://vdanen.github.io/blog/20-minutes-with-os-x-leopard-server">
+                20 minutes with <span class="caps">OS</span> X Leopard&nbsp;Server
             </a>
         </h1>
     </header>
@@ -80,23 +93,27 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I had the privilege today of getting to play with Leopard Server a little bit (the new OS X 10.5 server).  I can honestly say it's extremely "wow".  It's got a slick interface to configuring things like DNS, DHCP, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some other goodies.  All wrapped up in a nice GUI interface (I've never seen Apache so nice to configure before).  Extremely slick.  Very cool stuff.  I could easily replace my Annvix-based LAN server with this puppy.</p>
-<p>Unfortunately, it's expensive.  I mean <em>really</em> expensive, for someone like me.  I've got a few machines here, and a whole pile of virtual machines.  My LAN server runs DHCP, DNS, OpenLDAP, Samba... lots of stuff.  I've got cross-system backups, LDAP-based authentication, NFS exports and auto-mounting.  Webservers, MySQL and PostgreSQL servers scattered around... wikis, blogs... you name it.  I've got a lot of stuff going on here.  OS X server could definitely simplify a few of those things.</p>
-<p>And, at a 10-client license (that's 10 concurrent file-sharing connections, which is enough for me), I'm looking at about $500.  That in itself isn't such a bad price.  The problem is you need a machine capable of running it.  Ideally, that would be an <a href="http://store.apple.com/1-800-MY-APPLE/WebObjects/canadastore.woa/wa/RSLID?mco=7E50163B&amp;nclm=Xserve">Xserve</a>, but starting at $3499CAD, that's expensive.  Sure, it comes with OS X server (web page says 10.4 server... I wonder if that's a typeo... must be).  It's not a bad configuration either: 2 64bit dual-core Xeon processors, 1GB RAM, and a single 80GB SATA HDD.  All wrapped up in a nice 1U machine -- perfect for my rack.</p>
+            <p>I had the privilege today of getting to play with Leopard Server a little bit (the new <span class="caps">OS</span> X 10.5 server).  I can honestly say it&#8217;s extremely &#8220;wow&#8221;.  It&#8217;s got a slick interface to configuring things like <span class="caps">DNS</span>, <span class="caps">DHCP</span>, apache, Open Directory (which is essentially OpenLDAP+Kerberos) and some other goodies.  All wrapped up in a nice <span class="caps">GUI</span> interface (I&#8217;ve never seen Apache so nice to configure before).  Extremely slick.  Very cool stuff.  I could easily replace my Annvix-based <span class="caps">LAN</span> server with this&nbsp;puppy.</p>
+<p>Unfortunately, it&#8217;s expensive.  I mean <em>really</em> expensive, for someone like me.  I&#8217;ve got a few machines here, and a whole pile of virtual machines.  My <span class="caps">LAN</span> server runs <span class="caps">DHCP</span>, <span class="caps">DNS</span>, OpenLDAP, Samba&#8230; lots of stuff.  I&#8217;ve got cross-system backups, <span class="caps">LDAP</span>-based authentication, <span class="caps">NFS</span> exports and auto-mounting.  Webservers, MySQL and PostgreSQL servers scattered around&#8230; wikis, blogs&#8230; you name it.  I&#8217;ve got a lot of stuff going on here.  <span class="caps">OS</span> X server could definitely simplify a few of those&nbsp;things.</p>
+<p>And, at a 10-client license (that&#8217;s 10 concurrent file-sharing connections, which is enough for me), I&#8217;m looking at about $500.  That in itself isn&#8217;t such a bad price.  The problem is you need a machine capable of running it.  Ideally, that would be an <a href="http://store.apple.com/1-800-MY-APPLE/WebObjects/canadastore.woa/wa/RSLID?mco=7E50163B&amp;nclm=Xserve">Xserve</a>, but starting at $<span class="caps">3499CAD</span>, that&#8217;s expensive.  Sure, it comes with <span class="caps">OS</span> X server (web page says 10.4 server&#8230; I wonder if that&#8217;s a typeo&#8230; must be).  It&#8217;s not a bad configuration either: 2 64bit dual-core Xeon processors, <span class="caps">1GB</span> <span class="caps">RAM</span>, and a single <span class="caps">80GB</span> <span class="caps">SATA</span> <span class="caps">HDD</span>.  All wrapped up in a nice 1U machine &#8212; perfect for my&nbsp;rack.</p>
 <!--more-->
 
-<p>The problem here though is that it would need more RAM and new HDDs... let's face it, Apple could keep the 80GB drive.  I'd want that puppy loaded with 3 500GB drives.  And a minimum of 2GB RAM, but probably more.  All of a sudden I'm over $6000CAD if I bought the stuff through Apple (with 750GB drives instead of 500GB drives).  That's a half-decent used car around here.</p>
-<p>Not only that, but a similar spec'd opteron-based system from Sun is quite a bit cheaper.  I could get a Sun Fire X4100 M2 with dual opteron processors (dual-core I believe) with 4GB RAM and 4 SATA drive capability for just over $5000CAD.  Or go with a trusty Sun Fire X2100 with a single dual-core opteron, 4GB RAM for $2000CAD (and let me tell you, those Sun Fire X2100's are impressive... I have one and love it).</p>
-<p>Because Apple doesn't give you a choice of a "lower-end" machine, you're stuck with the quad-core xeon... not necessarily a bad thing but if all you're going to be doing is providing room for backups and file sharing, LDAP authentication, DNS and DHCP, and an intranet website, the price tag is hefty.  The geek in me would want the Sun Fire X4100, but the practical person in me knows an X2100 would be more than sufficient.  And then I could toss Annvix or Mandriva on there and have the OS for no cost.</p>
-<p>Of course, I have a powermac G5 that is capable of running Leopard Server -- it would cost me $500 to get it up and running with no other hardware cost.  But my concern is that if/when that machine dies, what then?  That G5 has a few months of AppleCare left, sure, but after that it's anyone's guess how long it'll last.  Probably quite a few years yet, but there's no guarantee.  By using Annvix or Mandriva, if my LAN server dies, I can buy a low-end X2100 and replace it with little cost.  If I used 10.5 server on my G5 and it died, I'm looking at about $6000 just to replace it.</p>
-<p>So while the geek in me would love to get my hands on and play with Leopard Server and use it for my LAN server, the practical person in me thinks it's too much risk.  At least with the consumer desktops it's no so bad... if my macbook dies, the replacement cost after 3 years is reasonable.  But would you really want to run an iMac as a server?  I could go for a mini I guess, and it probably has enough juice to actually perform all the tasks it would need to perform... reasonably.  Replacement cost for it wouldn't be so bad, at least compared to an xserve (and it would fit in my rack reasonably well too).</p>
-<p>I guess the bottom line is that Apple has a spanking nice product with Leopard Server, and the xserve is entirely too cool.  But for the average guy, the cost just doesn't justify it.  My Annvix box can do everything that Leopard Server can with a little bit of effort (and I stress little)... it just doesn't look as cool and you're stuck with the CLI (which, in my opinion, is great).  And the cost is extremely reasonable.  I suppose this is the same argument for Linux vs Windows servers except with Windows you pay through the nose for licensing, but can largely run it on anything you want.  With Apple, the pricing is quite reasonable for the software, but you get nailed with the hardware.</p>
-<p>It was a fun and interesting 20 minutes, I'll give it that, but I have no (practical) desire to spend more than that on it.</p>
+<p>The problem here though is that it would need more <span class="caps">RAM</span> and new HDDs&#8230; let&#8217;s face it, Apple could keep the <span class="caps">80GB</span> drive.  I&#8217;d want that puppy loaded with 3 <span class="caps">500GB</span> drives.  And a minimum of <span class="caps">2GB</span> <span class="caps">RAM</span>, but probably more.  All of a sudden I&#8217;m over $<span class="caps">6000CAD</span> if I bought the stuff through Apple (with <span class="caps">750GB</span> drives instead of <span class="caps">500GB</span> drives).  That&#8217;s a half-decent used car around&nbsp;here.</p>
+<p>Not only that, but a similar spec&#8217;d opteron-based system from Sun is quite a bit cheaper.  I could get a Sun Fire X4100 M2 with dual opteron processors (dual-core I believe) with <span class="caps">4GB</span> <span class="caps">RAM</span> and 4 <span class="caps">SATA</span> drive capability for just over $<span class="caps">5000CAD</span>.  Or go with a trusty Sun Fire X2100 with a single dual-core opteron, <span class="caps">4GB</span> <span class="caps">RAM</span> for $<span class="caps">2000CAD</span> (and let me tell you, those Sun Fire X2100&#8217;s are impressive&#8230; I have one and love&nbsp;it).</p>
+<p>Because Apple doesn&#8217;t give you a choice of a &#8220;lower-end&#8221; machine, you&#8217;re stuck with the quad-core xeon&#8230; not necessarily a bad thing but if all you&#8217;re going to be doing is providing room for backups and file sharing, <span class="caps">LDAP</span> authentication, <span class="caps">DNS</span> and <span class="caps">DHCP</span>, and an intranet website, the price tag is hefty.  The geek in me would want the Sun Fire X4100, but the practical person in me knows an X2100 would be more than sufficient.  And then I could toss Annvix or Mandriva on there and have the <span class="caps">OS</span> for no&nbsp;cost.</p>
+<p>Of course, I have a powermac G5 that is capable of running Leopard Server &#8212; it would cost me $500 to get it up and running with no other hardware cost.  But my concern is that if/when that machine dies, what then?  That G5 has a few months of AppleCare left, sure, but after that it&#8217;s anyone&#8217;s guess how long it&#8217;ll last.  Probably quite a few years yet, but there&#8217;s no guarantee.  By using Annvix or Mandriva, if my <span class="caps">LAN</span> server dies, I can buy a low-end X2100 and replace it with little cost.  If I used 10.5 server on my G5 and it died, I&#8217;m looking at about $6000 just to replace&nbsp;it.</p>
+<p>So while the geek in me would love to get my hands on and play with Leopard Server and use it for my <span class="caps">LAN</span> server, the practical person in me thinks it&#8217;s too much risk.  At least with the consumer desktops it&#8217;s no so bad&#8230; if my macbook dies, the replacement cost after 3 years is reasonable.  But would you really want to run an iMac as a server?  I could go for a mini I guess, and it probably has enough juice to actually perform all the tasks it would need to perform&#8230; reasonably.  Replacement cost for it wouldn&#8217;t be so bad, at least compared to an xserve (and it would fit in my rack reasonably well&nbsp;too).</p>
+<p>I guess the bottom line is that Apple has a spanking nice product with Leopard Server, and the xserve is entirely too cool.  But for the average guy, the cost just doesn&#8217;t justify it.  My Annvix box can do everything that Leopard Server can with a little bit of effort (and I stress little)&#8230; it just doesn&#8217;t look as cool and you&#8217;re stuck with the <span class="caps">CLI</span> (which, in my opinion, is great).  And the cost is extremely reasonable.  I suppose this is the same argument for Linux vs Windows servers except with Windows you pay through the nose for licensing, but can largely run it on anything you want.  With Apple, the pricing is quite reasonable for the software, but you get nailed with the&nbsp;hardware.</p>
+<p>It was a fun and interesting 20 minutes, I&#8217;ll give it that, but I have no (practical) desire to spend more than that on&nbsp;it.</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=20%20minutes%20with%20OS%20X%20Leopard%C2%A0Server&url=https%3A//vdanen.github.io/blog/20-minutes-with-os-x-leopard-server" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/20-minutes-with-os-x-leopard-server&title=20%20minutes%20with%20OS%20X%20Leopard%C2%A0Server&summary=I%20had%20the%20privilege%20today%20of%20getting%20to%20play%20with%20Leopard%20Server%20a%20little%20bit%20%28the%20new%20OS%20X%2010.5%20server%29.%20%20I%20can%20honestly%20say%20it%E2%80%99s%20extremely%20%E2%80%9Cwow%E2%80%9D.%20%20It%E2%80%99s%20got%20a%20slick%20interface%20to%20configuring%20things%20like%20DNS%2C%20DHCP%2C%20apache%2C%20Open%20Directory%20%28which%20is%20essentially%20OpenLDAP%2BKerberos%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/20-minutes-with-os-x-leopard-server" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -107,13 +124,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/define-disk-quotas-to-keep-users-from-hogging-drive-space" title="Previous: Define disk quotas to keep users from hogging drive space">Define disk quotas to keep users from hogging drive space</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/specify-who-can-log-in-via-openssh" title="Next: Specify who can log in via OpenSSH">Specify who can log in via OpenSSH</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-11-09T16:36:00-07:00">Fri 09 November 2007</time>
+            <time itemprop="dateCreated" datetime="2007-11-09T16:36:00-07:00">Nov 09, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#macos-ref">Macos</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#macos-ref">Macos</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -214,6 +239,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

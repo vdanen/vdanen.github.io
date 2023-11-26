@@ -12,22 +12,35 @@
 
         <meta name="author" content="Vincent Danen" />
 
+        <meta name="description" content="Just discovered something very interesting. I had all my websites setup on my machine with IP-based virtual hosts (i.e. ) and was trying to use wildcards (*:80) and it just wasn’t working right the way I wanted it to, because I wanted some sites restricted to a certain …
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
 <meta name="keywords" content=", Linux, " />
 
 <meta property="og:title" content="IP-based virtual hosts on a dynamic IP "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip.html" />
-<meta property="og:description" content="Just discovered something very interesting. I had all my websites setup on my machine with IP-based virtual hosts (i.e. ) and was trying to use wildcards (*:80) and it just wasn&#39;t working right the way I wanted it to, because I wanted some sites restricted to a certain IP, and …" />
+<meta property="og:url" content="https://vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip" />
+<meta property="og:description" content="Just discovered something very interesting. I had all my websites setup on my machine with IP-based virtual hosts (i.e. ) and was trying to use wildcards (*:80) and it just wasn’t working right the way I wanted it to, because I wanted some sites restricted to a certain …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
 <meta property="og:article:published_time" content="2007-05-20T00:38:00-06:00" />
 <meta name="twitter:title" content="IP-based virtual hosts on a dynamic IP ">
-<meta name="twitter:description" content="Just discovered something very interesting. I had all my websites setup on my machine with IP-based virtual hosts (i.e. ) and was trying to use wildcards (*:80) and it just wasn&#39;t working right the way I wanted it to, because I wanted some sites restricted to a certain IP, and …">
+<meta name="twitter:description" content="Just discovered something very interesting. I had all my websites setup on my machine with IP-based virtual hosts (i.e. ) and was trying to use wildcards (*:80) and it just wasn’t working right the way I wanted it to, because I wanted some sites restricted to a certain …">
 
         <title>IP-based virtual hosts on a dynamic IP  · Annvix
 </title>
+        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
         <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 
 
@@ -51,12 +64,12 @@
                                        https://vdanen.github.io
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about.html">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation.html">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories.html">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags.html">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives.html">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://vdanen.github.io/about">About</a></li>
+                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
+                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
+                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
+                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://vdanen.github.io/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -70,8 +83,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip.html">
-                IP-based virtual hosts on a dynamic IP
+            <a href="https://vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip">
+                <span class="caps">IP</span>-based virtual hosts on a dynamic <span class="caps">IP</span>
             </a>
         </h1>
     </header>
@@ -80,20 +93,24 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Just discovered something very interesting.  I had all my websites setup on my machine with IP-based virtual hosts (i.e. <VirtualHost 1.2.3.4:80>) and was trying to use wildcards (*:80) and it just wasn't working right the way I wanted it to, because I wanted some sites restricted to a certain IP, and others that would respond to the dynamic IP of my cable provider.  Just for kicks I tried something with shorewall that actually worked quite nicely.</p>
-<p>In shorewall, you can write a rule like:</p>
-<p>DNAT    net             loc:10.0.5.10   tcp     http    -</p>
-<p>which takes an incoming http connection to the firewall and forwards it to the appropriate IP (10.0.5.10 in this case) in the "loc" (local) zone.  So I tried the same thing except the IP wasn't an external machine.</p>
-<p>For instance, eth0 is connected to the internet and gets a dynamic IP via DHCP.  eth1 is connected to my internal network, similar to the firewall.  It also runs shorewall.  So I made eth1:0 an IP on the local network (say, 10.0.5.100).  Then I have a rule that does:</p>
-<p>DNAT    net     net:10.0.5.100  tcp     http    -</p>
-<p>This takes the http traffic coming in from the network on port 80 and redirects it to port 10.0.5.100 (or incoming port 80 on eth0 to eth1:0).</p>
-<p>Works like a champ!  This way I can configure apache to use <VirtualHost 10.0.5.100:80>, and never need to change anything if the external IP changes because it only listens on that IP, and shorewall will take care of the forwarding (and it doesn't care what the IP on eth0 is).</p>
-<p>I'm sure someone has come up with this before, but I was goofing around and came up with this and it worked so figured I'd share as this is much easier to manage than using wildcard addressing, particularly if you want to use https in there as well (anyone who was connecting earlier tonight probably got an XML download instead of a web page, and for that you have my apologies).</p>
+            <p>Just discovered something very interesting.  I had all my websites setup on my machine with <span class="caps">IP</span>-based virtual hosts (i.e. <VirtualHost 1.2.3.4:80>) and was trying to use wildcards (*:80) and it just wasn&#8217;t working right the way I wanted it to, because I wanted some sites restricted to a certain <span class="caps">IP</span>, and others that would respond to the dynamic <span class="caps">IP</span> of my cable provider.  Just for kicks I tried something with shorewall that actually worked quite&nbsp;nicely.</p>
+<p>In shorewall, you can write a rule&nbsp;like:</p>
+<p><span class="caps">DNAT</span>    net             loc:10.0.5.10   tcp     http&nbsp;-</p>
+<p>which takes an incoming http connection to the firewall and forwards it to the appropriate <span class="caps">IP</span> (10.0.5.10 in this case) in the &#8220;loc&#8221; (local) zone.  So I tried the same thing except the <span class="caps">IP</span> wasn&#8217;t an external&nbsp;machine.</p>
+<p>For instance, eth0 is connected to the internet and gets a dynamic <span class="caps">IP</span> via <span class="caps">DHCP</span>.  eth1 is connected to my internal network, similar to the firewall.  It also runs shorewall.  So I made eth1:0 an <span class="caps">IP</span> on the local network (say, 10.0.5.100).  Then I have a rule that&nbsp;does:</p>
+<p><span class="caps">DNAT</span>    net     net:10.0.5.100  tcp     http&nbsp;-</p>
+<p>This takes the http traffic coming in from the network on port 80 and redirects it to port 10.0.5.100 (or incoming port 80 on eth0 to&nbsp;eth1:0).</p>
+<p>Works like a champ!  This way I can configure apache to use <VirtualHost 10.0.5.100:80>, and never need to change anything if the external <span class="caps">IP</span> changes because it only listens on that <span class="caps">IP</span>, and shorewall will take care of the forwarding (and it doesn&#8217;t care what the <span class="caps">IP</span> on eth0&nbsp;is).</p>
+<p>I&#8217;m sure someone has come up with this before, but I was goofing around and came up with this and it worked so figured I&#8217;d share as this is much easier to manage than using wildcard addressing, particularly if you want to use https in there as well (anyone who was connecting earlier tonight probably got an <span class="caps">XML</span> download instead of a web page, and for that you have my&nbsp;apologies).</p>
 
 
              
  
-            
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=IP-based%20virtual%20hosts%20on%20a%20dynamic%20IP&url=https%3A//vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip&title=IP-based%20virtual%20hosts%20on%20a%20dynamic%20IP&summary=Just%20discovered%20something%20very%20interesting.%20%20I%20had%20all%20my%20websites%20setup%20on%20my%20machine%20with%20IP-based%20virtual%20hosts%20%28i.e.%20%29%20and%20was%20trying%20to%20use%20wildcards%20%28%2A%3A80%29%20and%20it%20just%20wasn%E2%80%99t%20working%20right%20the%20way%20I%20wanted%20it%20to%2C%20because%20I%20wanted%20some%20sites%20restricted%20to%20a%20certain%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/ip-based-virtual-hosts-on-a-dynamic-ip" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
             
             
 
@@ -104,13 +121,21 @@
 
 
             <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://vdanen.github.io/blog/week-of-hell-domain-relocation-and-moving" title="Previous: Week of hell… domain relocation and moving">Week of hell… domain relocation and moving</a></li>
+                <li class="next-article"><a href="https://vdanen.github.io/blog/bugzilla-and-email" title="Next: Bugzilla and email">Bugzilla and email</a> »</li>
+            </ul>
+            </nav>
+            </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2007-05-20T00:38:00-06:00">Sun 20 May 2007</time>
+            <time itemprop="dateCreated" datetime="2007-05-20T00:38:00-06:00">May 20, 2007</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories.html#linux-ref">Linux</a>
-<h4>Contact</h4>
+            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+<h4>Stay in touch</h4>
 <div id="sidebar-social-link">
     <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
@@ -211,6 +236,9 @@
             </div>
         </div>
 <footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
 
 
 

@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/custom.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/fontawesome.min.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
 
         <link rel="dns-prefetch" href="//fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -21,7 +21,7 @@
 <meta name="keywords" content="bugzilla, git, Linux, " />
 
 <meta property="og:title" content="Git commit hook to bugzilla using git-notifier "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" />
+<meta property="og:url" content="https://annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier" />
 <meta property="og:description" content="I’m a big fan of the git-notifier script, which acts as a hook in git to send you nice emails about things that have changed in your git repos. I’m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
@@ -31,18 +31,18 @@
 
         <title>Git commit hook to bugzilla using git-notifier  · Annvix
 </title>
-        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
-        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -65,20 +65,20 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="https://vdanen.github.io/"><span class=site-name>Annvix</span></a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
                                     <a href=
-                                       https://vdanen.github.io
+                                       https://annvix.com
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://annvix.com/about">About</a></li>
+                                <li ><a href="https://annvix.com/documentation">Documentation</a></li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier">
+            <a href="https://annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier">
                 Git commit hook to bugzilla using&nbsp;git-notifier
             </a>
         </h1>
@@ -187,8 +187,8 @@ done
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&url=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier&hashtags=bugzilla,git" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier&title=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&summary=I%E2%80%99m%20a%20big%20fan%20of%20the%20git-notifier%20script%2C%20which%20acts%20as%20a%20hook%20in%20git%20to%20send%20you%20nice%20emails%20about%20things%20that%20have%20changed%20in%20your%20git%20repos.%20%20I%E2%80%99m%20also%20a%20bugzilla%20user%2C%20so%20I%20wanted%20to%20be%20able%20to%20put%20git%20commit%20notifications%2C%20automatically%2C%20in%20bugzilla%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/git-commit-hook-to-bugzilla-using-git-notifier" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&url=https%3A//annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier&hashtags=bugzilla,git" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier&title=Git%20commit%20hook%20to%20bugzilla%20using%C2%A0git-notifier&summary=I%E2%80%99m%20a%20big%20fan%20of%20the%20git-notifier%20script%2C%20which%20acts%20as%20a%20hook%20in%20git%20to%20send%20you%20nice%20emails%20about%20things%20that%20have%20changed%20in%20your%20git%20repos.%20%20I%E2%80%99m%20also%20a%20bugzilla%20user%2C%20so%20I%20wanted%20to%20be%20able%20to%20put%20git%20commit%20notifications%2C%20automatically%2C%20in%20bugzilla%20%E2%80%A6&source=https%3A//annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -203,19 +203,19 @@ done
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://vdanen.github.io/blog/new-bugzilla-in-the-works" title="New bugzilla in the works">New bugzilla in the works</a></li>
-<li><a href="https://vdanen.github.io/blog/bugzilla-and-maintainer-groups" title="Bugzilla and maintainer groups">Bugzilla and maintainer groups</a></li>
-<li><a href="https://vdanen.github.io/blog/bugzilla-is-done-dangit" title="Bugzilla is DONE dangit!!">Bugzilla is DONE dangit!!</a></li>
-<li><a href="https://vdanen.github.io/blog/new-mandriva-bugzilla-update-in-the-works" title="New Mandriva Bugzilla update in the works">New Mandriva Bugzilla update in the works</a></li>
-<li><a href="https://vdanen.github.io/blog/of-bugzilla-python-fetchmail-and-procmail" title="Of bugzilla, python, fetchmail, and procmail">Of bugzilla, python, fetchmail, and procmail</a></li>
+<li><a href="https://annvix.com/blog/new-bugzilla-in-the-works" title="New bugzilla in the works">New bugzilla in the works</a></li>
+<li><a href="https://annvix.com/blog/bugzilla-and-maintainer-groups" title="Bugzilla and maintainer groups">Bugzilla and maintainer groups</a></li>
+<li><a href="https://annvix.com/blog/bugzilla-is-done-dangit" title="Bugzilla is DONE dangit!!">Bugzilla is DONE dangit!!</a></li>
+<li><a href="https://annvix.com/blog/new-mandriva-bugzilla-update-in-the-works" title="New Mandriva Bugzilla update in the works">New Mandriva Bugzilla update in the works</a></li>
+<li><a href="https://annvix.com/blog/of-bugzilla-python-fetchmail-and-procmail" title="Of bugzilla, python, fetchmail, and procmail">Of bugzilla, python, fetchmail, and procmail</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://vdanen.github.io/blog/software-update-service-on-os-x-lion-server" title="Previous: Software Update Service on OS X Lion Server">Software Update Service on OS X Lion Server</a></li>
-                <li class="next-article"><a href="https://vdanen.github.io/blog/replaced-my-kerberosldap-setup-with-freeipa" title="Next: Replaced my Kerberos+LDAP setup with FreeIPA">Replaced my Kerberos+LDAP setup with FreeIPA</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/software-update-service-on-os-x-lion-server" title="Previous: Software Update Service on OS X Lion Server">Software Update Service on OS X Lion Server</a></li>
+                <li class="next-article"><a href="https://annvix.com/blog/replaced-my-kerberosldap-setup-with-freeipa" title="Next: Replaced my Kerberos+LDAP setup with FreeIPA">Replaced my Kerberos+LDAP setup with FreeIPA</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -224,13 +224,13 @@ done
             <h4>Published</h4>
             <time itemprop="dateCreated" datetime="2012-09-21T18:49:00-06:00">Sep 21, 2012</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+            <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags#bugzilla-ref">bugzilla
+                <li><a href="https://annvix.com/tags#bugzilla-ref">bugzilla
                     <span class="superscript">7</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags#git-ref">git
+                <li><a href="https://annvix.com/tags#git-ref">git
                     <span class="superscript">12</span>
 </a></li>
             </ul>
@@ -348,7 +348,7 @@ done
     </div>
 </footer>            <script src="//code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script src="https://vdanen.github.io/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
         <script>
             function validateForm(query)
             {

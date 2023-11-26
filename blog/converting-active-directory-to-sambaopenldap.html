@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/custom.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://vdanen.github.io/theme/css/fontawesome.min.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
 
         <link rel="dns-prefetch" href="//fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -21,7 +21,7 @@
 <meta name="keywords" content="samba, openldap, Linux, " />
 
 <meta property="og:title" content="Converting Active Directory to Samba+OpenLDAP "/>
-<meta property="og:url" content="https://vdanen.github.io/blog/converting-active-directory-to-sambaopenldap" />
+<meta property="og:url" content="https://annvix.com/blog/converting-active-directory-to-sambaopenldap" />
 <meta property="og:description" content="Anyone have any experience with this? I may end up (and will be proposing) that the school my wife works for looks into replacing their (falling apart, IMHO) Win2k server using Active Directory for the domain controller and whatnot to a solution using Samba and OpenLDAP (and I’m presuming …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
@@ -31,18 +31,18 @@
 
         <title>Converting Active Directory to Samba+OpenLDAP  · Annvix
 </title>
-        <link rel="shortcut icon" href="https://vdanen.github.io/theme/images/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="https://vdanen.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="https://vdanen.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="https://vdanen.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="https://vdanen.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="https://vdanen.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="https://vdanen.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="https://vdanen.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://vdanen.github.io/theme/images/apple-touch-icon-180x180.png" type="image/png" />
-        <link href="https://vdanen.github.io/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -65,20 +65,20 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="https://vdanen.github.io/"><span class=site-name>Annvix</span></a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
                                     <a href=
-                                       https://vdanen.github.io
+                                       https://annvix.com
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://vdanen.github.io/about">About</a></li>
-                                <li ><a href="https://vdanen.github.io/documentation">Documentation</a></li>
-                                <li ><a href="https://vdanen.github.io/categories">Categories</a></li>
-                                <li ><a href="https://vdanen.github.io/tags">Tags</a></li>
-                                <li ><a href="https://vdanen.github.io/archives">Archives</a></li>
-                                <li><form class="navbar-search" action="https://vdanen.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://annvix.com/about">About</a></li>
+                                <li ><a href="https://annvix.com/documentation">Documentation</a></li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://vdanen.github.io/blog/converting-active-directory-to-sambaopenldap">
+            <a href="https://annvix.com/blog/converting-active-directory-to-sambaopenldap">
                 Converting Active Directory to&nbsp;Samba+OpenLDAP
             </a>
         </h1>
@@ -112,8 +112,8 @@
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Converting%20Active%20Directory%20to%C2%A0Samba%2BOpenLDAP&url=https%3A//vdanen.github.io/blog/converting-active-directory-to-sambaopenldap&hashtags=samba,openldap" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//vdanen.github.io/blog/converting-active-directory-to-sambaopenldap&title=Converting%20Active%20Directory%20to%C2%A0Samba%2BOpenLDAP&summary=Anyone%20have%20any%20experience%20with%20this%3F%20%20I%20may%20end%20up%20%28and%20will%20be%20proposing%29%20that%20the%20school%20my%20wife%20works%20for%20looks%20into%20replacing%20their%20%28falling%20apart%2C%20IMHO%29%20Win2k%20server%20using%20Active%20Directory%20for%20the%20domain%20controller%20and%20whatnot%20to%20a%20solution%20using%20Samba%20and%20OpenLDAP%20%28and%20I%E2%80%99m%20presuming%20%E2%80%A6&source=https%3A//vdanen.github.io/blog/converting-active-directory-to-sambaopenldap" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=Converting%20Active%20Directory%20to%C2%A0Samba%2BOpenLDAP&url=https%3A//annvix.com/blog/converting-active-directory-to-sambaopenldap&hashtags=samba,openldap" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/converting-active-directory-to-sambaopenldap&title=Converting%20Active%20Directory%20to%C2%A0Samba%2BOpenLDAP&summary=Anyone%20have%20any%20experience%20with%20this%3F%20%20I%20may%20end%20up%20%28and%20will%20be%20proposing%29%20that%20the%20school%20my%20wife%20works%20for%20looks%20into%20replacing%20their%20%28falling%20apart%2C%20IMHO%29%20Win2k%20server%20using%20Active%20Directory%20for%20the%20domain%20controller%20and%20whatnot%20to%20a%20solution%20using%20Samba%20and%20OpenLDAP%20%28and%20I%E2%80%99m%20presuming%20%E2%80%A6&source=https%3A//annvix.com/blog/converting-active-directory-to-sambaopenldap" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -128,15 +128,15 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://vdanen.github.io/blog/the-easiest-way-to-set-up-samba-for-file-sharing" title="The easiest way to set up Samba for file-sharing">The easiest way to set up Samba for file-sharing</a></li>
+<li><a href="https://annvix.com/blog/the-easiest-way-to-set-up-samba-for-file-sharing" title="The easiest way to set up Samba for file-sharing">The easiest way to set up Samba for file-sharing</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://vdanen.github.io/blog/crispin-cowan-joins-microsoft" title="Previous: Crispin Cowan joins Microsoft">Crispin Cowan joins Microsoft</a></li>
-                <li class="next-article"><a href="https://vdanen.github.io/blog/auto-reboot-linux-after-a-kernel-panic" title="Next: Auto-reboot Linux after a kernel panic">Auto-reboot Linux after a kernel panic</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/crispin-cowan-joins-microsoft" title="Previous: Crispin Cowan joins Microsoft">Crispin Cowan joins Microsoft</a></li>
+                <li class="next-article"><a href="https://annvix.com/blog/auto-reboot-linux-after-a-kernel-panic" title="Next: Auto-reboot Linux after a kernel panic">Auto-reboot Linux after a kernel panic</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -145,13 +145,13 @@
             <h4>Published</h4>
             <time itemprop="dateCreated" datetime="2008-01-22T18:04:00-07:00">Jan 22, 2008</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://vdanen.github.io/categories#linux-ref">Linux</a>
+            <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://vdanen.github.io/tags#openldap-ref">openldap
+                <li><a href="https://annvix.com/tags#openldap-ref">openldap
                     <span class="superscript">1</span>
 </a></li>
-                <li><a href="https://vdanen.github.io/tags#samba-ref">samba
+                <li><a href="https://annvix.com/tags#samba-ref">samba
                     <span class="superscript">2</span>
 </a></li>
             </ul>
@@ -269,7 +269,7 @@
     </div>
 </footer>            <script src="//code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script src="https://vdanen.github.io/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
         <script>
             function validateForm(query)
             {

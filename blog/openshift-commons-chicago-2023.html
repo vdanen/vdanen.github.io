@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="This week’s TechMail is Configure Snort to log packets to MySQL which looks at using MySQL to store snort logs and BASE to view them. Already there’s a comment there about someone wanting to know how to do it on Windows. I’m sure it’s possible, but …
+        <meta name="description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="techmail, security, mysql, Linux, " />
+<meta name="keywords" content="security, linux, Linux, " />
 
-<meta property="og:title" content="Configure Snort to log packets to MySQL "/>
-<meta property="og:url" content="https://annvix.com/blog/configure-snort-to-log-packets-to-mysql" />
-<meta property="og:description" content="This week’s TechMail is Configure Snort to log packets to MySQL which looks at using MySQL to store snort logs and BASE to view them. Already there’s a comment there about someone wanting to know how to do it on Windows. I’m sure it’s possible, but …" />
+<meta property="og:title" content="OpenShift Commons Chicago 2023 "/>
+<meta property="og:url" content="https://annvix.com/blog/openshift-commons-chicago-2023" />
+<meta property="og:description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2008-03-26T08:00:00-06:00" />
-<meta name="twitter:title" content="Configure Snort to log packets to MySQL ">
-<meta name="twitter:description" content="This week’s TechMail is Configure Snort to log packets to MySQL which looks at using MySQL to store snort logs and BASE to view them. Already there’s a comment there about someone wanting to know how to do it on Windows. I’m sure it’s possible, but …">
+<meta property="og:article:published_time" content="2023-11-27T19:30:00-07:00" />
+<meta name="twitter:title" content="OpenShift Commons Chicago 2023 ">
+<meta name="twitter:description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …">
 
-        <title>Configure Snort to log packets to MySQL  · Annvix
+        <title>OpenShift Commons Chicago 2023  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -92,8 +92,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/configure-snort-to-log-packets-to-mysql">
-                Configure Snort to log packets to&nbsp;MySQL
+            <a href="https://annvix.com/blog/openshift-commons-chicago-2023">
+                OpenShift Commons Chicago&nbsp;2023
             </a>
         </h1>
     </header>
@@ -102,15 +102,35 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week&#8217;s TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=184">Configure Snort to log packets to MySQL</a> which looks at using MySQL to store snort logs and <span class="caps">BASE</span> to view them.  Already there&#8217;s a comment there about someone wanting to know how to do it on Windows.  I&#8217;m sure it&#8217;s possible, but my first instinct was to reply &#8220;you can&#8217;t&#8221;.  Someone has a case of snort envy&nbsp;perhaps?</p>
+            <p><img alt="Image" src="https://annvix.com/images/more_in_common.webp" /></p>
+<p>I had the opportunity to speak at the recent <a href="https://commons.openshift.org/gatherings/kubecon-24-nov-12/">OpenShift Commons in
+Chicago</a> that
+was an event that coincided with Kubecon in Chicago a few weeks back.  I
+spoke about the <a href="https://www.youtube.com/watch?v=3S855TdwhH4">Evolution of risk management in
+software</a> which is a more
+reent talk that I&#8217;ve given a few times; the first time was at the Summit
+Connect <span class="caps">NL</span> in&nbsp;September.</p>
+<p>A few technical difficulties aside, this was a great talk that resonated
+quite well with the audience, and I appreciate that later in the day and
+even when I was strolling around Kubecon the next day I got a lot of
+comments and discussions about&nbsp;it.</p>
+<p>The basic premise is that patching everything is out-dated and expensive
+and while we&#8217;ve elevated and evolved our thinking about risk <em>a lot</em> over
+the last 20 years, for some reason we&#8217;ve not really changed our thinking
+when it comes to patches &#8212; and that can come at a significant&nbsp;cost.</p>
+<p>I hope you find it interesting and useful!  I&#8217;ve been working on a blog
+post that goes with it and has a lot more detail than I can give in a talk,
+but turns out it&#8217;s a bit too long to publish as-is on the redhat.com
+web site, so it&#8217;ll likely be a 6-part blog series.  I hope to be able to
+share that with you all&nbsp;soon.</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Configure%20Snort%20to%20log%20packets%20to%C2%A0MySQL&url=https%3A//annvix.com/blog/configure-snort-to-log-packets-to-mysql&hashtags=techmail,security,mysql" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/configure-snort-to-log-packets-to-mysql&title=Configure%20Snort%20to%20log%20packets%20to%C2%A0MySQL&summary=This%20week%E2%80%99s%20TechMail%20is%20Configure%20Snort%20to%20log%20packets%20to%20MySQL%20which%20looks%20at%20using%20MySQL%20to%20store%20snort%20logs%20and%20BASE%20to%20view%20them.%20%20Already%20there%E2%80%99s%20a%20comment%20there%20about%20someone%20wanting%20to%20know%20how%20to%20do%20it%20on%20Windows.%20%20I%E2%80%99m%20sure%20it%E2%80%99s%20possible%2C%20but%20%E2%80%A6&source=https%3A//annvix.com/blog/configure-snort-to-log-packets-to-mysql" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=OpenShift%20Commons%20Chicago%C2%A02023&url=https%3A//annvix.com/blog/openshift-commons-chicago-2023&hashtags=security,linux" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/openshift-commons-chicago-2023&title=OpenShift%20Commons%20Chicago%C2%A02023&summary=I%20had%20the%20opportunity%20to%20speak%20at%20the%20recent%20OpenShift%20Commons%20in%0AChicago%20that%0Awas%20an%20event%20that%20coincided%20with%20Kubecon%20in%20Chicago%20a%20few%20weeks%20back.%20%20I%0Aspoke%20about%20the%20Evolution%20of%20risk%20management%20in%0Asoftware%20which%20is%20a%20more%0Areent%20talk%20that%20I%E2%80%99ve%20given%20a%20few%20times%20%E2%80%A6&source=https%3A//annvix.com/blog/openshift-commons-chicago-2023" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -125,38 +145,34 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://annvix.com/blog/set-up-rsyslog-to-store-syslog-messages-in-mysql" title="Set up rsyslog to store syslog messages in MySQL">Set up rsyslog to store syslog messages in MySQL</a></li>
-<li><a href="https://annvix.com/blog/why-postgresql-is-a-better-enterprise-database-than-mysql" title="Why PostgreSQL is a better enterprise database than MySQL">Why PostgreSQL is a better enterprise database than MySQL</a></li>
-<li><a href="https://annvix.com/blog/managing-mysql-with-mysql-workbench" title="Managing MySQL with MySQL Workbench">Managing MySQL with MySQL Workbench</a></li>
-<li><a href="https://annvix.com/blog/monitoring-mysql-with-mytop" title="Monitoring MySQL with mytop">Monitoring MySQL with mytop</a></li>
-<li><a href="https://annvix.com/blog/two-factor-ssh-authentication-via-google-secures-linux-logins" title="Two-factor SSH authentication via Google secures Linux logins">Two-factor SSH authentication via Google secures Linux logins</a></li>
+<li><a href="https://annvix.com/blog/interview-when-is-it-secure-enough" title="Interview: When is it secure enough?">Interview: When is it secure enough?</a></li>
+<li><a href="https://annvix.com/blog/and-a-pelican-in-a-pear-tree" title="… And a pelican in a pear tree">… And a pelican in a pear tree</a></li>
+<li><a href="https://annvix.com/blog/sboms-cves-cvss-and-more" title="SBOMs, CVEs, CVSS and more">SBOMs, CVEs, CVSS and more</a></li>
+<li><a href="https://annvix.com/blog/oss-summit-2023" title="OSS Summit 2023">OSS Summit 2023</a></li>
+<li><a href="https://annvix.com/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/site-moved" title="Previous: Site moved">Site moved</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/which-bible-character-am-i-most-like" title="Next: Which bible character am I most like?">Which bible character am I most like?</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/relocated-to-github-pages" title="Previous: Relocated to GitHub pages">Relocated to GitHub pages</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-03-26T08:00:00-06:00">Mar 26, 2008</time>
+            <time itemprop="dateCreated" datetime="2023-11-27T19:30:00-07:00">Nov 27, 2023</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://annvix.com/tags#mysql-ref">mysql
-                    <span class="superscript">8</span>
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">7</span>
 </a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security
                     <span class="superscript">35</span>
-</a></li>
-                <li><a href="https://annvix.com/tags#techmail-ref">techmail
-                    <span class="superscript">236</span>
 </a></li>
             </ul>
 <h4>Stay in touch</h4>

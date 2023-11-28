@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-11-26T15:26:00-07:00</updated><entry><title>Relocated to GitHub pages</title><link href="https://annvix.com/blog/relocated-to-github-pages" rel="alternate"></link><published>2023-11-26T15:26:00-07:00</published><updated>2023-11-26T15:26:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-11-26:/blog/relocated-to-github-pages</id><summary type="html">&lt;p&gt;This is both a test and awareness.  I&amp;#8217;ve moved the site from PythonAnywhere
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-11-27T19:30:00-07:00</updated><entry><title>OpenShift Commons Chicago 2023</title><link href="https://annvix.com/blog/openshift-commons-chicago-2023" rel="alternate"></link><published>2023-11-27T19:30:00-07:00</published><updated>2023-11-27T19:30:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-11-27:/blog/openshift-commons-chicago-2023</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/more_in_common.webp" /&gt;&lt;/p&gt;
+&lt;p&gt;I had the opportunity to speak at the recent &lt;a href="https://commons.openshift.org/gatherings/kubecon-24-nov-12/"&gt;OpenShift Commons in
+Chicago&lt;/a&gt; that
+was an event that coincided with Kubecon in Chicago a few weeks back.  I
+spoke about the &lt;a href="https://www.youtube.com/watch?v=3S855TdwhH4"&gt;Evolution of risk management in
+software&lt;/a&gt; which is a more
+reent talk that I&amp;#8217;ve given a few times …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/more_in_common.webp" /&gt;&lt;/p&gt;
+&lt;p&gt;I had the opportunity to speak at the recent &lt;a href="https://commons.openshift.org/gatherings/kubecon-24-nov-12/"&gt;OpenShift Commons in
+Chicago&lt;/a&gt; that
+was an event that coincided with Kubecon in Chicago a few weeks back.  I
+spoke about the &lt;a href="https://www.youtube.com/watch?v=3S855TdwhH4"&gt;Evolution of risk management in
+software&lt;/a&gt; which is a more
+reent talk that I&amp;#8217;ve given a few times; the first time was at the Summit
+Connect &lt;span class="caps"&gt;NL&lt;/span&gt; in&amp;nbsp;September.&lt;/p&gt;
+&lt;p&gt;A few technical difficulties aside, this was a great talk that resonated
+quite well with the audience, and I appreciate that later in the day and
+even when I was strolling around Kubecon the next day I got a lot of
+comments and discussions about&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;The basic premise is that patching everything is out-dated and expensive
+and while we&amp;#8217;ve elevated and evolved our thinking about risk &lt;em&gt;a lot&lt;/em&gt; over
+the last 20 years, for some reason we&amp;#8217;ve not really changed our thinking
+when it comes to patches &amp;#8212; and that can come at a significant&amp;nbsp;cost.&lt;/p&gt;
+&lt;p&gt;I hope you find it interesting and useful!  I&amp;#8217;ve been working on a blog
+post that goes with it and has a lot more detail than I can give in a talk,
+but turns out it&amp;#8217;s a bit too long to publish as-is on the redhat.com
+web site, so it&amp;#8217;ll likely be a 6-part blog series.  I hope to be able to
+share that with you all&amp;nbsp;soon.&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="linux"></category></entry><entry><title>Relocated to GitHub pages</title><link href="https://annvix.com/blog/relocated-to-github-pages" rel="alternate"></link><published>2023-11-26T15:26:00-07:00</published><updated>2023-11-26T15:26:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-11-26:/blog/relocated-to-github-pages</id><summary type="html">&lt;p&gt;This is both a test and awareness.  I&amp;#8217;ve moved the site from PythonAnywhere
 to GitHub Pages because I&amp;#8217;m cheap and it&amp;#8217;s a static site, so it doesn&amp;#8217;t
 need to be on PythonAnywhere anymore.  I changed the theme at the same time
 to make it a bit …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is both a test and awareness.  I&amp;#8217;ve moved the site from PythonAnywhere
@@ -3341,90 +3367,4 @@ done
 &lt;p&gt;So while it&amp;#8217;s fugly, there&amp;#8217;s quite a bit of magic to it.  Seems that when you call git-notifier again, it won&amp;#8217;t send an email because it knows it&amp;#8217;s already been sent, which is why we need the commit hash, and feed it to it with the &amp;#8212;manual option.  The &amp;#8212;mailinglist option is used to point to bugzilla (again, the git-notifier config is pointing to another email address to receive the commits already, so we need to override it).  The &amp;#8212;sender option takes the committer&amp;#8217;s email address as the value (the $&lt;span class="caps"&gt;EMAIL&lt;/span&gt; variable), which also overrides the default git-notifier sender (which is the local user on the system unless you&amp;#8217;re using gitolite (which I&amp;#8217;m not)).  The &amp;#8212;bug_id is a digit to reference the bug in the commit (this should also send multiple mails if more than one bug is referenced in the commit, but I&amp;#8217;ve not tested that yet).  The end result is you get a copy of the git commit directly into bugzilla, in the same format that you would get it via&amp;nbsp;email.&lt;/p&gt;
 &lt;p&gt;I may spend some time later on trying to make gitzilla play nicely with the newer version of pybugz, but for now this scratches my itch.  Like I said, not the prettiest solution, but it works as a quick-n-dirty hack.  The inspiration for using email to send this to bugzilla was from Gentoo&amp;#8217;s &lt;a href="http://en.gentoo-wiki.com/wiki/Bugzilla_Email#Subversion_Integration"&gt;Bugzilla Email&lt;/a&gt; wiki entry (the subversion integration part in&amp;nbsp;particular).&lt;/p&gt;
 &lt;p&gt;Note that since the email is being sent as the committer, the committer needs to have an account with that email address in your bugzilla.  If not, bugzilla&amp;#8217;s email_in.pl will bounce it back.  So you may want to have a bugzilla &amp;#8220;commits&amp;#8221; account as a dummy account from which you can email these things if not all of your committers have bugzilla access or use the same email address in bugzilla that they do in&amp;nbsp;git.&lt;/p&gt;
-&lt;p&gt;If anyone has any suggestions on a better way to do this (particularly via &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; which I think would be a nicer way to go), I&amp;#8217;m all ears.  (Short of writing my own &amp;#8212; I could do this, having worked with bugzilla and lately with &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; access, quite a bit &amp;#8212; I&amp;#8217;m too lazy to write something from&amp;nbsp;scratch)&lt;/p&gt;</content><category term="Linux"></category><category term="bugzilla"></category><category term="git"></category></entry><entry><title>Software Update Service on OS X Lion Server</title><link href="https://annvix.com/blog/software-update-service-on-os-x-lion-server" rel="alternate"></link><published>2012-08-23T17:44:00-06:00</published><updated>2012-08-23T17:44:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2012-08-23:/blog/software-update-service-on-os-x-lion-server</id><summary type="html">&lt;p&gt;Software Update Service is part of &lt;span class="caps"&gt;OS&lt;/span&gt; X Lion server (and Mountain Lion server) that allows you to download &lt;span class="caps"&gt;OS&lt;/span&gt; updates and serve them to multiple clients on a local network (similar to Red Hat&amp;#8217;s Satellite server, for Red Hat Enterprise Linux).  I&amp;#8217;ve had to play with this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Software Update Service is part of &lt;span class="caps"&gt;OS&lt;/span&gt; X Lion server (and Mountain Lion server) that allows you to download &lt;span class="caps"&gt;OS&lt;/span&gt; updates and serve them to multiple clients on a local network (similar to Red Hat&amp;#8217;s Satellite server, for Red Hat Enterprise Linux).  I&amp;#8217;ve had to play with this because we&amp;#8217;re bandwidth-restricted at the church, and there are a lot of macs there, all of which need security and bugfix updates.  Attempting to download each of these updates, online, is a painful experience, so Lion Server was a logical route to take.  Except that it&amp;#8217;s annoying as all get out, and was painful to get up and running.  So this is just some notes on how I managed to get it to&amp;nbsp;work.&lt;/p&gt;
-&lt;p&gt;First, you need (Mountain) Lion Server, and you need the Server Admin application, from where you can enable &lt;span class="caps"&gt;SUS&lt;/span&gt; (Software Update Server).  I attempted to do it transparently because I control &lt;span class="caps"&gt;DNS&lt;/span&gt; on the local network, but while this seemed to work with Lion, it doesn&amp;#8217;t seem to work with Mountain Lion&amp;#8230; not quite sure why&amp;nbsp;yet.&lt;/p&gt;
-&lt;p&gt;I followed this tutorial: &lt;a href="https://sites.google.com/site/stupidmactricks/home/transparentsoftwareupdateserverusingmacosxlionserver107"&gt;Transparent Software Update Server using Mac &lt;span class="caps"&gt;OS&lt;/span&gt; X Lion Server 10.7&lt;/a&gt; to get me up and running.  I did notice, however, that I was not getting any updates downloaded that had been posted after May 2012, and eventually tracked it down to the &lt;span class="caps"&gt;IP&lt;/span&gt; address it recommends putting in /etc/hosts.  Do &lt;b&gt;&lt;span class="caps"&gt;NOT&lt;/span&gt;&lt;/b&gt; use 17.250.248.95 for swscan.apple.com!  The line to add to the &lt;span class="caps"&gt;SUS&lt;/span&gt; server&amp;#8217;s /etc/hosts file is&amp;nbsp;this:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;
-17.164.1.22 swscan.apple.com
-&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;That will get you all current updates, including Mountain Lion updates.  A few other things to note (since I need &lt;span class="caps"&gt;SUS&lt;/span&gt; to handle &lt;span class="caps"&gt;OS&lt;/span&gt; X 10.6, 10.7, and 10.8).  The mod_rewrite section on /etc/swupd/swupd.conf should look like&amp;nbsp;this:&lt;/p&gt;
-&lt;pre&gt;
-&amp;lt;IfModule mod_rewrite.c&gt;
-    RewriteEngine On
-    RewriteCond %{HTTP_USER_AGENT} Darwin/9
-    RewriteRule ^/index\.sucatalog$ http://%{HTTP_HOST}/cgi-bin/SoftwareUpdateServerGetCatalog?/index-leopard.merged-1.sucatalog
-    RewriteCond %{HTTP_USER_AGENT} Darwin/10
-    RewriteRule ^/index\.sucatalog$ http://%{HTTP_HOST}/cgi-bin/SoftwareUpdateServerGetCatalog?/index-leopard-snowleopard.merged-1.sucatalog
-    RewriteCond %{HTTP_USER_AGENT} Darwin/11
-    RewriteRule ^/index\.sucatalog$ http://%{HTTP_HOST}/cgi-bin/SoftwareUpdateServerGetCatalog?/index-lion-snowleopard-leopard.merged-1.sucatalog
-    RewriteCond %{HTTP_USER_AGENT} Darwin/12
-    RewriteRule ^/index\.sucatalog$ http://%{HTTP_HOST}/cgi-bin/SoftwareUpdateServerGetCatalog?/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
-&amp;lt;/IfModule&gt;
-&lt;/pre&gt;
-
-&lt;p&gt;(Sorry, the above looks a bit messed up, but you should be able to copy-n-paste it).  And my /etc/swupd/swupd.plist looks&amp;nbsp;like:&lt;/p&gt;
-&lt;pre&gt;
-&amp;lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&amp;lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
-&amp;lt;plist version="1.0"&gt;
-&amp;lt;dict&gt;
-    &amp;lt;key&gt;PurgeUnused&amp;lt;/key&gt;
-    &amp;lt;true/&gt;
-    &amp;lt;key&gt;autoEnable&amp;lt;/key&gt;
-    &amp;lt;true/&gt;
-    &amp;lt;key&gt;autoMirror&amp;lt;/key&gt;
-    &amp;lt;true/&gt;
-    &amp;lt;key&gt;autoMirrorOnlyNew&amp;lt;/key&gt;
-    &amp;lt;false/&gt;
-    &amp;lt;key&gt;limitBandwidth&amp;lt;/key&gt;
-    &amp;lt;false/&gt;
-    &amp;lt;key&gt;otherCatalogs&amp;lt;/key&gt;
-    &amp;lt;array&gt;
-        &amp;lt;string&gt;index-leopard.merged-1.sucatalog&amp;lt;/string&gt;
-        &amp;lt;string&gt;index-leopard-snowleopard.merged-1.sucatalog&amp;lt;/string&gt;
-        &amp;lt;string&gt;index-lion-snowleopard-leopard.merged-1.sucatalog&amp;lt;/string&gt;
-        &amp;lt;string&gt;index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog&amp;lt;/string&gt;
-    &amp;lt;/array&gt;
-    &amp;lt;key&gt;portToUse&amp;lt;/key&gt;
-    &amp;lt;integer&gt;8088&amp;lt;/integer&gt;
-    &amp;lt;key&gt;syncBandwidth&amp;lt;/key&gt;
-    &amp;lt;integer&gt;0&amp;lt;/integer&gt;
-    &amp;lt;key&gt;updatesDocRoot&amp;lt;/key&gt;
-    &amp;lt;string&gt;/var/db/swupd/&amp;lt;/string&gt;
-    &amp;lt;key&gt;valueBandwidth&amp;lt;/key&gt;
-    &amp;lt;integer&gt;0&amp;lt;/integer&gt;
-&amp;lt;/dict&gt;
-&amp;lt;/plist&gt;
-&lt;/pre&gt;
-
-&lt;p&gt;With those changes, I can serve the updates to my mac clients, but not on Mountain Lion.  On Mountain Lion clients you need to run this command to explicitly point to the &lt;span class="caps"&gt;SUS&lt;/span&gt;&amp;nbsp;server:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;
-$ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CatalogURL http://[SUS_SERVER]:8088/index.sucatalog
-&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Now when you launch the App Store and check for updates, it will find any new Mountain Lion&amp;nbsp;updates.&lt;/p&gt;
-&lt;p&gt;For transparent updates on earlier versions of &lt;span class="caps"&gt;OS&lt;/span&gt; X, I added the following to my &lt;span class="caps"&gt;DNS&lt;/span&gt; server&amp;#8217;s&amp;nbsp;named.conf:&lt;/p&gt;
-&lt;pre&gt;
-zone "swscan.apple.com" {
-    type master;
-    file "master/swscan.apple.com.zone";
-};
-&lt;/pre&gt;
-
-&lt;p&gt;and the swscan.apple.com.zone file&amp;nbsp;contains:&lt;/p&gt;
-&lt;pre&gt;
-$TTL    86400
-@       IN SOA  swscan.apple.com. root.mydomain.com. (
-                    2012060201      ; serial (d. adams)
-                    12H     ; refresh
-                    15M     ; retry
-                    1W      ; expiry
-                    1D )        ; minimum
-            IN NS       dns.mydomain.com.
-        IN MX       10 smtp.mydomain.com.
-
-localhost   IN A        127.0.0.1
-swscan.apple.com. IN A      192.168.0.10
-&lt;/pre&gt;
-
-&lt;p&gt;I suspect there is another domain name that needs to be resolved somewhere in addition to swscan.apple.com, but I&amp;#8217;ve not had the time to track it down as of yet.  An easy way to check is on Lion and earlier if you run &amp;#8220;sudo softwareupdate -l&amp;#8221; and watch the logs on your &lt;span class="caps"&gt;SUS&lt;/span&gt;, you&amp;#8217;ll see the connections from that client.  The same does not happen with Mountain Lion clients unless you do the &amp;#8220;defaults write&amp;#8221; command noted&amp;nbsp;earlier.&lt;/p&gt;
-&lt;p&gt;If anyone knows how to make Mountain Lion clients connect to the &lt;span class="caps"&gt;SUS&lt;/span&gt; transparently, I would love to hear about how you got it to&amp;nbsp;work.&lt;/p&gt;</content><category term="Macos"></category><category term="swupd"></category></entry></feed>
+&lt;p&gt;If anyone has any suggestions on a better way to do this (particularly via &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; which I think would be a nicer way to go), I&amp;#8217;m all ears.  (Short of writing my own &amp;#8212; I could do this, having worked with bugzilla and lately with &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; access, quite a bit &amp;#8212; I&amp;#8217;m too lazy to write something from&amp;nbsp;scratch)&lt;/p&gt;</content><category term="Linux"></category><category term="bugzilla"></category><category term="git"></category></entry></feed>

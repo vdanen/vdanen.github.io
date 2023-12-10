@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Vincent Danen" />
+
+        <meta name="description" content="I’ve been using GTD (Getting Things Done) as a methodology for how I work for a number of years. I revisit the systems I use occasionally, particularly when I don’t feel they’re working out for me or my needs have changed. And lately one of the biggest …
+" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="productivity, Life, " />
+
+<meta property="og:title" content="Productivity improvements with Obsidian, OmniFocus and Johnny Decimal "/>
+<meta property="og:url" content="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" />
+<meta property="og:description" content="I’ve been using GTD (Getting Things Done) as a methodology for how I work for a number of years. I revisit the systems I use occasionally, particularly when I don’t feel they’re working out for me or my needs have changed. And lately one of the biggest …" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta property="og:article:published_time" content="2023-12-09T17:02:00-07:00" />
+<meta name="twitter:title" content="Productivity improvements with Obsidian, OmniFocus and Johnny Decimal ">
+<meta name="twitter:description" content="I’ve been using GTD (Getting Things Done) as a methodology for how I work for a number of years. I revisit the systems I use occasionally, particularly when I don’t feel they’re working out for me or my needs have changed. And lately one of the biggest …">
+
+        <title>Productivity improvements with Obsidian, OmniFocus and Johnny Decimal  · Annvix
+</title>
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5JGVD90SKJ');
+</script>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://annvix.com
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://annvix.com/about">About</a></li>
+                                <li ><a href="https://annvix.com/documentation">Documentation</a></li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal">
+                Productivity improvements with Obsidian, OmniFocus and Johnny&nbsp;Decimal
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>I&#8217;ve been using <span class="caps">GTD</span> (<a href="https://gettingthingsdone.com/">Getting Things Done</a>)
+as a methodology for how I work for a number of years.  I revisit the
+systems I use occasionally, particularly when I don&#8217;t feel they&#8217;re working
+out for me or my needs have changed.  And lately one of the biggest
+challenge I have is that I&#8217;m actually quite good at <em>taking</em> notes, but I&#8217;m
+not as good at <em>finding</em> the notes I&nbsp;took.</p>
+<p>And as time goes on, I found I have more places to store things (documents
+of various types, email, and so on) and while they can all be categorized
+similarly, I never really bothered.  Previously I had focused on how to
+organize things like OmniFocus (for tasks) versus organizing <em>everything</em>
+in a similar way.  In other words, I would spend the time to organize a
+system versus having a system to coherently organize all the data across
+the systems I&nbsp;use.</p>
+<p>As a point of reference, these are all the &#8220;storage buckets&#8221; I use for data
+(whether for work or&nbsp;personal):</p>
+<ul>
+<li><a href="https://www.omnigroup.com/omnifocus/">OmniFocus</a> for tracking&nbsp;tasks</li>
+<li><a href="https://c-command.com/eaglefiler/">EagleFiler</a> for private
+  out-of-the-cloud- document storage that I want to retain (think tax
+  documents, receipts, PDFs,&nbsp;etc)</li>
+<li>Mac&#8217;s Finder for things I download and presumably some might make it to
+  EagleFiler (but I&#8217;ll admit I&#8217;m not very consistent&nbsp;here!)</li>
+<li><a href="https://obsidian.md/">Obsidian</a> for taking markdown notes (as a
+  reference, I&#8217;ve gone through a number of systems here, including
+  EagleFiler to store <span class="caps">RTF</span> notes,
+  Joplin, Inkdrop, Quiver, and finally settling on Obsidian earlier this&nbsp;year)</li>
+<li>Gmail for&nbsp;email</li>
+<li>Google Drive for documents that are shared with others (family or
+  co-workers) and other cloud&nbsp;storage</li>
+<li>Apple Notes for quick, short-lived notes (such as the hotel room number I
+  happen to be staying in or copy/paste references); I may rely on this
+  less now that I can sync Obsidian to mobile&nbsp;devices</li>
+</ul>
+<p>And because this data can be used on the desktop system at home, or the
+work laptop or personal laptop, in addition to my iPad and iPhone, these
+systems as much as possible need to be sync&#8217;d.  Since I don&#8217;t trust cloud
+services more than I need to, I try to sync as much of this via git as
+possible and locally host my own <a href="https://about.gitea.com/">Gitea</a>
+instance.  I store my EagleFiler storage and Obsidian data in git and use
+it to synchronize across my&nbsp;devices.</p>
+<p>I&#8217;ll briefly describe how to sync Obsidian to iOS devices, which has its
+own client, and then discuss a recent way I&#8217;ve found to categorize data
+across disparate systems and&nbsp;applications.</p>
+<h2 id="syncing-obsidian-to-ipad-andor-iphone">Syncing Obsidian to iPad and/or iPhone<a class="headerlink" href="#syncing-obsidian-to-ipad-andor-iphone" title="Permanent link"> </a></h2>
+<p>My ecosystem is entirely Apple-based, so I use Obsidian on my Mac and I use
+both the iPhone and iPad, and it would be hugely beneficial to have the
+data in Obsidian available to me on both&nbsp;devices.</p>
+<p>I followed <a href="https://meganesulli.com/blog/sync-obsidian-vault-iphone-ipad/">this tutorial on syncing Obsidian vaults to iPhone or iPad</a>
+and it worked like a champ.  I use <a href="https://workingcopy.app/">Working Copy</a>
+to get the git repository on my device and link it to the Obsidian vault,
+meaning that I have access to notes and documents, at least those in
+Obsidian, while on the go or I can use the iPad to take meeting notes
+without obscuring a screen while having a meeting on Google Meet or Zoom or&nbsp;whatever.</p>
+<p>The only downside is Working Copy has a cost if you want to use it with
+Obsidian.  I don&#8217;t mind though; I&#8217;ve had a lot of situations where all I
+had with me was my phone and I needed to reference something in my notes
+which were not available.  From a productivity perspective, it&#8217;s a small
+price to&nbsp;pay.</p>
+<h2 id="categorization-using-johnny-decimal">Categorization using Johnny Decimal<a class="headerlink" href="#categorization-using-johnny-decimal" title="Permanent link"> </a></h2>
+<p>I randomly stumbled across a podcast, <a href="https://learnomnifocus.com/tutorial/2022-11-17-omnifocus-obsidian-workflows-with-leah-ferguson/">OmniFocus + Obsidian Workflows with Leah Ferguson</a>
+discussing how to integrate OmniFocus with Obsidian.  I thought this would
+be an interesting way to enhance my usage of both tools, since I already
+use them both, perhaps with a bit of automation (I don&#8217;t use Apple
+Shortcuts as much as I probably&nbsp;could).</p>
+<p>The podcast was great, but not because of the Obsidian and OmniFocus
+integration &#8212; while helpful, the introduction to <a href="https://johnnydecimal.com/">Johnny Decimal</a>
+was vastly more important and started me down a journey of trying to become
+even more productive.  Making the data easier to find was what struck me
+most when I was listening to Leah describe her use of those systems.  After
+all, if I&#8217;m going to spend the time keeping something, what is it for if
+not to easily find it when I need&nbsp;it?</p>
+<p>I won&#8217;t go into all the specifics of how I organized things, but I&#8217;ll give
+you some details to get the idea.  The essential premise is to start broad,
+with no more than 10 categories, and then you narrow the aperture as you go
+further.  For me, I made sure I only numbered three levels deep; anything
+further than that just is un-numbered folders or files that I try to give
+coherent names&nbsp;to.</p>
+<p>At the top level I&nbsp;have:</p>
+<ul>
+<li>00&nbsp;Meta</li>
+<li>10&nbsp;Personal</li>
+<li>20&nbsp;Learning</li>
+<li>30&nbsp;Professional</li>
+<li>40&nbsp;Reference</li>
+</ul>
+<p>I haven&#8217;t found a need to have more than these high-level&nbsp;groups.</p>
+<h3 id="00-meta">00 Meta<a class="headerlink" href="#00-meta" title="Permanent link"> </a></h3>
+<p><code>00 Meta</code> is for all the random metadata that just needs a place to live.  In
+Obsidian I&nbsp;have:</p>
+<ul>
+<li>00 Meta<ul>
+<li>01&nbsp;Inbox</li>
+<li>02&nbsp;Templates</li>
+<li>03&nbsp;Resources</li>
+<li>04 <span class="caps">SOP</span></li>
+</ul>
+</li>
+</ul>
+<p><code>04 SOP</code> is a special &#8220;Standard Operating Procedures&#8221; folder where I
+document things like this system.  <code>01 Inbox</code> is the standard Obsidian
+inbox for new files that haven&#8217;t been categorized.  <code>02 Templates</code> are for
+the templates I use in Obsidian, such as the weekly template where I put
+notes of my schedule for the week.  <code>03 Resources</code> are for all the
+attachments (PDFs, graphics, etc) that are inserted into Obsidian&nbsp;documents.</p>
+<p>In Gmail I use this a bit differently and have <code>00 Meta</code> as a label with
+these nested&nbsp;sub-lables:</p>
+<ul>
+<li><span class="caps">ACTION</span></li>
+<li><span class="caps">EVENTS</span></li>
+<li><span class="caps">FOLLOWUP</span></li>
+<li><span class="caps">IMPORTANT</span></li>
+<li><span class="caps">WAITINGFOR</span></li>
+</ul>
+<p>The <code>ACTION</code> label should probably be used less as I work to get those
+actions into OmniFocus.  This would be easier if
+<a href="https://mimestream.com/">Mimestream</a> (my email client) had a way to expose
+email links to itself rather than to the Gmail webUI, so right now it&#8217;s
+just easier to label things than to manually copy the Gmail link and create
+a new&nbsp;task.</p>
+<p>The <code>00 Meta</code> category isn&#8217;t really used anywhere other than&nbsp;Obsidian.</p>
+<h3 id="10-personal">10 Personal<a class="headerlink" href="#10-personal" title="Permanent link"> </a></h3>
+<p>This is for life stuff.  I don&#8217;t have a lot of sub-categories here (I
+wonder if that&#8217;s worth exploring further!), but right now I&nbsp;have:</p>
+<ul>
+<li>11&nbsp;Christcity</li>
+<li>12&nbsp;People</li>
+<li>14&nbsp;Blog</li>
+<li>15&nbsp;Health</li>
+<li>19 Financial<ul>
+<li>19.01&nbsp;Receipts</li>
+<li>19.02&nbsp;Investing</li>
+<li>19.03&nbsp;Compensation</li>
+</ul>
+</li>
+</ul>
+<p>You might notice a few things here.  First, I don&#8217;t use all the numbers and
+skip a few.  I&#8217;m trying to stay consistent across categories that have
+overlap; for instance there are financial and people notes/documents/etc
+for both Personal and Professional, so I try to keep that number&nbsp;consistent.</p>
+<p>In this case I use <code>11 Christcity</code> for things related to church, whether it
+be my duties as a District Pastor or marriage counsellor.  This label
+exists in my personal Gmail as well.  <code>14 Blog</code> is where I can draft new
+blog posts for this site (great thing that they both use markdown!), and
+<code>19 Financial</code> has a few sub-categories such as <code>19.01 Receipts</code> where I&#8217;ll
+keep receipts for purchases and  <code>19.02 Investing</code> where I keep
+investment-related information.  These also have Gmail labels and folders
+in&nbsp;EagleFiler.</p>
+<p>The point here is that things that are relevant to a system should be
+present there, things that aren&#8217;t relevant to a system should not.  For
+example, if I wrote more on this blog and wanted to schedule things, I
+might have <code>14 Blog</code> as a project in OmniFocus (I don&#8217;t, so I don&#8217;t).  I
+might have church-related tasks to do so <code>11 Christcity</code> definitely shows
+up in OmniFocus as well.  <code>15 Health</code> isn&#8217;t needed in Gmail, so I won&#8217;t
+create a label for it, but I use it in EagleFiler for scans of health tests
+and other documents, and in Obsidian for any notes I want to keep from a
+doctor&#8217;s visit or&nbsp;similar.</p>
+<p>I would recommend against creating all of these labels/folders for every
+single system unless you need them, just to avoid&nbsp;clutter.</p>
+<h3 id="20-learning">20 Learning<a class="headerlink" href="#20-learning" title="Permanent link"> </a></h3>
+<p>The <code>20 Learning</code> category is for stuff I have learned or that I want to
+learn.  I use this on every system and have only two&nbsp;categories:</p>
+<ul>
+<li>21 Leadership<ul>
+<li>21.03 Management&nbsp;Training</li>
+</ul>
+</li>
+<li>22 Technical&nbsp;Notes</li>
+</ul>
+<p>These are for notes I might take from a class or articles I&#8217;ve downloaded
+that are specifically related to learning.  To be honest, I&#8217;m not yet sold
+on <code>22 Technical Notes</code> as these feel more like they belong somewhere in
+<code>40 Reference</code> but for now, I&#8217;m keeping it&nbsp;as-is.</p>
+<p>I have other sub-categories under <code>21 Leadership</code> for some leadership
+courses I take at work, where I collect observations, documents, and so&nbsp;forth.</p>
+<h3 id="30-professional">30 Professional<a class="headerlink" href="#30-professional" title="Permanent link"> </a></h3>
+<p>This is the busiest category and requires a lot of attention to make sure
+it stays orderly.  I take an insane amount of notes in meetings, and I have
+a lot of meetings, which means I have a lot of documents.  I also have a
+lot of work-related areas that require even more documents.  This section
+has parts in all systems; again, not every single sub-category is needed in
+every system, so not every system has them all.  The below is curated, but
+should illustrate how I&#8217;m using&nbsp;it:</p>
+<ul>
+<li>31 Career<ul>
+<li>31.01&nbsp;Mentoring</li>
+<li>31.02&nbsp;Mentors</li>
+</ul>
+</li>
+<li>32 People<ul>
+<li>32.01&nbsp;Boss</li>
+<li>32.02&nbsp;Peers</li>
+<li>32.03&nbsp;Staff</li>
+</ul>
+</li>
+<li>33 Public<ul>
+<li>33.01&nbsp;Papers</li>
+<li>33.02&nbsp;Presentations</li>
+</ul>
+</li>
+<li>34 Red Hat<ul>
+<li>34.01 Weekly&nbsp;Notes</li>
+<li>34.02&nbsp;Travel</li>
+</ul>
+</li>
+<li>35 Product Security<ul>
+<li>35.01&nbsp;Organization</li>
+<li>35.09&nbsp;Escalations</li>
+</ul>
+</li>
+<li>37 External<ul>
+<li>37.01&nbsp;Customers</li>
+<li>37.04&nbsp;Boards</li>
+</ul>
+</li>
+<li>38&nbsp;Projects</li>
+<li>39 Financial<ul>
+<li>39.01 Receipts<ul>
+<li>Travel<ul>
+<li><em><span class="caps">YYYYMM</span> <span class="caps">DESTINATION</span></em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>You get the idea.  Effectively, I take meeting notes when I meet with
+people, and those notes live under <code>32 People</code>.  For the people I meet with
+sporadically, it&#8217;s a single file under their name.  For the people I meet
+with often, their name is a folder, with a year-dated file for those notes
+(so if &#8220;Bob Young&#8221; worked for me, I would have this year&#8217;s meeting notes
+for him in <code>32 People/32.03 Staff/Bob Young/2023 Bob Young</code>.</p>
+<p>For customers and partners, those notes are named after the company name.
+For folks I mentor or am mentored by, they live in a file named after them
+in <code>31 Careers/31.01 Mentoring</code>, etc.  I try to keep a <span class="caps">PDF</span> copy of
+presentations I give in <code>33.02 Presentations</code> in EagleFiler and they&#8217;re
+organized that way in Google Drive for the original presentation.  The
+<a href="https://arstechnica.com/gadgets/2023/11/google-drive-is-investigating-sync-issues-as-users-complain-of-lost-files/">recent debacle</a>
+of files being deleted from Google Drive reassures me that I&#8217;m not insane
+for keeping a local&nbsp;copy.</p>
+<p>Interestingly, in the last few weeks since I started using this system, I&#8217;m
+actually remembering the Johnny Decimal number which means it&#8217;s really easy
+to find things.  I know that if I&#8217;m looking for information on Bob, I can
+look for &#8220;32.03&#8221; almost anywhere and find him.  I might have work-related
+documents about Bob in a folder living beneath <code>32.03 Staff</code> on Google
+Drive, any tasks I&#8217;ve given to Bob and am waiting on would live in a
+similarly named project in OmniFocus, emails from Bob automatically get
+labeled <code>32.03 Staff/Bob Young</code> in Gmail.  This makes finding anything
+related to Bob, or people in general, super easy to&nbsp;find.</p>
+<p>For compliance purposes, I keep all the receipts that get emailed to me
+(Uber, flights, etc.) so I arrange those by destination just to keep things
+orderly.  So my last trip to Boston has receipts in <code>39 Financial/39.01
+Receipts/Travel/202310 Boston</code>.</p>
+<h3 id="40-reference">40 Reference<a class="headerlink" href="#40-reference" title="Permanent link"> </a></h3>
+<p>Finally, the <code>40 Reference</code> category is just a place for me to dump notes
+or copies of interesting things that I may want to use or refer to at some
+point in the&nbsp;future.</p>
+<ul>
+<li>41&nbsp;Books</li>
+<li>42&nbsp;Online</li>
+<li>43&nbsp;Papers</li>
+<li>44&nbsp;Images</li>
+</ul>
+<p>I haven&#8217;t really gotten into sub-categories here yet because I&#8217;m still
+sorting things out.  As I move things into these buckets, I&#8217;ll see if
+common themes or topics occur that require further&nbsp;categorization.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link"> </a></h2>
+<p>I started this journey about two weeks ago and it took quite a while,
+slowly picking at and cleaning up all the various places of stashing stuff,
+across a number of different systems and devices.  I also wanted to ensure
+that I could do this consistently, whether it was work-related or personal,
+so I invested in cleaning up my personal documents as well, not just those
+related to work.  And, if I&#8217;m honest, I still have a ways to go (at some
+point I just created an Uncategorized folder that stored everything I
+hadn&#8217;t yet sorted and will slowly go through that, deleting what I no
+longer need or care about, and moving around those things that I do).  In
+many respects, this is likely to be my &#8220;Christmas project&#8221; this year, so I
+can start 2024 feeling very organized and&nbsp;tidy.</p>
+<p>It&#8217;s astonishing how much data I&#8217;ve collected and a number of things
+(notes, files, etc.) that I did organize can probably be deleted as well&#8230;
+not everything has to be hung onto forever!  I&#8217;m a bit of a digital packrat
+and blame my mom for that (being technologically illiterate, she&#8217;s
+definitely a physical items packrat).  Regardless, having one consistent
+method to organize all systems has had a number of distinct advantages that
+are already making me more&nbsp;productive:</p>
+<ul>
+<li>I am starting to remember the numbers so content is easier to&nbsp;find</li>
+<li>I don&#8217;t have to guess how I organized things depending on which system
+  I&#8217;m currently using, which reduces a lot of mental&nbsp;energy</li>
+<li>Things just feel&nbsp;tidier!</li>
+</ul>
+<p>All that to say, it was a fairly hefty lift with all of the &#8220;technical
+debt&#8221; I was carrying.  And while my method might not work exactly for you,
+hopefully by sharing I&#8217;ve given some ideas that may make you a wee bit more
+productive as well.  It&#8217;s about the consistent application of a method
+across all tools and storage mechanisms that I find to be more important
+than the tools themselves.  I know well enough that tools come and go, but
+the method to keep you sane should stay the&nbsp;same!</p>
+<p>This blog doesn&#8217;t have comments, so hit me up on Twitter if you have any
+thoughts or comments you&#8217;d like to share with me, or even recommendations.
+I&#8217;m always trying to make myself more efficient and manage my systems vs
+letting them manage&nbsp;me.</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Productivity%20improvements%20with%20Obsidian%2C%20OmniFocus%20and%20Johnny%C2%A0Decimal&url=https%3A//annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal&hashtags=productivity" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal&title=Productivity%20improvements%20with%20Obsidian%2C%20OmniFocus%20and%20Johnny%C2%A0Decimal&summary=I%E2%80%99ve%20been%20using%20GTD%20%28Getting%20Things%20Done%29%0Aas%20a%20methodology%20for%20how%20I%20work%20for%20a%20number%20of%20years.%20%20I%20revisit%20the%0Asystems%20I%20use%20occasionally%2C%20particularly%20when%20I%20don%E2%80%99t%20feel%20they%E2%80%99re%20working%0Aout%20for%20me%20or%20my%20needs%20have%20changed.%20%20And%20lately%20one%20of%20the%20biggest%20%E2%80%A6&source=https%3A//annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://annvix.com/blog/openshift-commons-chicago-2023" title="Previous: OpenShift Commons Chicago 2023">OpenShift Commons Chicago 2023</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2023-12-09T17:02:00-07:00">Dec 09, 2023</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://annvix.com/categories#life-ref">Life</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#productivity-ref">productivity
+                    <span class="superscript">1</span>
+</a></li>
+            </ul>
+<h4>Stay in touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://github.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/vdanen/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://infosec.exchange/@vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Copyright &copy; 2023 Vincent Danen
+    </div>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

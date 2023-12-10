@@ -1,5 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-11-27T19:30:00-07:00</updated><entry><title>OpenShift Commons Chicago 2023</title><link href="https://annvix.com/blog/openshift-commons-chicago-2023" rel="alternate"></link><published>2023-11-27T19:30:00-07:00</published><updated>2023-11-27T19:30:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-11-27:/blog/openshift-commons-chicago-2023</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/more_in_common.webp" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-12-09T17:02:00-07:00</updated><entry><title>Productivity improvements with Obsidian, OmniFocus and Johnny Decimal</title><link href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" rel="alternate"></link><published>2023-12-09T17:02:00-07:00</published><updated>2023-12-09T17:02:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-09:/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal</id><summary type="html">&lt;p&gt;I&amp;#8217;ve been using &lt;span class="caps"&gt;GTD&lt;/span&gt; (&lt;a href="https://gettingthingsdone.com/"&gt;Getting Things Done&lt;/a&gt;)
+as a methodology for how I work for a number of years.  I revisit the
+systems I use occasionally, particularly when I don&amp;#8217;t feel they&amp;#8217;re working
+out for me or my needs have changed.  And lately one of the biggest …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve been using &lt;span class="caps"&gt;GTD&lt;/span&gt; (&lt;a href="https://gettingthingsdone.com/"&gt;Getting Things Done&lt;/a&gt;)
+as a methodology for how I work for a number of years.  I revisit the
+systems I use occasionally, particularly when I don&amp;#8217;t feel they&amp;#8217;re working
+out for me or my needs have changed.  And lately one of the biggest
+challenge I have is that I&amp;#8217;m actually quite good at &lt;em&gt;taking&lt;/em&gt; notes, but I&amp;#8217;m
+not as good at &lt;em&gt;finding&lt;/em&gt; the notes I&amp;nbsp;took.&lt;/p&gt;
+&lt;p&gt;And as time goes on, I found I have more places to store things (documents
+of various types, email, and so on) and while they can all be categorized
+similarly, I never really bothered.  Previously I had focused on how to
+organize things like OmniFocus (for tasks) versus organizing &lt;em&gt;everything&lt;/em&gt;
+in a similar way.  In other words, I would spend the time to organize a
+system versus having a system to coherently organize all the data across
+the systems I&amp;nbsp;use.&lt;/p&gt;
+&lt;p&gt;As a point of reference, these are all the &amp;#8220;storage buckets&amp;#8221; I use for data
+(whether for work or&amp;nbsp;personal):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.omnigroup.com/omnifocus/"&gt;OmniFocus&lt;/a&gt; for tracking&amp;nbsp;tasks&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://c-command.com/eaglefiler/"&gt;EagleFiler&lt;/a&gt; for private
+  out-of-the-cloud- document storage that I want to retain (think tax
+  documents, receipts, PDFs,&amp;nbsp;etc)&lt;/li&gt;
+&lt;li&gt;Mac&amp;#8217;s Finder for things I download and presumably some might make it to
+  EagleFiler (but I&amp;#8217;ll admit I&amp;#8217;m not very consistent&amp;nbsp;here!)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://obsidian.md/"&gt;Obsidian&lt;/a&gt; for taking markdown notes (as a
+  reference, I&amp;#8217;ve gone through a number of systems here, including
+  EagleFiler to store &lt;span class="caps"&gt;RTF&lt;/span&gt; notes,
+  Joplin, Inkdrop, Quiver, and finally settling on Obsidian earlier this&amp;nbsp;year)&lt;/li&gt;
+&lt;li&gt;Gmail for&amp;nbsp;email&lt;/li&gt;
+&lt;li&gt;Google Drive for documents that are shared with others (family or
+  co-workers) and other cloud&amp;nbsp;storage&lt;/li&gt;
+&lt;li&gt;Apple Notes for quick, short-lived notes (such as the hotel room number I
+  happen to be staying in or copy/paste references); I may rely on this
+  less now that I can sync Obsidian to mobile&amp;nbsp;devices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And because this data can be used on the desktop system at home, or the
+work laptop or personal laptop, in addition to my iPad and iPhone, these
+systems as much as possible need to be sync&amp;#8217;d.  Since I don&amp;#8217;t trust cloud
+services more than I need to, I try to sync as much of this via git as
+possible and locally host my own &lt;a href="https://about.gitea.com/"&gt;Gitea&lt;/a&gt;
+instance.  I store my EagleFiler storage and Obsidian data in git and use
+it to synchronize across my&amp;nbsp;devices.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ll briefly describe how to sync Obsidian to iOS devices, which has its
+own client, and then discuss a recent way I&amp;#8217;ve found to categorize data
+across disparate systems and&amp;nbsp;applications.&lt;/p&gt;
+&lt;h2 id="syncing-obsidian-to-ipad-andor-iphone"&gt;Syncing Obsidian to iPad and/or iPhone&lt;a class="headerlink" href="#syncing-obsidian-to-ipad-andor-iphone" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;My ecosystem is entirely Apple-based, so I use Obsidian on my Mac and I use
+both the iPhone and iPad, and it would be hugely beneficial to have the
+data in Obsidian available to me on both&amp;nbsp;devices.&lt;/p&gt;
+&lt;p&gt;I followed &lt;a href="https://meganesulli.com/blog/sync-obsidian-vault-iphone-ipad/"&gt;this tutorial on syncing Obsidian vaults to iPhone or iPad&lt;/a&gt;
+and it worked like a champ.  I use &lt;a href="https://workingcopy.app/"&gt;Working Copy&lt;/a&gt;
+to get the git repository on my device and link it to the Obsidian vault,
+meaning that I have access to notes and documents, at least those in
+Obsidian, while on the go or I can use the iPad to take meeting notes
+without obscuring a screen while having a meeting on Google Meet or Zoom or&amp;nbsp;whatever.&lt;/p&gt;
+&lt;p&gt;The only downside is Working Copy has a cost if you want to use it with
+Obsidian.  I don&amp;#8217;t mind though; I&amp;#8217;ve had a lot of situations where all I
+had with me was my phone and I needed to reference something in my notes
+which were not available.  From a productivity perspective, it&amp;#8217;s a small
+price to&amp;nbsp;pay.&lt;/p&gt;
+&lt;h2 id="categorization-using-johnny-decimal"&gt;Categorization using Johnny Decimal&lt;a class="headerlink" href="#categorization-using-johnny-decimal" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I randomly stumbled across a podcast, &lt;a href="https://learnomnifocus.com/tutorial/2022-11-17-omnifocus-obsidian-workflows-with-leah-ferguson/"&gt;OmniFocus + Obsidian Workflows with Leah Ferguson&lt;/a&gt;
+discussing how to integrate OmniFocus with Obsidian.  I thought this would
+be an interesting way to enhance my usage of both tools, since I already
+use them both, perhaps with a bit of automation (I don&amp;#8217;t use Apple
+Shortcuts as much as I probably&amp;nbsp;could).&lt;/p&gt;
+&lt;p&gt;The podcast was great, but not because of the Obsidian and OmniFocus
+integration &amp;#8212; while helpful, the introduction to &lt;a href="https://johnnydecimal.com/"&gt;Johnny Decimal&lt;/a&gt;
+was vastly more important and started me down a journey of trying to become
+even more productive.  Making the data easier to find was what struck me
+most when I was listening to Leah describe her use of those systems.  After
+all, if I&amp;#8217;m going to spend the time keeping something, what is it for if
+not to easily find it when I need&amp;nbsp;it?&lt;/p&gt;
+&lt;p&gt;I won&amp;#8217;t go into all the specifics of how I organized things, but I&amp;#8217;ll give
+you some details to get the idea.  The essential premise is to start broad,
+with no more than 10 categories, and then you narrow the aperture as you go
+further.  For me, I made sure I only numbered three levels deep; anything
+further than that just is un-numbered folders or files that I try to give
+coherent names&amp;nbsp;to.&lt;/p&gt;
+&lt;p&gt;At the top level I&amp;nbsp;have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;00&amp;nbsp;Meta&lt;/li&gt;
+&lt;li&gt;10&amp;nbsp;Personal&lt;/li&gt;
+&lt;li&gt;20&amp;nbsp;Learning&lt;/li&gt;
+&lt;li&gt;30&amp;nbsp;Professional&lt;/li&gt;
+&lt;li&gt;40&amp;nbsp;Reference&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I haven&amp;#8217;t found a need to have more than these high-level&amp;nbsp;groups.&lt;/p&gt;
+&lt;h3 id="00-meta"&gt;00 Meta&lt;a class="headerlink" href="#00-meta" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;00 Meta&lt;/code&gt; is for all the random metadata that just needs a place to live.  In
+Obsidian I&amp;nbsp;have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;00 Meta&lt;ul&gt;
+&lt;li&gt;01&amp;nbsp;Inbox&lt;/li&gt;
+&lt;li&gt;02&amp;nbsp;Templates&lt;/li&gt;
+&lt;li&gt;03&amp;nbsp;Resources&lt;/li&gt;
+&lt;li&gt;04 &lt;span class="caps"&gt;SOP&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;04 SOP&lt;/code&gt; is a special &amp;#8220;Standard Operating Procedures&amp;#8221; folder where I
+document things like this system.  &lt;code&gt;01 Inbox&lt;/code&gt; is the standard Obsidian
+inbox for new files that haven&amp;#8217;t been categorized.  &lt;code&gt;02 Templates&lt;/code&gt; are for
+the templates I use in Obsidian, such as the weekly template where I put
+notes of my schedule for the week.  &lt;code&gt;03 Resources&lt;/code&gt; are for all the
+attachments (PDFs, graphics, etc) that are inserted into Obsidian&amp;nbsp;documents.&lt;/p&gt;
+&lt;p&gt;In Gmail I use this a bit differently and have &lt;code&gt;00 Meta&lt;/code&gt; as a label with
+these nested&amp;nbsp;sub-lables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="caps"&gt;ACTION&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;EVENTS&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;FOLLOWUP&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;IMPORTANT&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;WAITINGFOR&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;ACTION&lt;/code&gt; label should probably be used less as I work to get those
+actions into OmniFocus.  This would be easier if
+&lt;a href="https://mimestream.com/"&gt;Mimestream&lt;/a&gt; (my email client) had a way to expose
+email links to itself rather than to the Gmail webUI, so right now it&amp;#8217;s
+just easier to label things than to manually copy the Gmail link and create
+a new&amp;nbsp;task.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;00 Meta&lt;/code&gt; category isn&amp;#8217;t really used anywhere other than&amp;nbsp;Obsidian.&lt;/p&gt;
+&lt;h3 id="10-personal"&gt;10 Personal&lt;a class="headerlink" href="#10-personal" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This is for life stuff.  I don&amp;#8217;t have a lot of sub-categories here (I
+wonder if that&amp;#8217;s worth exploring further!), but right now I&amp;nbsp;have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;11&amp;nbsp;Christcity&lt;/li&gt;
+&lt;li&gt;12&amp;nbsp;People&lt;/li&gt;
+&lt;li&gt;14&amp;nbsp;Blog&lt;/li&gt;
+&lt;li&gt;15&amp;nbsp;Health&lt;/li&gt;
+&lt;li&gt;19 Financial&lt;ul&gt;
+&lt;li&gt;19.01&amp;nbsp;Receipts&lt;/li&gt;
+&lt;li&gt;19.02&amp;nbsp;Investing&lt;/li&gt;
+&lt;li&gt;19.03&amp;nbsp;Compensation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You might notice a few things here.  First, I don&amp;#8217;t use all the numbers and
+skip a few.  I&amp;#8217;m trying to stay consistent across categories that have
+overlap; for instance there are financial and people notes/documents/etc
+for both Personal and Professional, so I try to keep that number&amp;nbsp;consistent.&lt;/p&gt;
+&lt;p&gt;In this case I use &lt;code&gt;11 Christcity&lt;/code&gt; for things related to church, whether it
+be my duties as a District Pastor or marriage counsellor.  This label
+exists in my personal Gmail as well.  &lt;code&gt;14 Blog&lt;/code&gt; is where I can draft new
+blog posts for this site (great thing that they both use markdown!), and
+&lt;code&gt;19 Financial&lt;/code&gt; has a few sub-categories such as &lt;code&gt;19.01 Receipts&lt;/code&gt; where I&amp;#8217;ll
+keep receipts for purchases and  &lt;code&gt;19.02 Investing&lt;/code&gt; where I keep
+investment-related information.  These also have Gmail labels and folders
+in&amp;nbsp;EagleFiler.&lt;/p&gt;
+&lt;p&gt;The point here is that things that are relevant to a system should be
+present there, things that aren&amp;#8217;t relevant to a system should not.  For
+example, if I wrote more on this blog and wanted to schedule things, I
+might have &lt;code&gt;14 Blog&lt;/code&gt; as a project in OmniFocus (I don&amp;#8217;t, so I don&amp;#8217;t).  I
+might have church-related tasks to do so &lt;code&gt;11 Christcity&lt;/code&gt; definitely shows
+up in OmniFocus as well.  &lt;code&gt;15 Health&lt;/code&gt; isn&amp;#8217;t needed in Gmail, so I won&amp;#8217;t
+create a label for it, but I use it in EagleFiler for scans of health tests
+and other documents, and in Obsidian for any notes I want to keep from a
+doctor&amp;#8217;s visit or&amp;nbsp;similar.&lt;/p&gt;
+&lt;p&gt;I would recommend against creating all of these labels/folders for every
+single system unless you need them, just to avoid&amp;nbsp;clutter.&lt;/p&gt;
+&lt;h3 id="20-learning"&gt;20 Learning&lt;a class="headerlink" href="#20-learning" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;20 Learning&lt;/code&gt; category is for stuff I have learned or that I want to
+learn.  I use this on every system and have only two&amp;nbsp;categories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;21 Leadership&lt;ul&gt;
+&lt;li&gt;21.03 Management&amp;nbsp;Training&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;22 Technical&amp;nbsp;Notes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These are for notes I might take from a class or articles I&amp;#8217;ve downloaded
+that are specifically related to learning.  To be honest, I&amp;#8217;m not yet sold
+on &lt;code&gt;22 Technical Notes&lt;/code&gt; as these feel more like they belong somewhere in
+&lt;code&gt;40 Reference&lt;/code&gt; but for now, I&amp;#8217;m keeping it&amp;nbsp;as-is.&lt;/p&gt;
+&lt;p&gt;I have other sub-categories under &lt;code&gt;21 Leadership&lt;/code&gt; for some leadership
+courses I take at work, where I collect observations, documents, and so&amp;nbsp;forth.&lt;/p&gt;
+&lt;h3 id="30-professional"&gt;30 Professional&lt;a class="headerlink" href="#30-professional" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This is the busiest category and requires a lot of attention to make sure
+it stays orderly.  I take an insane amount of notes in meetings, and I have
+a lot of meetings, which means I have a lot of documents.  I also have a
+lot of work-related areas that require even more documents.  This section
+has parts in all systems; again, not every single sub-category is needed in
+every system, so not every system has them all.  The below is curated, but
+should illustrate how I&amp;#8217;m using&amp;nbsp;it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;31 Career&lt;ul&gt;
+&lt;li&gt;31.01&amp;nbsp;Mentoring&lt;/li&gt;
+&lt;li&gt;31.02&amp;nbsp;Mentors&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;32 People&lt;ul&gt;
+&lt;li&gt;32.01&amp;nbsp;Boss&lt;/li&gt;
+&lt;li&gt;32.02&amp;nbsp;Peers&lt;/li&gt;
+&lt;li&gt;32.03&amp;nbsp;Staff&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;33 Public&lt;ul&gt;
+&lt;li&gt;33.01&amp;nbsp;Papers&lt;/li&gt;
+&lt;li&gt;33.02&amp;nbsp;Presentations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;34 Red Hat&lt;ul&gt;
+&lt;li&gt;34.01 Weekly&amp;nbsp;Notes&lt;/li&gt;
+&lt;li&gt;34.02&amp;nbsp;Travel&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;35 Product Security&lt;ul&gt;
+&lt;li&gt;35.01&amp;nbsp;Organization&lt;/li&gt;
+&lt;li&gt;35.09&amp;nbsp;Escalations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;37 External&lt;ul&gt;
+&lt;li&gt;37.01&amp;nbsp;Customers&lt;/li&gt;
+&lt;li&gt;37.04&amp;nbsp;Boards&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;38&amp;nbsp;Projects&lt;/li&gt;
+&lt;li&gt;39 Financial&lt;ul&gt;
+&lt;li&gt;39.01 Receipts&lt;ul&gt;
+&lt;li&gt;Travel&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;span class="caps"&gt;YYYYMM&lt;/span&gt; &lt;span class="caps"&gt;DESTINATION&lt;/span&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You get the idea.  Effectively, I take meeting notes when I meet with
+people, and those notes live under &lt;code&gt;32 People&lt;/code&gt;.  For the people I meet with
+sporadically, it&amp;#8217;s a single file under their name.  For the people I meet
+with often, their name is a folder, with a year-dated file for those notes
+(so if &amp;#8220;Bob Young&amp;#8221; worked for me, I would have this year&amp;#8217;s meeting notes
+for him in &lt;code&gt;32 People/32.03 Staff/Bob Young/2023 Bob Young&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;For customers and partners, those notes are named after the company name.
+For folks I mentor or am mentored by, they live in a file named after them
+in &lt;code&gt;31 Careers/31.01 Mentoring&lt;/code&gt;, etc.  I try to keep a &lt;span class="caps"&gt;PDF&lt;/span&gt; copy of
+presentations I give in &lt;code&gt;33.02 Presentations&lt;/code&gt; in EagleFiler and they&amp;#8217;re
+organized that way in Google Drive for the original presentation.  The
+&lt;a href="https://arstechnica.com/gadgets/2023/11/google-drive-is-investigating-sync-issues-as-users-complain-of-lost-files/"&gt;recent debacle&lt;/a&gt;
+of files being deleted from Google Drive reassures me that I&amp;#8217;m not insane
+for keeping a local&amp;nbsp;copy.&lt;/p&gt;
+&lt;p&gt;Interestingly, in the last few weeks since I started using this system, I&amp;#8217;m
+actually remembering the Johnny Decimal number which means it&amp;#8217;s really easy
+to find things.  I know that if I&amp;#8217;m looking for information on Bob, I can
+look for &amp;#8220;32.03&amp;#8221; almost anywhere and find him.  I might have work-related
+documents about Bob in a folder living beneath &lt;code&gt;32.03 Staff&lt;/code&gt; on Google
+Drive, any tasks I&amp;#8217;ve given to Bob and am waiting on would live in a
+similarly named project in OmniFocus, emails from Bob automatically get
+labeled &lt;code&gt;32.03 Staff/Bob Young&lt;/code&gt; in Gmail.  This makes finding anything
+related to Bob, or people in general, super easy to&amp;nbsp;find.&lt;/p&gt;
+&lt;p&gt;For compliance purposes, I keep all the receipts that get emailed to me
+(Uber, flights, etc.) so I arrange those by destination just to keep things
+orderly.  So my last trip to Boston has receipts in &lt;code&gt;39 Financial/39.01
+Receipts/Travel/202310 Boston&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id="40-reference"&gt;40 Reference&lt;a class="headerlink" href="#40-reference" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Finally, the &lt;code&gt;40 Reference&lt;/code&gt; category is just a place for me to dump notes
+or copies of interesting things that I may want to use or refer to at some
+point in the&amp;nbsp;future.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;41&amp;nbsp;Books&lt;/li&gt;
+&lt;li&gt;42&amp;nbsp;Online&lt;/li&gt;
+&lt;li&gt;43&amp;nbsp;Papers&lt;/li&gt;
+&lt;li&gt;44&amp;nbsp;Images&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I haven&amp;#8217;t really gotten into sub-categories here yet because I&amp;#8217;m still
+sorting things out.  As I move things into these buckets, I&amp;#8217;ll see if
+common themes or topics occur that require further&amp;nbsp;categorization.&lt;/p&gt;
+&lt;h2 id="conclusion"&gt;Conclusion&lt;a class="headerlink" href="#conclusion" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I started this journey about two weeks ago and it took quite a while,
+slowly picking at and cleaning up all the various places of stashing stuff,
+across a number of different systems and devices.  I also wanted to ensure
+that I could do this consistently, whether it was work-related or personal,
+so I invested in cleaning up my personal documents as well, not just those
+related to work.  And, if I&amp;#8217;m honest, I still have a ways to go (at some
+point I just created an Uncategorized folder that stored everything I
+hadn&amp;#8217;t yet sorted and will slowly go through that, deleting what I no
+longer need or care about, and moving around those things that I do).  In
+many respects, this is likely to be my &amp;#8220;Christmas project&amp;#8221; this year, so I
+can start 2024 feeling very organized and&amp;nbsp;tidy.&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s astonishing how much data I&amp;#8217;ve collected and a number of things
+(notes, files, etc.) that I did organize can probably be deleted as well&amp;#8230;
+not everything has to be hung onto forever!  I&amp;#8217;m a bit of a digital packrat
+and blame my mom for that (being technologically illiterate, she&amp;#8217;s
+definitely a physical items packrat).  Regardless, having one consistent
+method to organize all systems has had a number of distinct advantages that
+are already making me more&amp;nbsp;productive:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I am starting to remember the numbers so content is easier to&amp;nbsp;find&lt;/li&gt;
+&lt;li&gt;I don&amp;#8217;t have to guess how I organized things depending on which system
+  I&amp;#8217;m currently using, which reduces a lot of mental&amp;nbsp;energy&lt;/li&gt;
+&lt;li&gt;Things just feel&amp;nbsp;tidier!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All that to say, it was a fairly hefty lift with all of the &amp;#8220;technical
+debt&amp;#8221; I was carrying.  And while my method might not work exactly for you,
+hopefully by sharing I&amp;#8217;ve given some ideas that may make you a wee bit more
+productive as well.  It&amp;#8217;s about the consistent application of a method
+across all tools and storage mechanisms that I find to be more important
+than the tools themselves.  I know well enough that tools come and go, but
+the method to keep you sane should stay the&amp;nbsp;same!&lt;/p&gt;
+&lt;p&gt;This blog doesn&amp;#8217;t have comments, so hit me up on Twitter if you have any
+thoughts or comments you&amp;#8217;d like to share with me, or even recommendations.
+I&amp;#8217;m always trying to make myself more efficient and manage my systems vs
+letting them manage&amp;nbsp;me.&lt;/p&gt;</content><category term="Life"></category><category term="productivity"></category></entry><entry><title>OpenShift Commons Chicago 2023</title><link href="https://annvix.com/blog/openshift-commons-chicago-2023" rel="alternate"></link><published>2023-11-27T19:30:00-07:00</published><updated>2023-11-27T19:30:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-11-27:/blog/openshift-commons-chicago-2023</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/more_in_common.webp" /&gt;&lt;/p&gt;
 &lt;p&gt;I had the opportunity to speak at the recent &lt;a href="https://commons.openshift.org/gatherings/kubecon-24-nov-12/"&gt;OpenShift Commons in
 Chicago&lt;/a&gt; that
 was an event that coincided with Kubecon in Chicago a few weeks back.  I
@@ -3289,82 +3593,4 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 &lt;p&gt;I&amp;#8217;ve been using Kerberos and &lt;span class="caps"&gt;LDAP&lt;/span&gt; at home for years, largely because I have to do a lot of testing of things in virtual machines, so when a new version of something comes out (new Fedora, new major version of &lt;span class="caps"&gt;RHEL&lt;/span&gt;, etc.), I spin up a new &lt;span class="caps"&gt;VM&lt;/span&gt; and install it.  Using Kerberos and &lt;span class="caps"&gt;LDAP&lt;/span&gt; make the setup a breeze, and if I change my password, I&amp;#8217;m not changing it on 20-odd systems/virtual&amp;nbsp;machines.&lt;/p&gt;
 &lt;p&gt;I&amp;#8217;m happy to say that FreeIPA exceeded my expectations, despite a bit of a rocky start (due to my not reading enough of the docs, annoyingly enough).  I&amp;#8217;ve now got it in place, it&amp;#8217;s doing Kerberos+&lt;span class="caps"&gt;LDAP&lt;/span&gt; on the Linux clients and &lt;b&gt;also&lt;/b&gt; on the Macs!  I have, for the first time ever (not counting &lt;span class="caps"&gt;OS&lt;/span&gt; X server 10.4 or something, and using OpenDirectory), gotten to login to an &lt;span class="caps"&gt;OS&lt;/span&gt; X system with network credentials.  I&amp;#8217;ve also made use of the DogTag &lt;span class="caps"&gt;CA&lt;/span&gt; and had my internal mediawiki instance (which used mod_auth_kerb for &lt;span class="caps"&gt;SSO&lt;/span&gt; authentication) also use &lt;span class="caps"&gt;HTTPS&lt;/span&gt; now with mod_nss and my shiny new &lt;span class="caps"&gt;IPA&lt;/span&gt; &lt;span class="caps"&gt;CA&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;There&amp;#8217;s a bunch more about FreeIPA than what I&amp;#8217;ve done so far.  I&amp;#8217;ve just scratched the surface (and even that, not entirely as I&amp;#8217;ve still got a dozen or so systems/vms to switch from the old Kerberos+&lt;span class="caps"&gt;LDAP&lt;/span&gt; setup to using FreeIPA), but I&amp;#8217;m looking forward to playing with the other things like a hopefully much easier kerberized NFSv4, storing sudo configs in the directory, auto-mounted home directories (don&amp;#8217;t care too much about that for the workstations but that will be &lt;i&gt;sweet&lt;/i&gt; for the virtual machines), and so on.  FreeIPA has a really really nice package that takes care of all this stuff and I&amp;#8217;m kinda kicking myself that I didn&amp;#8217;t play with it&amp;nbsp;sooner.&lt;/p&gt;
-&lt;p&gt;And, because of my really odd love for this sort of thing, I&amp;#8217;ve written an article on my wiki: &lt;a href="/Using_FreeIPA_for_User_Authentication"&gt;Using FreeIPA for User Authentication&lt;/a&gt; which goes into the whole setup and enrolment.  A lot of it is covered in the upstream docs, but the upstream docs only got to &lt;span class="caps"&gt;OS&lt;/span&gt; X 10.4, so my 10.7/10.8 setup required a bit more futzing and research.  While I&amp;#8217;m &amp;#8220;officially&amp;#8221; calling this article done, as I spend time over the Christmas holidays playing around with it, I will no doubt be adding more info as I discover&amp;nbsp;it.&lt;/p&gt;</content><category term="Linux"></category><category term="ipa"></category><category term="kerberos"></category><category term="ldap"></category></entry><entry><title>Git commit hook to bugzilla using git-notifier</title><link href="https://annvix.com/blog/git-commit-hook-to-bugzilla-using-git-notifier" rel="alternate"></link><published>2012-09-21T18:49:00-06:00</published><updated>2012-09-21T18:49:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2012-09-21:/blog/git-commit-hook-to-bugzilla-using-git-notifier</id><summary type="html">&lt;p&gt;I&amp;#8217;m a big fan of the &lt;a href="http://www.icir.org/robin/git-notifier/"&gt;git-notifier&lt;/a&gt; script, which acts as a hook in git to send you nice emails about things that have changed in your git repos.  I&amp;#8217;m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;m a big fan of the &lt;a href="http://www.icir.org/robin/git-notifier/"&gt;git-notifier&lt;/a&gt; script, which acts as a hook in git to send you nice emails about things that have changed in your git repos.  I&amp;#8217;m also a bugzilla user, so I wanted to be able to put git commit notifications, automatically, in bugzilla if &amp;#8220;bug #X&amp;#8221; is in the commit log.  Initially I was intending to use &lt;a href="http://www.theoldmonk.net/gitzilla/"&gt;gitzilla&lt;/a&gt; for this, but I didn&amp;#8217;t feel like attempting to make it work with the latest release of &lt;a href="https://github.com/williamh/pybugz"&gt;pybugz&lt;/a&gt; (says it is tested with version 0.8.0 but the current version is 0.10.1.  In retrospect, that might have actually been easier.&amp;nbsp;=)&lt;/p&gt;
-&lt;p&gt;Anyways, I decided to use git-notifier to send an email to bugzilla (while gitzilla uses &lt;span class="caps"&gt;XMLRPC&lt;/span&gt;, which would have been preferable, I also have incoming email support enabled in bugzilla).  It took some trial and error, but I got it working (although I suspect there are easier ways to do&amp;nbsp;it).&lt;/p&gt;
-&lt;p&gt;The first thing I had to do was patch git-notifier to accept a bug id, because bugzilla needs to know what bug to route the incoming email to.  This was very easy to do (I&amp;#8217;ll be sending this upstream to see if they want to include it, but I may also change it to pull more info from the git config so that the post-receive hook doesn&amp;#8217;t have to be so&amp;nbsp;obscene:&lt;/p&gt;
-&lt;pre&gt;
---- git-notifier.orig   2012-09-21 10:04:21.283442085 -0600
-+++ git-notifier    2012-09-21 10:25:04.811307023 -0600
-@@ -37,6 +37,7 @@
-     ("link", True, None, "Link to insert into mail, %s will be replaced with revision"),
-     ("updateonly", False, False, "update state file only, no mails"),
-     ("users", True, None, "location of a user-to-email mapping file"),
-+    ("bug_id", True, False, "bug ID (for sending email to bugzilla)"),
-     ]
-
- class State:
-@@ -250,6 +251,11 @@
-
-     repo = Config.repouri
-
-+    if Config.bug_id:
-+        bzid = "@bug_id = %s\n\n" % Config.bug_id
-+    else:
-+        bzid = ""
-+
-     if not repo:
-
-         if gitolite:
-@@ -269,10 +275,10 @@
- X-Git-Repository: %s
- X-Mailer: %s %s
-
--%s
-+%s%s
-
- """ % (Config.sender, Config.mailinglist, Config.emailprefix, subject, repo,
--       Name, Version, mailTag("Repository", repo)),
-+       Name, Version, bzid, mailTag("Repository", repo)),
-
-     return (out, fname)
-&lt;/pre&gt;
-
-&lt;p&gt;This works, and works well, but the post-receive hook is messy.  What used to just&amp;nbsp;be:&lt;/p&gt;
-&lt;pre&gt;
-#!/bin/sh
-/srv/git/hooks/git-notifier $@ --link="http://[url];a=commitdiff;h=%s" \
-  --emailprefix="[git: [repo]]"
-&lt;/pre&gt;
-
-&lt;p&gt;Has now turned into this&amp;nbsp;monstrosity:&lt;/p&gt;
-&lt;pre&gt;
-#!/bin/sh
-while read oldrev newrev refname
-do
-    commit=$(git rev-parse $newrev)
-done
-
-bzemail="bugzilla-daemon@bugzilla.me.com"
-
-/srv/git/hooks/git-notifier $@ --link="http://[url];a=commitdiff;h=%s" \
-  --emailprefix="[git: [repo]]"
-
-for BUG in $(git log ${commit} -n 1 | sed 's/bug #/bug#/g' | \
-  egrep -i -o 'bug#[0-9]*'); do
-    BUGID=$(echo "${BUG}" | sed 's/bug#//i')
-    EMAIL=$(git log ${commit} -n 1 --pretty=format:"%ae")
-    test=$(echo "$BUGID" | sed 's/[0-9]*//g')
-    if [ "${test}x" = "x" ]; then
-    # make sure it is a digit
-        /srv/git/hooks/git-notifier $@ --link="http://[url];a=commitdiff;h=%s" \
-  --emailprefix="[git: [repo]]" --bug_id=${BUGID} --mailinglist=${bzemail} \
-  --sender=${EMAIL} --manual=${commit}
-    fi
-done
-&lt;/pre&gt;
-
-&lt;p&gt;(lines wrapped for&amp;nbsp;readability)&lt;/p&gt;
-&lt;p&gt;So while it&amp;#8217;s fugly, there&amp;#8217;s quite a bit of magic to it.  Seems that when you call git-notifier again, it won&amp;#8217;t send an email because it knows it&amp;#8217;s already been sent, which is why we need the commit hash, and feed it to it with the &amp;#8212;manual option.  The &amp;#8212;mailinglist option is used to point to bugzilla (again, the git-notifier config is pointing to another email address to receive the commits already, so we need to override it).  The &amp;#8212;sender option takes the committer&amp;#8217;s email address as the value (the $&lt;span class="caps"&gt;EMAIL&lt;/span&gt; variable), which also overrides the default git-notifier sender (which is the local user on the system unless you&amp;#8217;re using gitolite (which I&amp;#8217;m not)).  The &amp;#8212;bug_id is a digit to reference the bug in the commit (this should also send multiple mails if more than one bug is referenced in the commit, but I&amp;#8217;ve not tested that yet).  The end result is you get a copy of the git commit directly into bugzilla, in the same format that you would get it via&amp;nbsp;email.&lt;/p&gt;
-&lt;p&gt;I may spend some time later on trying to make gitzilla play nicely with the newer version of pybugz, but for now this scratches my itch.  Like I said, not the prettiest solution, but it works as a quick-n-dirty hack.  The inspiration for using email to send this to bugzilla was from Gentoo&amp;#8217;s &lt;a href="http://en.gentoo-wiki.com/wiki/Bugzilla_Email#Subversion_Integration"&gt;Bugzilla Email&lt;/a&gt; wiki entry (the subversion integration part in&amp;nbsp;particular).&lt;/p&gt;
-&lt;p&gt;Note that since the email is being sent as the committer, the committer needs to have an account with that email address in your bugzilla.  If not, bugzilla&amp;#8217;s email_in.pl will bounce it back.  So you may want to have a bugzilla &amp;#8220;commits&amp;#8221; account as a dummy account from which you can email these things if not all of your committers have bugzilla access or use the same email address in bugzilla that they do in&amp;nbsp;git.&lt;/p&gt;
-&lt;p&gt;If anyone has any suggestions on a better way to do this (particularly via &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; which I think would be a nicer way to go), I&amp;#8217;m all ears.  (Short of writing my own &amp;#8212; I could do this, having worked with bugzilla and lately with &lt;span class="caps"&gt;XMLRPC&lt;/span&gt; access, quite a bit &amp;#8212; I&amp;#8217;m too lazy to write something from&amp;nbsp;scratch)&lt;/p&gt;</content><category term="Linux"></category><category term="bugzilla"></category><category term="git"></category></entry></feed>
+&lt;p&gt;And, because of my really odd love for this sort of thing, I&amp;#8217;ve written an article on my wiki: &lt;a href="/Using_FreeIPA_for_User_Authentication"&gt;Using FreeIPA for User Authentication&lt;/a&gt; which goes into the whole setup and enrolment.  A lot of it is covered in the upstream docs, but the upstream docs only got to &lt;span class="caps"&gt;OS&lt;/span&gt; X 10.4, so my 10.7/10.8 setup required a bit more futzing and research.  While I&amp;#8217;m &amp;#8220;officially&amp;#8221; calling this article done, as I spend time over the Christmas holidays playing around with it, I will no doubt be adding more info as I discover&amp;nbsp;it.&lt;/p&gt;</content><category term="Linux"></category><category term="ipa"></category><category term="kerberos"></category><category term="ldap"></category></entry></feed>

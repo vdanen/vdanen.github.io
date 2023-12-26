@@ -1,5 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-12-09T17:02:00-07:00</updated><entry><title>Productivity improvements with Obsidian, OmniFocus and Johnny Decimal</title><link href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" rel="alternate"></link><published>2023-12-09T17:02:00-07:00</published><updated>2023-12-09T17:02:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-09:/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal</id><summary type="html">&lt;p&gt;I&amp;#8217;ve been using &lt;span class="caps"&gt;GTD&lt;/span&gt; (&lt;a href="https://gettingthingsdone.com/"&gt;Getting Things Done&lt;/a&gt;)
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-12-26T13:00:00-07:00</updated><entry><title>2023: A Retrospective</title><link href="https://annvix.com/blog/2023-a-retrospective" rel="alternate"></link><published>2023-12-26T13:00:00-07:00</published><updated>2023-12-26T13:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-26:/blog/2023-a-retrospective</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/stuart.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s the end of 2023 and, as is my custom, I always read my retrospective from
+the prior year.  And&amp;#8230; umm&amp;#8230; 2023 was &lt;em&gt;not&lt;/em&gt; better than 2022.  Well, in some
+ways perhaps but in many ways it was not what I was hoping it would be.  But,
+I&amp;#8217;m …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/stuart.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s the end of 2023 and, as is my custom, I always read my retrospective from
+the prior year.  And&amp;#8230; umm&amp;#8230; 2023 was &lt;em&gt;not&lt;/em&gt; better than 2022.  Well, in some
+ways perhaps but in many ways it was not what I was hoping it would be.  But,
+I&amp;#8217;m resolved to look on the bright side of&amp;nbsp;things!&lt;/p&gt;
+&lt;p&gt;On the positive side, travel experiences this year were vastly better than
+last year.  And I was able to go to a few places this year for work.  I was
+in Boston in March, Virginia in April (first time there), Vancouver (for
+&lt;span class="caps"&gt;OSS&lt;/span&gt; Summit) and Boston (for Red Hat Summit) in May, Jasper Alberta in
+September (for holidays, we love Jasper!) as well as Raleigh, the
+Netherlands in October (for Summit Connect &lt;span class="caps"&gt;NL&lt;/span&gt;) and then also Raleigh and
+Boston (October was brutal!) and finally Chicago in November (for OpenShift
+Commons/Kubecon, first time there as well).  All in all, it was busy,
+particularly Sept-Nov as it felt like between trips I was only home for a
+few days before having to head back to the&amp;nbsp;airport.&lt;/p&gt;
+&lt;p&gt;The upside (and apologies to my wife) was that I missed a lot of the home
+renovations we did.  We gutted the upstairs of our home and redid
+everything except the kitchen (which we&amp;#8217;d redone a few years ago).  Really
+pleased with how it turned out, less pleased that it took five months to
+complete.  That said, I&amp;#8217;m glad we did it and so the wait was ultimately
+worth&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;We also had to take care of my mother-in-law for two months.  My father-in-law
+was in the hospital for &amp;#8220;day surgery&amp;#8221; on his ankle and we anticipated it
+lasting a week (after all, who believes doctors?).  He was in hospital and
+rehab for &lt;em&gt;four months&lt;/em&gt;!  Unfortunately, due to the renovation schedule and the
+loss of use of the upstairs, my mother-in-law had to go to her sister after
+those two months so we could get things moving.  It actually turned out well as
+her sister didn&amp;#8217;t have stairs in her home and we realized (too late) that the
+stairs were wrecking her hip and giving her a lot of pain (including one trip
+to the&amp;nbsp;hospital).&lt;/p&gt;
+&lt;p&gt;Unlike our trip to Jasper last year, this year was &lt;em&gt;perfect&lt;/em&gt; and was an
+awesome time to wind down and relax.  I think it was our best trip to
+Jasper ever and was so relaxing.  Which was good because we came home at
+the end of the week and on Sunday I was flying to Raleigh and starting a
+&lt;em&gt;lot&lt;/em&gt; of travel.  That said, the trip to the Netherlands was awesome as
+I&amp;#8217;ve not been there in over 30 years and was able to reconnect with cousins
+and aunts and uncles on both sides of the family that I&amp;#8217;d not seen for
+decades.  One of my cousins took us to the &lt;a href="https://www.goudacheese-experience.com/"&gt;Gouda Cheese
+Experience&lt;/a&gt; and I highly recommend
+it.  A museum for cheese is an odd idea but it was&amp;nbsp;fascinating!&lt;/p&gt;
+&lt;p&gt;I also did quite well this year in the exercise department, trying to get a bit
+more active.  I find exercising so incredibly boring, however, that I do it
+while playing video games.  Well, two in particular.  Nioh and Nioh 2.  I&amp;#8217;ve
+put a ridiculous amount of time into these games and have probably played them
+more than any other games (300 hours and attained level 340 in Nioh, 570 hours
+and attained level 750 in Nioh 2).  I also had a daily activity streak that hit
+238 days (thanks for tracking Apple Watch!) but sadly that streak got ruined
+when I got &lt;span class="caps"&gt;COVID&lt;/span&gt; for the third, maybe fourth, time in November.  I still have a
+lingering cough as I write this.  It was actually pretty bad this&amp;nbsp;time.&lt;/p&gt;
+&lt;p&gt;Speaking of health, my wife&amp;#8217;s health is really great (aside from me giving her
+&lt;span class="caps"&gt;COVID&lt;/span&gt;).  The blood, iron and ferritin counts are all up and good so she&amp;#8217;s
+energetic and able to do whatever she wants.  Of course it does require a lot
+of supplements but whatever, she&amp;#8217;s feeling really great which was a huge plus
+this&amp;nbsp;year.&lt;/p&gt;
+&lt;p&gt;My daughter also moved out this year (hence the renovations).  Is this a good
+thing or bad thing?  I suppose it depends on whether she&amp;#8217;s reading this or not
+;)  I&amp;#8217;ll say it&amp;#8217;s neither good nor bad.  I definitely miss having her around
+all the time, but it&amp;#8217;s so awesome to see what she&amp;#8217;s doing on her own and
+overcoming her own fears of even being able to do it on her own.  She&amp;#8217;s doing
+amazing!  I couldn&amp;#8217;t be prouder of her.  I do miss her cat though.  I need to
+visit them both more&amp;nbsp;often!&lt;/p&gt;
+&lt;p&gt;With her cat leaving, that left Ted alone.  I think he appreciated the
+peace and quiet though, but that didn&amp;#8217;t last long.  My wife got a ragdoll
+kitten that we named Stuart.  He&amp;#8217;s very similar in attitude to my
+daughter&amp;#8217;s cat (poor Ted, he will always be someone&amp;#8217;s chicken nugget to
+chew on!) but he&amp;#8217;s a pretty awesome cat and so soft.  Great addition to the
+family this&amp;nbsp;year.&lt;/p&gt;
+&lt;p&gt;From a work perspective, this was an interesting year.  It was tough, due to
+all of the personal things going on (renovations are highly disruptive and
+having her mother-in-law here for two months was as well) so by the time we
+went to Jasper I really needed the break.  The beginning of the year was marred
+by drama at work that made me less enthusiastic and probably quite a bit
+grumpier than usual.  Thankfully that was resolved and right now I&amp;#8217;m really
+pumped for next year.  That said, it feels riskier to be in the
+technology/security space right now as evidenced by the &lt;span class="caps"&gt;SEC&lt;/span&gt; going after the
+SolarWinds &lt;span class="caps"&gt;CISO&lt;/span&gt; personally.  A lot of those responsible for security programs
+are feeling that pressure and uncertainty &amp;#8212; it doesn&amp;#8217;t feel as &amp;#8220;fun&amp;#8221; as it
+used to with stuff like that hanging over our heads.  Yet, while not always &amp;#8220;fun&amp;#8221;
+necessarily, there are plenty of things that make the job&amp;nbsp;rewarding.&lt;/p&gt;
+&lt;p&gt;Finally, I started our &lt;span class="caps"&gt;ALDE&lt;/span&gt; (Advanced Leadership Development Experience)
+program this year which I&amp;#8217;d put off for a few years since doing &lt;span class="caps"&gt;ALDP&lt;/span&gt; back
+in 2018.  Thus far it&amp;#8217;s been great.  Getting more input from my boss, from
+my coach, from my staff, from indirect staff has been challenging and
+rewarding.  Lots of areas to work on to become a better version of myself,
+so I&amp;#8217;ve spent quite a bit of time reflecting on how I can change.  2024
+will be a very different year for me in terms of how I lead, based on that
+reflection and inputs, and some actions I&amp;#8217;ve put into place already.  I&amp;#8217;m
+looking forward to it.  I think it will be good for me and the&amp;nbsp;team.&lt;/p&gt;
+&lt;p&gt;Speaking of the team, I can&amp;#8217;t help but think how awesome they are.  Not just my
+staff &amp;#8212; they&amp;#8217;re pretty good &amp;#8212; but the entire organization.  Truly blessed to
+be working with some of the brightest minds in the industry!  These guys and
+gals really give me the juice to get up each day and work, even when things are
+crappy.  Huge shoutout to Red Hat Product Security.  You all are amazing&amp;nbsp;people.&lt;/p&gt;
+&lt;p&gt;Christmas this year was pretty awesome as well.  All healthy, all good.
+Great times with family and friends.  The weather was definitely odd&amp;#8230;
+this time last year we had a cold streak in the -30C range, this year we&amp;#8217;re
+at or above 0C most days.  This week we even got up to 5C&amp;#8230; pretty much
+shorts and t-shirt weather for us Albertans!  Also got very into puzzles
+over Christmas.  My wife got us advent calendar puzzles which was fun and
+it started a bit of an obsession now, so we ordered a few other puzzles to
+put together. It was great to end the year so nice.  Merry belated
+Christmas and happy new year to&amp;nbsp;everyone!&lt;/p&gt;
+&lt;p&gt;No new tattoos this year.  The downside of running out of room I suppose.
+Seriously considering neck-tatts but my wife isn&amp;#8217;t a fan of my chosen design
+(the Alien dual mouth on my throat.. she&amp;#8217;s threatening no more kisses).  Oh
+well, maybe not&amp;nbsp;;)&lt;/p&gt;
+&lt;h2 id="books-read"&gt;Books read&lt;a class="headerlink" href="#books-read" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I do a fair bit of reading, but if I&amp;#8217;m honest I stopped reading almost
+anything non-fiction since the &lt;span class="caps"&gt;COVID&lt;/span&gt;-19 pandemic started.  This year I
+wanted to get back into reading more than just fiction (while still
+continuing to read fiction as that&amp;#8217;s part of my go-to-sleep ritual).  So to
+hold myself accountable to that goal I&amp;#8217;ve been tracking which books I&amp;#8217;ve
+read this&amp;nbsp;year.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Knife of Dreams, Robert&amp;nbsp;Jordan&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;HBR&lt;/span&gt;&amp;#8217;s Emotional Intelligence Series:&amp;nbsp;Confidence&lt;/li&gt;
+&lt;li&gt;The Gathering Storm, Robert Jordan &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Brandon&amp;nbsp;Sanderson&lt;/li&gt;
+&lt;li&gt;The Coaching Habit, Michael Bungay&amp;nbsp;Stanier&lt;/li&gt;
+&lt;li&gt;Darksword Trilogy 1: Forging the Darksword, Margaret Weis &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Tracy&amp;nbsp;Hickman&lt;/li&gt;
+&lt;li&gt;Towers of Midnight, Robert Jordan &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Brandon&amp;nbsp;Sanderson&lt;/li&gt;
+&lt;li&gt;A Memory of Light, Robert Jordan &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Brandon&amp;nbsp;Sanderson&lt;/li&gt;
+&lt;li&gt;Darksword Trilogy 2: Doom of the Darksword, Margaret Weis &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Tracy&amp;nbsp;Hickman&lt;/li&gt;
+&lt;li&gt;Sandworm, Andy&amp;nbsp;Greenberg&lt;/li&gt;
+&lt;li&gt;Under the Radar, Robert Young &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Wendy Goldman&amp;nbsp;Rohm&lt;/li&gt;
+&lt;li&gt;Darksword Trilogy 3: Triumph of the Darksword, Margaret Weis &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Tracy&amp;nbsp;Hickman&lt;/li&gt;
+&lt;li&gt;The Devil&amp;#8217;s Diadem, Sarah&amp;nbsp;Douglass&lt;/li&gt;
+&lt;li&gt;Wayfairer Redemption 1: Battle Axe, Sarah&amp;nbsp;Douglass&lt;/li&gt;
+&lt;li&gt;Wayfairer Redemption 2: Enchanter, Sarah&amp;nbsp;Douglass&lt;/li&gt;
+&lt;li&gt;The New Testament in Modern English, J.B&amp;nbsp;Phillips&lt;/li&gt;
+&lt;li&gt;The New King James Bible (just the Old&amp;nbsp;Testament)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And the ones I&amp;#8217;ve started but just haven&amp;#8217;t finished&amp;nbsp;yet:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ian Fleming&amp;#8217;s Seven Deadlier Sins &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; 007&amp;#8217;s Moral Compass, Benjamin&amp;nbsp;Pratt&lt;/li&gt;
+&lt;li&gt;Cybersecurity First Principles, Rick&amp;nbsp;Howard&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Life"></category><category term="yearend"></category></entry><entry><title>Productivity improvements with Obsidian, OmniFocus and Johnny Decimal</title><link href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" rel="alternate"></link><published>2023-12-09T17:02:00-07:00</published><updated>2023-12-09T17:02:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-09:/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal</id><summary type="html">&lt;p&gt;I&amp;#8217;ve been using &lt;span class="caps"&gt;GTD&lt;/span&gt; (&lt;a href="https://gettingthingsdone.com/"&gt;Getting Things Done&lt;/a&gt;)
 as a methodology for how I work for a number of years.  I revisit the
 systems I use occasionally, particularly when I don&amp;#8217;t feel they&amp;#8217;re working
 out for me or my needs have changed.  And lately one of the biggest …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve been using &lt;span class="caps"&gt;GTD&lt;/span&gt; (&lt;a href="https://gettingthingsdone.com/"&gt;Getting Things Done&lt;/a&gt;)
@@ -3589,8 +3728,4 @@ $ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
 &lt;/ul&gt;
 
 &lt;p&gt;In my case, there was no network device, and the serial console is useful for using commands like &amp;#8220;virsh console&amp;#8221; (but you have to setup the serial getty inside the &lt;span class="caps"&gt;VM&lt;/span&gt; for this to&amp;nbsp;work).&lt;/p&gt;
-&lt;p&gt;Now you should be able to startup the new virtual machine.  Once you have gotten it up and running, you&amp;#8217;ll want to remove the vmware-tools that were&amp;nbsp;installed.&lt;/p&gt;</content><category term="Linux"></category><category term="kvm"></category><category term="vmware"></category></entry><entry><title>Replaced my Kerberos+LDAP setup with FreeIPA</title><link href="https://annvix.com/blog/replaced-my-kerberosldap-setup-with-freeipa" rel="alternate"></link><published>2012-12-12T20:00:00-07:00</published><updated>2012-12-12T20:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2012-12-12:/blog/replaced-my-kerberosldap-setup-with-freeipa</id><summary type="html">&lt;p&gt;So I&amp;#8217;ve been having to deal with some &lt;span class="caps"&gt;IPA&lt;/span&gt;-related bugs in the past little bit, which of course got me thinking that I had no idea what &lt;span class="caps"&gt;IPA&lt;/span&gt; did or how to use it (thankfully I wasn&amp;#8217;t responsible for fixing the bugs!).  But as I had to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;So I&amp;#8217;ve been having to deal with some &lt;span class="caps"&gt;IPA&lt;/span&gt;-related bugs in the past little bit, which of course got me thinking that I had no idea what &lt;span class="caps"&gt;IPA&lt;/span&gt; did or how to use it (thankfully I wasn&amp;#8217;t responsible for fixing the bugs!).  But as I had to deal with this issues to some degree, I got to figure out what FreeIPA was and what it did.  In short, FreeIPA &lt;b&gt;rocks&lt;/b&gt;.  As many of you know, I&amp;#8217;ve written quite a few articles and blog posts about using Kerberos or OpenLDAP for authentication.  It&amp;#8217;s no secret that I make heavy use of Linux at home, but also of the Mac, so for me any solution needs to deal with both in a semi-reasonable way.  I could do Kerberos auth on &lt;span class="caps"&gt;OS&lt;/span&gt; X easily enough, but never did have luck with &lt;span class="caps"&gt;LDAP&lt;/span&gt;.  On Linux, it&amp;#8217;s a piece of&amp;nbsp;cake.&lt;/p&gt;
-&lt;p&gt;I&amp;#8217;ve been using Kerberos and &lt;span class="caps"&gt;LDAP&lt;/span&gt; at home for years, largely because I have to do a lot of testing of things in virtual machines, so when a new version of something comes out (new Fedora, new major version of &lt;span class="caps"&gt;RHEL&lt;/span&gt;, etc.), I spin up a new &lt;span class="caps"&gt;VM&lt;/span&gt; and install it.  Using Kerberos and &lt;span class="caps"&gt;LDAP&lt;/span&gt; make the setup a breeze, and if I change my password, I&amp;#8217;m not changing it on 20-odd systems/virtual&amp;nbsp;machines.&lt;/p&gt;
-&lt;p&gt;I&amp;#8217;m happy to say that FreeIPA exceeded my expectations, despite a bit of a rocky start (due to my not reading enough of the docs, annoyingly enough).  I&amp;#8217;ve now got it in place, it&amp;#8217;s doing Kerberos+&lt;span class="caps"&gt;LDAP&lt;/span&gt; on the Linux clients and &lt;b&gt;also&lt;/b&gt; on the Macs!  I have, for the first time ever (not counting &lt;span class="caps"&gt;OS&lt;/span&gt; X server 10.4 or something, and using OpenDirectory), gotten to login to an &lt;span class="caps"&gt;OS&lt;/span&gt; X system with network credentials.  I&amp;#8217;ve also made use of the DogTag &lt;span class="caps"&gt;CA&lt;/span&gt; and had my internal mediawiki instance (which used mod_auth_kerb for &lt;span class="caps"&gt;SSO&lt;/span&gt; authentication) also use &lt;span class="caps"&gt;HTTPS&lt;/span&gt; now with mod_nss and my shiny new &lt;span class="caps"&gt;IPA&lt;/span&gt; &lt;span class="caps"&gt;CA&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;There&amp;#8217;s a bunch more about FreeIPA than what I&amp;#8217;ve done so far.  I&amp;#8217;ve just scratched the surface (and even that, not entirely as I&amp;#8217;ve still got a dozen or so systems/vms to switch from the old Kerberos+&lt;span class="caps"&gt;LDAP&lt;/span&gt; setup to using FreeIPA), but I&amp;#8217;m looking forward to playing with the other things like a hopefully much easier kerberized NFSv4, storing sudo configs in the directory, auto-mounted home directories (don&amp;#8217;t care too much about that for the workstations but that will be &lt;i&gt;sweet&lt;/i&gt; for the virtual machines), and so on.  FreeIPA has a really really nice package that takes care of all this stuff and I&amp;#8217;m kinda kicking myself that I didn&amp;#8217;t play with it&amp;nbsp;sooner.&lt;/p&gt;
-&lt;p&gt;And, because of my really odd love for this sort of thing, I&amp;#8217;ve written an article on my wiki: &lt;a href="/Using_FreeIPA_for_User_Authentication"&gt;Using FreeIPA for User Authentication&lt;/a&gt; which goes into the whole setup and enrolment.  A lot of it is covered in the upstream docs, but the upstream docs only got to &lt;span class="caps"&gt;OS&lt;/span&gt; X 10.4, so my 10.7/10.8 setup required a bit more futzing and research.  While I&amp;#8217;m &amp;#8220;officially&amp;#8221; calling this article done, as I spend time over the Christmas holidays playing around with it, I will no doubt be adding more info as I discover&amp;nbsp;it.&lt;/p&gt;</content><category term="Linux"></category><category term="ipa"></category><category term="kerberos"></category><category term="ldap"></category></entry></feed>
+&lt;p&gt;Now you should be able to startup the new virtual machine.  Once you have gotten it up and running, you&amp;#8217;ll want to remove the vmware-tools that were&amp;nbsp;installed.&lt;/p&gt;</content><category term="Linux"></category><category term="kvm"></category><category term="vmware"></category></entry></feed>

@@ -1,5 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2023-12-26T13:00:00-07:00</updated><entry><title>2023: A Retrospective</title><link href="https://annvix.com/blog/2023-a-retrospective" rel="alternate"></link><published>2023-12-26T13:00:00-07:00</published><updated>2023-12-26T13:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-26:/blog/2023-a-retrospective</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/stuart.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-02-06T10:30:00-07:00</updated><entry><title>15 years at Red Hat</title><link href="https://annvix.com/blog/15-years-at-red-hat" rel="alternate"></link><published>2024-02-06T10:30:00-07:00</published><updated>2024-02-06T10:30:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-02-06:/blog/15-years-at-red-hat</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/15-years.jpeg" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s been a fantastic 15 years at Red Hat as of today. Started as a Senior
+Software Engineer on a very small team focused on incident response for two
+products (&lt;span class="caps"&gt;RHEL&lt;/span&gt; and JBoss &lt;span class="caps"&gt;EAP&lt;/span&gt;) to end up leading a large organization
+focused on a significant number of products and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/15-years.jpeg" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s been a fantastic 15 years at Red Hat as of today. Started as a Senior
+Software Engineer on a very small team focused on incident response for two
+products (&lt;span class="caps"&gt;RHEL&lt;/span&gt; and JBoss &lt;span class="caps"&gt;EAP&lt;/span&gt;) to end up leading a large organization
+focused on a significant number of products and services with the scope to
+handle incident response, compliance and certifications, secure development
+efforts, and supply chain&amp;nbsp;infrastructure.&lt;/p&gt;
+&lt;p&gt;We&amp;#8217;ve not just grown significantly in the number of people, but also scope
+and responsibility. It has been a &lt;strong&gt;crazy&lt;/strong&gt; journey over the last 15 years.
+When I look at who I was as a person 15 years ago compared to today.. that
+change is just as transformational as the organizational changes have been.
+I can take credit for one, and hope that I made a good difference with the&amp;nbsp;other!&lt;/p&gt;
+&lt;p&gt;Here&amp;#8217;s to the next many years with Red Hat Product Security. Not sure how
+much sleeve we have left to roll up because we&amp;#8217;ve been rolling up sleeves
+for a long time. Maybe we don&amp;#8217;t need sleeves anymore because this is just
+what we do. We dig in and get it&amp;nbsp;done.&lt;/p&gt;
+&lt;p&gt;So while it&amp;#8217;s my anniversary, I really want to give a shoutout to my team.
+I work with some of the best people in the industry who truly give so much
+of themselves to Red Hat, to Product Security and to our customers. We try
+to do as much of the hard work as we can to keep our customers safe and
+able to focus on the things that truly matter to them. That&amp;#8217;s the whole
+point. We&amp;#8217;re successful when our customers are successful (and safe). We&amp;#8217;ve
+never stopped and we&amp;#8217;re not going to. So I raise my 🍷 to the fine folks in
+Product Security who&amp;#8217;ve rolled up their sleeves and in some cases ripped
+them off to do what we need to get done. You all make me &lt;strong&gt;so&lt;/strong&gt;&amp;nbsp;proud!&lt;/p&gt;</content><category term="Life"></category><category term="redhat"></category><category term="security"></category></entry><entry><title>Rethinking Risk in Vulnerability Management</title><link href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management" rel="alternate"></link><published>2024-02-06T09:30:00-07:00</published><updated>2024-02-06T09:30:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-02-06:/blog/rethinking-risk-in-vulnerability-management</id><summary type="html">&lt;p&gt;I&amp;#8217;ve had the opportunity to write a few blogs and articles on one of my
+favourite topics: vulnerability management.  In particular, the thinking on
+risk in this space.  What&amp;#8217;s acceptable risk?  What&amp;nbsp;isn&amp;#8217;t?&lt;/p&gt;
+&lt;p&gt;You can get into the details on the variety of articles published in the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve had the opportunity to write a few blogs and articles on one of my
+favourite topics: vulnerability management.  In particular, the thinking on
+risk in this space.  What&amp;#8217;s acceptable risk?  What&amp;nbsp;isn&amp;#8217;t?&lt;/p&gt;
+&lt;p&gt;You can get into the details on the variety of articles published in the
+last month.  As an overview, &lt;a href="https://thenewstack.io/we-need-to-rethink-risk-in-vulnerability-management/"&gt;We Need to Rethink Risk in Vulnerability
+Management&lt;/a&gt;
+is a good place to start.  It links to the articles but I&amp;#8217;ll note them here
+as&amp;nbsp;well:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-1"&gt;Patch management needs a revolution, part 1: Surveying cybersecurity&amp;#8217;s&amp;nbsp;lineage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-2"&gt;Patch management needs a revolution, part 2: The flood of&amp;nbsp;vulnerabilities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-3"&gt;Patch management needs a revolution, part 3: Vulnerability scores and
+  the concept of&amp;nbsp;trust&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-4"&gt;Patch management needs a revolution, part 4: Sane patching is safe
+  patching is selective&amp;nbsp;patching&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-5"&gt;Patch management needs a revolution, part 5&lt;/a&gt; (available next&amp;nbsp;Tuesday)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here&amp;#8217;s the bottom line.  We need to have a serious conversation about the
+&lt;span class="caps"&gt;TCO&lt;/span&gt; (Total Cost of Ownership) when it comes to software.  Installing and
+testing security fixes isn&amp;#8217;t &amp;#8220;free&amp;#8221;.. you might get the fix as part of your
+purchase or subscription, but if it&amp;#8217;s even remotely complicated, you need
+staff, time and money to install, test, and deploy these&amp;nbsp;things.&lt;/p&gt;
+&lt;p&gt;But what&amp;#8217;s the end goal?  No one buys software to fix security issues.
+They buy software to grow and expand their business, to be useful.  So the
+&amp;#8220;zero known vulnerabilities&amp;#8221; goal is a faulty goal because it doesn&amp;#8217;t align
+to the business need you have (probably to make money).  You don&amp;#8217;t &lt;em&gt;make&lt;/em&gt;
+money installing patches, you &lt;em&gt;spend&lt;/em&gt;&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;In order to make money you need a trusted brand and an intact reputation.
+Breaches and significant cybersecurity events can damage both of those, not
+to mention the cost spent to do the cleanup (which is excessive, just ask
+&lt;a href="https://www.ibm.com/reports/data-breach"&gt;&lt;span class="caps"&gt;IBM&lt;/span&gt;&amp;#8217;s Cost of a Breach report&lt;/a&gt;.
+Preventing these is a good&amp;nbsp;goal.&lt;/p&gt;
+&lt;p&gt;&lt;span class="dquo"&gt;&amp;#8220;&lt;/span&gt;Zero known vulnerabilities&amp;#8221; does not advance that goal.  Verizon tells us
+that exploitation due to software is single digit events.  Don&amp;#8217;t believe
+me?  Look at the &lt;a href="https://www.verizon.com/business/resources/reports/dbir/2023/results-and-analysis-intro/#:~:text=the%20presence%20of%20the%20Exploit%20vuln%20action%20has%20kept%20stable%20in%20incidents%20and%20is%20actually%20less%20prominent%20in%20breaches%2C%20dropping%20from%207%25%20to%205%25"&gt;Data Breach Investigations
+Report&lt;/a&gt;
+that Verizon puts out.  I trust their&amp;nbsp;analysis.&lt;/p&gt;
+&lt;p&gt;So if &amp;#8220;zero known vulnerabilities&amp;#8221; isn&amp;#8217;t a business goal, it isn&amp;#8217;t a
+signficant driver to breaches, and it&amp;#8217;s prohibitively expense then I have
+to ask: Why do we keep demanding this, like it&amp;#8217;s some kind of measure of&amp;nbsp;success?&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s&amp;nbsp;not.&lt;/p&gt;
+&lt;p&gt;You can fix every single vulnerability and &lt;em&gt;still&lt;/em&gt; see data breaches and
+other significant cybersecurity events trend up, annually.  That means
+&lt;em&gt;we&amp;#8217;re focused on the wrong thing&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;We have to put corporate dollars to work on the things that actually move
+the needle here.  We need sophisticated tools to minimize phishing,
+spoofing, and other forms of social engineering (in other words, solve the
+&amp;#8220;human element&amp;#8221;).  Even training is a step in the right direction but I
+think there are enough tools out there to solve these &lt;em&gt;despite&lt;/em&gt; humans
+doing what humans do.  And invest in automation to look for
+misconfigurations that lead to compromise (&lt;a href="https://www.theregister.com/2020/08/03/leaky_s3_buckets/"&gt;S3 leaky
+buckets&lt;/a&gt;,
+anyone?).  Catch misconfigurations when they happen and reduce your&amp;nbsp;exposure.&lt;/p&gt;
+&lt;p&gt;This is a topic I&amp;#8217;m passionate about because I believe we are collectively
+investing billions per year, globally, in an area we shouldn&amp;#8217;t.  Which
+means there are billions &lt;em&gt;not&lt;/em&gt; being invested where it can make a&amp;nbsp;difference.&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s like investing in bad stock.  Someone told us it was good once, we see
+it continue to decline, we&amp;#8217;re losing money hand over fist, but the &lt;a href="https://en.wikipedia.org/wiki/Sunk_cost#Fallacy_effect"&gt;sunk
+cost fallacy&lt;/a&gt; has
+kicked and we&amp;#8217;re &lt;em&gt;determined&lt;/em&gt; that one day it&amp;#8217;ll recover.  Even worse, we
+keep buying it, thinking it&amp;#8217;ll recover &amp;#8212; rather than investing somewhere
+better with a proven track record.  Honestly, this is where I think
+advances in &lt;span class="caps"&gt;AI&lt;/span&gt; will be able to help us as well (I think of Clippy warning
+us not to click odd links that show up in&amp;nbsp;email).&lt;/p&gt;
+&lt;p&gt;We&amp;#8217;re capable of doing better.  We should just do&amp;nbsp;it.&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="redhat"></category><category term="risk"></category></entry><entry><title>2023: A Retrospective</title><link href="https://annvix.com/blog/2023-a-retrospective" rel="alternate"></link><published>2023-12-26T13:00:00-07:00</published><updated>2023-12-26T13:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2023-12-26:/blog/2023-a-retrospective</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/stuart.png" /&gt;&lt;/p&gt;
 &lt;p&gt;It&amp;#8217;s the end of 2023 and, as is my custom, I always read my &lt;a href="https://annvix.com/blog/2022-a-retrospective"&gt;retrospective&lt;/a&gt; from
 the prior year.  And&amp;#8230; umm&amp;#8230; 2023 was &lt;em&gt;not&lt;/em&gt; better than 2022.  Well, in some
 ways perhaps but in many ways it was not what I was hoping it would be.  But,
@@ -3624,103 +3719,4 @@ print $2" = "$2" &lt;"$2"&gt;"}' | sort -u &gt; authors-transform.txt
 &lt;p&gt;The wiki page talks about upgrading &lt;span class="caps"&gt;GRUB2&lt;/span&gt; since you&amp;#8217;ll be booting from Fedora 17&amp;#8217;s &lt;span class="caps"&gt;GRUB2&lt;/span&gt;.  If you&amp;#8217;ve got a &lt;span class="caps"&gt;BIOS&lt;/span&gt;-based system, you can use the &lt;a href="https://fedoraproject.org/wiki/GRUB_2#Updating_GRUB_2_configuration_on_BIOS_systems"&gt;Updating &lt;span class="caps"&gt;GRUB2&lt;/span&gt; configuration on &lt;span class="caps"&gt;BIOS&lt;/span&gt; systems&lt;/a&gt; instructions.  For those using &lt;span class="caps"&gt;UEFI&lt;/span&gt;, instructions are on the same&amp;nbsp;page.&lt;/p&gt;
 &lt;p&gt;You may also want to run &lt;code&gt;package-cleanup --orphans&lt;/code&gt; after you do the upgrade as well, just to get rid of any other leftovers.  The only issue I discovered so far with the upgrade is that Google Chrome didn&amp;#8217;t work out-of-the-box.  However, doing a &lt;code&gt;yum remove google-chrome-stable; yum install google-chrome&lt;/code&gt; got that sorted out (although it did install the unstable version; the stable version had issues with missing libraries and wouldn&amp;#8217;t&amp;nbsp;load).&lt;/p&gt;
 &lt;p&gt;All in all, upgrading from Fedora 17 to 18 went a heck of a lot smoother than a fresh install did.  I also got to see what the new &lt;span class="caps"&gt;GDM&lt;/span&gt;/&lt;span class="caps"&gt;GNOME&lt;/span&gt; looks like (quite nice, actually, although I think I&amp;#8217;ll give &lt;span class="caps"&gt;MATE&lt;/span&gt; a try on the laptop as well because, while &lt;span class="caps"&gt;GNOME3&lt;/span&gt; is pretty, I definitely preferred &lt;span class="caps"&gt;GNOME2&lt;/span&gt;).&lt;/p&gt;
-&lt;p&gt;Good job, Fedora-folks!  Now I just have to upgrade my main workstation, but I think I&amp;#8217;m going to play on the laptop for a bit before taking that step.  Just in case I find any other&amp;nbsp;gotchya&amp;#8217;s.&lt;/p&gt;</content><category term="Linux"></category><category term="fedora"></category><category term="yum"></category></entry><entry><title>Systemd article on wiki</title><link href="https://annvix.com/blog/systemd-article-on-wiki" rel="alternate"></link><published>2013-02-02T10:05:00-07:00</published><updated>2013-02-02T10:05:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-02-02:/blog/systemd-article-on-wiki</id><summary type="html">&lt;p&gt;In light of my recent (mis-)adventures with Fedora 18 installation in VMware Fusion and the need to figure out some systemd stuff, I&amp;#8217;ve started writing a hints/tip sheet type entry on my wiki: &lt;a href="/systemd"&gt;Systemd&lt;/a&gt;.  Far from complete yet, but I&amp;#8217;m going to use it to document …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In light of my recent (mis-)adventures with Fedora 18 installation in VMware Fusion and the need to figure out some systemd stuff, I&amp;#8217;ve started writing a hints/tip sheet type entry on my wiki: &lt;a href="/systemd"&gt;Systemd&lt;/a&gt;.  Far from complete yet, but I&amp;#8217;m going to use it to document some hints, tricks, light-bulb-moments, and comparisons to SysV-init tools (chkconfig, service).  I&amp;#8217;m no stranger to alternative boot/service management systems but it indeed makes me chuckle when people were complaining about Annvix using runit to manage the init system.  I definitely appreciate the work gone into Systemd (having done a similar thing myself for Annvix although obviously not anywhere near the scale/scope of Systemd!), so do want to learn it as opposed to using old scripts as a crutch-interface to the new stuff.  So as I likely stumble across various bits of useful info, I&amp;#8217;ll be adding it to that wiki article if anyone else is interested in checking it out (or perhaps giving me tips&amp;#8230; like how the heck do I actually get gettys to run in graphical.target!!  I want a working &lt;span class="caps"&gt;CTRL&lt;/span&gt;-&lt;span class="caps"&gt;ALT&lt;/span&gt;-F2/F3 to login at the console&amp;nbsp;please!!).&lt;/p&gt;</content><category term="Linux"></category><category term="systemd"></category></entry><entry><title>Upgrading and Installing Fedora 18 in VMware Fusion</title><link href="https://annvix.com/blog/upgrading-and-installing-fedora-18-in-vmware-fusion" rel="alternate"></link><published>2013-02-02T10:00:00-07:00</published><updated>2013-02-02T10:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-02-02:/blog/upgrading-and-installing-fedora-18-in-vmware-fusion</id><summary type="html">&lt;p&gt;I was thoroughly excited about Fedora 18 until I actually went to install it.  I use Fedora 17 on a laptop and a desktop, but I also have copies in virtual machines that I use for testing &amp;#8212; these virtual machines run in VMware Fusion on my Mac Pro.  So never …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I was thoroughly excited about Fedora 18 until I actually went to install it.  I use Fedora 17 on a laptop and a desktop, but I also have copies in virtual machines that I use for testing &amp;#8212; these virtual machines run in VMware Fusion on my Mac Pro.  So never having used Fedora 18 during any of the betas or anything, first thing I did was try to install it in&amp;nbsp;VMware.&lt;/p&gt;
-&lt;p&gt;A few&amp;nbsp;times.&lt;/p&gt;
-&lt;p&gt;First I have to say that I&amp;#8217;m not a big fan of the new Anaconda &lt;span class="caps"&gt;UI&lt;/span&gt;.  One of the things I appreciated about Anaconda in the past is that it was easy to use, but didn&amp;#8217;t prevent me from doing &amp;#8220;power things&amp;#8221;, like partitioning disks the way I wanted to partition them.  This seems to no longer be the case, and Anaconda does a lot of hand-holding.  It has been a habit to go through the list of packages to be installed (select a group, then go through and weed out the stuff I don&amp;#8217;t want), so things I don&amp;#8217;t want don&amp;#8217;t even touch the disk.  Doesn&amp;#8217;t seem like I can do this anymore either.  I don&amp;#8217;t agree with some reviewers who seem to think the &lt;span class="caps"&gt;UI&lt;/span&gt; change is to make it look/feel more mobile or &amp;#8220;touchscreen-like&amp;#8221;, but I do feel it&amp;#8217;s dumbed down quite a bit which makes me unhappy.  I lived with it, until trying to change the partition layout killed Anaconda.  Twice.  After that I decided to let it do what it wanted since it was just a &lt;span class="caps"&gt;VM&lt;/span&gt; and I didn&amp;#8217;t care enough to fight&amp;nbsp;it.&lt;/p&gt;
-&lt;p&gt;So Fedora gets installed and lo!  A nice blue screen where I can do absolutely &lt;i&gt;nothing&lt;/i&gt;.  No icons, no text, no login box, nothing.  Afterwards I read this has to do with having 3D graphics enabled in VMware (but at that point I had already reinstalled to use &lt;span class="caps"&gt;LXDE&lt;/span&gt; rather than &lt;span class="caps"&gt;GNOME&lt;/span&gt;, so I&amp;#8217;ve not tried anything regarding that, however I did find &lt;a href="http://www.greebo.net/2013/01/18/installing-fedora-18-rtm-to-vmware-fusion-5-or-vmware-workstation-9/"&gt;this blog posting about Fedora 18 in VMware Fusion 5/VMware Workstation 9&lt;/a&gt; which explains things a&amp;nbsp;bit).&lt;/p&gt;
-&lt;p&gt;On my home network I run &lt;span class="caps"&gt;IPA&lt;/span&gt; on Red Hat Enterprise Linux 6 to handle my Kerberos/&lt;span class="caps"&gt;LDAP&lt;/span&gt; auth duties.  This means when I install an operating system, no matter what it is, I don&amp;#8217;t create local users.  So when I installed Fedora 18, I only have the root user and the rest come from &lt;span class="caps"&gt;IPA&lt;/span&gt;.  A few problems with&amp;nbsp;that:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; Setting up &lt;span class="caps"&gt;IPA&lt;/span&gt; in Anaconda does not work
-&lt;li&gt; Post-install, logging in as root at the &lt;span class="caps"&gt;GUI&lt;/span&gt; is not permitted
-&lt;li&gt; I have a grub error on tty2, not a login (and nothing on tty3 for that matter)
-&lt;li&gt; I have to reboot and edit grub to add &lt;b&gt;systemd.unit=multi-user.target&lt;/b&gt; to boot into the console to get a tty (see &lt;a href="http://fedoraproject.org/wiki/Systemd#Boot_Kernel_Command_Line"&gt;Systemd: Boot Kernel Command Line&lt;/a&gt;)
-&lt;li&gt; After I install freeipa-client, I can enroll in the domain
-&lt;li&gt; &lt;span class="caps"&gt;SSSD&lt;/span&gt; is not enabled when you install it!  Once again I have to reboot to the console
-&lt;li&gt; Enable &lt;span class="caps"&gt;SSSD&lt;/span&gt; and reboot, only to find that once again I cannot login as a user in the &lt;span class="caps"&gt;GUI&lt;/span&gt; (that I could login as on the console)
-&lt;li&gt; Head-scratching moment when I realize I know next to nothing about systemd and can only conclude that perhaps NetworkManager starts upon login in the graphical boot and not at system start, which prevents &lt;span class="caps"&gt;SSSD&lt;/span&gt; from talking to &lt;span class="caps"&gt;IPA&lt;/span&gt; to confirm my login
-&lt;li&gt; Looking at &lt;i&gt;/etc/sysconfig/network-scripts/ifup-eth0&lt;/i&gt; tells me that perhaps that is not the case
-&lt;li&gt; Big &lt;span class="caps"&gt;WTF&lt;/span&gt; moment and go to bed
-&lt;/ul&gt;
-
-&lt;p&gt;Currently I am unhappy with Fedora 18.  I suppose that on bare metal it probably works better.  I also suppose that with a real user account it works better.  At this point I don&amp;#8217;t want to do yet another reinstall because then I have to remove the host from &lt;span class="caps"&gt;IPA&lt;/span&gt; and re-enroll, which is annoying (and I really don&amp;#8217;t want to revisit Anaconda either &amp;#8212; I&amp;#8217;ll get to do that when I create the 64bit Fedora 18 &lt;span class="caps"&gt;VM&lt;/span&gt;&amp;nbsp;later).&lt;/p&gt;
-&lt;p&gt;Ok, after a few days I tried a few other things.  The first was getting rid of NetworkManager thinking that perhaps it would only start when I login (which I can&amp;#8217;t, if there is no network, because my login is &lt;span class="caps"&gt;IPA&lt;/span&gt;-based).  So I had to&amp;nbsp;do:&lt;/p&gt;
-&lt;pre&gt;
-# systemctl disable NetworkManager.service
-# systemctl enable network.service
-&lt;/pre&gt;
-
-&lt;p&gt;The most annoying thing, however, is that when I boot into graphical mode, I get no gettys.  I&amp;#8217;m pretty sure I told systemd that I want three of them (I have three symlinks in /etc/systemd/system/getty.target.wants: getty@tty1.service through getty@tty3.service; sadly when I boot into graphical mode and switch to &lt;span class="caps"&gt;TTY2&lt;/span&gt;, I get a grub error message and nothing on &lt;span class="caps"&gt;TTY3&lt;/span&gt;&amp;#8230; what the&amp;nbsp;heck?)&lt;/p&gt;
-&lt;p&gt;Another thing I did was disable SELinux.  In multi-user.target, I can login as my &lt;span class="caps"&gt;IPA&lt;/span&gt;-user no problem.  With &lt;span class="caps"&gt;LXDM&lt;/span&gt;, however, I never could (assuming, perhaps incorrectly, that network initialization was delayed).  But upon further inspection I see a lot&amp;nbsp;of:&lt;/p&gt;
-&lt;pre&gt;
-lxdm-binary: pam_selinux(lxdm:session): Setting key creation contect guest_u:guest_r:oddjob_mkhomedir_t:s0 failed: Permission denied
-&lt;/pre&gt;
-
-&lt;p&gt;I have zero interest and zero time in making SELinux work with &lt;span class="caps"&gt;LXDM&lt;/span&gt; and since this is a virtual machine, I don&amp;#8217;t care if SELinux is&amp;nbsp;disabled.&lt;/p&gt;
-&lt;p&gt;Lo and behold, I can now log into &lt;span class="caps"&gt;LXDM&lt;/span&gt;.  In light of the SELinux thing, I&amp;#8217;m thinking that NetworkManager is not to blame (silly me, I made two changes then rebooted &amp;#8212; it could be either one, but I strongly suspect SELinux).  Maybe it would have worked better with &lt;span class="caps"&gt;GNOME&lt;/span&gt; (will try that on the next &lt;span class="caps"&gt;VM&lt;/span&gt; I&amp;nbsp;install).&lt;/p&gt;
-&lt;p&gt;On another side note, since I use VMWare Fusion for the &lt;span class="caps"&gt;VM&lt;/span&gt;, for the tools install (probably the same for the latest VMware Workstation as well, etc.), you may want to check out &lt;a href="http://communities.vmware.com/message/2178685"&gt;this thread&lt;/a&gt;.  In particular, seems like linux/version.h is missing and makes the tools angry.  The fix is easy&amp;nbsp;though:&lt;/p&gt;
-&lt;pre&gt;
-# cd /usr/src/kernels/[current_version]/include
-# cp generated/uapi/linux/version.h linux/
-&lt;/pre&gt;
-
-&lt;p&gt;Then you can compile the tools.  &lt;span class="caps"&gt;IIRC&lt;/span&gt;, you&amp;#8217;ll also &lt;i&gt;not&lt;/i&gt; want to use the i686 &lt;span class="caps"&gt;PAE&lt;/span&gt; kernel (doesn&amp;#8217;t seem to work on older versions, I suspect the same may be true with F18).  Easy enough to yum remove the &lt;span class="caps"&gt;PAE&lt;/span&gt; kernels and install the regular kernel.  &lt;span class="caps"&gt;YMMV&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Finally, the next day I installed Fedora 18 64-bit in VMWare Fusion.  With the lessons learned above, it was a lot less painful.  I still am not a big fan of Anaconda&amp;#8230; I like the look of it, but the practical &amp;#8220;working&amp;#8221; bits of it definitely need some work.  I don&amp;#8217;t like that you can pick only one group of packages.  What if I want both &lt;span class="caps"&gt;GNOME&lt;/span&gt; desktop and a working web server?  Doesn&amp;#8217;t seem like it can be done.  I also like picking through individual packages and sorely miss that &amp;#8212; makes for having to install a bunch of stuff later.  Also not sure why vim isn&amp;#8217;t installed by default&amp;#8230; I think this is the first time ever I&amp;#8217;ve seen &amp;#8220;vim: command not&amp;nbsp;found&amp;#8221;.&lt;/p&gt;
-&lt;p&gt;Also, despite getting the VMware tools installed, if you want &lt;span class="caps"&gt;GDM&lt;/span&gt; to present you with anything, you need to disable 3D graphics.  I have it enabled on my 32-bit &lt;span class="caps"&gt;VM&lt;/span&gt; (which is using &lt;span class="caps"&gt;LXDM&lt;/span&gt;, works fine), but on the 64-bit &lt;span class="caps"&gt;VM&lt;/span&gt; (using &lt;span class="caps"&gt;GDM&lt;/span&gt;), even with vmware-tools compiled and running, I needed to disable 3D graphic acceleration.  I suppose there is a bug in the driver and/or X there.  Not a big deal to disable since I&amp;#8217;ve done &amp;#8220;yum groupinstall &amp;#8216;&lt;span class="caps"&gt;MATE&lt;/span&gt; Desktop&amp;#8217;&amp;#8221; (what need do I have for 3D graphics?  &lt;span class="caps"&gt;BTW&lt;/span&gt;, &lt;span class="caps"&gt;MATE&lt;/span&gt; is &lt;i&gt;sweet&lt;/i&gt;!) and now &lt;span class="caps"&gt;GDM&lt;/span&gt;&amp;nbsp;loads.&lt;/p&gt;
-&lt;p&gt;&lt;span class="caps"&gt;IPA&lt;/span&gt; still would not work to configure from Anaconda.  Definitely a bug to be filed&amp;nbsp;there.&lt;/p&gt;
-&lt;p&gt;Anyways, time to end this.  This entry has been in the works for about two weeks (sadly, I&amp;#8217;ve not had time to finish it or get my Fedora &lt;span class="caps"&gt;VM&lt;/span&gt;&amp;#8217;s running until yesterday, and finished up the 64-bit install this morning).  So far the install of Fedora 18, in VMware, has been a bit of a &lt;span class="caps"&gt;PITA&lt;/span&gt;.  Next order of business is to see how the upgrade works&amp;#8230; I&amp;#8217;ve got a Fedora 17 install in Parallels to upgrade to make sure all my work-related bits work, before attempting to upgrade on bare metal.  I&amp;#8217;m quite certain that a lot of this can be attributed to the virtual machines and it&amp;#8217;ll work better on bare metal.  I&amp;#8217;m also happy that those won&amp;#8217;t be fresh installs, so I don&amp;#8217;t have to deal with&amp;nbsp;Anaconda.&lt;/p&gt;</content><category term="Linux"></category><category term="fedora"></category><category term="ipa"></category><category term="vmware"></category></entry><entry><title>Converting a VMware Fusion virtual machine to KVM</title><link href="https://annvix.com/blog/converting-a-vmware-fusion-virtual-machine-to-kvm" rel="alternate"></link><published>2013-01-27T15:00:00-07:00</published><updated>2013-01-27T15:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-01-27:/blog/converting-a-vmware-fusion-virtual-machine-to-kvm</id><summary type="html">&lt;p&gt;I&amp;#8217;ve been running an instance of my Nagios &lt;span class="caps"&gt;XI&lt;/span&gt; monitor in a VMware Fusion virtual machine on my (aging) Mac Pro.  The other day I found a blog post on &lt;a href="http://www.held.org.il/blog/2012/04/how-i-converted-vmware-vm-to-kvm/"&gt;How I converted a VMware &lt;span class="caps"&gt;VM&lt;/span&gt; to &lt;span class="caps"&gt;KVM&lt;/span&gt;&lt;/a&gt; and since my new &lt;span class="caps"&gt;LAN&lt;/span&gt; server is a beefy 8-core &lt;span class="caps"&gt;AMD …&lt;/span&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve been running an instance of my Nagios &lt;span class="caps"&gt;XI&lt;/span&gt; monitor in a VMware Fusion virtual machine on my (aging) Mac Pro.  The other day I found a blog post on &lt;a href="http://www.held.org.il/blog/2012/04/how-i-converted-vmware-vm-to-kvm/"&gt;How I converted a VMware &lt;span class="caps"&gt;VM&lt;/span&gt; to &lt;span class="caps"&gt;KVM&lt;/span&gt;&lt;/a&gt; and since my new &lt;span class="caps"&gt;LAN&lt;/span&gt; server is a beefy 8-core &lt;span class="caps"&gt;AMD&lt;/span&gt; &lt;span class="caps"&gt;FX&lt;/span&gt;-8120 with &lt;span class="caps"&gt;32GB&lt;/span&gt; &lt;span class="caps"&gt;RAM&lt;/span&gt; (as opposed to the 2 x 2.66GHz dual-core Xeon with &lt;span class="caps"&gt;16GB&lt;/span&gt; &lt;span class="caps"&gt;RAM&lt;/span&gt; that is my 5(?) year old Mac Pro), I decided to try moving the VMware Fusion &lt;span class="caps"&gt;VM&lt;/span&gt; to running on my Linux server (Red Hat Enterprise Linux 6 with &lt;span class="caps"&gt;KVM&lt;/span&gt;).&lt;/p&gt;
-&lt;p&gt;Not to be redundant on the steps noted in the other blog post, but to be a bit more explicit, we&amp;#8217;ll just go through the steps as I did notice a few errors (I&amp;#8217;m assuming that blog post was written on some version of Ubuntu; I&amp;#8217;m of course using a Red Hat Enterprise Linux 6&amp;nbsp;host).&lt;/p&gt;
-&lt;p&gt;The blog notes to run the &lt;i&gt;qemu-img convert&lt;/i&gt; command on the non-wildcard vmdk file; however, I found that I needed to convert the multi-file image into a single disk image first, before it could be converted.  This may be the case for VMware Workstation disk images as well, however keep in mind we&amp;#8217;re using VMware Fusion 5 on &lt;span class="caps"&gt;OS&lt;/span&gt; X, so the tool we want is inside the VMware Fusion application bundle (specifically, we want the &lt;i&gt;vmware-vdiskmanager&lt;/i&gt;&amp;nbsp;program).&lt;/p&gt;
-&lt;p&gt;Before converting, however, I strongly recommend removing any existing snapshots of the virtual machine.  The first time I did this, I got the original snapshot which had the guest running CentOS 5.6 (and I updated it to 5.9 this morning before starting this).  So before converting anything, you probably need to remove any existing snapshots first.  Then, on the mac, convert this multi-file image into a single&amp;nbsp;image:&lt;/p&gt;
-&lt;pre&gt;
-$ cd /Applications/VMware\ Fusion.app/Contents/Library
-$ ./vmware-vdiskmanager -r ~/Documents/nagiosxi.vmwarevm/nagiosxi.vmdk \
-    -t 0 ~/Desktop/nagiosxi.vmdk
-
-&lt;/pre&gt;
-
-&lt;p&gt;This also gets rid of all of the extra VMware stuff like snapshots, etc.  Copy this new vmdk file, as well as the vmx file in the container, to the Linux&amp;nbsp;box.&lt;/p&gt;
-&lt;p&gt;Next, convert the new image file to &lt;span class="caps"&gt;QCOW2&lt;/span&gt; format (the original blog post didn&amp;#8217;t specify the output format; qemu-img defaults to a raw file which we don&amp;#8217;t want, we want &lt;span class="caps"&gt;QCOW2&lt;/span&gt;).&lt;/p&gt;
-&lt;pre&gt;
-#  qemu-img convert nagiosxi.vmdk -O qcow2 /srv/virt/images/nagiosxi.img
-# ls /srv/virt/images/nagiosxi.img -l
--rw-r--r--. 1 root root 10737418240 Jan 27 08:33 /srv/virt/images/nagiosxi.img
-
-&lt;/pre&gt;
-
-&lt;p&gt;Seems more reasonable.  But we need to change permissions so that libvirt can read&amp;nbsp;it:&lt;/p&gt;
-&lt;pre&gt;
-# chown qemu:qemu /srv/virt/images/nagiosxi.img
-# chmod 600 /srv/virt/images/nagiosxi.img
-
-&lt;/pre&gt;
-
-&lt;p&gt;The next step is to use the &lt;i&gt;vmware2libvirt&lt;/i&gt; script to convert the vmx file to an &lt;span class="caps"&gt;XML&lt;/span&gt; file for libvirt.  Unfortunately, this only seems to ship with Ubuntu.  Fortunately, we can grab the script from &lt;a href="http://bazaar.launchpad.net/~ubuntu-virt/virt-goodies/trunk/view/head:/vmware2libvirt"&gt;here&lt;/a&gt;.  It&amp;#8217;s just a python script with no dependencies, so&amp;nbsp;run:&lt;/p&gt;
-&lt;pre&gt;
-# python vmware2libvirt -f nagiosxi.vmwarevm/nagiosxi.vmx &gt;~/nagiosxi.xml
-
-&lt;/pre&gt;
-
-&lt;p&gt;Then we use virsh to import it.  Unfortunately, in this step, virsh is looking for &lt;i&gt;/usr/bin/kvm&lt;/i&gt; and the binary is actually installed as &lt;i&gt;/usr/libexec/qemu-kvm&lt;/i&gt;, so we need to make a symlink&amp;nbsp;first:&lt;/p&gt;
-&lt;pre&gt;
-#  ln -s /usr/libexec/qemu-kvm /usr/bin/kvm
-# virsh -c qemu:///system define ~/nagiosxi.xml
-
-&lt;/pre&gt;
-
-&lt;p&gt;This will import the &lt;i&gt;nagiosxi.xml&lt;/i&gt; file to &lt;i&gt;/etc/libvirt/qemu/nagiosxi.xml&lt;/i&gt;.&lt;/p&gt;
-&lt;p&gt;The original blog post talked about using the virt-manager &lt;span class="caps"&gt;GUI&lt;/span&gt; to finalize things, and since I&amp;#8217;m lazy and don&amp;#8217;t know libvirt well enough to do all this on the commandline, we&amp;#8217;ll do the same thing.  Since that machine runs headless without a &lt;span class="caps"&gt;GUI&lt;/span&gt;, I need to ssh in as root with X forwarding and run&amp;nbsp;virt-manager.&lt;/p&gt;
-&lt;p&gt;In the &lt;span class="caps"&gt;GUI&lt;/span&gt;, I can see my nagiosxi &lt;span class="caps"&gt;VM&lt;/span&gt; defined, so I select it and edit the virtual machine details.  I need to remove the existing &lt;span class="caps"&gt;IDE&lt;/span&gt; Disk 1 (which points to the vmdk file) and add my converted image file.&amp;nbsp;Essentially:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;span class="dquo"&gt;&amp;#8220;&lt;/span&gt;Add Hardware&amp;#8221; -&gt; &amp;#8220;Storage&amp;#8221; -&gt; &amp;#8220;Managed or other existing storage&amp;#8221; -&gt; Pick your new file
-&lt;li&gt; Select &amp;#8220;Storage Format&amp;#8221; -&gt; Pick qcow2
-&lt;li&gt; Click &amp;#8220;Finish&amp;#8221;
-&lt;/ul&gt;
-
-&lt;p&gt;You will also want to add a few more bits of&amp;nbsp;hardware:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; &lt;b&gt;Serial&lt;/b&gt;: Device type: pty
-&lt;li&gt; &lt;b&gt;Network&lt;/b&gt;: Host device: br0, Device model: virtio
-&lt;/ul&gt;
-
-&lt;p&gt;In my case, there was no network device, and the serial console is useful for using commands like &amp;#8220;virsh console&amp;#8221; (but you have to setup the serial getty inside the &lt;span class="caps"&gt;VM&lt;/span&gt; for this to&amp;nbsp;work).&lt;/p&gt;
-&lt;p&gt;Now you should be able to startup the new virtual machine.  Once you have gotten it up and running, you&amp;#8217;ll want to remove the vmware-tools that were&amp;nbsp;installed.&lt;/p&gt;</content><category term="Linux"></category><category term="kvm"></category><category term="vmware"></category></entry></feed>
+&lt;p&gt;Good job, Fedora-folks!  Now I just have to upgrade my main workstation, but I think I&amp;#8217;m going to play on the laptop for a bit before taking that step.  Just in case I find any other&amp;nbsp;gotchya&amp;#8217;s.&lt;/p&gt;</content><category term="Linux"></category><category term="fedora"></category><category term="yum"></category></entry><entry><title>Systemd article on wiki</title><link href="https://annvix.com/blog/systemd-article-on-wiki" rel="alternate"></link><published>2013-02-02T10:05:00-07:00</published><updated>2013-02-02T10:05:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-02-02:/blog/systemd-article-on-wiki</id><summary type="html">&lt;p&gt;In light of my recent (mis-)adventures with Fedora 18 installation in VMware Fusion and the need to figure out some systemd stuff, I&amp;#8217;ve started writing a hints/tip sheet type entry on my wiki: &lt;a href="/systemd"&gt;Systemd&lt;/a&gt;.  Far from complete yet, but I&amp;#8217;m going to use it to document …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In light of my recent (mis-)adventures with Fedora 18 installation in VMware Fusion and the need to figure out some systemd stuff, I&amp;#8217;ve started writing a hints/tip sheet type entry on my wiki: &lt;a href="/systemd"&gt;Systemd&lt;/a&gt;.  Far from complete yet, but I&amp;#8217;m going to use it to document some hints, tricks, light-bulb-moments, and comparisons to SysV-init tools (chkconfig, service).  I&amp;#8217;m no stranger to alternative boot/service management systems but it indeed makes me chuckle when people were complaining about Annvix using runit to manage the init system.  I definitely appreciate the work gone into Systemd (having done a similar thing myself for Annvix although obviously not anywhere near the scale/scope of Systemd!), so do want to learn it as opposed to using old scripts as a crutch-interface to the new stuff.  So as I likely stumble across various bits of useful info, I&amp;#8217;ll be adding it to that wiki article if anyone else is interested in checking it out (or perhaps giving me tips&amp;#8230; like how the heck do I actually get gettys to run in graphical.target!!  I want a working &lt;span class="caps"&gt;CTRL&lt;/span&gt;-&lt;span class="caps"&gt;ALT&lt;/span&gt;-F2/F3 to login at the console&amp;nbsp;please!!).&lt;/p&gt;</content><category term="Linux"></category><category term="systemd"></category></entry></feed>

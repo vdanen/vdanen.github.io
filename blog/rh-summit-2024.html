@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="It’s been an amusing morning reading more takes on the Debian OpenSSL issue. While I was in the know before most others due to vendor-sec, and was able to quickly verify this didn’t affect Mandriva, the fallout still continues. For those that think otherwise, this is a big …
+        <meta name="description" content="Last month I was in Denver for Red Hat Summit 2024. The keynotes are available on YouTube. This was perhaps the most energetic Summit that I’ve been to, even pre-COVID. There was a lot of activity and, of course, the primary topic was AI. We unveiled InstructLab and …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="openssl, security, Linux, " />
+<meta name="keywords" content="security, linux, redhat, Linux, " />
 
-<meta property="og:title" content="The path of least-patching "/>
-<meta property="og:url" content="https://annvix.com/blog/the-path-of-least-patching" />
-<meta property="og:description" content="It’s been an amusing morning reading more takes on the Debian OpenSSL issue. While I was in the know before most others due to vendor-sec, and was able to quickly verify this didn’t affect Mandriva, the fallout still continues. For those that think otherwise, this is a big …" />
+<meta property="og:title" content="Red Hat Summit 2024 "/>
+<meta property="og:url" content="https://annvix.com/blog/rh-summit-2024" />
+<meta property="og:description" content="Last month I was in Denver for Red Hat Summit 2024. The keynotes are available on YouTube. This was perhaps the most energetic Summit that I’ve been to, even pre-COVID. There was a lot of activity and, of course, the primary topic was AI. We unveiled InstructLab and …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2008-05-17T09:00:00-06:00" />
-<meta name="twitter:title" content="The path of least-patching ">
-<meta name="twitter:description" content="It’s been an amusing morning reading more takes on the Debian OpenSSL issue. While I was in the know before most others due to vendor-sec, and was able to quickly verify this didn’t affect Mandriva, the fallout still continues. For those that think otherwise, this is a big …">
+<meta property="og:article:published_time" content="2023-05-26T08:12:00-06:00" />
+<meta name="twitter:title" content="Red Hat Summit 2024 ">
+<meta name="twitter:description" content="Last month I was in Denver for Red Hat Summit 2024. The keynotes are available on YouTube. This was perhaps the most energetic Summit that I’ve been to, even pre-COVID. There was a lot of activity and, of course, the primary topic was AI. We unveiled InstructLab and …">
 
-        <title>The path of least-patching  · Annvix
+        <title>Red Hat Summit 2024  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -92,8 +92,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/the-path-of-least-patching">
-                The path of&nbsp;least-patching
+            <a href="https://annvix.com/blog/rh-summit-2024">
+                Red Hat Summit&nbsp;2024
             </a>
         </h1>
     </header>
@@ -102,26 +102,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>It&#8217;s been an amusing morning reading more takes on the Debian OpenSSL issue.  While I was in the know before most others due to vendor-sec, and was able to quickly verify this didn&#8217;t affect Mandriva, the fallout still continues.  For those that think otherwise, this is a big issue, and a big mistake, and outlines some very important things about open source development.  First, <a href="http://www.gergely.risko.hu/debian-dsa1571.en.html">this fellow</a> thinks that the Debian OpenSSL maintainer should be changed, that the individual who caused this catastrophe should be booted as maintainer.  Honestly, he&#8217;s probably right.  If this was something that happened in a corporate setting to affect the security of an individual company to the degree that this thing did, you know for fact that person would be canned within minutes.  Should we have more leeway just because it&#8217;s open source and he&#8217;s not being paid?  Frankly, if you&#8217;re not good at cryptography and don&#8217;t fully understand the code and aren&#8217;t willing to work closely with upstream, you shouldn&#8217;t be farting around with the package.  OpenSSL and other stuff like that is pretty&nbsp;major.</p>
-<p>When I was maintaining packages on Mandriva, I was the openssh maintainer.  I caught crap from Theo on a few occasions due to modifications Mandriva had made to openssh, despite the fact that I wasn&#8217;t the one who made those changes.  As a result, this &#8220;header&#8221; has been in openssh&#8217;s spec for the last seven&nbsp;years:</p>
-<pre>
-## Do not apply any unauthorized patches to this package!
-## - vdanen 05/18/01
-</pre>
-
-<p>Of course, I&#8217;ve not maintained openssh in quite a few years and it looks like the current/existing maintainers haven&#8217;t been paying attention (or don&#8217;t care) about that particular notice.  There are 8 patches to openssh, only 3 of which would be there if I were the maintainer.  Oh&nbsp;well.</p>
-<p>Another scathing post to the OpenSSL issue, with some interesting comments, is on the Practical Technology blog, entitled <a href="http://practical-tech.com/operating-system/linux/open-source-security-idiots/">Open-Source Security Idiots</a>.  There are probably others, but I think two is&nbsp;sufficient.</p>
-<p>This outlines one reason why I took the philosophy of &#8220;least-patching&#8221; when it came to Annvix.  The things that required patching usually had the patches submitted upstream for inclusion.  Some made it, some didn&#8217;t.  I get there are some distro-specific features that authors won&#8217;t want to incorporate.  For instance, svlogd would always log in <span class="caps">UTC</span> time which to me is useless&#8230; when I&#8217;m looking at logs and looking at dates, I&#8217;m looking for <em>my</em> time, not <span class="caps">UTC</span> time.  So I patched that.  But that&#8217;s not how upstream wants it so, fine, that&#8217;s one patch maintained by me.  But when it comes to big things, or things I don&#8217;t understand, or crypto or security, etc. these things I deal with upstream and/or just plain old don&#8217;t touch.  I&#8217;m not a C  or C++ expert, I&#8217;m not a cryptography specialist, and I won&#8217;t pretend to be one.  If user X wants fancy feature Y in crypto package Z, well, they can deal with upstream to get it or provide something blessed by&nbsp;upstream.</p>
-<p>For instance, take the recently-added blowfish support to glibc.  To add it to Mandriva was quite trivial as I&#8217;ve been using it on Annvix for years.  How does it work?  I have very little idea.  But I worked closely with Solar Designer of the Openwall <span class="caps">GNU</span>/Linux project to make sure it worked and worked properly in Annvix because it was needed for the <span class="caps">TCB</span> support I had added (and which I&#8217;ll be adding to Mandriva shortly).  Now, Solar definitely knows about this stuff, so working with him to get it right helped.  Yeah, I suffered through being implied an idiot, but that&#8217;s ok because I didn&#8217;t come out to sound like any kind of expert.  Really, I&#8217;m just a glorified patch-monkey, not some&nbsp;deep-crypto-coder.</p>
-<p>Anyways, my point is that it&#8217;s important to work with upstream for this stuff as much a possible, and taking the path of least-patching makes good sense.  It avoids problems like this.  After all, you might be the &#8220;maintainer&#8221; of such-and-such software, but upstream is the author, and presumably understands and knows the code more than you.  This is another reason to send patches upstream.  If they&#8217;re rejected, think about <em>why</em> they&#8217;re rejected.  It might be for good cause.  You may also get the peer review to make the patch better; upstream won&#8217;t always want to take your changes, but if there&#8217;s something totally wrong with it, they&#8217;ll let you know and maybe toss in a name or two for good measure.  But, really, that humiliation is better than this one&#8230; by no stretch of the imagination would I want to be Kurt Roeckx (the Debian openssl maintainer) right&nbsp;now.</p>
+            <p><img alt="Image" src="https://annvix.com/images/2024-rh-summit.png" /></p>
+<p>Last month I was in Denver for Red Hat Summit 2024.  The keynotes are <a href="https://www.youtube.com/playlist?list=PLbMP1JcGBmSH1HDJAgfTlWUDZY-dCmPdo">available on YouTube</a>.  This was perhaps the most energetic Summit that I&#8217;ve been to, even pre-<span class="caps">COVID</span>.  There was a lot of activity and, of course, the primary topic was <span class="caps">AI</span>.  We unveiled <a href="https://instructlab.ai/">InstructLab</a> and our work there, the InstructLab demo/contribution area was hopping and well over half of all Summit attendees took the opportunity to check it out and contribute some skills and&nbsp;knowledge.</p>
+<p>While security wasn&#8217;t the topic that everyone was talking about, a few of us were (are you surprised?).  I had a number of customer conversations and hallway discussions with associates and customers alike on my favourite topics.  I did a talk on the evolution of risk management in software, which is what my <a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management">five part blog series</a> was based on.  Updated, of course, to reference the xz-utils backdoor which is something a lot of people wanted to discuss.  Unfortunately, that doesn&#8217;t seem to be public.  But you can read the blog series to get an idea of what the content&nbsp;was!</p>
+<p>I also spent some time on <a href="https://www.youtube.com/watch?v=-wKJKvrEI0U">theCube talking about security and <span class="caps">AI</span></a>.  Love being on theCube and really appreciate being invited back.  They&#8217;re great folks to converse&nbsp;with!</p>
+<p>Also, and the reason why this blog post is so late post-Summit, I was on the Ask Noah podcast for the first time.  We talked about <a href="https://podcast.asknoahshow.com/390?t=2084">security, <span class="caps">AI</span> and open source maintainers</a> and it was a blast.  Thoroughly enjoyed the conversation and hopefully there are some ideas for folks to think about.  We did talk about the xz-utils backdoor, how open source is demonstrably safer than proprietary software, and some of the concerns I have with all the burden being placed on open source maintainers.  Worth checking&nbsp;out.</p>
+<p>And next week I&#8217;ll be speaking at the <a href="https://blog.tidelift.com/upstream-preview-vincent-danen-of-red-hat-calls-for-a-patch-management-revolution">Uplift virtual conference hosted by Tidelift</a>.  I&#8217;m very excited about this because I am a huge fan of Tidelift and all that they do for open source maintainers.  If you&#8217;ve never heard about them before, I encourage you to check them&nbsp;out!</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=The%20path%20of%C2%A0least-patching&url=https%3A//annvix.com/blog/the-path-of-least-patching&hashtags=openssl,security" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/the-path-of-least-patching&title=The%20path%20of%C2%A0least-patching&summary=It%E2%80%99s%20been%20an%20amusing%20morning%20reading%20more%20takes%20on%20the%20Debian%20OpenSSL%20issue.%20%20While%20I%20was%20in%20the%20know%20before%20most%20others%20due%20to%20vendor-sec%2C%20and%20was%20able%20to%20quickly%20verify%20this%20didn%E2%80%99t%20affect%20Mandriva%2C%20the%20fallout%20still%20continues.%20%20For%20those%20that%20think%20otherwise%2C%20this%20is%20a%20big%20%E2%80%A6&source=https%3A//annvix.com/blog/the-path-of-least-patching" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=Red%20Hat%20Summit%C2%A02024&url=https%3A//annvix.com/blog/rh-summit-2024&hashtags=security,linux,redhat" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/rh-summit-2024&title=Red%20Hat%20Summit%C2%A02024&summary=Last%20month%20I%20was%20in%20Denver%20for%20Red%20Hat%20Summit%202024.%20%20The%20keynotes%20are%20available%20on%20YouTube.%20%20This%20was%20perhaps%20the%20most%20energetic%20Summit%20that%20I%E2%80%99ve%20been%20to%2C%20even%20pre-COVID.%20%20There%20was%20a%20lot%20of%20activity%20and%2C%20of%20course%2C%20the%20primary%20topic%20was%20AI.%20%20We%20unveiled%20InstructLab%20and%20%E2%80%A6&source=https%3A//annvix.com/blog/rh-summit-2024" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -136,31 +130,34 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://annvix.com/blog/find-and-fix-weak-opensslopenssh-keys-debian-based-linux-vulnerability" title="Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability">Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability</a></li>
-<li><a href="https://annvix.com/blog/create-your-own-ssl-ca-with-the-os-x-keychain" title="Create your own SSL CA with the OS X Keychain">Create your own SSL CA with the OS X Keychain</a></li>
-<li><a href="https://annvix.com/blog/heartbleed" title="Heartbleed">Heartbleed</a></li>
-<li><a href="https://annvix.com/blog/ssl-certificate-verification-failure-with-fink-s-python-2-7-9" title="SSL Certificate Verification failure with fink’s Python 2.7.9">SSL Certificate Verification failure with fink’s Python 2.7.9</a></li>
-<li><a href="https://annvix.com/blog/countdown-to-sha1-based-https-doom" title="Countdown to SHA1-based HTTPS Doom">Countdown to SHA1-based HTTPS Doom</a></li>
+<li><a href="https://annvix.com/blog/oss-summit-2023" title="OSS Summit 2023">OSS Summit 2023</a></li>
+<li><a href="https://annvix.com/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
+<li><a href="https://annvix.com/blog/openshift-commons-chicago-2023" title="OpenShift Commons Chicago 2023">OpenShift Commons Chicago 2023</a></li>
+<li><a href="https://annvix.com/blog/15-years-at-red-hat" title="15 years at Red Hat">15 years at Red Hat</a></li>
+<li><a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management" title="Rethinking Risk in Vulnerability Management">Rethinking Risk in Vulnerability Management</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/watch-out-france-here-i-come-after-8-long-years" title="Previous: Watch out Mandriva… I’m coming after 8 long years">Watch out Mandriva… I’m coming after 8 long years</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/find-and-fix-weak-opensslopenssh-keys-debian-based-linux-vulnerability" title="Next: Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability">Find and fix weak OpenSSL/OpenSSH keys: Debian-based Linux vulnerability</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/oss-summit-2023" title="Previous: OSS Summit 2023">OSS Summit 2023</a></li>
+                <li class="next-article"><a href="https://annvix.com/blog/rh-summit-2023" title="Next: Red Hat Summit 2023">Red Hat Summit 2023</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-05-17T09:00:00-06:00">May 17, 2008</time>
+            <time itemprop="dateCreated" datetime="2023-05-26T08:12:00-06:00">May 26, 2023</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://annvix.com/tags#openssl-ref">openssl
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">8</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#redhat-ref">redhat
                     <span class="superscript">11</span>
 </a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security

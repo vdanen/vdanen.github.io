@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-06-05T14:12:00-06:00</updated><entry><title>Upstream 2024</title><link href="https://annvix.com/blog/upstream-2024" rel="alternate"></link><published>2024-06-05T14:12:00-06:00</published><updated>2024-06-05T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-06-05:/blog/upstream-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/2024-rh-summit.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-06-05T14:12:00-06:00</updated><entry><title>Upstream 2024</title><link href="https://annvix.com/blog/upstream-2024" rel="alternate"></link><published>2024-06-05T14:12:00-06:00</published><updated>2024-06-05T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-06-05:/blog/upstream-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/upstream-logo.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Today I had the privilege of being involved in
 &lt;a href="https://tidelift.com/"&gt;Tidelift&lt;/a&gt;&amp;#8216;s &lt;a href="https://explore.tidelift.com/upstream/upstream-2024/"&gt;Upstream
 2024&lt;/a&gt; virtual
 conference.  The conference as a whole was fantastic, I watched every talk
 and there is some really great content there about open source security and
-how it&amp;#8217;s being looked at and considered by multiple industries …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/2024-rh-summit.png" /&gt;&lt;/p&gt;
+how it&amp;#8217;s being looked at and considered by multiple industries …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/upstream-logo.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Today I had the privilege of being involved in
 &lt;a href="https://tidelift.com/"&gt;Tidelift&lt;/a&gt;&amp;#8216;s &lt;a href="https://explore.tidelift.com/upstream/upstream-2024/"&gt;Upstream
 2024&lt;/a&gt; virtual

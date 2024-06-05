@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …
+        <meta name="description" content="Today I had the privilege of being involved in Tidelift‘s Upstream 2024 virtual conference. The conference as a whole was fantastic, I watched every talk and there is some really great content there about open source security and how it’s being looked at and considered by multiple industries …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="security, linux, Linux, " />
+<meta name="keywords" content="security, linux, redhat, Linux, " />
 
-<meta property="og:title" content="OpenShift Commons Chicago 2023 "/>
-<meta property="og:url" content="https://annvix.com/blog/openshift-commons-chicago-2023" />
-<meta property="og:description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …" />
+<meta property="og:title" content="Upstream 2024 "/>
+<meta property="og:url" content="https://annvix.com/blog/upstream-2024" />
+<meta property="og:description" content="Today I had the privilege of being involved in Tidelift‘s Upstream 2024 virtual conference. The conference as a whole was fantastic, I watched every talk and there is some really great content there about open source security and how it’s being looked at and considered by multiple industries …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2023-11-27T19:30:00-07:00" />
-<meta name="twitter:title" content="OpenShift Commons Chicago 2023 ">
-<meta name="twitter:description" content="I had the opportunity to speak at the recent OpenShift Commons in Chicago that was an event that coincided with Kubecon in Chicago a few weeks back. I spoke about the Evolution of risk management in software which is a more reent talk that I’ve given a few times …">
+<meta property="og:article:published_time" content="2024-06-05T14:12:00-06:00" />
+<meta name="twitter:title" content="Upstream 2024 ">
+<meta name="twitter:description" content="Today I had the privilege of being involved in Tidelift‘s Upstream 2024 virtual conference. The conference as a whole was fantastic, I watched every talk and there is some really great content there about open source security and how it’s being looked at and considered by multiple industries …">
 
-        <title>OpenShift Commons Chicago 2023  · Annvix
+        <title>Upstream 2024  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -92,8 +92,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/openshift-commons-chicago-2023">
-                OpenShift Commons Chicago&nbsp;2023
+            <a href="https://annvix.com/blog/upstream-2024">
+                Upstream&nbsp;2024
             </a>
         </h1>
     </header>
@@ -102,35 +102,40 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p><img alt="Image" src="https://annvix.com/images/more_in_common.webp" /></p>
-<p>I had the opportunity to speak at the recent <a href="https://commons.openshift.org/gatherings/kubecon-24-nov-12/">OpenShift Commons in
-Chicago</a> that
-was an event that coincided with Kubecon in Chicago a few weeks back.  I
-spoke about the <a href="https://www.youtube.com/watch?v=3S855TdwhH4">Evolution of risk management in
-software</a> which is a more
-reent talk that I&#8217;ve given a few times; the first time was at the Summit
-Connect <span class="caps">NL</span> in&nbsp;September.</p>
-<p>A few technical difficulties aside, this was a great talk that resonated
-quite well with the audience, and I appreciate that later in the day and
-even when I was strolling around Kubecon the next day I got a lot of
-comments and discussions about&nbsp;it.</p>
-<p>The basic premise is that patching everything is out-dated and expensive
-and while we&#8217;ve elevated and evolved our thinking about risk <em>a lot</em> over
-the last 20 years, for some reason we&#8217;ve not really changed our thinking
-when it comes to patches &#8212; and that can come at a significant&nbsp;cost.</p>
-<p>I hope you find it interesting and useful!  I&#8217;ve been working on a blog
-post that goes with it and has a lot more detail than I can give in a talk,
-but turns out it&#8217;s a bit too long to publish as-is on the redhat.com
-web site, so it&#8217;ll likely be a 6-part blog series.  I hope to be able to
-share that with you all&nbsp;soon.</p>
+            <p><img alt="Image" src="https://annvix.com/images/2024-rh-summit.png" /></p>
+<p>Today I had the privilege of being involved in
+<a href="https://tidelift.com/">Tidelift</a>&#8216;s <a href="https://explore.tidelift.com/upstream/upstream-2024/">Upstream
+2024</a> virtual
+conference.  The conference as a whole was fantastic, I watched every talk
+and there is some really great content there about open source security and
+how it&#8217;s being looked at and considered by multiple industries.  A lot of
+really great content here, much of it centered around some of the problems
+and potential solutions, using events like the xz-utils incident, log4shell, and
+others as a basis for the&nbsp;conversation.</p>
+<p>My talk topic shouldn&#8217;t be a surprise, it was entitled &#8220;<a href="https://www.youtube.com/watch?v=bdJAC_3PonY">Patch management needs a
+revolution</a>&#8221; and talks about
+what I typically talk about &#8212; security needs to be risk-based, not
+compliance.  The compliance approach is crushing everyone (vendors,
+customers) and it isn&#8217;t actually helpful or effective.  We need a different
+approach, one that targets where most breaches and compromises happen, and
+it&#8217;s <em>demonstrably not due to software exploitation</em>.</p>
+<p>If you got here and you&#8217;re wondering why I&#8217;m assuming the topic shouldn&#8217;t
+be a surprise, you might want to check out my earlier posts: <a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management">Rethinking
+Risk in Vulnerability
+Management</a>
+and <a href="https://annvix.com/blog/rh-summit-2024">Red Hat Summit 2024</a> (which
+has a few links to different talks about the same&nbsp;topic).</p>
+<p>If you have the time, you should head over and watch the talks (not just
+mine!).  If you don&#8217;t have the time, you should make the time.  Honestly,
+it&#8217;s well worth&nbsp;it.</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=OpenShift%20Commons%20Chicago%C2%A02023&url=https%3A//annvix.com/blog/openshift-commons-chicago-2023&hashtags=security,linux" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/openshift-commons-chicago-2023&title=OpenShift%20Commons%20Chicago%C2%A02023&summary=I%20had%20the%20opportunity%20to%20speak%20at%20the%20recent%20OpenShift%20Commons%20in%0AChicago%20that%0Awas%20an%20event%20that%20coincided%20with%20Kubecon%20in%20Chicago%20a%20few%20weeks%20back.%20%20I%0Aspoke%20about%20the%20Evolution%20of%20risk%20management%20in%0Asoftware%20which%20is%20a%20more%0Areent%20talk%20that%20I%E2%80%99ve%20given%20a%20few%20times%20%E2%80%A6&source=https%3A//annvix.com/blog/openshift-commons-chicago-2023" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=Upstream%C2%A02024&url=https%3A//annvix.com/blog/upstream-2024&hashtags=security,linux,redhat" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/upstream-2024&title=Upstream%C2%A02024&summary=Today%20I%20had%20the%20privilege%20of%20being%20involved%20in%0ATidelift%E2%80%98s%20Upstream%0A2024%20virtual%0Aconference.%20%20The%20conference%20as%20a%20whole%20was%20fantastic%2C%20I%20watched%20every%20talk%0Aand%20there%20is%20some%20really%20great%20content%20there%20about%20open%20source%20security%20and%0Ahow%20it%E2%80%99s%20being%20looked%20at%20and%20considered%20by%20multiple%20industries%20%E2%80%A6&source=https%3A//annvix.com/blog/upstream-2024" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -145,32 +150,34 @@ share that with you all&nbsp;soon.</p>
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://annvix.com/blog/sboms-cves-cvss-and-more" title="SBOMs, CVEs, CVSS and more">SBOMs, CVEs, CVSS and more</a></li>
-<li><a href="https://annvix.com/blog/oss-summit-2023" title="OSS Summit 2023">OSS Summit 2023</a></li>
 <li><a href="https://annvix.com/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
+<li><a href="https://annvix.com/blog/openshift-commons-chicago-2023" title="OpenShift Commons Chicago 2023">OpenShift Commons Chicago 2023</a></li>
+<li><a href="https://annvix.com/blog/15-years-at-red-hat" title="15 years at Red Hat">15 years at Red Hat</a></li>
+<li><a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management" title="Rethinking Risk in Vulnerability Management">Rethinking Risk in Vulnerability Management</a></li>
 <li><a href="https://annvix.com/blog/rh-summit-2024" title="Red Hat Summit 2024">Red Hat Summit 2024</a></li>
-<li><a href="https://annvix.com/blog/upstream-2024" title="Upstream 2024">Upstream 2024</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/relocated-to-github-pages" title="Previous: Relocated to GitHub pages">Relocated to GitHub pages</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal" title="Next: Productivity improvements with Obsidian, OmniFocus and Johnny Decimal">Productivity improvements with Obsidian, OmniFocus and Johnny Decimal</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/rh-summit-2024" title="Previous: Red Hat Summit 2024">Red Hat Summit 2024</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2023-11-27T19:30:00-07:00">Nov 27, 2023</time>
+            <time itemprop="dateCreated" datetime="2024-06-05T14:12:00-06:00">Jun 05, 2024</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
                 <li><a href="https://annvix.com/tags#linux-ref">linux
                     <span class="superscript">9</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#redhat-ref">redhat
+                    <span class="superscript">12</span>
 </a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security
                     <span class="superscript">39</span>

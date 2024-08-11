@@ -11,7 +11,7 @@ eXchange, and the documents are machine-readable &lt;span class="caps"&gt;JSON&l
 vulnerabilities and status for them.  For example, one &lt;span class="caps"&gt;CVE&lt;/span&gt; could impact a
 number of different products because of the component that it affects.  The
 RapidReset vulnertability (or
-&lt;a href="https://access.redhat.com/security/cve/CVE-2023-44487"&gt;&lt;span class="caps"&gt;CVE&lt;/span&gt;-2023-44487&lt;/a&gt; is
+&lt;a href="https://access.redhat.com/security/cve/CVE-2023-44487"&gt;&lt;span class="caps"&gt;CVE&lt;/span&gt;-2023-44487&lt;/a&gt;) is
 one such vulnerability that, due to it affecting the handling of &lt;span class="caps"&gt;HTTP&lt;/span&gt;/2
 requsts, affected numerous software projects such as nginx and Go.  This
 &lt;span class="caps"&gt;CVE&lt;/span&gt; impacts a number of different products and components, and for Red Hat

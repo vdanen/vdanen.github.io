@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-06-05T14:12:00-06:00</updated><entry><title>Upstream 2024</title><link href="https://annvix.com/blog/upstream-2024" rel="alternate"></link><published>2024-06-05T14:12:00-06:00</published><updated>2024-06-05T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-06-05:/blog/upstream-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/upstream-logo.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-08-09T14:12:00-06:00</updated><entry><title>Python module to read CSAF VEX files</title><link href="https://annvix.com/blog/vex-reader" rel="alternate"></link><published>2024-08-09T14:12:00-06:00</published><updated>2024-08-09T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-08-09:/blog/vex-reader</id><summary type="html">&lt;p&gt;Red Hat has been &lt;a href="https://www.redhat.com/en/blog/red-hat-vex-files-cves-are-now-generally-available"&gt;publishing
+&lt;span class="caps"&gt;VEX&lt;/span&gt;&lt;/a&gt;
+documents for some time now.  &lt;span class="caps"&gt;VEX&lt;/span&gt; stands for Vulnerability Exploitability
+eXchange, and the documents are machine-readable &lt;span class="caps"&gt;JSON&lt;/span&gt; files that describe
+vulnerabilities and status for them.  For example, one &lt;span class="caps"&gt;CVE&lt;/span&gt; could impact a
+number of different products because of the component that it affects.  The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Red Hat has been &lt;a href="https://www.redhat.com/en/blog/red-hat-vex-files-cves-are-now-generally-available"&gt;publishing
+&lt;span class="caps"&gt;VEX&lt;/span&gt;&lt;/a&gt;
+documents for some time now.  &lt;span class="caps"&gt;VEX&lt;/span&gt; stands for Vulnerability Exploitability
+eXchange, and the documents are machine-readable &lt;span class="caps"&gt;JSON&lt;/span&gt; files that describe
+vulnerabilities and status for them.  For example, one &lt;span class="caps"&gt;CVE&lt;/span&gt; could impact a
+number of different products because of the component that it affects.  The
+RapidReset vulnertability (or
+&lt;a href="https://access.redhat.com/security/cve/CVE-2023-44487"&gt;&lt;span class="caps"&gt;CVE&lt;/span&gt;-2023-44487&lt;/a&gt; is
+one such vulnerability that, due to it affecting the handling of &lt;span class="caps"&gt;HTTP&lt;/span&gt;/2
+requsts, affected numerous software projects such as nginx and Go.  This
+&lt;span class="caps"&gt;CVE&lt;/span&gt; impacts a number of different products and components, and for Red Hat
+(if you look at the &lt;span class="caps"&gt;CVE&lt;/span&gt; page) there are over 2000 affected components
+across our products.  Anyone trying to figure out whether they are affected
+or not, by looking at the &lt;span class="caps"&gt;CVE&lt;/span&gt; page, is bound to cry in&amp;nbsp;frustration.&lt;/p&gt;
+&lt;p&gt;This article isn&amp;#8217;t about &lt;span class="caps"&gt;VEX&lt;/span&gt; itself though; you can read about the
+specification via the Red Hat blog linked&amp;nbsp;earlier.&lt;/p&gt;
+&lt;p&gt;When I was looking for something to parse the &lt;span class="caps"&gt;VEX&lt;/span&gt; files we produce, I found
+there really wasn&amp;#8217;t anything available.  Since I don&amp;#8217;t get to write much
+code anymore, I decided to write a &lt;span class="caps"&gt;VEX&lt;/span&gt; reader and made it &lt;a href="https://github.com/vdanen/vex-reader"&gt;available on
+GitHub&lt;/a&gt;.  I tried to have it read
+other &lt;span class="caps"&gt;VEX&lt;/span&gt; files, but unfortunately there aren&amp;#8217;t a lot that are public out
+there, so there wasn&amp;#8217;t much to test with.  And what I did find, to my
+dismay, I learned that the &lt;span class="caps"&gt;CSAF&lt;/span&gt; and &lt;span class="caps"&gt;CSAF&lt;/span&gt;+&lt;span class="caps"&gt;VEX&lt;/span&gt; specs are quite a bit
+different.  I had initially tried to read both formats but (for now) am
+sticking with &lt;span class="caps"&gt;CSAF&lt;/span&gt;+&lt;span class="caps"&gt;VEX&lt;/span&gt;.  Which really means that there are only Red Hat
+documents that are publicly available.  I&amp;#8217;ve heard of others behind
+paywalls, so I don&amp;#8217;t know if this will work with them or&amp;nbsp;not.&lt;/p&gt;
+&lt;p&gt;Programming isn&amp;#8217;t my day job so it&amp;#8217;s not&amp;#8230; what one might consider
+professional.  =)  But it was fun for me and hopefully useful for&amp;nbsp;others.&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s also &lt;a href="https://pypi.org/project/vex-reader/"&gt;available on PyPI&lt;/a&gt; which
+interestingly is the first published PyPI module (never too late&amp;nbsp;right?).&lt;/p&gt;
+&lt;p&gt;As always, patches are welcome if you find any&amp;nbsp;issues.&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="linux"></category><category term="redhat"></category></entry><entry><title>Upstream 2024</title><link href="https://annvix.com/blog/upstream-2024" rel="alternate"></link><published>2024-06-05T14:12:00-06:00</published><updated>2024-06-05T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-06-05:/blog/upstream-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/upstream-logo.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Today I had the privilege of being involved in
 &lt;a href="https://tidelift.com/"&gt;Tidelift&lt;/a&gt;&amp;#8216;s &lt;a href="https://explore.tidelift.com/upstream/upstream-2024/"&gt;Upstream
 2024&lt;/a&gt; virtual
@@ -3729,13 +3765,4 @@ print $2" = "$2" &lt;"$2"&gt;"}' | sort -u &gt; authors-transform.txt
 &lt;p&gt;Does anyone know of a similar service?  I&amp;#8217;ve gotten so used to using Google Reader (not the web interface, but the actual syncing and being able to connect to the account with all my various …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This really makes me sad: &lt;a href="http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html"&gt;http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Does anyone know of a similar service?  I&amp;#8217;ve gotten so used to using Google Reader (not the web interface, but the actual syncing and being able to connect to the account with all my various &lt;span class="caps"&gt;RSS&lt;/span&gt; readers whether I&amp;#8217;m on my phone or the desktop or the laptop and be able to just pick up where I left&amp;nbsp;off).&lt;/p&gt;
 &lt;p&gt;I get that Google needs to sunset things that don&amp;#8217;t make sense, but it would be nice if they could maybe let the code go so others can setup their own implementations that&amp;#8217;s basically compatible with all the Google Reader-friendly &lt;span class="caps"&gt;RSS&lt;/span&gt; readers out&amp;nbsp;there.&lt;/p&gt;
-&lt;p&gt;Or they could just get rid of&amp;nbsp;Orkut&amp;#8230;&lt;/p&gt;</content><category term="Life"></category></entry><entry><title>More work on the right sleeve</title><link href="https://annvix.com/blog/more-work-on-the-right-sleeve" rel="alternate"></link><published>2013-02-08T10:00:00-07:00</published><updated>2013-02-08T10:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-02-08:/blog/more-work-on-the-right-sleeve</id><summary type="html">&lt;p&gt;&lt;center&gt;&lt;a href="http://www.flickr.com/photos/wulfheart/8455501893/"&gt;&lt;img src="http://farm9.staticflickr.com/8251/8455501893_63b37359db.jpg" width="375" height="500"&gt;&lt;/a&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;Spent a few hours last night laying some of the groundwork for getting more of the second sleeve&amp;nbsp;done.&lt;/p&gt;
-&lt;p&gt;This is was re-lining and darkening of my existing cross, and I think the flames look pretty darn&amp;nbsp;sweet.&lt;/p&gt;
-&lt;p&gt;This is re-lining and darkening of my tribal Jesus, and fixing the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;center&gt;&lt;a href="http://www.flickr.com/photos/wulfheart/8455501893/"&gt;&lt;img src="http://farm9.staticflickr.com/8251/8455501893_63b37359db.jpg" width="375" height="500"&gt;&lt;/a&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;Spent a few hours last night laying some of the groundwork for getting more of the second sleeve&amp;nbsp;done.&lt;/p&gt;
-&lt;p&gt;This is was re-lining and darkening of my existing cross, and I think the flames look pretty darn&amp;nbsp;sweet.&lt;/p&gt;
-&lt;p&gt;This is re-lining and darkening of my tribal Jesus, and fixing the J (the ticks it used to have were too thick, making it look&amp;nbsp;odd):&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;&lt;a href="http://www.flickr.com/photos/wulfheart/8455511809/" title="Re-lined tribal Jesus by Wulfheart, on Flickr"&gt;&lt;img src="http://farm9.staticflickr.com/8231/8455511809_aee5a0571f.jpg" width="268" height="500" alt="Re-lined tribal Jesus"&gt;&lt;/a&gt;&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;And as I looked at my Flickr album, I realized I never took any pics of the work done last year.  =(  Since I can&amp;#8217;t take those pics on my own, I&amp;#8217;ll have to get Ang to take some&amp;nbsp;tonight.&lt;/p&gt;
-&lt;p&gt;The next step will be finishing filling in the forearm, and then need to get the concept for the top done, which will include re-working the flaming skull I got 19 years ago.  Looking forward to getting the sleeve finished this&amp;nbsp;year!&lt;/p&gt;</content><category term="Life"></category><category term="tattoo"></category></entry></feed>
+&lt;p&gt;Or they could just get rid of&amp;nbsp;Orkut&amp;#8230;&lt;/p&gt;</content><category term="Life"></category></entry></feed>

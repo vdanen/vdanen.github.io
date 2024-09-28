@@ -1,5 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-08-09T14:12:00-06:00</updated><entry><title>Python module to read CSAF VEX files</title><link href="https://annvix.com/blog/vex-reader" rel="alternate"></link><published>2024-08-09T14:12:00-06:00</published><updated>2024-08-09T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-08-09:/blog/vex-reader</id><summary type="html">&lt;p&gt;Red Hat has been &lt;a href="https://www.redhat.com/en/blog/red-hat-vex-files-cves-are-now-generally-available"&gt;publishing
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-09-28T08:12:00-06:00</updated><entry><title>BSides Edmonton 2024</title><link href="https://annvix.com/blog/bsides-edmonton-2024" rel="alternate"></link><published>2024-09-28T08:12:00-06:00</published><updated>2024-09-28T08:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-09-28:/blog/bsides-edmonton-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/BSides-Edmonton.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Earlier this week I had the opportunity to attend and speak at the &lt;a href="https://www.bsidesedmonton.org/speakers"&gt;BSides
+Edmonton 2024&lt;/a&gt; event.  This is a
+local event that&amp;#8217;s been running for a few years and oddly I&amp;#8217;ve only been
+able to make it every second year, usually due to conflicts in my schedule …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/BSides-Edmonton.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Earlier this week I had the opportunity to attend and speak at the &lt;a href="https://www.bsidesedmonton.org/speakers"&gt;BSides
+Edmonton 2024&lt;/a&gt; event.  This is a
+local event that&amp;#8217;s been running for a few years and oddly I&amp;#8217;ve only been
+able to make it every second year, usually due to conflicts in my schedule.
+This year I had reached out earlier to see when the &lt;span class="caps"&gt;CFP&lt;/span&gt; was opening to find
+out it had already closed and I missed the opportunity to submit.  Again,
+due to my schedule I opted not to&amp;nbsp;attend.&lt;/p&gt;
+&lt;p&gt;A few weeks before the event, however, a speaker had dropped out and a slot
+was open.  Interestingly, an old co-worker and friend (hey CRob!) was on an
+OpenSSF working group call with one of the organizers and I suppose they
+were lamenting the loss of a speaker when CRob told them that he knew
+someone local, so they reached out to see if I could pinch-hit and all of a
+sudden I was not only attenting BSides but also speaking.  Which was
+awesome because I&amp;#8217;ve never spoken about security locally.  Well,
+technically not true&amp;#8230; about a decade ago I did present to a group of home
+schoolers about online security and safety (but that&amp;#8217;s not really the same&amp;nbsp;thing).&lt;/p&gt;
+&lt;p&gt;Anyhow, because of the time crunch I decided I was going to speak on the
+&lt;em&gt;Evolution of risk-management in software&lt;/em&gt;, the same talk I gave at &lt;a href="https://annvix.com/blog/rh-summit-2024"&gt;Red
+Hat Summit&lt;/a&gt; earlier this year.
+Easy enough.  However, when I ran through it on the Thursday before I was
+speaking (last Tuesday) I realized this wasn&amp;#8217;t the right talk for the crowd
+at BSides, so I spent the weekend reworking it.  My focus was on the
+content, so the talk title was only nominally adjusted, to the &lt;em&gt;Evolution
+of risk acceptance in open source software&lt;/em&gt;.  That name probably needs to
+change but it&amp;#8217;ll suffice for&amp;nbsp;now.&lt;/p&gt;
+&lt;p&gt;The talk focused on the implicit acceptance of risk in proprietary software
+(you accept the risk of what you don&amp;#8217;t see or know about) versus the need
+for an explicit acceptance of risk in open source software (accept the risk
+of what you can see and know about).  We dug into some numbers of
+vulnerabilities in open versus proprietary, obviously using Red Hat as the
+example of an open source vendor and a well-known and unnamed proprietary
+vendor as the&amp;nbsp;contrast.&lt;/p&gt;
+&lt;p&gt;The room was pretty full and the audience was very engaged.  I was really
+happy with the outcome of the talk and spent an hour afterwards answering
+questions and talking with people about the content.  Some interesting
+questions about risk management and how does one get executive management
+to transfer risk decisions to those closer to the work (i.e. how to get the
+people who know the technology to accept risk instead of executives looking
+at things from a purely compliance perspective), what open source scanners
+are best for scanning for vulnerabilities and the challenges with scanners
+in general, and just general good risk acceptance and open source&amp;nbsp;topics.&lt;/p&gt;
+&lt;p&gt;Of course I had someone come up asking about why Red Hat&amp;#8217;s kernels are so
+old and how they would like to see us update more often so they could
+obtain the performance benefits of newer kernels to reduce their &lt;span class="caps"&gt;AWS&lt;/span&gt;
+consumption costs.  Sigh.  I mean, I get it but there are tradeoffs between
+security, stability and performance.  I think for their usecase they could
+go ahead and use an upstream kernel if they wanted to.  Most Red Hat
+customers prefer a stable, predictable kernel that, sure, might be a little
+long in the tooth but that&amp;#8217;s what most enterprise users who want long-life
+stability&amp;nbsp;desire.&lt;/p&gt;
+&lt;p&gt;Anyways, the adverserial grilling aside, it was a great talk and a good
+experience.  The talk will be posted to the &lt;a href="https://www.youtube.com/channel/UC73X4ic6jkiyJZ5x62xs5hw"&gt;BSides Edmonton YouTube
+channel&lt;/a&gt; but
+unfortunately not until the end of October or November.  So those folks
+who&amp;#8217;ve asked to see it will have to&amp;nbsp;wait.&lt;/p&gt;
+&lt;p&gt;Or, if you&amp;#8217;re attending &lt;a href="https://events.linuxfoundation.org/soss-fusion/"&gt;&lt;span class="caps"&gt;SOSS&lt;/span&gt; Fusion
+2024&lt;/a&gt; next month you can
+listen to it in-person!  I&amp;#8217;ll be tweaking it a bit more before then so
+it&amp;#8217;ll change some, but probably not too&amp;nbsp;much.&lt;/p&gt;
+&lt;p&gt;I also learned from the Tuesday morning keynote that Canada is doing some
+pretty neat stuff at the federal level with respect to security.  The
+&lt;a href="https://www.cyber.gc.ca/en"&gt;Canadian Centre for Cyber Security&lt;/a&gt; was a
+complete unknown to me before this week, and they do a lot with open source
+including their Assemblyline malware analysis platform, their Howler tool
+for analyzing alerts from different applications, and quite a bit more
+(check out the &lt;a href="https://github.com/CybercentreCanada"&gt;Cyber Centre Canada&lt;/a&gt;
+on GitHub.  There&amp;#8217;s a ton of open source available&amp;nbsp;there.&lt;/p&gt;
+&lt;p&gt;I had &lt;em&gt;no&lt;/em&gt; idea that this was happening in my own backyard!  I think this
+is pretty awesome actually and I&amp;#8217;m really looking forward to digging into
+it a bit more to see what the Cyber Centre is doing for&amp;nbsp;Canadians.&lt;/p&gt;
+&lt;p&gt;I also learned that they really believe in regulatory compliance framework
+reciprocity, a topic I &lt;a href="https://www.forbes.com/councils/forbestechcouncil/2024/09/10/scaling-compliance-reciprocity-the-need-to-streamline-efforts-to-improve-security/"&gt;discussed recently on
+Forbes&lt;/a&gt;
+so that was really exciting to hear.  They do a lot of work with &lt;span class="caps"&gt;NIST&lt;/span&gt;,
+particularly around &lt;span class="caps"&gt;FIPS&lt;/span&gt; validation and testing.  It was also interesting
+to see their point of view on not just creating tools in open source but
+also leveraging open source and how they see that, sure, there&amp;#8217;s some risk
+but the benefits it affords, including transparency, make it easier to
+manage (something I talk about often and was definitely discussed in the
+talk I gave).  They also talked a bit about &lt;span class="caps"&gt;AI&lt;/span&gt; and Quantum Computing which
+I found very interesting as well.  Very much looking forward to watching
+that keynote again when it&amp;#8217;s&amp;nbsp;posted.&lt;/p&gt;
+&lt;p&gt;All in all, a great event to attend.  Hats off to the BSides volunteers and
+organizers who put it on!  Thanks to the sponsors who helped make it
+possible (had a few good chats with them as well), and then of course to
+the other speakers who gave talks or led workshops.  I believe there were
+around 500 people in attendance which is pretty&amp;nbsp;amazing.&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="linux"></category><category term="redhat"></category></entry><entry><title>Python module to read CSAF VEX files</title><link href="https://annvix.com/blog/vex-reader" rel="alternate"></link><published>2024-08-09T14:12:00-06:00</published><updated>2024-08-09T14:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-08-09:/blog/vex-reader</id><summary type="html">&lt;p&gt;Red Hat has been &lt;a href="https://www.redhat.com/en/blog/red-hat-vex-files-cves-are-now-generally-available"&gt;publishing
 &lt;span class="caps"&gt;VEX&lt;/span&gt;&lt;/a&gt;
 documents for some time now.  &lt;span class="caps"&gt;VEX&lt;/span&gt; stands for Vulnerability Exploitability
 eXchange, and the documents are machine-readable &lt;span class="caps"&gt;JSON&lt;/span&gt; files that describe
@@ -3761,8 +3852,4 @@ $ svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); \
 print $2" = "$2" &lt;"$2"&gt;"}' | sort -u &gt; authors-transform.txt
 &lt;/pre&gt;
 
-&lt;p&gt;in the existing copy of the subversion repository that I had (and then mangling it to suit my needs, particularly changing it to add the committers&amp;#8217; real names and email addresses as&amp;nbsp;well).&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>Bye bye Google Reader</title><link href="https://annvix.com/blog/bye-bye-google-reader" rel="alternate"></link><published>2013-03-13T20:26:00-06:00</published><updated>2013-03-13T20:26:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-03-13:/blog/bye-bye-google-reader</id><summary type="html">&lt;p&gt;This really makes me sad: &lt;a href="http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html"&gt;http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Does anyone know of a similar service?  I&amp;#8217;ve gotten so used to using Google Reader (not the web interface, but the actual syncing and being able to connect to the account with all my various …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This really makes me sad: &lt;a href="http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html"&gt;http://googlereader.blogspot.com.au/2013/03/powering-down-google-reader.html&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Does anyone know of a similar service?  I&amp;#8217;ve gotten so used to using Google Reader (not the web interface, but the actual syncing and being able to connect to the account with all my various &lt;span class="caps"&gt;RSS&lt;/span&gt; readers whether I&amp;#8217;m on my phone or the desktop or the laptop and be able to just pick up where I left&amp;nbsp;off).&lt;/p&gt;
-&lt;p&gt;I get that Google needs to sunset things that don&amp;#8217;t make sense, but it would be nice if they could maybe let the code go so others can setup their own implementations that&amp;#8217;s basically compatible with all the Google Reader-friendly &lt;span class="caps"&gt;RSS&lt;/span&gt; readers out&amp;nbsp;there.&lt;/p&gt;
-&lt;p&gt;Or they could just get rid of&amp;nbsp;Orkut&amp;#8230;&lt;/p&gt;</content><category term="Life"></category></entry></feed>
+&lt;p&gt;in the existing copy of the subversion repository that I had (and then mangling it to suit my needs, particularly changing it to add the committers&amp;#8217; real names and email addresses as&amp;nbsp;well).&lt;/p&gt;</content><category term="Linux"></category></entry></feed>

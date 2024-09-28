@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="Found another good comic inspired by the Debian OpenSSL issue (no, it will never get too old for me). Forget where I came across this one though… just saw it in my downloads folder as I was doing some cleaning up. It’s quite funny though, because it also pokes …
+        <meta name="description" content="Earlier this week I had the opportunity to attend and speak at the BSides Edmonton 2024 event. This is a local event that’s been running for a few years and oddly I’ve only been able to make it every second year, usually due to conflicts in my schedule …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="security, Linux, " />
+<meta name="keywords" content="security, linux, redhat, Linux, " />
 
-<meta property="og:title" content="Security holes in other distros "/>
-<meta property="og:url" content="https://annvix.com/blog/security-holes-in-other-distros" />
-<meta property="og:description" content="Found another good comic inspired by the Debian OpenSSL issue (no, it will never get too old for me). Forget where I came across this one though… just saw it in my downloads folder as I was doing some cleaning up. It’s quite funny though, because it also pokes …" />
+<meta property="og:title" content="BSides Edmonton 2024 "/>
+<meta property="og:url" content="https://annvix.com/blog/bsides-edmonton-2024" />
+<meta property="og:description" content="Earlier this week I had the opportunity to attend and speak at the BSides Edmonton 2024 event. This is a local event that’s been running for a few years and oddly I’ve only been able to make it every second year, usually due to conflicts in my schedule …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2008-06-17T20:00:00-06:00" />
-<meta name="twitter:title" content="Security holes in other distros ">
-<meta name="twitter:description" content="Found another good comic inspired by the Debian OpenSSL issue (no, it will never get too old for me). Forget where I came across this one though… just saw it in my downloads folder as I was doing some cleaning up. It’s quite funny though, because it also pokes …">
+<meta property="og:article:published_time" content="2024-09-28T08:12:00-06:00" />
+<meta name="twitter:title" content="BSides Edmonton 2024 ">
+<meta name="twitter:description" content="Earlier this week I had the opportunity to attend and speak at the BSides Edmonton 2024 event. This is a local event that’s been running for a few years and oddly I’ve only been able to make it every second year, usually due to conflicts in my schedule …">
 
-        <title>Security holes in other distros  · Annvix
+        <title>BSides Edmonton 2024  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -90,8 +90,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/security-holes-in-other-distros">
-                Security holes in other&nbsp;distros
+            <a href="https://annvix.com/blog/bsides-edmonton-2024">
+                BSides Edmonton&nbsp;2024
             </a>
         </h1>
     </header>
@@ -100,16 +100,102 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Found another good comic inspired by the Debian OpenSSL issue (no, it will never get too old for me).  Forget where I came across this one though&#8230; just saw it in my downloads folder as I was doing some cleaning up.  It&#8217;s quite funny though, because it also pokes at other&nbsp;distros.</p>
-<p><img src='/static/uploads/security_holes.png' /></p>
+            <p><img alt="Image" src="https://annvix.com/images/BSides-Edmonton.png" /></p>
+<p>Earlier this week I had the opportunity to attend and speak at the <a href="https://www.bsidesedmonton.org/speakers">BSides
+Edmonton 2024</a> event.  This is a
+local event that&#8217;s been running for a few years and oddly I&#8217;ve only been
+able to make it every second year, usually due to conflicts in my schedule.
+This year I had reached out earlier to see when the <span class="caps">CFP</span> was opening to find
+out it had already closed and I missed the opportunity to submit.  Again,
+due to my schedule I opted not to&nbsp;attend.</p>
+<p>A few weeks before the event, however, a speaker had dropped out and a slot
+was open.  Interestingly, an old co-worker and friend (hey CRob!) was on an
+OpenSSF working group call with one of the organizers and I suppose they
+were lamenting the loss of a speaker when CRob told them that he knew
+someone local, so they reached out to see if I could pinch-hit and all of a
+sudden I was not only attenting BSides but also speaking.  Which was
+awesome because I&#8217;ve never spoken about security locally.  Well,
+technically not true&#8230; about a decade ago I did present to a group of home
+schoolers about online security and safety (but that&#8217;s not really the same&nbsp;thing).</p>
+<p>Anyhow, because of the time crunch I decided I was going to speak on the
+<em>Evolution of risk-management in software</em>, the same talk I gave at <a href="https://annvix.com/blog/rh-summit-2024">Red
+Hat Summit</a> earlier this year.
+Easy enough.  However, when I ran through it on the Thursday before I was
+speaking (last Tuesday) I realized this wasn&#8217;t the right talk for the crowd
+at BSides, so I spent the weekend reworking it.  My focus was on the
+content, so the talk title was only nominally adjusted, to the <em>Evolution
+of risk acceptance in open source software</em>.  That name probably needs to
+change but it&#8217;ll suffice for&nbsp;now.</p>
+<p>The talk focused on the implicit acceptance of risk in proprietary software
+(you accept the risk of what you don&#8217;t see or know about) versus the need
+for an explicit acceptance of risk in open source software (accept the risk
+of what you can see and know about).  We dug into some numbers of
+vulnerabilities in open versus proprietary, obviously using Red Hat as the
+example of an open source vendor and a well-known and unnamed proprietary
+vendor as the&nbsp;contrast.</p>
+<p>The room was pretty full and the audience was very engaged.  I was really
+happy with the outcome of the talk and spent an hour afterwards answering
+questions and talking with people about the content.  Some interesting
+questions about risk management and how does one get executive management
+to transfer risk decisions to those closer to the work (i.e. how to get the
+people who know the technology to accept risk instead of executives looking
+at things from a purely compliance perspective), what open source scanners
+are best for scanning for vulnerabilities and the challenges with scanners
+in general, and just general good risk acceptance and open source&nbsp;topics.</p>
+<p>Of course I had someone come up asking about why Red Hat&#8217;s kernels are so
+old and how they would like to see us update more often so they could
+obtain the performance benefits of newer kernels to reduce their <span class="caps">AWS</span>
+consumption costs.  Sigh.  I mean, I get it but there are tradeoffs between
+security, stability and performance.  I think for their usecase they could
+go ahead and use an upstream kernel if they wanted to.  Most Red Hat
+customers prefer a stable, predictable kernel that, sure, might be a little
+long in the tooth but that&#8217;s what most enterprise users who want long-life
+stability&nbsp;desire.</p>
+<p>Anyways, the adverserial grilling aside, it was a great talk and a good
+experience.  The talk will be posted to the <a href="https://www.youtube.com/channel/UC73X4ic6jkiyJZ5x62xs5hw">BSides Edmonton YouTube
+channel</a> but
+unfortunately not until the end of October or November.  So those folks
+who&#8217;ve asked to see it will have to&nbsp;wait.</p>
+<p>Or, if you&#8217;re attending <a href="https://events.linuxfoundation.org/soss-fusion/"><span class="caps">SOSS</span> Fusion
+2024</a> next month you can
+listen to it in-person!  I&#8217;ll be tweaking it a bit more before then so
+it&#8217;ll change some, but probably not too&nbsp;much.</p>
+<p>I also learned from the Tuesday morning keynote that Canada is doing some
+pretty neat stuff at the federal level with respect to security.  The
+<a href="https://www.cyber.gc.ca/en">Canadian Centre for Cyber Security</a> was a
+complete unknown to me before this week, and they do a lot with open source
+including their Assemblyline malware analysis platform, their Howler tool
+for analyzing alerts from different applications, and quite a bit more
+(check out the <a href="https://github.com/CybercentreCanada">Cyber Centre Canada</a>
+on GitHub.  There&#8217;s a ton of open source available&nbsp;there.</p>
+<p>I had <em>no</em> idea that this was happening in my own backyard!  I think this
+is pretty awesome actually and I&#8217;m really looking forward to digging into
+it a bit more to see what the Cyber Centre is doing for&nbsp;Canadians.</p>
+<p>I also learned that they really believe in regulatory compliance framework
+reciprocity, a topic I <a href="https://www.forbes.com/councils/forbestechcouncil/2024/09/10/scaling-compliance-reciprocity-the-need-to-streamline-efforts-to-improve-security/">discussed recently on
+Forbes</a>
+so that was really exciting to hear.  They do a lot of work with <span class="caps">NIST</span>,
+particularly around <span class="caps">FIPS</span> validation and testing.  It was also interesting
+to see their point of view on not just creating tools in open source but
+also leveraging open source and how they see that, sure, there&#8217;s some risk
+but the benefits it affords, including transparency, make it easier to
+manage (something I talk about often and was definitely discussed in the
+talk I gave).  They also talked a bit about <span class="caps">AI</span> and Quantum Computing which
+I found very interesting as well.  Very much looking forward to watching
+that keynote again when it&#8217;s&nbsp;posted.</p>
+<p>All in all, a great event to attend.  Hats off to the BSides volunteers and
+organizers who put it on!  Thanks to the sponsors who helped make it
+possible (had a few good chats with them as well), and then of course to
+the other speakers who gave talks or led workshops.  I believe there were
+around 500 people in attendance which is pretty&nbsp;amazing.</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Security%20holes%20in%20other%C2%A0distros&url=https%3A//annvix.com/blog/security-holes-in-other-distros&hashtags=security" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/security-holes-in-other-distros&title=Security%20holes%20in%20other%C2%A0distros&summary=Found%20another%20good%20comic%20inspired%20by%20the%20Debian%20OpenSSL%20issue%20%28no%2C%20it%20will%20never%20get%20too%20old%20for%20me%29.%20%20Forget%20where%20I%20came%20across%20this%20one%20though%E2%80%A6%20just%20saw%20it%20in%20my%20downloads%20folder%20as%20I%20was%20doing%20some%20cleaning%20up.%20%20It%E2%80%99s%20quite%20funny%20though%2C%20because%20it%20also%20pokes%20%E2%80%A6&source=https%3A//annvix.com/blog/security-holes-in-other-distros" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=BSides%20Edmonton%C2%A02024&url=https%3A//annvix.com/blog/bsides-edmonton-2024&hashtags=security,linux,redhat" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/bsides-edmonton-2024&title=BSides%20Edmonton%C2%A02024&summary=Earlier%20this%20week%20I%20had%20the%20opportunity%20to%20attend%20and%20speak%20at%20the%20BSides%0AEdmonton%202024%20event.%20%20This%20is%20a%0Alocal%20event%20that%E2%80%99s%20been%20running%20for%20a%20few%20years%20and%20oddly%20I%E2%80%99ve%20only%20been%0Aable%20to%20make%20it%20every%20second%20year%2C%20usually%20due%20to%20conflicts%20in%20my%20schedule%20%E2%80%A6&source=https%3A//annvix.com/blog/bsides-edmonton-2024" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -124,30 +210,35 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
 <li><a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management" title="Rethinking Risk in Vulnerability Management">Rethinking Risk in Vulnerability Management</a></li>
 <li><a href="https://annvix.com/blog/rh-summit-2024" title="Red Hat Summit 2024">Red Hat Summit 2024</a></li>
 <li><a href="https://annvix.com/blog/upstream-2024" title="Upstream 2024">Upstream 2024</a></li>
 <li><a href="https://annvix.com/blog/vex-reader" title="Python module to read CSAF VEX files">Python module to read CSAF VEX files</a></li>
-<li><a href="https://annvix.com/blog/bsides-edmonton-2024" title="BSides Edmonton 2024">BSides Edmonton 2024</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/delegate-privileges-to-users-with-sudo" title="Previous: Delegate privileges to users with sudo">Delegate privileges to users with sudo</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/gmail-and-not-seeing-own-mailing-lists-posts" title="Next: Gmail and not seeing own mailing lists posts">Gmail and not seeing own mailing lists posts</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/vex-reader" title="Previous: Python module to read CSAF VEX files">Python module to read CSAF VEX files</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-06-17T20:00:00-06:00">Jun 17, 2008</time>
+            <time itemprop="dateCreated" datetime="2024-09-28T08:12:00-06:00">Sep 28, 2024</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">11</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#redhat-ref">redhat
+                    <span class="superscript">14</span>
+</a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security
                     <span class="superscript">41</span>
 </a></li>

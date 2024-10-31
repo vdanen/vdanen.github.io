@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-09-28T08:12:00-06:00</updated><entry><title>BSides Edmonton 2024</title><link href="https://annvix.com/blog/bsides-edmonton-2024" rel="alternate"></link><published>2024-09-28T08:12:00-06:00</published><updated>2024-09-28T08:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-09-28:/blog/bsides-edmonton-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/BSides-Edmonton.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-10-31T16:32:00-06:00</updated><entry><title>SOSS Fusion 2024</title><link href="https://annvix.com/blog/soss-fusion-2024" rel="alternate"></link><published>2024-10-31T16:32:00-06:00</published><updated>2024-10-31T16:32:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-10-31:/blog/soss-fusion-2024</id><summary type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the OpenSSF &lt;a href="https://events.linuxfoundation.org/soss-fusion/"&gt;&lt;span class="caps"&gt;SOSS&lt;/span&gt;
+Fusion 2024&lt;/a&gt; event.  This
+is the first full multi-day OpenSSF security event and it was a privilege
+to be able to attend and speak.  I gave the same talk that I did at BSides
+back in …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the OpenSSF &lt;a href="https://events.linuxfoundation.org/soss-fusion/"&gt;&lt;span class="caps"&gt;SOSS&lt;/span&gt;
+Fusion 2024&lt;/a&gt; event.  This
+is the first full multi-day OpenSSF security event and it was a privilege
+to be able to attend and speak.  I gave the same talk that I did at BSides
+back in September as I believe it needs to shared broadly and heard by&amp;nbsp;many.&lt;/p&gt;
+&lt;p&gt;The talk focused on the implicit acceptance of risk in proprietary software
+(you accept the risk of what you don&amp;#8217;t see or know about) versus the need
+for an explicit acceptance of risk in open source software (accept the risk
+of what you can see and know about).  We dug into some numbers of
+vulnerabilities in open versus proprietary, obviously using Red Hat as the
+example of an open source vendor, and a well-known and unnamed proprietary
+vendor as the&amp;nbsp;contrast.&lt;/p&gt;
+&lt;p&gt;The Q&amp;amp;A was also included which was great surprise as there were a few good
+questions.  Unfortunately there weren&amp;#8217;t microphones so the questions can&amp;#8217;t
+really be heard, although hopefully the answers stand alone and you can
+infer what the question&amp;nbsp;was.&lt;/p&gt;
+&lt;p&gt;The video went up last night so you can watch the talk here: &lt;a href="https://www.youtube.com/watch?v=3SxJGKCrkWg"&gt;The Open
+Source Paradox: Unpacking Risk, Equity, and&amp;nbsp;Acceptance&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There were a bunch of other great talks as well, the &lt;a href="https://www.youtube.com/@OpenSSF/videos"&gt;entire playlist of
+talks&lt;/a&gt; is also&amp;nbsp;available.&lt;/p&gt;
+&lt;p&gt;Huge shoutout and thanks to the OpenSSF folks that put in so much work and
+the sponsors who helped make it happen (had some great discussions with
+those&amp;nbsp;folks!).&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="linux"></category><category term="redhat"></category></entry><entry><title>BSides Edmonton 2024</title><link href="https://annvix.com/blog/bsides-edmonton-2024" rel="alternate"></link><published>2024-09-28T08:12:00-06:00</published><updated>2024-09-28T08:12:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-09-28:/blog/bsides-edmonton-2024</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/BSides-Edmonton.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Earlier this week I had the opportunity to attend and speak at the &lt;a href="https://www.bsidesedmonton.org/speakers"&gt;BSides
 Edmonton 2024&lt;/a&gt; event.  This is a
 local event that&amp;#8217;s been running for a few years and oddly I&amp;#8217;ve only been
@@ -3807,49 +3833,4 @@ sys.exit(0)
 &lt;/pre&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p&gt;I&amp;#8217;m not sure why this isn&amp;#8217;t working for binary attachments though&amp;#8230; it&amp;#8217;s probably something simple, but I&amp;#8217;ve not had a chance to figure out what the problem is.  Dear lazy web&amp;#8230;. any advice?&amp;nbsp;=)&lt;/p&gt;</content><category term="Linux"></category><category term="python"></category><category term="bugzilla"></category></entry><entry><title>Converting subversion to git redux</title><link href="https://annvix.com/blog/converting-subversion-to-git-redux" rel="alternate"></link><published>2013-04-27T17:00:00-06:00</published><updated>2013-04-27T17:00:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-04-27:/blog/converting-subversion-to-git-redux</id><summary type="html">&lt;p&gt;I know I&amp;#8217;ve written about this in the past (&lt;a href="/blog/figuring-this-git-thing-out"&gt;here&lt;/a&gt; and &lt;a href="/blog/dissecting-part-of-a-subversion-repo-to-git"&gt;here&lt;/a&gt;), but I needed to do another conversion the other day that was similar, yet different.  Previous posts talked about pulling parts of a subversion repository into a git repo &amp;#8212; effectively taking one svn repo apart into multiple …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I know I&amp;#8217;ve written about this in the past (&lt;a href="/blog/figuring-this-git-thing-out"&gt;here&lt;/a&gt; and &lt;a href="/blog/dissecting-part-of-a-subversion-repo-to-git"&gt;here&lt;/a&gt;), but I needed to do another conversion the other day that was similar, yet different.  Previous posts talked about pulling parts of a subversion repository into a git repo &amp;#8212; effectively taking one svn repo apart into multiple git repos.  This time I just needed to do a straight conversion, however I needed to exclude one single directory from ever being a part of the history of the&amp;nbsp;repo.&lt;/p&gt;
-&lt;p&gt;Since this was a fairly important repo to convert, I did a few trial runs first and ended up scripting it since there isn&amp;#8217;t just a single command to do what I needed.  Essentially, we are doing a git clone from a subversion repository (a standard one with trunk/, tags/, branches/ this time), but excluding one directory (we&amp;#8217;ll call it private).  I also wanted to convert the svn branches to tags since that&amp;#8217;s effectively what they were.  Also, since the git repository was not local, and for the sake of expediency I didn&amp;#8217;t want to tar something up and email it, we&amp;#8217;re taking our converted-and-cleaned-up new git repo, changing the upstream, and then pushing the whole thing to a remote bare&amp;nbsp;repository.&lt;/p&gt;
-&lt;p&gt;Ready?  (Note: a few lines are manually wrapped with &amp;#8216;&amp;#39;&amp;nbsp;below)&lt;/p&gt;
-&lt;pre&gt;
-#!/bin/sh
-WORKDIR="/srv/svn2git/git"
-REMOTE="git+ssh://remote.git.host/myrepo.git"
-mkdir -p ${WORKDIR}
-
-pushd ${WORKDIR}
-git svn clone https://remote.svn.host/repos/myrepo --no-metadata \
-  -A /srv/svn2git/authors-transform.txt --stdlayout \
-  --ignore-paths="^trunk/private" ${WORKDIR}/from-svn
-cd from-svn
-git init --bare ../bare.git
-cd ../bare.git
-git symbolic-ref HEAD refs/heads/trunk
-cd ../from-svn
-git remote add bare ../bare.git
-git config remote.bare.push 'refs/remotes/*:refs/heads/*'
-git push bare
-cd ../bare.git
-git branch -m trunk master
-for x in branch_one branch_two branch_three; do
-    git tag "${x}" refs/heads/${x}
-    git branch -D ${x}
-done
-
-cd ..
-git clone bare.git myrepo
-cd myrepo
-git remote rm origin
-git remote add origin ${REMOTE}
-git config remote.origin.push 'refs/remotes/*:refs/heads/*'
-git config master.remote origin
-git config master.merge refs/head/master
-git push --set-upstream origin master
-&lt;/pre&gt;
-
-&lt;p&gt;And that is all there was too it.  The svn authors file was created ny&amp;nbsp;using:&lt;/p&gt;
-&lt;pre&gt;
-$ svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); \
-print $2" = "$2" &lt;"$2"&gt;"}' | sort -u &gt; authors-transform.txt
-&lt;/pre&gt;
-
-&lt;p&gt;in the existing copy of the subversion repository that I had (and then mangling it to suit my needs, particularly changing it to add the committers&amp;#8217; real names and email addresses as&amp;nbsp;well).&lt;/p&gt;</content><category term="Linux"></category></entry></feed>
+&lt;p&gt;I&amp;#8217;m not sure why this isn&amp;#8217;t working for binary attachments though&amp;#8230; it&amp;#8217;s probably something simple, but I&amp;#8217;ve not had a chance to figure out what the problem is.  Dear lazy web&amp;#8230;. any advice?&amp;nbsp;=)&lt;/p&gt;</content><category term="Linux"></category><category term="python"></category><category term="bugzilla"></category></entry></feed>

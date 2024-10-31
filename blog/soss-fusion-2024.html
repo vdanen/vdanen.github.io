@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="I’ve had the opportunity to write a few blogs and articles on one of my favourite topics: vulnerability management. In particular, the thinking on risk in this space. What’s acceptable risk? What isn’t? You can get into the details on the variety of articles published in the …
+        <meta name="description" content="Last week I had the opportunity to attend and speak at the OpenSSF SOSS Fusion 2024 event. This is the first full multi-day OpenSSF security event and it was a privilege to be able to attend and speak. I gave the same talk that I did at BSides back in …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="security, redhat, risk, Linux, " />
+<meta name="keywords" content="security, linux, redhat, Linux, " />
 
-<meta property="og:title" content="Rethinking Risk in Vulnerability Management "/>
-<meta property="og:url" content="https://annvix.com/blog/rethinking-risk-in-vulnerability-management" />
-<meta property="og:description" content="I’ve had the opportunity to write a few blogs and articles on one of my favourite topics: vulnerability management. In particular, the thinking on risk in this space. What’s acceptable risk? What isn’t? You can get into the details on the variety of articles published in the …" />
+<meta property="og:title" content="SOSS Fusion 2024 "/>
+<meta property="og:url" content="https://annvix.com/blog/soss-fusion-2024" />
+<meta property="og:description" content="Last week I had the opportunity to attend and speak at the OpenSSF SOSS Fusion 2024 event. This is the first full multi-day OpenSSF security event and it was a privilege to be able to attend and speak. I gave the same talk that I did at BSides back in …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2024-02-06T13:20:00-07:00" />
-<meta name="twitter:title" content="Rethinking Risk in Vulnerability Management ">
-<meta name="twitter:description" content="I’ve had the opportunity to write a few blogs and articles on one of my favourite topics: vulnerability management. In particular, the thinking on risk in this space. What’s acceptable risk? What isn’t? You can get into the details on the variety of articles published in the …">
+<meta property="og:article:published_time" content="2024-10-31T16:32:00-06:00" />
+<meta name="twitter:title" content="SOSS Fusion 2024 ">
+<meta name="twitter:description" content="Last week I had the opportunity to attend and speak at the OpenSSF SOSS Fusion 2024 event. This is the first full multi-day OpenSSF security event and it was a privilege to be able to attend and speak. I gave the same talk that I did at BSides back in …">
 
-        <title>Rethinking Risk in Vulnerability Management  · Annvix
+        <title>SOSS Fusion 2024  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -90,8 +90,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/rethinking-risk-in-vulnerability-management">
-                Rethinking Risk in Vulnerability&nbsp;Management
+            <a href="https://annvix.com/blog/soss-fusion-2024">
+                <span class="caps">SOSS</span> Fusion&nbsp;2024
             </a>
         </h1>
     </header>
@@ -100,80 +100,37 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>I&#8217;ve had the opportunity to write a few blogs and articles on one of my
-favourite topics: vulnerability management.  In particular, the thinking on
-risk in this space.  What&#8217;s acceptable risk?  What&nbsp;isn&#8217;t?</p>
-<p>You can get into the details on the variety of articles published in the
-last month.  As an overview, <a href="https://thenewstack.io/we-need-to-rethink-risk-in-vulnerability-management/">We Need to Rethink Risk in Vulnerability
-Management</a>
-is a good place to start.  It links to the articles but I&#8217;ll note them here
-as&nbsp;well:</p>
-<ul>
-<li><a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-1">Patch management needs a revolution, part 1: Surveying cybersecurity&#8217;s&nbsp;lineage</a></li>
-<li><a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-2">Patch management needs a revolution, part 2: The flood of&nbsp;vulnerabilities</a></li>
-<li><a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-3">Patch management needs a revolution, part 3: Vulnerability scores and
-  the concept of&nbsp;trust</a></li>
-<li><a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-4">Patch management needs a revolution, part 4: Sane patching is safe
-  patching is selective&nbsp;patching</a></li>
-<li><a href="https://www.redhat.com/en/blog/patch-management-needs-a-revolution-part-5">Patch management needs a revolution, part 5: How open source and
-  transparency can force positive&nbsp;change</a></li>
-</ul>
-<p>Here&#8217;s the bottom line.  We need to have a serious conversation about the
-<span class="caps">TCO</span> (Total Cost of Ownership) when it comes to software.  Installing and
-testing security fixes isn&#8217;t &#8220;free&#8221;.. you might get the fix as part of your
-purchase or subscription, but if it&#8217;s even remotely complicated, you need
-staff, time and money to install, test, and deploy these&nbsp;things.</p>
-<p>But what&#8217;s the end goal?  No one buys software to fix security issues.
-They buy software to grow and expand their business, to be useful.  So the
-&#8220;zero known vulnerabilities&#8221; goal is a faulty goal because it doesn&#8217;t align
-to the business need you have (probably to make money).  You don&#8217;t <em>make</em>
-money installing patches, you <em>spend</em>&nbsp;it.</p>
-<p>In order to make money you need a trusted brand and an intact reputation.
-Breaches and significant cybersecurity events can damage both of those, not
-to mention the cost spent to do the cleanup (which is excessive, just ask
-<a href="https://www.ibm.com/reports/data-breach"><span class="caps">IBM</span>&#8217;s Cost of a Breach report</a>.
-Preventing these is a good&nbsp;goal.</p>
-<p><span class="dquo">&#8220;</span>Zero known vulnerabilities&#8221; does not advance that goal.  Verizon tells us
-that exploitation due to software is single digit events.  Don&#8217;t believe
-me?  Look at the <a href="https://www.verizon.com/business/resources/reports/dbir/2023/results-and-analysis-intro/#:~:text=the%20presence%20of%20the%20Exploit%20vuln%20action%20has%20kept%20stable%20in%20incidents%20and%20is%20actually%20less%20prominent%20in%20breaches%2C%20dropping%20from%207%25%20to%205%25">Data Breach Investigations
-Report</a>
-that Verizon puts out.  I trust their&nbsp;analysis.</p>
-<p>So if &#8220;zero known vulnerabilities&#8221; isn&#8217;t a business goal, it isn&#8217;t a
-signficant driver to breaches, and it&#8217;s prohibitively expense then I have
-to ask: Why do we keep demanding this, like it&#8217;s some kind of measure of&nbsp;success?</p>
-<p>It&#8217;s&nbsp;not.</p>
-<p>You can fix every single vulnerability and <em>still</em> see data breaches and
-other significant cybersecurity events trend up, annually.  That means
-<em>we&#8217;re focused on the wrong thing</em>.</p>
-<p>We have to put corporate dollars to work on the things that actually move
-the needle here.  We need sophisticated tools to minimize phishing,
-spoofing, and other forms of social engineering (in other words, solve the
-&#8220;human element&#8221;).  Even training is a step in the right direction but I
-think there are enough tools out there to solve these <em>despite</em> humans
-doing what humans do.  And invest in automation to look for
-misconfigurations that lead to compromise (<a href="https://www.theregister.com/2020/08/03/leaky_s3_buckets/">S3 leaky
-buckets</a>,
-anyone?).  Catch misconfigurations when they happen and reduce your&nbsp;exposure.</p>
-<p>This is a topic I&#8217;m passionate about because I believe we are collectively
-investing billions per year, globally, in an area we shouldn&#8217;t.  Which
-means there are billions <em>not</em> being invested where it can make a&nbsp;difference.</p>
-<p>It&#8217;s like investing in bad stock.  Someone told us it was good once, we see
-it continue to decline, we&#8217;re losing money hand over fist, but the <a href="https://en.wikipedia.org/wiki/Sunk_cost#Fallacy_effect">sunk
-cost fallacy</a> has
-kicked and we&#8217;re <em>determined</em> that one day it&#8217;ll recover.  Even worse, we
-keep buying it, thinking it&#8217;ll recover &#8212; rather than investing somewhere
-better with a proven track record.  Honestly, this is where I think
-advances in <span class="caps">AI</span> will be able to help us as well (I think of Clippy warning
-us not to click odd links that show up in&nbsp;email).</p>
-<p>We&#8217;re capable of doing better.  We should just do&nbsp;it.</p>
+            <p>Last week I had the opportunity to attend and speak at the OpenSSF <a href="https://events.linuxfoundation.org/soss-fusion/"><span class="caps">SOSS</span>
+Fusion 2024</a> event.  This
+is the first full multi-day OpenSSF security event and it was a privilege
+to be able to attend and speak.  I gave the same talk that I did at BSides
+back in September as I believe it needs to shared broadly and heard by&nbsp;many.</p>
+<p>The talk focused on the implicit acceptance of risk in proprietary software
+(you accept the risk of what you don&#8217;t see or know about) versus the need
+for an explicit acceptance of risk in open source software (accept the risk
+of what you can see and know about).  We dug into some numbers of
+vulnerabilities in open versus proprietary, obviously using Red Hat as the
+example of an open source vendor, and a well-known and unnamed proprietary
+vendor as the&nbsp;contrast.</p>
+<p>The Q&amp;A was also included which was great surprise as there were a few good
+questions.  Unfortunately there weren&#8217;t microphones so the questions can&#8217;t
+really be heard, although hopefully the answers stand alone and you can
+infer what the question&nbsp;was.</p>
+<p>The video went up last night so you can watch the talk here: <a href="https://www.youtube.com/watch?v=3SxJGKCrkWg">The Open
+Source Paradox: Unpacking Risk, Equity, and&nbsp;Acceptance</a></p>
+<p>There were a bunch of other great talks as well, the <a href="https://www.youtube.com/@OpenSSF/videos">entire playlist of
+talks</a> is also&nbsp;available.</p>
+<p>Huge shoutout and thanks to the OpenSSF folks that put in so much work and
+the sponsors who helped make it happen (had some great discussions with
+those&nbsp;folks!).</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Rethinking%20Risk%20in%20Vulnerability%C2%A0Management&url=https%3A//annvix.com/blog/rethinking-risk-in-vulnerability-management&hashtags=security,redhat,risk" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/rethinking-risk-in-vulnerability-management&title=Rethinking%20Risk%20in%20Vulnerability%C2%A0Management&summary=I%E2%80%99ve%20had%20the%20opportunity%20to%20write%20a%20few%20blogs%20and%20articles%20on%20one%20of%20my%0Afavourite%20topics%3A%20vulnerability%20management.%20%20In%20particular%2C%20the%20thinking%20on%0Arisk%20in%20this%20space.%20%20What%E2%80%99s%20acceptable%20risk%3F%20%20What%C2%A0isn%E2%80%99t%3F%0AYou%20can%20get%20into%20the%20details%20on%20the%20variety%20of%20articles%20published%20in%20the%20%E2%80%A6&source=https%3A//annvix.com/blog/rethinking-risk-in-vulnerability-management" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=SOSS%20Fusion%C2%A02024&url=https%3A//annvix.com/blog/soss-fusion-2024&hashtags=security,linux,redhat" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/soss-fusion-2024&title=SOSS%20Fusion%C2%A02024&summary=Last%20week%20I%20had%20the%20opportunity%20to%20attend%20and%20speak%20at%20the%20OpenSSF%20SOSS%0AFusion%202024%20event.%20%20This%0Ais%20the%20first%20full%20multi-day%20OpenSSF%20security%20event%20and%20it%20was%20a%20privilege%0Ato%20be%20able%20to%20attend%20and%20speak.%20%20I%20gave%20the%20same%20talk%20that%20I%20did%20at%20BSides%0Aback%20in%20%E2%80%A6&source=https%3A//annvix.com/blog/soss-fusion-2024" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -188,35 +145,34 @@ us not to click odd links that show up in&nbsp;email).</p>
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/rh-summit-2023" title="Red Hat Summit 2023">Red Hat Summit 2023</a></li>
 <li><a href="https://annvix.com/blog/rh-summit-2024" title="Red Hat Summit 2024">Red Hat Summit 2024</a></li>
 <li><a href="https://annvix.com/blog/upstream-2024" title="Upstream 2024">Upstream 2024</a></li>
 <li><a href="https://annvix.com/blog/vex-reader" title="Python module to read CSAF VEX files">Python module to read CSAF VEX files</a></li>
 <li><a href="https://annvix.com/blog/bsides-edmonton-2024" title="BSides Edmonton 2024">BSides Edmonton 2024</a></li>
-<li><a href="https://annvix.com/blog/soss-fusion-2024" title="SOSS Fusion 2024">SOSS Fusion 2024</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/15-years-at-red-hat" title="Previous: 15 years at Red Hat">15 years at Red Hat</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/rh-summit-2024" title="Next: Red Hat Summit 2024">Red Hat Summit 2024</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/bsides-edmonton-2024" title="Previous: BSides Edmonton 2024">BSides Edmonton 2024</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2024-02-06T13:20:00-07:00">Feb 06, 2024</time>
+            <time itemprop="dateCreated" datetime="2024-10-31T16:32:00-06:00">Oct 31, 2024</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">12</span>
+</a></li>
                 <li><a href="https://annvix.com/tags#redhat-ref">redhat
                     <span class="superscript">15</span>
-</a></li>
-                <li><a href="https://annvix.com/tags#risk-ref">risk
-                    <span class="superscript">1</span>
 </a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security
                     <span class="superscript">42</span>

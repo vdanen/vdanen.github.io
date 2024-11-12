@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …
+        <meta name="description" content="Last week I had the opportunity to attend and speak at the International Common Criteria Conference (ICCC) in Doha, Qatar. This was a first in a number of areas: first time keynoting for longer than five minutes, first time attending a compliance-focused conference, first time speaking on compliance as a …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="security, Linux, " />
+<meta name="keywords" content="security, linux, redhat, Linux, " />
 
-<meta property="og:title" content="Static User/Group Mappings "/>
-<meta property="og:url" content="https://annvix.com/blog/static-usergroup-mappings" />
-<meta property="og:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …" />
+<meta property="og:title" content="ICCC 2024 "/>
+<meta property="og:url" content="https://annvix.com/blog/iccc-2024" />
+<meta property="og:description" content="Last week I had the opportunity to attend and speak at the International Common Criteria Conference (ICCC) in Doha, Qatar. This was a first in a number of areas: first time keynoting for longer than five minutes, first time attending a compliance-focused conference, first time speaking on compliance as a …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2008-04-08T00:41:00-06:00" />
-<meta name="twitter:title" content="Static User/Group Mappings ">
-<meta name="twitter:description" content="/start rant Switching my servers from Annvix to Mandriva is absolutely maddening. The biggest problem is dynamic uid/gid mappings. Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another? Or svn is gid 75 on one and gid 76 …">
+<meta property="og:article:published_time" content="2024-11-12T07:32:00-07:00" />
+<meta name="twitter:title" content="ICCC 2024 ">
+<meta name="twitter:description" content="Last week I had the opportunity to attend and speak at the International Common Criteria Conference (ICCC) in Doha, Qatar. This was a first in a number of areas: first time keynoting for longer than five minutes, first time attending a compliance-focused conference, first time speaking on compliance as a …">
 
-        <title>Static User/Group Mappings  · Annvix
+        <title>ICCC 2024  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -90,8 +90,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/static-usergroup-mappings">
-                Static User/Group&nbsp;Mappings
+            <a href="https://annvix.com/blog/iccc-2024">
+                <span class="caps">ICCC</span>&nbsp;2024
             </a>
         </h1>
     </header>
@@ -100,20 +100,61 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>/start&nbsp;rant</p>
-<p>Switching my servers from Annvix to Mandriva is absolutely maddening.  The biggest problem is dynamic uid/gid mappings.  Do you know how frustrating it is to have apache uid 77 on one machine and uid 92 on another?  Or svn is gid 75 on one and gid 76 on another?  It&#8217;s driving me absolutely&nbsp;bonkers.</p>
-<p>Why on earth we switched, years ago, from static uid/gid mapping to dynamic mapping is beyond me.  It&#8217;s the most utterly retarded thing possible.  Consistency between different installs is not a bad thing people!  Sure, the original argument was &#8220;it keeps the passwd file smaller&#8221; but&#8230; news flash!  It&#8217;s <em>easy</em> to specify the uid or gid in the spec file and it&#8217;s trivial to keep a publicly-accessible list of the map so people don&#8217;t grab inappropriate uid or gid numbers.  I mean, seriously&#8230; I implemented that in Annvix over 4 years ago!  It was one of the first things I&nbsp;did.</p>
-<p>Of course, mention this and developers/maintainers poo-poo the idea (no, that&#8217;s not theoretical&#8230; after I did it Annvix I proposed it again and&#8230; gasp&#8230; it was poo-poo&#8217;d&#8230; like&nbsp;usual).</p>
-<p>Gaaaahhh!  If I had a brick wall handy I&#8217;d be smashing my head in it at the&nbsp;moment.</p>
-<p>/end&nbsp;rant</p>
+            <p>Last week I had the opportunity to attend and speak at the <a href="https://iccconference.org/?page_id=18612">International
+Common Criteria Conference (<span class="caps">ICCC</span>)</a> in Doha,
+Qatar.  This was a first in a number of areas: first time keynoting for
+longer than five minutes, first time attending a compliance-focused
+conference, first time speaking on compliance as a topic, and my first time
+in Qatar (or any Persian Gulf country for that&nbsp;matter).</p>
+<p>My keynote was about vulnerability management in the compliance space,
+particularly the notion that we can ever have &#8220;zero known vulnerabilities&#8221;
+in software, which is something that Common Criteria strives for when
+performing certification (and the next day be darned, we only care about
+zero known vulnerabilities on the day we give you a certificate!).  That&#8217;s
+just not possible when last year there were close to 30,000 CVEs and this
+year promises to be much&nbsp;higher.</p>
+<p>It also focused on compliance reciprocity &#8212; the means by which I can be
+accepted where one compliance framework is demanded and another similar one
+is achieved.  For example, if certificates A and B have reciprocity, and I
+already have certificate B, when I want to enter a market that requires
+certificate A I don&#8217;t have to pursue it because of mutual recognition.
+This means that I, as a vendor, can save time, effort, and money not chasing a
+certifcation that is functionally equivalent to one I already hold.  This
+also means that those in the market where certificate A is required can
+avail themselves of my software and services faster since certification and
+testing takes time, or at all, because I don&#8217;t have to invest in the
+certification to obtain it to enter into that market to begin with.  I also
+don&#8217;t have to make that difficult decision on whether the market is large
+enough to warrant my&nbsp;investment.</p>
+<p>The message was well received and I hold out hope that a common sense view
+of working towards both of these efforts will start to happen.  My goal was
+to point out facts &#8212; including the similar talking point of prior talks
+about <em>who</em> these vulnerabilities are &#8220;known&#8221; to (in other words, the
+proprietary vs open debate, backed up with&nbsp;data).</p>
+<p>A few folks even mentioned that I &#8220;said the quiet part out loud&#8221; which
+makes me believe that this is known by more than are willing to admit it,
+but perhaps they just don&#8217;t know what to do about it.  That makes sense, as
+this is a difficult problem to solve.  How <em>do</em> you accept that there are
+issues that may be security-relevant, and you just accept that they are
+there without&nbsp;remediation?</p>
+<p>Well, in my view, by accepting the fact that all use of software carries
+risk and the return on investment for chasing zero known vulnerabilities is
+tantamount to burning cash with nearly zero true risk avoidance.  It isn&#8217;t
+any clearer than that.  It fractionally reduces risk and ignores the places
+where real risk lies: the people and processes that make these breaches
+continue to&nbsp;happen.</p>
+<p>Also appreciated being able to spend a few days with other Red Hatters who
+were at the conference as well demoing the
+<a href="https://sec-certs.org/">sec-certs</a> open source compliance tool that got a
+lot of interest as&nbsp;well.</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Static%20User/Group%C2%A0Mappings&url=https%3A//annvix.com/blog/static-usergroup-mappings&hashtags=security" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/static-usergroup-mappings&title=Static%20User/Group%C2%A0Mappings&summary=/start%C2%A0rant%0ASwitching%20my%20servers%20from%20Annvix%20to%20Mandriva%20is%20absolutely%20maddening.%20%20The%20biggest%20problem%20is%20dynamic%20uid/gid%20mappings.%20%20Do%20you%20know%20how%20frustrating%20it%20is%20to%20have%20apache%20uid%2077%20on%20one%20machine%20and%20uid%2092%20on%20another%3F%20%20Or%20svn%20is%20gid%2075%20on%20one%20and%20gid%2076%20%E2%80%A6&source=https%3A//annvix.com/blog/static-usergroup-mappings" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=ICCC%C2%A02024&url=https%3A//annvix.com/blog/iccc-2024&hashtags=security,linux,redhat" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/iccc-2024&title=ICCC%C2%A02024&summary=Last%20week%20I%20had%20the%20opportunity%20to%20attend%20and%20speak%20at%20the%20International%0ACommon%20Criteria%20Conference%20%28ICCC%29%20in%20Doha%2C%0AQatar.%20%20This%20was%20a%20first%20in%20a%20number%20of%20areas%3A%20first%20time%20keynoting%20for%0Alonger%20than%20five%20minutes%2C%20first%20time%20attending%20a%20compliance-focused%0Aconference%2C%20first%20time%20speaking%20on%20compliance%20as%20a%20%E2%80%A6&source=https%3A//annvix.com/blog/iccc-2024" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -128,30 +169,35 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/rh-summit-2024" title="Red Hat Summit 2024">Red Hat Summit 2024</a></li>
 <li><a href="https://annvix.com/blog/upstream-2024" title="Upstream 2024">Upstream 2024</a></li>
 <li><a href="https://annvix.com/blog/vex-reader" title="Python module to read CSAF VEX files">Python module to read CSAF VEX files</a></li>
 <li><a href="https://annvix.com/blog/bsides-edmonton-2024" title="BSides Edmonton 2024">BSides Edmonton 2024</a></li>
 <li><a href="https://annvix.com/blog/soss-fusion-2024" title="SOSS Fusion 2024">SOSS Fusion 2024</a></li>
-<li><a href="https://annvix.com/blog/iccc-2024" title="ICCC 2024">ICCC 2024</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/which-bible-character-am-i-most-like" title="Previous: Which bible character am I most like?">Which bible character am I most like?</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/use-command-line-mysql-for-additional-flexibility" title="Next: Use command-line MySQL for additional flexibility">Use command-line MySQL for additional flexibility</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/soss-fusion-2024" title="Previous: SOSS Fusion 2024">SOSS Fusion 2024</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2008-04-08T00:41:00-06:00">Apr 08, 2008</time>
+            <time itemprop="dateCreated" datetime="2024-11-12T07:32:00-07:00">Nov 12, 2024</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">13</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#redhat-ref">redhat
+                    <span class="superscript">16</span>
+</a></li>
                 <li><a href="https://annvix.com/tags#security-ref">security
                     <span class="superscript">43</span>
 </a></li>

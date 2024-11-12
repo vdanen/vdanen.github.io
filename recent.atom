@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-10-31T16:32:00-06:00</updated><entry><title>SOSS Fusion 2024</title><link href="https://annvix.com/blog/soss-fusion-2024" rel="alternate"></link><published>2024-10-31T16:32:00-06:00</published><updated>2024-10-31T16:32:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-10-31:/blog/soss-fusion-2024</id><summary type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the OpenSSF &lt;a href="https://events.linuxfoundation.org/soss-fusion/"&gt;&lt;span class="caps"&gt;SOSS&lt;/span&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2024-11-12T07:32:00-07:00</updated><entry><title>ICCC 2024</title><link href="https://annvix.com/blog/iccc-2024" rel="alternate"></link><published>2024-11-12T07:32:00-07:00</published><updated>2024-11-12T07:32:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-11-12:/blog/iccc-2024</id><summary type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the &lt;a href="https://iccconference.org/?page_id=18612"&gt;International
+Common Criteria Conference (&lt;span class="caps"&gt;ICCC&lt;/span&gt;)&lt;/a&gt; in Doha,
+Qatar.  This was a first in a number of areas: first time keynoting for
+longer than five minutes, first time attending a compliance-focused
+conference, first time speaking on compliance as a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the &lt;a href="https://iccconference.org/?page_id=18612"&gt;International
+Common Criteria Conference (&lt;span class="caps"&gt;ICCC&lt;/span&gt;)&lt;/a&gt; in Doha,
+Qatar.  This was a first in a number of areas: first time keynoting for
+longer than five minutes, first time attending a compliance-focused
+conference, first time speaking on compliance as a topic, and my first time
+in Qatar (or any Persian Gulf country for that&amp;nbsp;matter).&lt;/p&gt;
+&lt;p&gt;My keynote was about vulnerability management in the compliance space,
+particularly the notion that we can ever have &amp;#8220;zero known vulnerabilities&amp;#8221;
+in software, which is something that Common Criteria strives for when
+performing certification (and the next day be darned, we only care about
+zero known vulnerabilities on the day we give you a certificate!).  That&amp;#8217;s
+just not possible when last year there were close to 30,000 CVEs and this
+year promises to be much&amp;nbsp;higher.&lt;/p&gt;
+&lt;p&gt;It also focused on compliance reciprocity &amp;#8212; the means by which I can be
+accepted where one compliance framework is demanded and another similar one
+is achieved.  For example, if certificates A and B have reciprocity, and I
+already have certificate B, when I want to enter a market that requires
+certificate A I don&amp;#8217;t have to pursue it because of mutual recognition.
+This means that I, as a vendor, can save time, effort, and money not chasing a
+certifcation that is functionally equivalent to one I already hold.  This
+also means that those in the market where certificate A is required can
+avail themselves of my software and services faster since certification and
+testing takes time, or at all, because I don&amp;#8217;t have to invest in the
+certification to obtain it to enter into that market to begin with.  I also
+don&amp;#8217;t have to make that difficult decision on whether the market is large
+enough to warrant my&amp;nbsp;investment.&lt;/p&gt;
+&lt;p&gt;The message was well received and I hold out hope that a common sense view
+of working towards both of these efforts will start to happen.  My goal was
+to point out facts &amp;#8212; including the similar talking point of prior talks
+about &lt;em&gt;who&lt;/em&gt; these vulnerabilities are &amp;#8220;known&amp;#8221; to (in other words, the
+proprietary vs open debate, backed up with&amp;nbsp;data).&lt;/p&gt;
+&lt;p&gt;A few folks even mentioned that I &amp;#8220;said the quiet part out loud&amp;#8221; which
+makes me believe that this is known by more than are willing to admit it,
+but perhaps they just don&amp;#8217;t know what to do about it.  That makes sense, as
+this is a difficult problem to solve.  How &lt;em&gt;do&lt;/em&gt; you accept that there are
+issues that may be security-relevant, and you just accept that they are
+there without&amp;nbsp;remediation?&lt;/p&gt;
+&lt;p&gt;Well, in my view, by accepting the fact that all use of software carries
+risk and the return on investment for chasing zero known vulnerabilities is
+tantamount to burning cash with nearly zero true risk avoidance.  It isn&amp;#8217;t
+any clearer than that.  It fractionally reduces risk and ignores the places
+where real risk lies: the people and processes that make these breaches
+continue to&amp;nbsp;happen.&lt;/p&gt;
+&lt;p&gt;Also appreciated being able to spend a few days with other Red Hatters who
+were at the conference as well demoing the
+&lt;a href="https://sec-certs.org/"&gt;sec-certs&lt;/a&gt; open source compliance tool that got a
+lot of interest as&amp;nbsp;well.&lt;/p&gt;</content><category term="Linux"></category><category term="security"></category><category term="linux"></category><category term="redhat"></category></entry><entry><title>SOSS Fusion 2024</title><link href="https://annvix.com/blog/soss-fusion-2024" rel="alternate"></link><published>2024-10-31T16:32:00-06:00</published><updated>2024-10-31T16:32:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2024-10-31:/blog/soss-fusion-2024</id><summary type="html">&lt;p&gt;Last week I had the opportunity to attend and speak at the OpenSSF &lt;a href="https://events.linuxfoundation.org/soss-fusion/"&gt;&lt;span class="caps"&gt;SOSS&lt;/span&gt;
 Fusion 2024&lt;/a&gt; event.  This
 is the first full multi-day OpenSSF security event and it was a privilege
 to be able to attend and speak.  I gave the same talk that I did at BSides
@@ -3719,118 +3769,4 @@ Finished RAID operation
 &lt;p&gt;Because none of these will be in your $&lt;span class="caps"&gt;PATH&lt;/span&gt;, you&amp;#8217;ll need to follow these &lt;a href="https://sites.google.com/a/droboports.com/www/using-command-line-apps"&gt;instructions&lt;/a&gt; on how to get these things in your $&lt;span class="caps"&gt;PATH&lt;/span&gt; if you want to use them easily when you ssh&amp;nbsp;in.&lt;/p&gt;
 &lt;p&gt;Once you&amp;#8217;ve done all of this, the final steps would be to 1) change the root password if you have not already done so, 2) copy an ssh public key to the drobo and make sure it works for password-less authentication, 3) turn off password-based authentication to the Drobo via editing&amp;nbsp;/mnt/DroboFS/Shares/DroboApps/openssh/etc/sshd_config.&lt;/p&gt;
 &lt;p&gt;All in all, I&amp;#8217;m pleased with this unit.  I loaded it with 2x4TB, 2x3TB, and 1x1.&lt;span class="caps"&gt;5TB&lt;/span&gt; (the latter simply because I pulled it from a de-commissioned box and didn&amp;#8217;t want to waste the drive), and it gave me &lt;span class="caps"&gt;10TB&lt;/span&gt; of usable space, which is pretty good.  In this configuration it will tolerate one dead drive.  The data on here isn&amp;#8217;t critical enough for me to enable the dual-drive-fail mode (which would drop the usable space to just upwards of &lt;span class="caps"&gt;6TB&lt;/span&gt;; I care more about the space than the redundancy for what&amp;#8217;s going to be stored on&amp;nbsp;it).&lt;/p&gt;
-&lt;p&gt;Out of all the various consumer &lt;span class="caps"&gt;NAS&lt;/span&gt; boxes I&amp;#8217;ve used, the Drobo is by far the most simplistic. But what it does, it does extremely well.  The &lt;span class="caps"&gt;QNAP&lt;/span&gt; is my second choice.  But since my Linux boxen take care of all the other extras that these things provide, the Drobo 5N and its more simplistic interface/feature-set really met my&amp;nbsp;needs.&lt;/p&gt;</content><category term="Linux"></category><category term="drobo"></category></entry><entry><title>Of bugzilla, python, fetchmail, and procmail</title><link href="https://annvix.com/blog/of-bugzilla-python-fetchmail-and-procmail" rel="alternate"></link><published>2013-06-08T14:31:00-06:00</published><updated>2013-06-08T14:31:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-06-08:/blog/of-bugzilla-python-fetchmail-and-procmail</id><summary type="html">&lt;p&gt;I&amp;#8217;ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve been working with bugzilla for years.. at Mandriva I was the primary bugzilla care-taker for a few years, and now with Red Hat I do a lot of work on some internal tools that interface with bugzilla that enhances and directs the workflow of day-to-day work (being that we work with bugzilla all the time).  I also run my own bugzilla instance a) so I can keep up to date with the goings-on of bugzilla and b) so I can track various things in some of the scripts I write and other stuff.  One thing that I do is also use it as a way of logging issues that may come up with the various bits of web hosting that I&amp;nbsp;do.&lt;/p&gt;
-&lt;p&gt;So what I needed was a way to take incoming emails generated by lfd (my primary concern right now is high load average warnings; I wanted to log them to bugzilla so that if I&amp;#8217;m unavailable my dad could also see them (he helps maintain the server and hosts a bunch of his stuff there as well) and perhaps deal with them or at the very least if he wanted/needed to comment on them he could do so via bugzilla, and I can also make note of resolutions or causes, etc.  Yes, I&amp;#8217;m turning bugzilla into a poor man&amp;#8217;s &amp;#8220;&lt;span class="caps"&gt;RT&lt;/span&gt;&amp;#8221; ticketing system (I have no interest in setting something like that up, I&amp;#8217;m already using bugzilla, and this is the best place for me to stuff these sorts of notes).  I&amp;#8217;ve tried the email_in.pl method and while it works, it only works if you have a specific format so you can assign it to the right component and product &amp;#8212; not something that will work with these lfd-generated&amp;nbsp;emails.&lt;/p&gt;
-&lt;p&gt;Being that a lot of the work that I&amp;#8217;ve been doing has to do with using python and xmlrpc to manipulate bugs in the Red Hat bugzilla, it seemed like a reasonable approach to take to deal with my own bug mangling.  The problem is that these emails were being sent to root, which in turn forwards directly to me.  I also wanted to keep a copy of those mails in my own mailbox in case bugzilla, or anything in between, did something funky, so I opted to do a few&amp;nbsp;things:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt; use a gmail filter to forward those emails to another email account specifically for bugzilla mails
-&lt;li&gt; setup fetchmail to pull (via pop3) those emails
-&lt;li&gt; setup procmail to filter those emails and send them to a helper script
-&lt;li&gt; write a helper script that will then call the &lt;a href="https://fedorahosted.org/python-bugzilla"&gt;python-bugzilla&lt;/a&gt; tool to file the bug
-&lt;/ul&gt;
-
-&lt;p&gt;The first step was easy.  Fetchmail was pretty easy too (although it&amp;#8217;s been a few years).  Procmail was easy, particularly now since I&amp;#8217;m only concerned with one particular type of email and my gmail filter is quite specific.  The helper script was initially a shell script that was going to call the bugzilla script but I quickly found limitations to that, particular since lfd&amp;#8217;s email also has a few attachments and I was having issues with getting it to file the bugs properly.  So instead of using uudeview and a shell script, I opted to write something in&amp;nbsp;python.&lt;/p&gt;
-&lt;p&gt;Instead of procmail feeding uudeview and then feeding my script, I made use of some of the features of python that allow for manipulating email messages (something I&amp;#8217;ve never done before).  I also found that passing stdin to the python script was somehow also passing stdin to python-bugzilla when I was calling it, which was causing all kinds of&amp;nbsp;grief.&lt;/p&gt;
-&lt;p&gt;So with this script I learned all kinds of new things: how to manipulate an email message in python and reduce an email with attachments to a message body with individual attachments as objects and how to use subprocess (yes, I&amp;#8217;m still using the commands stuff by and large, but that was really problematic with stdin being&amp;nbsp;persistent).&lt;/p&gt;
-&lt;p&gt;All in all it works quite well.  However, I do still have one problem that I&amp;#8217;ve not yet liked, and that is with binary files.  I&amp;#8217;m not sure where the issue is coming from, but for some reason when I call python-bugzilla myself, in a shell, and feed it the file to attach to the bug it works fine &amp;#8212; however, when I call it from my script (so no shell), it uses the &amp;#8212;file argument as the name of the file and wants stdin as the contents of the file.  This is all fine and dandy, but somewhere along the line something is rendering that binary file (was testing with a jpeg) into text and when it&amp;#8217;s attached to the bug it has the right mime type, but the contents are wrong and no image is displayed.  So, dear lazy web, if there any python folks out there who want to look at my script and tell me what I&amp;#8217;m doing wrong, I&amp;#8217;d be much obliged&amp;#8230;.&amp;nbsp;=)&lt;/p&gt;
-&lt;p&gt;Anyways, since no post like this is really any good without the files involved, what follows is the script (process-mail) and the .procmailrc file (which is pretty bare bones and doesn&amp;#8217;t filter much of&amp;nbsp;anything):&lt;/p&gt;
-&lt;pre&gt;
-# .procmailrc
-#
-
-HOME="/home/mailer"
-SHELL=/bin/sh
-VERBOSE=off
-LOGFILE=$HOME/.procmail/procmail.log
-# inserts a blank line between log entries
-LOG="
-"
-
-:0
-*^content-Type:
-{
-    :0fw
-    | /usr/bin/python $HOME/bin/process-mail
-}
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p&gt;All this does is call the process-mail script.  It will/may eventually filter on subject and sender if I find that unwanted emails are triggering new bugs.  For the moment I don&amp;#8217;t particularly&amp;nbsp;care.&lt;/p&gt;
-&lt;p&gt;And the process-mail python&amp;nbsp;script:&lt;/p&gt;
-&lt;pre&gt;
-#!/usr/bin/env python
-
-import commands
-import email
-import os
-import subprocess
-import sys
-import tempfile
-
-# email comes from stdin due to procmail
-raw_msg    = sys.stdin.readlines()
-
-log        = open(os.environ['HOME'] + '/tmp/bugzilla-email.log', 'a')
-bz_prog    = '/usr/bin/bugzilla'
-bz_dest    = '--bugzilla=https://bugzilla.annvix.com/xmlrpc.cgi'
-directory  = tempfile.mkdtemp()
-
-f = tempfile.NamedTemporaryFile(delete=False)
-f.write(''.join(raw_msg))
-f.close()
-
-msg = email.message_from_file(open(f.name))
-
-attachments = {}
-
-for part in msg.walk():
-    a_payload = part.get_payload()
-    a_name    = part.get_filename()
-    a_type    = part.get_content_type()
-    if a_name is None and a_type == 'text/plain':
-        email_body = part.get_payload()
-    elif a_name is not None:
-        tf_name = '%s/%s' % (directory, a_name)
-        tf_file = open(tf_name, 'wb')
-        tf_file.write(a_payload)
-        tf_file.close()
-        attachments[a_name] = a_type
-
-os.unlink(f.name)
-
-email_to   = msg['to']
-email_from = msg['from']
-email_sub  = msg['subject']
-
-log.write('Email received from %s to %s with subject "%s"\n' % (email_from, email_to, email_sub))
-
-cmd = [bz_prog, bz_dest, 'new', '-i', '-p', 'Web Hosting', '-v', 'none', '-c', 'Availability', '-s', email_sub, '-l', email_body]
-bug = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0]
-if bug != '':
-    log.write('Filed bug %s\n' % bug)
-
-if len(attachments) &gt; 0:
-    for x in attachments:
-        attachment = os.path.join(directory, x)
-        log.write('Found attachment: %s\n' % attachment)
-        cmd = [bz_prog, bz_dest, 'attach', '--file=%s' % x, '--type=%s' % attachments[x], '--desc=mail attachment: %s' % x, bug.strip('\n')]
-        if 'text' in attachments[x]:
-            a_file = open(attachment, 'r')
-        else:
-            # this does not work.. attaching a jpg results in mangled text and I'm not sure why...
-            a_file = open(attachment, 'rb')
-        foo = subprocess.Popen(cmd, stdin=a_file, stdout=subprocess.PIPE).communicate()[0]
-        a_file.close()
-
-        if foo != '':
-            log.write(foo + '\n')
-        else:
-            log.write('Failed to attach bug to bugzilla!\n')
-
-log.close()
-
-sys.exit(0)
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p&gt;I&amp;#8217;m not sure why this isn&amp;#8217;t working for binary attachments though&amp;#8230; it&amp;#8217;s probably something simple, but I&amp;#8217;ve not had a chance to figure out what the problem is.  Dear lazy web&amp;#8230;. any advice?&amp;nbsp;=)&lt;/p&gt;</content><category term="Linux"></category><category term="python"></category><category term="bugzilla"></category></entry></feed>
+&lt;p&gt;Out of all the various consumer &lt;span class="caps"&gt;NAS&lt;/span&gt; boxes I&amp;#8217;ve used, the Drobo is by far the most simplistic. But what it does, it does extremely well.  The &lt;span class="caps"&gt;QNAP&lt;/span&gt; is my second choice.  But since my Linux boxen take care of all the other extras that these things provide, the Drobo 5N and its more simplistic interface/feature-set really met my&amp;nbsp;needs.&lt;/p&gt;</content><category term="Linux"></category><category term="drobo"></category></entry></feed>

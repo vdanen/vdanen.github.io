@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Vincent Danen" />
+
+        <meta name="description" content="I’ve been running Pi-hole in a container on my TrueNAS Scale box for a while and had unfortunately experienced a number of upgrades that required deploying the container from scratch. This was due to incompatibilities in the Helm chart settings, which broke in-place upgrades and required reconfiguration. This probably …
+" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="security, linux, debian, Linux, " />
+
+<meta property="og:title" content="Using LetsEncrypt with Pi-hole "/>
+<meta property="og:url" content="https://annvix.com/blog/using-letsencrypt-with-pi-hole" />
+<meta property="og:description" content="I’ve been running Pi-hole in a container on my TrueNAS Scale box for a while and had unfortunately experienced a number of upgrades that required deploying the container from scratch. This was due to incompatibilities in the Helm chart settings, which broke in-place upgrades and required reconfiguration. This probably …" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta property="og:article:published_time" content="2024-11-14T21:32:00-07:00" />
+<meta name="twitter:title" content="Using LetsEncrypt with Pi-hole ">
+<meta name="twitter:description" content="I’ve been running Pi-hole in a container on my TrueNAS Scale box for a while and had unfortunately experienced a number of upgrades that required deploying the container from scratch. This was due to incompatibilities in the Helm chart settings, which broke in-place upgrades and required reconfiguration. This probably …">
+
+        <title>Using LetsEncrypt with Pi-hole  · Annvix
+</title>
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5JGVD90SKJ');
+</script>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://annvix.com
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://annvix.com/blog/using-letsencrypt-with-pi-hole">
+                Using LetsEncrypt with&nbsp;Pi-hole
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p><img alt="Image" src="https://annvix.com/images/pihole.png" /></p>
+<p>I&#8217;ve been running Pi-hole in a container on my TrueNAS Scale box for a while and had unfortunately experienced a number of upgrades that required deploying the container from scratch.  This was due to incompatibilities in the Helm chart settings, which broke in-place upgrades and required reconfiguration.  This probably happened 3-4 times over the last two years.  Being a bit of a tinkerer, I decided to grab a Raspberry Pi, throw Pi-hle on it, and just plug it in and be done.  The process to do that is pretty simple; I was able to get the configuration from the TrueNAS container imported into Pi-hole on the Pi, and presto &#8212;&nbsp;done.</p>
+<p>While I know that it&#8217;s running on my internal network and the odds of needing to care about <span class="caps">TLS</span> connections to the administrative web service are probably pretty small, I set out to get <span class="caps">TLS</span> enabled on it anyways for a few simple reasons.  First, it&#8217;s something new to tinker with and figure out.  Second, I&#8217;m a security guy so encryption probably matters.  Third, LetsEncrypt is free so it&#8217;s no cost.  And probably most importantly, I dislike seeing Chrome give me a &#8220;Not Secure&#8221; warning every time I go to the web page.  It just stirs up a certain level of disappointment within&nbsp;me.</p>
+<p>So in this post I&#8217;ve detailed the way that I put it all together to use LetsEncrypt for <span class="caps">SSL</span> certificates to enable <span class="caps">TLS</span> connections to the Pi-hole administrative web&nbsp;site.</p>
+<h2 id="obtain-letsencrypt-certificates">Obtain LetsEncrypt certificates<a class="headerlink" href="#obtain-letsencrypt-certificates" title="Permanent link"> </a></h2>
+<p>Before making any other changes, we want to install the <code>acme.sh</code> client that will obtain the LetsEncrypt certificates.  This can be done by cloning the git repository and installing&nbsp;it:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>su<span class="w"> </span>-
+<span class="c1"># cd /root</span>
+<span class="c1"># git clone https://github.com/Neilpang/acme.sh.git</span>
+<span class="c1"># cd acme.sh</span>
+<span class="c1"># ./acme.sh --install</span>
+<span class="c1"># exit</span>
+</pre></div>
+
+
+<p>There are a few choices for hostname verification, I prefer to use CloudFlare and <span class="caps">DNS</span>.  We can use the environment that the installation setup, grab the CloudFlare <span class="caps">API</span> key, and then configure <code>acme.sh</code>.  In this example we&#8217;ll use the hostname &#8220;pihole.hostname.com&#8221; as our <span class="caps">FQDN</span>.</p>
+<p>If you don&#8217;t have a <a href="https://github.com/acmesh-official/acme.sh/wiki/ZeroSSL.com-CA">ZeroSSL</a> account, you will need to create that first which is something new in the later version of <code>acme.sh</code>, apparently.  First time I&#8217;ve heard of or run into&nbsp;this.</p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">su</span><span class="w"> </span><span class="o">-</span>
+<span class="err">#</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">acme</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="c1">--register-account -m my@email.com --server zerossl</span>
+</pre></div>
+
+
+<p>Once this is complete, save your CloudFlare <span class="caps">API</span> key and email address to the <code>account.conf</code> file and get the&nbsp;certificate:</p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;SAVED_CF_Key=&#39;[API key from CloudFlare]&#39;&quot;</span><span class="w"> </span><span class="o">&gt;&gt;/</span><span class="nx">root</span><span class="o">/</span><span class="p">.</span><span class="nx">acme</span><span class="p">.</span><span class="nx">sh</span><span class="o">/</span><span class="nx">account</span><span class="p">.</span><span class="nx">conf</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;SAVED_CF_Email=&#39;[CloudFlare login email address]&#39;&quot;</span><span class="w"> </span><span class="o">&gt;&gt;/</span><span class="nx">root</span><span class="o">/</span><span class="p">.</span><span class="nx">acme</span><span class="p">.</span><span class="nx">sh</span><span class="o">/</span><span class="nx">account</span><span class="p">.</span><span class="nx">conf</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">cd</span><span class="w"> </span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="p">.</span><span class="nx">acme</span><span class="p">.</span><span class="nx">sh</span>
+<span class="err">#</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="nx">acme</span><span class="p">.</span><span class="nx">sh</span><span class="w"> </span><span class="o">--</span><span class="nx">issue</span><span class="w"> </span><span class="o">--</span><span class="nx">dns</span><span class="w"> </span><span class="nx">dns_cf</span><span class="w"> </span><span class="o">-</span><span class="nx">d</span><span class="w"> </span><span class="nx">pihole</span><span class="p">.</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">com</span><span class="w"> </span><span class="o">--</span><span class="nx">server</span><span class="w"> </span><span class="nx">zerossl</span>
+</pre></div>
+
+
+<p>Once this is complete, your certificates will be saved in the <code>/root/.acme.sh/pihole.hostname.com_ecc/</code> directory.  At this point, we have to configure lighttpd which is the web server that Pi-hole uses for its administrative&nbsp;interface.</p>
+<h2 id="enable-ssl-in-lighttpd">Enable <span class="caps">SSL</span> in lighttpd<a class="headerlink" href="#enable-ssl-in-lighttpd" title="Permanent link"> </a></h2>
+<p>The first step is to create the directory to store the <span class="caps">SSL</span>&nbsp;certificate:</p>
+<div class="highlight"><pre><span></span># mkdir -p /etc/lighttpd/ssl/pihole.hostname.com
+</pre></div>
+
+
+<p>Make sure that <span class="caps">SSL</span> support for lighttpd is&nbsp;installed:</p>
+<div class="highlight"><pre><span></span># apt-get install lighttpd-mod-openssl
+</pre></div>
+
+
+<p>Create symlinks to make your certificate and key file available for lighttpd without exposing the <code>/root/.acme.sh/</code> directory.  The key file by default is mode 0600 and owned by the root user and group.  We need to make a slight change so lighttpd, running as the www-data user, can read&nbsp;it:</p>
+<div class="highlight"><pre><span></span><span class="gh">#</span> cd /etc/lighttpd/ssl/pihole.hostname.com
+<span class="gh">#</span> ln -s /root/.acme.sh/pihole.hostname.com_ecc/fullchain.cer .
+<span class="gh">#</span> ln -s /root/.acme.sh/pihole.hostname.com_ecc/pihole.hostname.com.key .
+<span class="gh">#</span> chmod 640 /root/.acme.sh/pihole.hostname.com_ecc/pihole.hostname.com.key
+<span class="gh">#</span> chown root:www-data /root/.acme.sh/pihole.hostname.com_ecc/pihole.hostname.com.key
+</pre></div>
+
+
+<h2 id="configure-lighttpd-to-enable-tls">Configure lighttpd to enable <span class="caps">TLS</span><a class="headerlink" href="#configure-lighttpd-to-enable-tls" title="Permanent link"> </a></h2>
+<p>Next, create the <code>/etc/lighttpd/conf-enabled/10-ssl.conf</code> file with the following&nbsp;contents:</p>
+<div class="highlight"><pre><span></span>server.modules += ( &quot;mod_openssl&quot; )
+
+setenv.add-environment = (&quot;fqdn&quot; =&gt; &quot;true&quot;)
+
+$SERVER[&quot;socket&quot;] == &quot;:443&quot; {
+    ssl.engine = &quot;enable&quot;
+    ssl.pemfile = &quot;/etc/lighttpd/ssl/pihole.hostname.com/fullchain.cer&quot;
+    ssl.privkey = &quot;/etc/lighttpd/ssl/pihole.hostname.com/pihole.hostname.com.key&quot;
+    ssl.openssl.ssl-conf-cmd = (&quot;MinProtocol&quot; =&gt; &quot;TLSv1.3&quot;, &quot;Options&quot; =&gt; &quot;-ServerPreference&quot;)
+}
+
+<span class="gh">#</span> Redirect HTTP to HTTPS
+$HTTP[&quot;scheme&quot;] == &quot;http&quot; {
+    $HTTP[&quot;host&quot;] =~ &quot;.*&quot; {
+        url.redirect = (&quot;.*&quot; =&gt; &quot;https://%0$0&quot;)
+    }
+}
+</pre></div>
+
+
+<p>At this point you need to restart&nbsp;lighttpd:</p>
+<div class="highlight"><pre><span></span># systemctl restart lighttpd
+</pre></div>
+
+
+<h2 id="optional-convenient-redirect">Optional convenient redirect<a class="headerlink" href="#optional-convenient-redirect" title="Permanent link"> </a></h2>
+<p>You can also create a convenient redirect from https://pihole.hostname.com/ to https://pihole.hostname.com/admin/ by creating <code>/var/www/html/index.html</code> with the&nbsp;contents:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">https-equiv</span><span class="o">=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;1; url=https://pihole.hostname.com/admin/&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://pihole.hostname.com/admin/&quot;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Page Redirection<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Note: don&#39;t tell people to `click` the link, just tell them that it is a link. --&gt;</span>
+If you are not redirected automatically, follow the <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://pihole.hostname.com/admin/&#39;</span><span class="p">&gt;</span>link to admin<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>There are a number of different ways to get Pi-hle running under <span class="caps">SSL</span> on a Raspberry Pi; this worked for me and hopefully it will work for you as&nbsp;well.</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Using%20LetsEncrypt%20with%C2%A0Pi-hole&url=https%3A//annvix.com/blog/using-letsencrypt-with-pi-hole&hashtags=security,linux,debian" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/using-letsencrypt-with-pi-hole&title=Using%20LetsEncrypt%20with%C2%A0Pi-hole&summary=I%E2%80%99ve%20been%20running%20Pi-hole%20in%20a%20container%20on%20my%20TrueNAS%20Scale%20box%20for%20a%20while%20and%20had%20unfortunately%20experienced%20a%20number%20of%20upgrades%20that%20required%20deploying%20the%20container%20from%20scratch.%20%20This%20was%20due%20to%20incompatibilities%20in%20the%20Helm%20chart%20settings%2C%20which%20broke%20in-place%20upgrades%20and%20required%20reconfiguration.%20%20This%20probably%20%E2%80%A6&source=https%3A//annvix.com/blog/using-letsencrypt-with-pi-hole" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/upstream-2024" title="Upstream 2024">Upstream 2024</a></li>
+<li><a href="https://annvix.com/blog/vex-reader" title="Python module to read CSAF VEX files">Python module to read CSAF VEX files</a></li>
+<li><a href="https://annvix.com/blog/bsides-edmonton-2024" title="BSides Edmonton 2024">BSides Edmonton 2024</a></li>
+<li><a href="https://annvix.com/blog/soss-fusion-2024" title="SOSS Fusion 2024">SOSS Fusion 2024</a></li>
+<li><a href="https://annvix.com/blog/iccc-2024" title="ICCC 2024">ICCC 2024</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://annvix.com/blog/iccc-2024" title="Previous: ICCC 2024">ICCC 2024</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2024-11-14T21:32:00-07:00">Nov 14, 2024</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#debian-ref">debian
+                    <span class="superscript">1</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">14</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#security-ref">security
+                    <span class="superscript">44</span>
+</a></li>
+            </ul>
+<h4>Stay in touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://github.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/vdanen/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://infosec.exchange/@vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Copyright &copy; 2024 Vincent Danen
+    </div>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

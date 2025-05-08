@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-05-07T20:40:00-06:00</updated><entry><title>Using Obsidian with a local LLM</title><link href="https://annvix.com/blog/using-obsidian-with-a-local-llm" rel="alternate"></link><published>2025-05-07T20:40:00-06:00</published><updated>2025-05-07T20:40:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-05-07:/blog/using-obsidian-with-a-local-llm</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
-&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-05-07T20:40:00-06:00</updated><entry><title>Using Obsidian with a local LLM</title><link href="https://annvix.com/blog/using-obsidian-with-a-local-llm" rel="alternate"></link><published>2025-05-07T20:40:00-06:00</published><updated>2025-05-07T20:40:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-05-07:/blog/using-obsidian-with-a-local-llm</id><summary type="html">&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
 something technical.  As with most people in the world, I&amp;#8217;ve been trying to
 dive deeper into using &lt;span class="caps"&gt;AI&lt;/span&gt; and making it make me more efficient and useful.
-I&amp;#8217;ve spent quite a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
-&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
+I&amp;#8217;ve spent quite a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
 something technical.  As with most people in the world, I&amp;#8217;ve been trying to
 dive deeper into using &lt;span class="caps"&gt;AI&lt;/span&gt; and making it make me more efficient and useful.
 I&amp;#8217;ve spent quite a bit of time in the last week or so with Google&amp;#8217;s Gemini,
@@ -86,7 +84,7 @@ There are two plugins to&amp;nbsp;install:&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://github.com/pfrankov/obsidian-ai-providers"&gt;Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt;&amp;nbsp;Providers&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These community plugins can be installed within&amp;nbsp;Obsidian.&lt;/p&gt;
-&lt;h2 id="obsidian-ai-providers"&gt;Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt; Providers&lt;a class="headerlink" href="#obsidian-ai-providers" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="obsidian-ai-providers"&gt;Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt; Providers&lt;a class="headerlink" href="#obsidian-ai-providers" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This is where you configure the &lt;span class="caps"&gt;AI&lt;/span&gt; provider for Local &lt;span class="caps"&gt;GPT&lt;/span&gt; to use.  It&amp;#8217;s
 where I expected to configure Private &lt;span class="caps"&gt;GPT&lt;/span&gt; but I found that it will talk to
 Ollama directly.  The configuration is pretty straightforward, there are a
@@ -96,7 +94,7 @@ button next to the Model dropdown and you can select whichever model you
 like that you loaded into Ollama (in my case, &lt;code&gt;llama3.1:latest&lt;/code&gt;).  If you
 followed the instructions for Private &lt;span class="caps"&gt;GPT&lt;/span&gt; and Ollama above, you can add a
 second provider here for the &lt;code&gt;nomic-embed-text:latest&lt;/code&gt; model as&amp;nbsp;well.&lt;/p&gt;
-&lt;h2 id="local-gpt"&gt;Local &lt;span class="caps"&gt;GPT&lt;/span&gt;&lt;a class="headerlink" href="#local-gpt" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="local-gpt"&gt;Local &lt;span class="caps"&gt;GPT&lt;/span&gt;&lt;a class="headerlink" href="#local-gpt" title="Permanent link"&gt; &lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;There&amp;#8217;s almost nothing to configure here at the outset; you can find some
 different prompts but the defaults are fine to start with.  All you really
 need to set here is the Main &lt;span class="caps"&gt;AI&lt;/span&gt; Provider, and point it to what you

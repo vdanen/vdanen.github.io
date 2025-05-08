@@ -1,5 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-02-15T08:37:00-07:00</updated><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-05-07T20:40:00-06:00</updated><entry><title>Using Obsidian with a local LLM</title><link href="https://annvix.com/blog/using-obsidian-with-a-local-llm" rel="alternate"></link><published>2025-05-07T20:40:00-06:00</published><updated>2025-05-07T20:40:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-05-07:/blog/using-obsidian-with-a-local-llm</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
+something technical.  As with most people in the world, I&amp;#8217;ve been trying to
+dive deeper into using &lt;span class="caps"&gt;AI&lt;/span&gt; and making it make me more efficient and useful.
+I&amp;#8217;ve spent quite a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s been a bit since I&amp;#8217;ve had a chance to write a blog post about
+something technical.  As with most people in the world, I&amp;#8217;ve been trying to
+dive deeper into using &lt;span class="caps"&gt;AI&lt;/span&gt; and making it make me more efficient and useful.
+I&amp;#8217;ve spent quite a bit of time in the last week or so with Google&amp;#8217;s Gemini,
+which is great, but I&amp;#8217;m really interested in using &lt;span class="caps"&gt;AI&lt;/span&gt; to summarize or get
+informations about content that I&amp;#8217;ve stored in Obsidian, which I&amp;#8217;ve
+discussed before (see
+&lt;a href="https://annvix.com/blog/productivity-improvements-with-obsidian-omnifocus-and-johnny-decimal"&gt;Productivity improvements with Obsidian, OmniFocus and Johnny
+Decimal&lt;/a&gt;.
+Because my Obsidian vault contains a lot of private information (I take a
+lot of meeting notes, for example) I didn&amp;#8217;t want to connect it to any
+public&amp;nbsp;services.&lt;/p&gt;
+&lt;p&gt;I couldn&amp;#8217;t find an easy to guide to do this, so this is that guide.  It was
+pretty straightforward and simple, so hopefully this will help others.
+I&amp;#8217;ll likely follow up in the future with more things that I discover and&amp;nbsp;learn.&lt;/p&gt;
+&lt;p&gt;We&amp;#8217;ll be doing two things here.  The first is installing &lt;a href="https://github.com/zylon-ai/private-gpt"&gt;Private
+&lt;span class="caps"&gt;GPT&lt;/span&gt;&lt;/a&gt; because my initial reading
+made me think I needed it.  You don&amp;#8217;t really, although it looks useful and
+might be a nice tie-in to some other applications.  We&amp;#8217;ll also be
+installing &lt;a href="https://ollama.com/"&gt;Ollama&lt;/a&gt; and some Obsidian plugins to talk
+directly to it, without Private &lt;span class="caps"&gt;GPT&lt;/span&gt; as an intermediary.  The instructions
+will assume a MacOS system, although it shouldn&amp;#8217;t be too hard to do this on
+Linux as&amp;nbsp;well.&lt;/p&gt;
+&lt;p&gt;First, we install&amp;nbsp;Ollama:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--cask&lt;span class="w"&gt; &lt;/span&gt;ollama
+$&lt;span class="w"&gt; &lt;/span&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;ollama
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can use the &lt;span class="caps"&gt;GUI&lt;/span&gt; application, but we want to run Ollma on the
+commandline and make sure it&amp;nbsp;works:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In another window, download the models you want to&amp;nbsp;use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;llama3.1
+$&lt;span class="w"&gt; &lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;nomic-embed-text
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When this is done, install Private &lt;span class="caps"&gt;GPT&lt;/span&gt; by first cloning the git&amp;nbsp;repository:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;~/git
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;clone&lt;span class="w"&gt; &lt;/span&gt;https://github.com/zylon-ai/private-gpt
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;private-gpt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Create a python virtual environment.  If you don&amp;#8217;t have python 3.11, you&amp;#8217;ll
+need to install it.  My Homebrew setup has 3.13, so I also needed to
+install 3.11 (it will not work with&amp;nbsp;3.13):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;brew&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="mf"&gt;@3.11&lt;/span&gt;
+&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;python3&lt;/span&gt;&lt;span class="mf"&gt;.11&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;
+&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;activate&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Install the dependencies that Private &lt;span class="caps"&gt;GPT&lt;/span&gt;&amp;nbsp;needs:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;poetry&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--extras&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ui llms-ollama embeddings-ollama vector-stores-qdrant&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you can run Private &lt;span class="caps"&gt;GPT&lt;/span&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PGPT_PROFILES&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;ollama&lt;span class="w"&gt; &lt;/span&gt;make&lt;span class="w"&gt; &lt;/span&gt;run
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It will take a bit to initialize and start, once you&amp;nbsp;see&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;59.694&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;             &lt;/span&gt;&lt;span class="n"&gt;uvicorn&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;error&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Application&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;startup&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;complete&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;59.695&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;INFO&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;             &lt;/span&gt;&lt;span class="n"&gt;uvicorn&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;error&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Uvicorn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;running&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;://&lt;/span&gt;&lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;8001&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Press&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;CTRL&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;quit&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you can connect to http://localhost:8001 and use Private &lt;span class="caps"&gt;GPT&lt;/span&gt; through
+its web&amp;nbsp;interface.&lt;/p&gt;
+&lt;p&gt;But you don&amp;#8217;t need Private &lt;span class="caps"&gt;GPT&lt;/span&gt; to work with Obsidian, you just need Ollama.
+There are two plugins to&amp;nbsp;install:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/pfrankov/obsidian-local-gpt"&gt;Local &lt;span class="caps"&gt;GPT&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/pfrankov/obsidian-ai-providers"&gt;Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt;&amp;nbsp;Providers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These community plugins can be installed within&amp;nbsp;Obsidian.&lt;/p&gt;
+&lt;h2 id="obsidian-ai-providers"&gt;Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt; Providers&lt;a class="headerlink" href="#obsidian-ai-providers" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This is where you configure the &lt;span class="caps"&gt;AI&lt;/span&gt; provider for Local &lt;span class="caps"&gt;GPT&lt;/span&gt; to use.  It&amp;#8217;s
+where I expected to configure Private &lt;span class="caps"&gt;GPT&lt;/span&gt; but I found that it will talk to
+Ollama directly.  The configuration is pretty straightforward, there are a
+number of providers you can chose from and Ollama is one of them.  Give it
+a name and the &lt;span class="caps"&gt;URL&lt;/span&gt; should be http://127.0.0.1:11434.  Click the refresh
+button next to the Model dropdown and you can select whichever model you
+like that you loaded into Ollama (in my case, &lt;code&gt;llama3.1:latest&lt;/code&gt;).  If you
+followed the instructions for Private &lt;span class="caps"&gt;GPT&lt;/span&gt; and Ollama above, you can add a
+second provider here for the &lt;code&gt;nomic-embed-text:latest&lt;/code&gt; model as&amp;nbsp;well.&lt;/p&gt;
+&lt;h2 id="local-gpt"&gt;Local &lt;span class="caps"&gt;GPT&lt;/span&gt;&lt;a class="headerlink" href="#local-gpt" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There&amp;#8217;s almost nothing to configure here at the outset; you can find some
+different prompts but the defaults are fine to start with.  All you really
+need to set here is the Main &lt;span class="caps"&gt;AI&lt;/span&gt; Provider, and point it to what you
+configured in Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt; Providers for &lt;code&gt;llama3.1:latest&lt;/code&gt;.  You can also
+add the Embedding &lt;span class="caps"&gt;AI&lt;/span&gt; Provider and point it to the &lt;code&gt;nomic-embed-text:latest&lt;/code&gt;
+provider.&lt;/p&gt;
+&lt;p&gt;Out of the box there&amp;#8217;s no context menu so you need to use the command
+palette, or set a hotkey.  I went to Obsidian&amp;#8217;s Hotkeys configuration,
+filtered on &amp;#8220;&lt;span class="caps"&gt;GPT&lt;/span&gt;&amp;#8221; and set &lt;span class="caps"&gt;OPT&lt;/span&gt;+&lt;span class="caps"&gt;CMD&lt;/span&gt;+G to &lt;em&gt;Local &lt;span class="caps"&gt;GPT&lt;/span&gt;: Show context menu&lt;/em&gt; which
+will bring up all of the available&amp;nbsp;prompts.&lt;/p&gt;
+&lt;p&gt;I don&amp;#8217;t believe the models are trained on any of the data in my Obsidian
+vault, so in the context of Obsidian alone, I don&amp;#8217;t really need Private &lt;span class="caps"&gt;GPT&lt;/span&gt;
+&amp;#8212; for anything outside of my vault that&amp;#8217;s public I can use ChatGPT or
+Google&amp;#8217;s Gemini so there doesn&amp;#8217;t appear to me to be a reason to run Private
+&lt;span class="caps"&gt;GPT&lt;/span&gt; unless I can train it on my vault data, which is something I will
+experiment with in the&amp;nbsp;future.&lt;/p&gt;
+&lt;p&gt;To have Ollama run persistently in the background, start it with &lt;code&gt;brew
+services&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;brew&lt;span class="w"&gt; &lt;/span&gt;services&lt;span class="w"&gt; &lt;/span&gt;start&lt;span class="w"&gt; &lt;/span&gt;ollama
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;At this point, if you like, you can explore other models in Ollama, such as
+the DeepSeek models and others.  The full list is available
+&lt;a href="https://ollama.com/library"&gt;here&lt;/a&gt;.  And you can interact with your local
+model using Obsidian directly using the plugins as discussed, or using
+Private &lt;span class="caps"&gt;GPT&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ve experimented with it a bit and it&amp;#8217;s pretty fast.  Of course, mileage
+will vary but I&amp;#8217;m using this on a Mac Studio M1 and it&amp;#8217;s pretty zippy with
+what I&amp;#8217;ve tried.  I plan to fiddle with it more, and ideally train the
+local model in some way with my data to get some better targeted
+information across my Obsidian vault rather than just the current document
+I&amp;#8217;m working on.  Maybe this weekend&amp;nbsp;;)&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Been working on this for a bit and now it&amp;#8217;s here!  I&amp;#8217;m really pleased to
 announce that I&amp;#8217;ve started a new podcast!  It&amp;#8217;s called &lt;a href="https://securityunscripted.org/"&gt;Security
 Unscripted&lt;/a&gt; and the goal is to be short
@@ -4002,7 +4132,4 @@ Finished RAID operation
 &lt;p&gt;You can view the slideshow starting&amp;nbsp;here:&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.flickr.com/photos/wulfheart/10609282436/in/set-72157594268514726/"&gt;http://www.flickr.com/photos/wulfheart/10609282436/in/set-72157594268514726/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I was in for a bit and the sleeve from the elbow down is now fully done.  Pics to come (I promise!) when the swelling has reduced as we did a bunch of grey-wash stuff but with the inflamed/red natural &amp;#8220;I&amp;#8217;m angry!&amp;#8221; skin tone it doesn&amp;#8217;t look like it will eventually, so probably next week I&amp;#8217;ll put pics&amp;nbsp;up.&lt;/p&gt;
-&lt;p&gt;Sorry to those who were waiting to see this.  This stuff was all done last year.&amp;nbsp;=(&lt;/p&gt;</content><category term="Life"></category><category term="tattoo"></category></entry><entry><title>Some changes…</title><link href="https://annvix.com/blog/some-changes" rel="alternate"></link><published>2013-10-10T15:37:00-06:00</published><updated>2013-10-10T15:37:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-10-10:/blog/some-changes</id><summary type="html">&lt;p&gt;The blog needed an updated look.  I think I kinda like this new look.  Much cleaner and&amp;nbsp;sharper.&lt;/p&gt;
-&lt;p&gt;I think I&amp;#8217;m going to be doing more &amp;#8220;life&amp;#8221; blogging from this point forward.  The tech stuff is important, but so is &amp;#8220;real life&amp;#8221;.  So there should be more stuff of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The blog needed an updated look.  I think I kinda like this new look.  Much cleaner and&amp;nbsp;sharper.&lt;/p&gt;
-&lt;p&gt;I think I&amp;#8217;m going to be doing more &amp;#8220;life&amp;#8221; blogging from this point forward.  The tech stuff is important, but so is &amp;#8220;real life&amp;#8221;.  So there should be more stuff of the Life category going forwards.  That stuff I don&amp;#8217;t think gets syndicated to Fedora Planet, so if this makes it there I&amp;#8217;ll have to change that as I don&amp;#8217;t want to clutter the &amp;#8216;Planet up with non-tech&amp;nbsp;stuff.&lt;/p&gt;
-&lt;p&gt;That&amp;#8217;s my kid&amp;#8217;s eyeball up there, &lt;span class="caps"&gt;BTW&lt;/span&gt;.  You can see part of the kitchen in it.  I need to buy my own macro lense (thanks, Jenny, for letting me borrow yours all the&amp;nbsp;time!).&lt;/p&gt;</content><category term="Life"></category></entry></feed>
+&lt;p&gt;Sorry to those who were waiting to see this.  This stuff was all done last year.&amp;nbsp;=(&lt;/p&gt;</content><category term="Life"></category><category term="tattoo"></category></entry></feed>

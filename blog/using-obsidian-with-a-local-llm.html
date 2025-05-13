@@ -226,6 +226,33 @@ what I&#8217;ve tried.  I plan to fiddle with it more, and ideally train the
 local model in some way with my data to get some better targeted
 information across my Obsidian vault rather than just the current document
 I&#8217;m working on.  Maybe this weekend&nbsp;;)</p>
+<h1 id="update-20250509">Update 20250509<a class="headerlink" href="#update-20250509" title="Permanent link"> </a></h1>
+<p>Spent a little more time fiddling with this.  I had initially done this
+setup on an M1 Mac Studio, but I also have an M3 Mac Studio and wanted to
+make use of it, so I replicated the above on the M3.  The M1 is where I use
+Obsidian nearly every day, so rather than pointing to <code>http://localhost</code> I
+wanted to point to <code>http://192.168...</code> which is the <span class="caps">IP</span> of the M3.  Really
+simply to do in the Obsidian <span class="caps">AI</span> Providers by just changing the <span class="caps">URL</span>.  On the
+other host, however, you need to chane Ollama to listen to all ports as by
+default it only listens to the&nbsp;localhost.</p>
+<p>This can be easily accomplished by&nbsp;using:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>launchctl<span class="w"> </span>setenv<span class="w"> </span>OLLAMA_HOST<span class="w"> </span><span class="m">0</span>.0.0.0:11434
+</pre></div>
+
+
+<p>And restarting Ollama.  You&#8217;ll be able to connect to a remote (but still on
+the local network) Ollama and share it across multiple systems rather than
+installing it on each local system you wish to use it Providers by just
+changing the <span class="caps">URL</span>.  On the other host, however, you need to chane Ollama to
+listen to all ports as by default it only listens to the&nbsp;localhost.</p>
+<p>This can be easily accomplished by&nbsp;using:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>launchctl<span class="w"> </span>setenv<span class="w"> </span>OLLAMA_HOST<span class="w"> </span><span class="m">0</span>.0.0.0:11434
+</pre></div>
+
+
+<p>And restarting Ollama.  You&#8217;ll be able to connect to a remote (but still on
+the local network) Ollama and share it across multiple systems rather than
+installing it on each local system you wish to use&nbsp;it.</p>
 
 
              

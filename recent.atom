@@ -127,7 +127,34 @@ will vary but I&amp;#8217;m using this on a Mac Studio M1 and it&amp;#8217;s pre
 what I&amp;#8217;ve tried.  I plan to fiddle with it more, and ideally train the
 local model in some way with my data to get some better targeted
 information across my Obsidian vault rather than just the current document
-I&amp;#8217;m working on.  Maybe this weekend&amp;nbsp;;)&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
+I&amp;#8217;m working on.  Maybe this weekend&amp;nbsp;;)&lt;/p&gt;
+&lt;h1 id="update-20250509"&gt;Update 20250509&lt;a class="headerlink" href="#update-20250509" title="Permanent link"&gt; &lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Spent a little more time fiddling with this.  I had initially done this
+setup on an M1 Mac Studio, but I also have an M3 Mac Studio and wanted to
+make use of it, so I replicated the above on the M3.  The M1 is where I use
+Obsidian nearly every day, so rather than pointing to &lt;code&gt;http://localhost&lt;/code&gt; I
+wanted to point to &lt;code&gt;http://192.168...&lt;/code&gt; which is the &lt;span class="caps"&gt;IP&lt;/span&gt; of the M3.  Really
+simply to do in the Obsidian &lt;span class="caps"&gt;AI&lt;/span&gt; Providers by just changing the &lt;span class="caps"&gt;URL&lt;/span&gt;.  On the
+other host, however, you need to chane Ollama to listen to all ports as by
+default it only listens to the&amp;nbsp;localhost.&lt;/p&gt;
+&lt;p&gt;This can be easily accomplished by&amp;nbsp;using:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;launchctl&lt;span class="w"&gt; &lt;/span&gt;setenv&lt;span class="w"&gt; &lt;/span&gt;OLLAMA_HOST&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:11434
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And restarting Ollama.  You&amp;#8217;ll be able to connect to a remote (but still on
+the local network) Ollama and share it across multiple systems rather than
+installing it on each local system you wish to use it Providers by just
+changing the &lt;span class="caps"&gt;URL&lt;/span&gt;.  On the other host, however, you need to chane Ollama to
+listen to all ports as by default it only listens to the&amp;nbsp;localhost.&lt;/p&gt;
+&lt;p&gt;This can be easily accomplished by&amp;nbsp;using:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;launchctl&lt;span class="w"&gt; &lt;/span&gt;setenv&lt;span class="w"&gt; &lt;/span&gt;OLLAMA_HOST&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:11434
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And restarting Ollama.  You&amp;#8217;ll be able to connect to a remote (but still on
+the local network) Ollama and share it across multiple systems rather than
+installing it on each local system you wish to use&amp;nbsp;it.&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Been working on this for a bit and now it&amp;#8217;s here!  I&amp;#8217;m really pleased to
 announce that I&amp;#8217;ve started a new podcast!  It&amp;#8217;s called &lt;a href="https://securityunscripted.org/"&gt;Security
 Unscripted&lt;/a&gt; and the goal is to be short

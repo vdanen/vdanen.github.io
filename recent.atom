@@ -147,14 +147,12 @@ the local network) Ollama and share it across multiple systems rather than
 installing it on each local system you wish to use it Providers by just
 changing the &lt;span class="caps"&gt;URL&lt;/span&gt;.  On the other host, however, you need to chane Ollama to
 listen to all ports as by default it only listens to the&amp;nbsp;localhost.&lt;/p&gt;
-&lt;p&gt;This can be easily accomplished by&amp;nbsp;using:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;launchctl&lt;span class="w"&gt; &lt;/span&gt;setenv&lt;span class="w"&gt; &lt;/span&gt;OLLAMA_HOST&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:11434
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;And restarting Ollama.  You&amp;#8217;ll be able to connect to a remote (but still on
-the local network) Ollama and share it across multiple systems rather than
-installing it on each local system you wish to use&amp;nbsp;it.&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The obnoxious thing is this doesn&amp;#8217;t persist, so anytime you reboot your
+system you&amp;#8217;ll need to use the above and then &lt;code&gt;brew services restart
+ollama&lt;/code&gt;.  I&amp;#8217;ve not tried to figure this out yet, but it might be something
+as simple as starting a shellscript to set the environment before running
+the &lt;code&gt;brew services&lt;/code&gt; command, although I imagine there must be something
+more&amp;nbsp;elegant.&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>Security Unscripted</title><link href="https://annvix.com/blog/security-unscripted" rel="alternate"></link><published>2025-02-15T08:37:00-07:00</published><updated>2025-02-15T08:37:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-02-15:/blog/security-unscripted</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/securityunscripted.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Been working on this for a bit and now it&amp;#8217;s here!  I&amp;#8217;m really pleased to
 announce that I&amp;#8217;ve started a new podcast!  It&amp;#8217;s called &lt;a href="https://securityunscripted.org/"&gt;Security
 Unscripted&lt;/a&gt; and the goal is to be short

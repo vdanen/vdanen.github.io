@@ -245,14 +245,12 @@ the local network) Ollama and share it across multiple systems rather than
 installing it on each local system you wish to use it Providers by just
 changing the <span class="caps">URL</span>.  On the other host, however, you need to chane Ollama to
 listen to all ports as by default it only listens to the&nbsp;localhost.</p>
-<p>This can be easily accomplished by&nbsp;using:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>launchctl<span class="w"> </span>setenv<span class="w"> </span>OLLAMA_HOST<span class="w"> </span><span class="m">0</span>.0.0.0:11434
-</pre></div>
-
-
-<p>And restarting Ollama.  You&#8217;ll be able to connect to a remote (but still on
-the local network) Ollama and share it across multiple systems rather than
-installing it on each local system you wish to use&nbsp;it.</p>
+<p>The obnoxious thing is this doesn&#8217;t persist, so anytime you reboot your
+system you&#8217;ll need to use the above and then <code>brew services restart
+ollama</code>.  I&#8217;ve not tried to figure this out yet, but it might be something
+as simple as starting a shellscript to set the environment before running
+the <code>brew services</code> command, although I imagine there must be something
+more&nbsp;elegant.</p>
 
 
              

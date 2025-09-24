@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-06-03T08:30:00-06:00</updated><entry><title>Red Hat Summit 2025</title><link href="https://annvix.com/blog/red-hat-summit-2025" rel="alternate"></link><published>2025-06-03T08:30:00-06:00</published><updated>2025-06-03T08:30:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-06-03:/blog/red-hat-summit-2025</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/2025-rh-summit.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-09-24T08:30:00-06:00</updated><entry><title>Compiler: The New Security Landscape</title><link href="https://annvix.com/blog/compiler-the-new-security-landscape" rel="alternate"></link><published>2025-09-24T08:30:00-06:00</published><updated>2025-09-24T08:30:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-09-24:/blog/compiler-the-new-security-landscape</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/logo_compiler-red.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Tomorrow, the first episode of the new &lt;em&gt;Compiler&lt;/em&gt; podcast season is coming
+out, and this season is all about product security topics!  The season&amp;#8217;s
+title is &amp;#8220;&lt;em&gt;The New Security Landscape&lt;/em&gt;&amp;#8221; and we dive into quite a few topics
+pertinent to security practitioners (or simply the curious!).  I don&amp;#8217;t …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/logo_compiler-red.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Tomorrow, the first episode of the new &lt;em&gt;Compiler&lt;/em&gt; podcast season is coming
+out, and this season is all about product security topics!  The season&amp;#8217;s
+title is &amp;#8220;&lt;em&gt;The New Security Landscape&lt;/em&gt;&amp;#8221; and we dive into quite a few topics
+pertinent to security practitioners (or simply the curious!).  I don&amp;#8217;t
+think I&amp;#8217;m allowed to say what all the topics are yet so you&amp;#8217;ll need to stay&amp;nbsp;tuned!&lt;/p&gt;
+&lt;p&gt;You can get to the &lt;a href="https://www.youtube.com/playlist?list=PLbMP1JcGBmSHm_7mTlGb90EApbAHkx5Gp"&gt;Compiler podcast on
+YouTube&lt;/a&gt;
+or go to the main &lt;a href="https://www.redhat.com/en/compiler-podcast"&gt;Compiler
+podcast&lt;/a&gt; site for other ways to&amp;nbsp;listen.&lt;/p&gt;
+&lt;p&gt;Unlike my &lt;a href="https://securityunscripted.org/"&gt;Security Unscripted&lt;/a&gt; podcast,
+Compiler is just audio.  And I get to co-host this with my new bestie,
+Emily Bock.  We tried really hard to ensure that the topics don&amp;#8217;t woosh
+over most heads, and had quite a bit of fun doing it as&amp;nbsp;well.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;m really excited about this project and am grateful for the opportunity
+to be a co-host.  I love the fact that we have an entire season devoted to
+product security.  In the meantime, if you&amp;#8217;re interested in technical
+topics, check out prior seasons and episodes as there&amp;#8217;s some really cool
+topics that have been discussed in the&amp;nbsp;past.&lt;/p&gt;</content><category term="Linux"></category><category term="linux"></category></entry><entry><title>Red Hat Summit 2025</title><link href="https://annvix.com/blog/red-hat-summit-2025" rel="alternate"></link><published>2025-06-03T08:30:00-06:00</published><updated>2025-06-03T08:30:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-06-03:/blog/red-hat-summit-2025</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/2025-rh-summit.png" /&gt;&lt;/p&gt;
 &lt;p&gt;A few weeks ago I was back in Boston for Red Hat Summit 2025.  You can
 watch the &lt;a href="https://www.youtube.com/watch?v=Gr8jomztY2s"&gt;keynote for day 1&lt;/a&gt;
 and the &lt;a href="https://www.youtube.com/watch?v=reYmC1nLx34"&gt;keynote for day 2&lt;/a&gt;
@@ -4071,166 +4093,4 @@ To restore the original branch and stop patching, run "git am --abort".
 &lt;p&gt;You can run &lt;code&gt;git am --abort&lt;/code&gt; which will revert the commit attempt, to allow you to manually apply the patch and commit.  You can also use &lt;code&gt;git am --skip&lt;/code&gt; to do the same.  I suspect if you fed git something like &lt;code&gt;git am &amp;lt;~/*patch&lt;/code&gt; these commands would mean different things (abort the session versus skip the one patch) but if you&amp;#8217;re doing one patch at a time they both do the same&amp;nbsp;thing.&lt;/p&gt;
 &lt;p&gt;You can also check the log output with &lt;code&gt;git log master..HEAD --stat&lt;/code&gt; which will show that our branch contains the update, along with the appropriate author information (might be you, might be me, might be someone else).  I tend to skip the log bit and just apply one patch at a time.  Rinse and&amp;nbsp;repeat.&lt;/p&gt;
 &lt;p&gt;Finally, if you don&amp;#8217;t move your patches like I did, you can use &lt;code&gt;git clean&lt;/code&gt; to remove the patches from your working directory.  Use &amp;#8216;-n&amp;#8217; first though, so it runs in dry-run&amp;nbsp;mode.&lt;/p&gt;
-&lt;p&gt;Like I indicated earlier, there are probably simpler ways to do this, but this works for me.  I got all of this from &lt;a href="http://rypress.com/tutorials/git/patch-workflows.html"&gt;Ry&amp;#8217;s Git Tutorial on Patch Workflows&lt;/a&gt;.  Excellent&amp;nbsp;tutorial.&lt;/p&gt;</content><category term="Linux"></category><category term="git"></category></entry><entry><title>Adventures in AppleRAID</title><link href="https://annvix.com/blog/adventures-in-appleraid" rel="alternate"></link><published>2013-12-07T21:00:00-07:00</published><updated>2013-12-07T21:00:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2013-12-07:/blog/adventures-in-appleraid</id><summary type="html">&lt;p&gt;Actually, it&amp;#8217;s not much of an adventure so much as a reminder.  I&amp;#8217;m used to doing software &lt;span class="caps"&gt;RAID&lt;/span&gt; on Linux with mdadm and am fully comfortable with the commandline tools &amp;#8212; in fact, I prefer them to any &lt;span class="caps"&gt;GUI&lt;/span&gt; tools that may or may not be out there (for …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Actually, it&amp;#8217;s not much of an adventure so much as a reminder.  I&amp;#8217;m used to doing software &lt;span class="caps"&gt;RAID&lt;/span&gt; on Linux with mdadm and am fully comfortable with the commandline tools &amp;#8212; in fact, I prefer them to any &lt;span class="caps"&gt;GUI&lt;/span&gt; tools that may or may not be out there (for example, if I were to have a choice of using mdadm on the commandline versus using Anaconda to setup a &lt;span class="caps"&gt;RAID&lt;/span&gt; array, I would take the&amp;nbsp;commandline).&lt;/p&gt;
-&lt;p&gt;Anyways, I use Apple&amp;#8217;s software &lt;span class="caps"&gt;RAID&lt;/span&gt; on &lt;span class="caps"&gt;OS&lt;/span&gt; X as well.  With mdadm I&amp;#8217;m fully confident.  With Apple &lt;span class="caps"&gt;RAID&lt;/span&gt; I&amp;#8217;m not as much, primarily because I&amp;#8217;ve not had the opportunity to put it through it&amp;#8217;s paces, and also because Disk Utility is absolutely horrendous for dealing with setting the &lt;span class="caps"&gt;RAID&lt;/span&gt; arrays&amp;nbsp;up.&lt;/p&gt;
-&lt;p&gt;Anyways, I was unlucky enough in mid-2012 to buy a few of those Seagate drives that chirped.  Harmless, once I realized the drives were not going to die, but annoying nonetheless.  Suffice it to say, I&amp;#8217;ve gotten used to it.  Anyways, &lt;span class="caps"&gt;3TB&lt;/span&gt; drives are $&lt;span class="caps"&gt;130CAD&lt;/span&gt; a piece now which is pretty cheap, and these drives have been running for the last year and a half pretty much non-stop.  Between price, requiring some larger drives as offline archives (to which use I can put these chirpy drives), and really feeling like I should test the Apple &lt;span class="caps"&gt;RAID&lt;/span&gt; (last test I believe was in 10.7 and now the system is running 10.9), I figured it was a good time to give it a&amp;nbsp;go.&lt;/p&gt;
-&lt;p&gt;Simple procedure: shut down the computer, pull out one drive, pop in a new drive, fire it back up.  Because I have a &lt;span class="caps"&gt;RAID0&lt;/span&gt;+1 (so three &lt;span class="caps"&gt;RAID&lt;/span&gt; arrays, two &lt;span class="caps"&gt;RAID&lt;/span&gt; mirrors and one &lt;span class="caps"&gt;RAID&lt;/span&gt; stripe), I could pull two drives, one from each mirror array, and rebuild two at a time but I prefer to be&amp;nbsp;cautious.&lt;/p&gt;
-&lt;p&gt;Upon bootup I get the &amp;#8220;you&amp;#8217;ve inserted an uninitialized disk&amp;#8221; notice (to which I tell it to ignore the drive), get a happy degraded &lt;span class="caps"&gt;RAID&lt;/span&gt; warning from SMARTReporter, and am ready to get it back up and running.  The required commands are surprisingly&amp;nbsp;simple:&lt;/p&gt;
-&lt;pre&gt;
-% &lt;b&gt;sudo diskutil list&lt;/b&gt;
-Password:
-/dev/disk0
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *512.1 GB   disk0
-   1:                        EFI EFI                     209.7 MB   disk0s1
-   2:                  Apple_HFS fenris                  511.3 GB   disk0s2
-   3:                 Apple_Boot Recovery HD             650.0 MB   disk0s3
-&lt;b&gt;/dev/disk1
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:                                                   *3.0 TB     disk1&lt;/b&gt;
-/dev/disk2
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *3.0 TB     disk2
-   1:                        EFI EFI                     209.7 MB   disk2s1
-   2:                 Apple_RAID                         3.0 TB     disk2s2
-   3:                 Apple_Boot Boot OS X               134.2 MB   disk2s3
-/dev/disk3
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *3.0 TB     disk3
-   1:                        EFI EFI                     209.7 MB   disk3s1
-   2:                 Apple_RAID                         3.0 TB     disk3s2
-   3:                 Apple_Boot Boot OS X               134.2 MB   disk3s3
-/dev/disk4
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *3.0 TB     disk4
-   1:                        EFI EFI                     209.7 MB   disk4s1
-   2:                 Apple_RAID                         3.0 TB     disk4s2
-   3:                 Apple_Boot Boot OS X               134.2 MB   disk4s3
-/dev/disk5
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:      GUID_partition_scheme                        *3.0 TB     disk5
-   1:                        EFI EFI                     209.7 MB   disk5s1
-   2:                  Apple_HFS G-DRIVE                 3.0 TB     disk5s2
-/dev/disk6
-   #:                       TYPE NAME                    SIZE       IDENTIFIER
-   0:                  Apple_HFS Stuff                  *6.0 TB     disk6
-&lt;/pre&gt;
-
-&lt;p&gt;In this case, we&amp;#8217;ve removed the first physical drive in the Mac Pro&amp;#8217;s four bays (I have an &lt;span class="caps"&gt;SSD&lt;/span&gt; as a boot device in there as disk0), so it&amp;#8217;s disk1 we&amp;#8217;re interested in.  Make a note of the disk identifier (the one with no partitions on&amp;nbsp;it).&lt;/p&gt;
-&lt;p&gt;Next we want to see what our &lt;span class="caps"&gt;RAID&lt;/span&gt; information looks like because we need to know which array this drive needs to be added to, and we need to know the unique identifer (&lt;span class="caps"&gt;UUID&lt;/span&gt;) of the &lt;span class="caps"&gt;RAID&lt;/span&gt;&amp;nbsp;array:&lt;/p&gt;
-&lt;pre&gt;
-% &lt;b&gt;sudo diskutil appleraid list&lt;/b&gt;
-AppleRAID sets (3 found)
-===============================================================================
-Name:                 Stuff_1
-Unique ID:            A50AAB2A-D2DE-44DD-BAF0-7577072C5937
-Type:                 Mirror
-Status:               Online
-Size:                 3.0 TB (3000248958976 Bytes)
-Rebuild:              automatic
-Device Node:          -
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
-0  disk2s2   3BF8BC8C-CE09-447C-8A86-ED51E8515C3E  Online     3000248958976
-1  disk3s2   A117C08C-B375-469C-A654-EAA902E5A317  Online     3000248958976
-===============================================================================
-===============================================================================
-Name:                 Stuff
-Unique ID:            F2429656-695B-4F8C-B870-B7334DC3340D
-Type:                 Stripe
-Status:               Online
-Size:                 6.0 TB (6000497786880 Bytes)
-Rebuild:              manual
-Device Node:          disk6
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
-0  -none-    C96F3052-8EBD-45D5-9A25-29EE23957CA9  Online     3000248893440
-1  -none-    A50AAB2A-D2DE-44DD-BAF0-7577072C5937  Online     3000248893440
-===============================================================================
-===============================================================================
-Name:                 Stuff_2
-Unique ID:            &lt;b&gt;C96F3052-8EBD-45D5-9A25-29EE23957CA9&lt;/b&gt;
-Type:                 Mirror
-Status:               &lt;b&gt;Degraded&lt;/b&gt;
-Size:                 3.0 TB (3000248958976 Bytes)
-Rebuild:              automatic
-Device Node:          -
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
-&lt;b&gt;-  -none-    F3921C5D-0B94-4264-9619-0291A5147F4E  Missing/Damaged&lt;/b&gt;
-1  disk4s2   12511D3B-A21C-4BB7-B68B-DAA5E2AC0277  Online     3000248958976
-===============================================================================
-&lt;/pre&gt;
-
-&lt;p&gt;There&amp;#8217;s a few bits of info here.  The first is the uuid of our &lt;span class="caps"&gt;RAID&lt;/span&gt; mirror that it&amp;#8217;s in a degraded state (the &lt;span class="caps"&gt;RAID&lt;/span&gt; volume name is Stuff_2, above, with the uuid noted below the name).  The second bit of information we need is the uuid of the &lt;i&gt;failed&lt;/i&gt; drive (in this case, the drive I removed).  We will need to remove this missing device from the array after we add the new&amp;nbsp;one.&lt;/p&gt;
-&lt;pre&gt;
-% &lt;b&gt;sudo diskutil appleraid add member disk1 C96F3052-8EBD-45D5-9A25-29EE23957CA9&lt;/b&gt;
-Started RAID operation
-Unmounting disk
-Repartitioning disk1 so it can be in a RAID set
-Unmounting disk
-Creating the partition map
-Adding disk1s2 to the RAID Set
-Finished RAID operation
-% &lt;b&gt;sudo diskutil appleraid list&lt;/b&gt;
-AppleRAID sets (3 found)
-===============================================================================
-Name:                 Stuff_1
-Unique ID:            A50AAB2A-D2DE-44DD-BAF0-7577072C5937
-Type:                 Mirror
-Status:               Online
-Size:                 3.0 TB (3000248958976 Bytes)
-Rebuild:              automatic
-Device Node:          -
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
-0  disk2s2   3BF8BC8C-CE09-447C-8A86-ED51E8515C3E  Online     3000248958976
-1  disk3s2   A117C08C-B375-469C-A654-EAA902E5A317  Online     3000248958976
-===============================================================================
-===============================================================================
-Name:                 Stuff
-Unique ID:            F2429656-695B-4F8C-B870-B7334DC3340D
-Type:                 Stripe
-Status:               Online
-Size:                 6.0 TB (6000497786880 Bytes)
-Rebuild:              manual
-Device Node:          disk6
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
-0  -none-    C96F3052-8EBD-45D5-9A25-29EE23957CA9  Online     3000248893440
-1  -none-    A50AAB2A-D2DE-44DD-BAF0-7577072C5937  Online     3000248893440
-===============================================================================
-===============================================================================
-Name:                 Stuff_2
-Unique ID:            C96F3052-8EBD-45D5-9A25-29EE23957CA9
-Type:                 Mirror
-Status:               Degraded
-Size:                 3.0 TB (3000248958976 Bytes)
-Rebuild:              automatic
-Device Node:          -
--------------------------------------------------------------------------------
-#  DevNode   UUID                                  Status     Size
--------------------------------------------------------------------------------
--  -none-    F3921C5D-0B94-4264-9619-0291A5147F4E  Missing/Damaged
-1  disk4s2   12511D3B-A21C-4BB7-B68B-DAA5E2AC0277  Online     3000248958976
-&lt;b&gt;2  disk1s2   6A381F4D-759C-4CFB-BB38-1EA22C7D58B8  0% (Rebuilding)3000248958976&lt;/b&gt;
-===============================================================================
-&lt;/pre&gt;
-
-&lt;p&gt;Or, &lt;b&gt;sudo diskutil appleraid add member disk# [uuid-of-raid]&lt;/b&gt;
-As you can see from the above, we added the new drive (disk1) to the &lt;span class="caps"&gt;RAID&lt;/span&gt; array named Stuff_2.  And after we did so, performed another list operation, and you can see three drives associated with that array &amp;#8212; one is online, one is missing, and one is rebuilding.  Now we need to remove the missing one as we won&amp;#8217;t be adding it&amp;nbsp;back:&lt;/p&gt;
-&lt;pre&gt;
-% &lt;b&gt;sudo diskutil appleraid remove F3921C5D-0B94-4264-9619-0291A5147F4E C96F3052-8EBD-45D5-9A25-29EE23957CA9&lt;/b&gt;
-Started RAID operation
-Removing disk from RAID
-Finished RAID operation
-&lt;/pre&gt;
-
-&lt;p&gt;Or, &lt;b&gt;sudo diskutil appleraid remove [uuid-of-failed-drive] [uuid-of-raid]&lt;/b&gt;.&lt;/p&gt;
-&lt;p&gt;And that&amp;#8217;s it.  Honestly, it took me longer to type this out than it did to rebuild the &lt;span class="caps"&gt;RAID&lt;/span&gt; array.  Sadly, in that time it&amp;#8217;s only progressed to 3% rebuilt.  The downside of such large drives is the reconstruction time is a little ridiculous.  Anyways, once you&amp;#8217;ve run these commands in Terminal, if you were to fire up Disk Utility, you&amp;#8217;d see a nice little &lt;span class="caps"&gt;GUI&lt;/span&gt; progress bar that, for me, indicates it will take 4hrs to&amp;nbsp;rebuild.&lt;/p&gt;
-&lt;p&gt;Honestly, for anyone who has fought with Disk Utility to manage anything &lt;span class="caps"&gt;RAID&lt;/span&gt; in &lt;span class="caps"&gt;OS&lt;/span&gt; X, you&amp;#8217;ll appreciate how simple the diskutil commandline tool makes&amp;nbsp;things.&lt;/p&gt;</content><category term="Macos"></category><category term="raid"></category></entry></feed>
+&lt;p&gt;Like I indicated earlier, there are probably simpler ways to do this, but this works for me.  I got all of this from &lt;a href="http://rypress.com/tutorials/git/patch-workflows.html"&gt;Ry&amp;#8217;s Git Tutorial on Patch Workflows&lt;/a&gt;.  Excellent&amp;nbsp;tutorial.&lt;/p&gt;</content><category term="Linux"></category><category term="git"></category></entry></feed>

@@ -109,85 +109,83 @@
 <p>The first step was to setup the virtual machine and install Alpine.  Word to the wise: see how much space you are using <em>before</em> you create the virtual machine!  For some reason, I assumed <span class="caps">30GB</span> for the virtual machine would be enough space.  With FreeBSD jails I never had to worry about the amount of available space, it had access to the entire storage pool, which was about <span class="caps">18TB</span>.  Suffice it to say, I didn&#8217;t check, and the Gitea backup zip (which was <span class="caps">34GB</span>) quickly exceeded the space I had allocated.  Recreation of the virtual machine was&nbsp;required.</p>
 <p>This virtual machine has one very specific purpose: to host my git repos.  But to do that, more than what Alpine itself provided out of the box was required; in this case the <a href="https://www.alpinelinux.org/downloads/">virtual</a> <span class="caps">ISO</span> was chosen, which is Alpine optimized for virtual machines.  Setting up virtual machines in TrueNAS is left as an exercise to the reader &#8212; nothing really special&nbsp;there.</p>
 <p>Upon completion of the install and subsequent reboot, the community repos needed to be enabled by uncommenting the &#8220;community&#8221; line, as the root&nbsp;user:</p>
-<div class="highlight"><pre><span></span># vi /etc/apk/repositories
-# apk update
+<div class="highlight"><pre><span></span>vi<span class="w"> </span>/etc/apk/repositories
+apk<span class="w"> </span>update
 </pre></div>
 
 
-<p>Additional software needs to be installed, and some of these are preferences, like sudo and vim, while others were needed by Gitea.  MySQL was used on FreeBSD, so MariaDB needed to be installed.  After installing sudo, given that my user was in the <code>wheel</code> group, it needed to be added to <code>/etc/sudoers</code> to ensure appropriate access was&nbsp;granted.</p>
-<div class="highlight"><pre><span></span># apk add sudo vim
-# visudo
+<p>Additional software needs to be installed, and some of these are preferences, like sudo and vim, while others were needed by Gitea.  MySQL was used on FreeBSD, so MariaDB needed to be installed.  After installing sudo, given that my user was in the <code>wheel</code> group, it needed to be added to <code>/etc/sudoers</code> to ensure appropriate access was granted, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>apk<span class="w"> </span>add<span class="w"> </span>sudo<span class="w"> </span>vim
+visudo
 </pre></div>
 
 
 <h2 id="installing-mariadb">Installing MariaDB<a class="headerlink" href="#installing-mariadb" title="Permanent link"> </a></h2>
-<p>At this point, everything could be done with sudo rather than directly as root, so to install&nbsp;MariaDB:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>mariadb<span class="w"> </span>mariadb-client
-$<span class="w"> </span>sudo<span class="w"> </span>mariadb-install-db<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql
-$<span class="w"> </span>sudo<span class="w"> </span>rc-service<span class="w"> </span>mariadb<span class="w"> </span>start
+<p>At this point, everything could be done with sudo rather than directly as root, so to install MariaDB as my regular&nbsp;user:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>mariadb<span class="w"> </span>mariadb-client
+sudo<span class="w"> </span>mariadb-install-db<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql
+sudo<span class="w"> </span>rc-service<span class="w"> </span>mariadb<span class="w"> </span>start
 </pre></div>
 
 
 <p>That said, typing sudo quickly got boring so a running <code>sudo su -</code> to become root and finish things off.  Most of the subsequent commands, unless noted otherwise, are run as root.  Yes, I do security for a living and no, I don&#8217;t care about running amuck as root on a fresh system not exposed to the internet.  <span class="caps">YOLO</span> (as the kids&nbsp;say)!</p>
-<p>The next step was to secure and start MariaDB, securely create <code>~root/.mysql_secret</code> and paste the chosen root password for MariaDB in it, then start it and ensure it starts on every&nbsp;boot:</p>
-<div class="highlight"><pre><span></span><span class="gh">#</span> mariadb-secure-installation
-<span class="gh">#</span> touch ~root/.mysql_secret
-<span class="gh">#</span> chmod 600 ~root/.mysql_secret
-<span class="gh">#</span> vim ~root/.mysql_secret
-
-<span class="gh">#</span> rc-service mariadb restart
-<span class="gh">#</span> rc-update add mariadb default
+<p>The next step was to secure and start MariaDB, securely create <code>~root/.mysql_secret</code> and paste the chosen root password for MariaDB in it, then start it and ensure it starts on every boot, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>mariadb-secure-installation
+touch<span class="w"> </span>~root/.mysql_secret
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~root/.mysql_secret
+vim<span class="w"> </span>~root/.mysql_secret
+rc-service<span class="w"> </span>mariadb<span class="w"> </span>restart
+rc-update<span class="w"> </span>add<span class="w"> </span>mariadb<span class="w"> </span>default
 </pre></div>
 
 
-<p>On the FreeBSD server, dumping the MySQL database directly, rather than relying on the Gitea&nbsp;backup:</p>
-<div class="highlight"><pre><span></span># mysqldump -u root -p gitea &gt; ~/gitea-db.sql
+<p>On the FreeBSD server, dumping the MySQL database directly, rather than relying on the Gitea backup, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>mysqldump<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>gitea<span class="w"> </span>&gt;<span class="w"> </span>~/gitea-db.sql
 </pre></div>
 
 
-<p>The <code>gitea-db.sql</code> file was copied from the FreeBSD jail to the Linux virtual machine for importing into MariaDB.  At this point, MariaDB was insisting that &#8220;<span class="caps">BINLOG</span> <span class="caps">ADMIN</span>&#8221; privileges needed to be granted to the gitea user that was created to own the Gitea database.  The error it spit out was: <strong>&#8220;<span class="caps">ERROR</span> 1193 (<span class="caps">HY000</span>): Unknown system variable &#8216;GTID_PURGED&#8217;&#8221;</strong>.  It ended up being easily fixed by commenting out the &#8220;<span class="caps">GLOBAL</span>.GTID_PURGED&#8221; comment in the database dump (thanks <a href="https://stackoverflow.com/questions/45858723/error-1193-hy000-unknown-system-variable-gtid-purged">StackOverflow</a>).  Now it could be&nbsp;imported:</p>
-<div class="highlight"><pre><span></span># mariadb --default-character-set=utf8mb4 -u gitea -p gitea &lt;gitea-db.sql
+<p>The <code>gitea-db.sql</code> file was copied from the FreeBSD jail to the Linux virtual machine for importing into MariaDB.  At this point, MariaDB was insisting that &#8220;<span class="caps">BINLOG</span> <span class="caps">ADMIN</span>&#8221; privileges needed to be granted to the gitea user that was created to own the Gitea database.  The error it spit out was: <strong>&#8220;<span class="caps">ERROR</span> 1193 (<span class="caps">HY000</span>): Unknown system variable &#8216;GTID_PURGED&#8217;&#8221;</strong>.  It ended up being easily fixed by commenting out the &#8220;<span class="caps">GLOBAL</span>.GTID_PURGED&#8221; comment in the database dump (thanks <a href="https://stackoverflow.com/questions/45858723/error-1193-hy000-unknown-system-variable-gtid-purged">StackOverflow</a>).  Now it could be imported, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>mariadb<span class="w"> </span>--default-character-set<span class="o">=</span>utf8mb4<span class="w"> </span>-u<span class="w"> </span>gitea<span class="w"> </span>-p<span class="w"> </span>gitea<span class="w"> </span>&lt;gitea-db.sql
 </pre></div>
 
 
 <h2 id="installing-gitea">Installing Gitea<a class="headerlink" href="#installing-gitea" title="Permanent link"> </a></h2>
-<p>Now began the trial and error of getting Gitea installed, setup, and seeing if it could be made to work.  Obviously we need to install Gitea itself, which the Alpine community repo provides.  This was a deliberate choice, as it would have provided the appropriate init scripts and being unfamiliar with Alpine, I didn&#8217;t want to have to figure it out &#8212; it&#8217;s been quite some time since I&#8217;ve fiddled with SysV-init!  Additionally, at some point being aligned with what Alpine provided was a goal, so this was a hack to get things moved over now, rather than at some point in the&nbsp;future.</p>
-<div class="highlight"><pre><span></span># apk add gitea
+<p>Now began the trial and error of getting Gitea installed, setup, and seeing if it could be made to work.  Obviously we need to install Gitea itself, which the Alpine community repo provides.  This was a deliberate choice, as it would have provided the appropriate init scripts and being unfamiliar with Alpine, I didn&#8217;t want to have to figure it out &#8212; it&#8217;s been quite some time since I&#8217;ve fiddled with SysV-init!  Additionally, at some point being aligned with what Alpine provided was a goal, so this was a hack to get things moved over now, rather than at some point in the future.  As&nbsp;root:</p>
+<div class="highlight"><pre><span></span>apk<span class="w"> </span>add<span class="w"> </span>gitea
 </pre></div>
 
 
 <p>At the time of this adventure, what was provided by Alpine was Gitea 1.23.8 and what was in my FreeBSD jail was 1.24.2.  This is important to remember as it explains some of the madness later.  There is a <a href="https://docs.gitea.com/administration/backup-and-restore">backup and restore</a> document to follow indicating how to make the backup, and how to restore.  Simple and&nbsp;straightforward.</p>
-<p>Until it wasn&#8217;t, because an annoyance quickly arose: unzip kept spitting out a <strong>&#8220;unzip: short read&#8221;</strong> error on my backup when trying to unzip it.  At first I thought maybe due to the size there was some network-based corruption, so used rsync to copy it again to be sure &#8212; no dice, the same problem occurred.  With a little hunting, it seems the unzip that came with BusyBox (which Alpine uses) might not be able to handle such large (<span class="caps">34GB</span>) zip files, but the <em>real</em> unzip&nbsp;could:</p>
-<div class="highlight"><pre><span></span># apk add unzip
-# unzip gitea-backup-dump.zip
+<p>Until it wasn&#8217;t, because an annoyance quickly arose: unzip kept spitting out a <strong>&#8220;unzip: short read&#8221;</strong> error on my backup when trying to unzip it.  At first I thought maybe due to the size there was some network-based corruption, so used rsync to copy it again to be sure &#8212; no dice, the same problem occurred.  With a little hunting, it seems the unzip that came with BusyBox (which Alpine uses) might not be able to handle such large (<span class="caps">34GB</span>) zip files, but the <em>real</em> unzip could, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>apk<span class="w"> </span>add<span class="w"> </span>unzip
+unzip<span class="w"> </span>gitea-backup-dump.zip
 </pre></div>
 
 
 <p>This started to work, but then failed with an <strong>&#8220;error: invalid zip file with overlapped components (possible zip bomb)&#8221;</strong> error.. sigh.  So doing the rationale and safe thing, as&nbsp;root:</p>
-<div class="highlight"><pre><span></span>UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE unzip gitea-backup-dump.zip
+<div class="highlight"><pre><span></span><span class="nv">UNZIP_DISABLE_ZIPBOMB_DETECTION</span><span class="o">=</span>TRUE<span class="w"> </span>unzip<span class="w"> </span>gitea-backup-dump.zip
 </pre></div>
 
 
 <p>Remember kids, this is not the sort of stuff you want to run in production!  Fortunately, my existing Gitea server was still running and if this thing went sideways.. well, that&#8217;s what all the notes are for.&nbsp;😉</p>
-<p>This time it unzipped properly and could start moving files&nbsp;around:</p>
-<div class="highlight"><pre><span></span><span class="c1"># mv /etc/gitea/app.ini /etc/gitea/app.ini.org</span>
-<span class="c1"># cp app.ini /etc/gitea/</span>
-
-<span class="c1"># mv data/* /var/lib/gitea/data/</span>
-<span class="c1"># mv log/* /var/log/gitea/</span>
-<span class="c1"># mkdir /var/lib/gitea/git</span>
-<span class="c1"># mv repos/* /var/lib/gitea/git/</span>
+<p>This time it unzipped properly and could start moving files around, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>mv<span class="w"> </span>/etc/gitea/app.ini<span class="w"> </span>/etc/gitea/app.ini.org
+cp<span class="w"> </span>app.ini<span class="w"> </span>/etc/gitea/
+mv<span class="w"> </span>data/*<span class="w"> </span>/var/lib/gitea/data/
+mv<span class="w"> </span>log/*<span class="w"> </span>/var/log/gitea/
+mkdir<span class="w"> </span>/var/lib/gitea/git
+mv<span class="w"> </span>repos/*<span class="w"> </span>/var/lib/gitea/git/
 </pre></div>
 
 
-<p>On the FreeBSD setup, the user and group for Gitea was the <code>git</code> user.  On Alpine&#8217;s install the user is <code>gitea</code> and the group is <code>www-data</code> so there were some permissions that needed to be&nbsp;adjusted:</p>
-<div class="highlight"><pre><span></span><span class="n">chown</span><span class="w"> </span><span class="o">-</span><span class="n">R</span><span class="w"> </span><span class="n">gitea</span><span class="p">:</span><span class="n">www</span><span class="o">-</span><span class="n">data</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">gitea</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">gitea</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">gitea</span><span class="o">/</span>
+<p>On the FreeBSD setup, the user and group for Gitea was the <code>git</code> user.  On Alpine&#8217;s install the user is <code>gitea</code> and the group is <code>www-data</code> so there were some permissions that needed to be adjusted, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>chown<span class="w"> </span>-R<span class="w"> </span>gitea:www-data<span class="w"> </span>/etc/gitea<span class="w"> </span>/var/lib/gitea<span class="w"> </span>/var/log/gitea/
 </pre></div>
 
 
 <p>One thing to note: the path layouts are quite different, so the Gitea <code>app.ini</code> configuration file needed to be adjusted to the new paths.  In most cases this was just changing <code>/var/db/gitea</code> to <code>/var/lib/gitea</code> and the user for the <strong>RUN_AS</strong> option had to be changed from <code>git</code> to <code>gitea</code> as&nbsp;well.</p>
 <p>Next, the ssh keys stored in <code>/usr/local/git/.ssh</code> in the FreeBSD jail had to be copied over to <code>/var/lib/gitea/.ssh</code> in the Linux virtual machine.  These need to be corrected by running, as the gitea&nbsp;user:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>keys
+<div class="highlight"><pre><span></span>gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>keys
 </pre></div>
 
 
@@ -201,42 +199,42 @@ $<span class="w"> </span>sudo<span class="w"> </span>rc-service<span class="w"> 
 
 <p>Disappointing, but not surprising.  Also not something that was about to deter me and my enjoyable Sunday afternoon sitting on the couch fiddling with this stuff.  This was a proper adventure the likes of which I don&#8217;t often get to&nbsp;enjoy!</p>
 <p>And here&#8217;s where I decided to take the plunge: I could hold off my upgrade desires until Alpine&#8217;s community repo provided the right version of Gitea, or could I go out on a limb and grab the binary from upstream and replace what was on-disk.  My thinking was: it&#8217;s a blob of Go, pretty self-contained, and the download is literally a versioned Gitea binary.  What&#8217;s the worst that could&nbsp;happen?</p>
-<p>So I downloaded the <a href="https://dl.gitea.com/gitea/1.24.2/">1.24.2 version from upstream</a> which matched the version that was running on FreeBSD.  Slightly unorthodox, as this still an experiment and my intention, if this worked, was to ride it out until the Alpine community repo provided the right version, so I downloaded it to <code>/etc/gitea/</code> and just&#8230; changed the&nbsp;binary:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>mv<span class="w"> </span>/usr/bin/gitea<span class="w"> </span>/usr/bin/gitea-1.23.8
-$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/gitea/gitea-1.24.2-linux-amd64<span class="w"> </span>/usr/bin/gitea
-$<span class="w"> </span><span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/var/lib/gitea<span class="w"> </span>gitea
+<p>So I downloaded the <a href="https://dl.gitea.com/gitea/1.24.2/">1.24.2 version from upstream</a> which matched the version that was running on FreeBSD.  Slightly unorthodox, as this still an experiment and my intention, if this worked, was to ride it out until the Alpine community repo provided the right version, so I downloaded it to <code>/etc/gitea/</code> and just&#8230; changed the binary, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>mv<span class="w"> </span>/usr/bin/gitea<span class="w"> </span>/usr/bin/gitea-1.23.8
+ln<span class="w"> </span>-s<span class="w"> </span>/etc/gitea/gitea-1.24.2-linux-amd64<span class="w"> </span>/usr/bin/gitea
+<span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/var/lib/gitea<span class="w"> </span>gitea
 </pre></div>
 
 
-<p>Surprisingly, it worked.  Well, thus far anyways.  No errors!  And the web interface runs as well, although granted it can&#8217;t be connected to yet as it&#8217;s listening to a <span class="caps">UNIX</span> socket, but the fact that it starts without complaint is pretty&nbsp;impressive:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/var/lib/gitea<span class="w"> </span>gitea<span class="w"> </span>web<span class="w"> </span>-c<span class="w"> </span>/etc/gitea/app.ini
+<p>Surprisingly, it worked.  Well, thus far anyways.  No errors!  And the web interface runs as well, although granted it can&#8217;t be connected to yet as it&#8217;s listening to a <span class="caps">UNIX</span> socket, but the fact that it starts without complaint is pretty impressive, as the gitea&nbsp;user:</p>
+<div class="highlight"><pre><span></span><span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/var/lib/gitea<span class="w"> </span>gitea<span class="w"> </span>web<span class="w"> </span>-c<span class="w"> </span>/etc/gitea/app.ini
 </pre></div>
 
 
 <h2 id="installing-nginx">Installing nginx<a class="headerlink" href="#installing-nginx" title="Permanent link"> </a></h2>
 <p>Gitea needs a proxy web server running in front of it, and my prior install used nginx so it made sense to use the same thing here.  The contents of <code>/usr/local/etc/nginx/nginx.conf</code> on the FreeBSD setup were copied to <code>/etc/nginx/httpd.d/default.conf</code>.  The important piece is to ensure that the <strong>proxy_pass</strong> configuration directive in nginx&#8217;s <code>default.conf</code> is the same as that in Gitea&#8217;s <code>app.ini</code>.</p>
-<p>That said, now Let&#8217;s Encrypt is required because <span class="caps">SSL</span> is important.  Because my Gitea server is not accessible via the internet, <span class="caps">DNS</span> must used for verification, so a few things needed to be&nbsp;installed:</p>
-<div class="highlight"><pre><span></span># apk add certbot certbot-nginx certbot-dns
+<p>That said, now Let&#8217;s Encrypt is required because <span class="caps">SSL</span> is important.  Because my Gitea server is not accessible via the internet, <span class="caps">DNS</span> must used for verification, so a few things needed to be installed, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>apk<span class="w"> </span>add<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx<span class="w"> </span>certbot-dns
 </pre></div>
 
 
-<p>The Cloudflare credentials stored on the FreeBSD setup, which used acme.sh, are easy enough to use with certbot.  Create <code>~root/.cloudflare.ini</code> and ensure it is mode 0600 so only root can read it, then add the appropriate credentials.  To create and install the&nbsp;certificate:</p>
-<div class="highlight"><pre><span></span># certbot certonly --dns-cloudflare -d git.mydomain.com --installer nginx
+<p>The Cloudflare credentials stored on the FreeBSD setup, which used acme.sh, are easy enough to use with certbot.  Create <code>~root/.cloudflare.ini</code> and ensure it is mode 0600 so only root can read it, then add the appropriate credentials.  To create and install the certificate, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>certbot<span class="w"> </span>certonly<span class="w"> </span>--dns-cloudflare<span class="w"> </span>-d<span class="w"> </span>git.mydomain.com<span class="w"> </span>--installer<span class="w"> </span>nginx
 </pre></div>
 
 
-<p>Obviously change <code>git.mydomain.com</code> to whatever the hostname for your Gitea server is.  Finally, update the nginx configuration to point to the Let&#8217;s Encrypt certificates produced and then setup certbot for automatic renewals <a href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">following the instructions</a>.  Now we can start nginx and Gitea and make them start at&nbsp;boot:</p>
-<div class="highlight"><pre><span></span># rc-service nginx start
-# rc-update add nginx default
-# rc-service gitea start
-# rc-update add gitea default
+<p>Obviously change <code>git.mydomain.com</code> to whatever the hostname for your Gitea server is.  Finally, update the nginx configuration to point to the Let&#8217;s Encrypt certificates produced and then setup certbot for automatic renewals <a href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">following the instructions</a>.  Now we can start nginx and Gitea and make them start at boot, as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>rc-service<span class="w"> </span>nginx<span class="w"> </span>start
+rc-update<span class="w"> </span>add<span class="w"> </span>nginx<span class="w"> </span>default
+rc-service<span class="w"> </span>gitea<span class="w"> </span>start
+rc-update<span class="w"> </span>add<span class="w"> </span>gitea<span class="w"> </span>default
 </pre></div>
 
 
 <h2 id="final-steps">Final steps<a class="headerlink" href="#final-steps" title="Permanent link"> </a></h2>
 <p>At this point Gitea is running and the web interface works with <span class="caps">HTTPS</span>.  Going into the Gitea &#8220;Site Administration&#8221; settings and making sure there are no errors in the &#8220;Maintenance &gt; Self Check&#8221; section is a good idea.  That said, for this migration, there were a lot of git repos which meant there were a lot of git hooks to regenerate because the old hooks from the FreeBSD system were using different paths to the gitea binary and directories.  This is easily fixed with gitea to fix things, as the gitea&nbsp;user:</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>hooks<span class="w"> </span>--config<span class="w"> </span>/etc/gitea/app.ini
-$<span class="w"> </span>gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>keys<span class="w"> </span>--config<span class="w"> </span>/etc/gitea/app.ini
+<div class="highlight"><pre><span></span>gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>hooks<span class="w"> </span>--config<span class="w"> </span>/etc/gitea/app.ini
+gitea<span class="w"> </span>admin<span class="w"> </span>regenerate<span class="w"> </span>keys<span class="w"> </span>--config<span class="w"> </span>/etc/gitea/app.ini
 </pre></div>
 
 

@@ -8,85 +8,83 @@
 &lt;p&gt;The first step was to setup the virtual machine and install Alpine.  Word to the wise: see how much space you are using &lt;em&gt;before&lt;/em&gt; you create the virtual machine!  For some reason, I assumed &lt;span class="caps"&gt;30GB&lt;/span&gt; for the virtual machine would be enough space.  With FreeBSD jails I never had to worry about the amount of available space, it had access to the entire storage pool, which was about &lt;span class="caps"&gt;18TB&lt;/span&gt;.  Suffice it to say, I didn&amp;#8217;t check, and the Gitea backup zip (which was &lt;span class="caps"&gt;34GB&lt;/span&gt;) quickly exceeded the space I had allocated.  Recreation of the virtual machine was&amp;nbsp;required.&lt;/p&gt;
 &lt;p&gt;This virtual machine has one very specific purpose: to host my git repos.  But to do that, more than what Alpine itself provided out of the box was required; in this case the &lt;a href="https://www.alpinelinux.org/downloads/"&gt;virtual&lt;/a&gt; &lt;span class="caps"&gt;ISO&lt;/span&gt; was chosen, which is Alpine optimized for virtual machines.  Setting up virtual machines in TrueNAS is left as an exercise to the reader &amp;#8212; nothing really special&amp;nbsp;there.&lt;/p&gt;
 &lt;p&gt;Upon completion of the install and subsequent reboot, the community repos needed to be enabled by uncommenting the &amp;#8220;community&amp;#8221; line, as the root&amp;nbsp;user:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vi /etc/apk/repositories
-# apk update
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vi&lt;span class="w"&gt; &lt;/span&gt;/etc/apk/repositories
+apk&lt;span class="w"&gt; &lt;/span&gt;update
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Additional software needs to be installed, and some of these are preferences, like sudo and vim, while others were needed by Gitea.  MySQL was used on FreeBSD, so MariaDB needed to be installed.  After installing sudo, given that my user was in the &lt;code&gt;wheel&lt;/code&gt; group, it needed to be added to &lt;code&gt;/etc/sudoers&lt;/code&gt; to ensure appropriate access was&amp;nbsp;granted.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apk add sudo vim
-# visudo
+&lt;p&gt;Additional software needs to be installed, and some of these are preferences, like sudo and vim, while others were needed by Gitea.  MySQL was used on FreeBSD, so MariaDB needed to be installed.  After installing sudo, given that my user was in the &lt;code&gt;wheel&lt;/code&gt; group, it needed to be added to &lt;code&gt;/etc/sudoers&lt;/code&gt; to ensure appropriate access was granted, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;vim
+visudo
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2 id="installing-mariadb"&gt;Installing MariaDB&lt;a class="headerlink" href="#installing-mariadb" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;At this point, everything could be done with sudo rather than directly as root, so to install&amp;nbsp;MariaDB:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;mariadb-client
-$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;mariadb-install-db&lt;span class="w"&gt; &lt;/span&gt;--user&lt;span class="o"&gt;=&lt;/span&gt;mysql&lt;span class="w"&gt; &lt;/span&gt;--datadir&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/mysql
-$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;rc-service&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;start
+&lt;p&gt;At this point, everything could be done with sudo rather than directly as root, so to install MariaDB as my regular&amp;nbsp;user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;mariadb-client
+sudo&lt;span class="w"&gt; &lt;/span&gt;mariadb-install-db&lt;span class="w"&gt; &lt;/span&gt;--user&lt;span class="o"&gt;=&lt;/span&gt;mysql&lt;span class="w"&gt; &lt;/span&gt;--datadir&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/mysql
+sudo&lt;span class="w"&gt; &lt;/span&gt;rc-service&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;start
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;That said, typing sudo quickly got boring so a running &lt;code&gt;sudo su -&lt;/code&gt; to become root and finish things off.  Most of the subsequent commands, unless noted otherwise, are run as root.  Yes, I do security for a living and no, I don&amp;#8217;t care about running amuck as root on a fresh system not exposed to the internet.  &lt;span class="caps"&gt;YOLO&lt;/span&gt; (as the kids&amp;nbsp;say)!&lt;/p&gt;
-&lt;p&gt;The next step was to secure and start MariaDB, securely create &lt;code&gt;~root/.mysql_secret&lt;/code&gt; and paste the chosen root password for MariaDB in it, then start it and ensure it starts on every&amp;nbsp;boot:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gh"&gt;#&lt;/span&gt; mariadb-secure-installation
-&lt;span class="gh"&gt;#&lt;/span&gt; touch ~root/.mysql_secret
-&lt;span class="gh"&gt;#&lt;/span&gt; chmod 600 ~root/.mysql_secret
-&lt;span class="gh"&gt;#&lt;/span&gt; vim ~root/.mysql_secret
-
-&lt;span class="gh"&gt;#&lt;/span&gt; rc-service mariadb restart
-&lt;span class="gh"&gt;#&lt;/span&gt; rc-update add mariadb default
+&lt;p&gt;The next step was to secure and start MariaDB, securely create &lt;code&gt;~root/.mysql_secret&lt;/code&gt; and paste the chosen root password for MariaDB in it, then start it and ensure it starts on every boot, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mariadb-secure-installation
+touch&lt;span class="w"&gt; &lt;/span&gt;~root/.mysql_secret
+chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;600&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;~root/.mysql_secret
+vim&lt;span class="w"&gt; &lt;/span&gt;~root/.mysql_secret
+rc-service&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;restart
+rc-update&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;default
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;On the FreeBSD server, dumping the MySQL database directly, rather than relying on the Gitea&amp;nbsp;backup:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# mysqldump -u root -p gitea &amp;gt; ~/gitea-db.sql
+&lt;p&gt;On the FreeBSD server, dumping the MySQL database directly, rather than relying on the Gitea backup, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mysqldump&lt;span class="w"&gt; &lt;/span&gt;-u&lt;span class="w"&gt; &lt;/span&gt;root&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;~/gitea-db.sql
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The &lt;code&gt;gitea-db.sql&lt;/code&gt; file was copied from the FreeBSD jail to the Linux virtual machine for importing into MariaDB.  At this point, MariaDB was insisting that &amp;#8220;&lt;span class="caps"&gt;BINLOG&lt;/span&gt; &lt;span class="caps"&gt;ADMIN&lt;/span&gt;&amp;#8221; privileges needed to be granted to the gitea user that was created to own the Gitea database.  The error it spit out was: &lt;strong&gt;&amp;#8220;&lt;span class="caps"&gt;ERROR&lt;/span&gt; 1193 (&lt;span class="caps"&gt;HY000&lt;/span&gt;): Unknown system variable &amp;#8216;GTID_PURGED&amp;#8217;&amp;#8221;&lt;/strong&gt;.  It ended up being easily fixed by commenting out the &amp;#8220;&lt;span class="caps"&gt;GLOBAL&lt;/span&gt;.GTID_PURGED&amp;#8221; comment in the database dump (thanks &lt;a href="https://stackoverflow.com/questions/45858723/error-1193-hy000-unknown-system-variable-gtid-purged"&gt;StackOverflow&lt;/a&gt;).  Now it could be&amp;nbsp;imported:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# mariadb --default-character-set=utf8mb4 -u gitea -p gitea &amp;lt;gitea-db.sql
+&lt;p&gt;The &lt;code&gt;gitea-db.sql&lt;/code&gt; file was copied from the FreeBSD jail to the Linux virtual machine for importing into MariaDB.  At this point, MariaDB was insisting that &amp;#8220;&lt;span class="caps"&gt;BINLOG&lt;/span&gt; &lt;span class="caps"&gt;ADMIN&lt;/span&gt;&amp;#8221; privileges needed to be granted to the gitea user that was created to own the Gitea database.  The error it spit out was: &lt;strong&gt;&amp;#8220;&lt;span class="caps"&gt;ERROR&lt;/span&gt; 1193 (&lt;span class="caps"&gt;HY000&lt;/span&gt;): Unknown system variable &amp;#8216;GTID_PURGED&amp;#8217;&amp;#8221;&lt;/strong&gt;.  It ended up being easily fixed by commenting out the &amp;#8220;&lt;span class="caps"&gt;GLOBAL&lt;/span&gt;.GTID_PURGED&amp;#8221; comment in the database dump (thanks &lt;a href="https://stackoverflow.com/questions/45858723/error-1193-hy000-unknown-system-variable-gtid-purged"&gt;StackOverflow&lt;/a&gt;).  Now it could be imported, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mariadb&lt;span class="w"&gt; &lt;/span&gt;--default-character-set&lt;span class="o"&gt;=&lt;/span&gt;utf8mb4&lt;span class="w"&gt; &lt;/span&gt;-u&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;gitea-db.sql
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2 id="installing-gitea"&gt;Installing Gitea&lt;a class="headerlink" href="#installing-gitea" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Now began the trial and error of getting Gitea installed, setup, and seeing if it could be made to work.  Obviously we need to install Gitea itself, which the Alpine community repo provides.  This was a deliberate choice, as it would have provided the appropriate init scripts and being unfamiliar with Alpine, I didn&amp;#8217;t want to have to figure it out &amp;#8212; it&amp;#8217;s been quite some time since I&amp;#8217;ve fiddled with SysV-init!  Additionally, at some point being aligned with what Alpine provided was a goal, so this was a hack to get things moved over now, rather than at some point in the&amp;nbsp;future.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apk add gitea
+&lt;p&gt;Now began the trial and error of getting Gitea installed, setup, and seeing if it could be made to work.  Obviously we need to install Gitea itself, which the Alpine community repo provides.  This was a deliberate choice, as it would have provided the appropriate init scripts and being unfamiliar with Alpine, I didn&amp;#8217;t want to have to figure it out &amp;#8212; it&amp;#8217;s been quite some time since I&amp;#8217;ve fiddled with SysV-init!  Additionally, at some point being aligned with what Alpine provided was a goal, so this was a hack to get things moved over now, rather than at some point in the future.  As&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;gitea
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;At the time of this adventure, what was provided by Alpine was Gitea 1.23.8 and what was in my FreeBSD jail was 1.24.2.  This is important to remember as it explains some of the madness later.  There is a &lt;a href="https://docs.gitea.com/administration/backup-and-restore"&gt;backup and restore&lt;/a&gt; document to follow indicating how to make the backup, and how to restore.  Simple and&amp;nbsp;straightforward.&lt;/p&gt;
-&lt;p&gt;Until it wasn&amp;#8217;t, because an annoyance quickly arose: unzip kept spitting out a &lt;strong&gt;&amp;#8220;unzip: short read&amp;#8221;&lt;/strong&gt; error on my backup when trying to unzip it.  At first I thought maybe due to the size there was some network-based corruption, so used rsync to copy it again to be sure &amp;#8212; no dice, the same problem occurred.  With a little hunting, it seems the unzip that came with BusyBox (which Alpine uses) might not be able to handle such large (&lt;span class="caps"&gt;34GB&lt;/span&gt;) zip files, but the &lt;em&gt;real&lt;/em&gt; unzip&amp;nbsp;could:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apk add unzip
-# unzip gitea-backup-dump.zip
+&lt;p&gt;Until it wasn&amp;#8217;t, because an annoyance quickly arose: unzip kept spitting out a &lt;strong&gt;&amp;#8220;unzip: short read&amp;#8221;&lt;/strong&gt; error on my backup when trying to unzip it.  At first I thought maybe due to the size there was some network-based corruption, so used rsync to copy it again to be sure &amp;#8212; no dice, the same problem occurred.  With a little hunting, it seems the unzip that came with BusyBox (which Alpine uses) might not be able to handle such large (&lt;span class="caps"&gt;34GB&lt;/span&gt;) zip files, but the &lt;em&gt;real&lt;/em&gt; unzip could, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;unzip
+unzip&lt;span class="w"&gt; &lt;/span&gt;gitea-backup-dump.zip
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This started to work, but then failed with an &lt;strong&gt;&amp;#8220;error: invalid zip file with overlapped components (possible zip bomb)&amp;#8221;&lt;/strong&gt; error.. sigh.  So doing the rationale and safe thing, as&amp;nbsp;root:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE unzip gitea-backup-dump.zip
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;UNZIP_DISABLE_ZIPBOMB_DETECTION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;TRUE&lt;span class="w"&gt; &lt;/span&gt;unzip&lt;span class="w"&gt; &lt;/span&gt;gitea-backup-dump.zip
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Remember kids, this is not the sort of stuff you want to run in production!  Fortunately, my existing Gitea server was still running and if this thing went sideways.. well, that&amp;#8217;s what all the notes are for.&amp;nbsp;😉&lt;/p&gt;
-&lt;p&gt;This time it unzipped properly and could start moving files&amp;nbsp;around:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# mv /etc/gitea/app.ini /etc/gitea/app.ini.org&lt;/span&gt;
-&lt;span class="c1"&gt;# cp app.ini /etc/gitea/&lt;/span&gt;
-
-&lt;span class="c1"&gt;# mv data/* /var/lib/gitea/data/&lt;/span&gt;
-&lt;span class="c1"&gt;# mv log/* /var/log/gitea/&lt;/span&gt;
-&lt;span class="c1"&gt;# mkdir /var/lib/gitea/git&lt;/span&gt;
-&lt;span class="c1"&gt;# mv repos/* /var/lib/gitea/git/&lt;/span&gt;
+&lt;p&gt;This time it unzipped properly and could start moving files around, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mv&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini.org
+cp&lt;span class="w"&gt; &lt;/span&gt;app.ini&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/
+mv&lt;span class="w"&gt; &lt;/span&gt;data/*&lt;span class="w"&gt; &lt;/span&gt;/var/lib/gitea/data/
+mv&lt;span class="w"&gt; &lt;/span&gt;log/*&lt;span class="w"&gt; &lt;/span&gt;/var/log/gitea/
+mkdir&lt;span class="w"&gt; &lt;/span&gt;/var/lib/gitea/git
+mv&lt;span class="w"&gt; &lt;/span&gt;repos/*&lt;span class="w"&gt; &lt;/span&gt;/var/lib/gitea/git/
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;On the FreeBSD setup, the user and group for Gitea was the &lt;code&gt;git&lt;/code&gt; user.  On Alpine&amp;#8217;s install the user is &lt;code&gt;gitea&lt;/code&gt; and the group is &lt;code&gt;www-data&lt;/code&gt; so there were some permissions that needed to be&amp;nbsp;adjusted:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;chown&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;gitea&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gitea&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gitea&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gitea&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;p&gt;On the FreeBSD setup, the user and group for Gitea was the &lt;code&gt;git&lt;/code&gt; user.  On Alpine&amp;#8217;s install the user is &lt;code&gt;gitea&lt;/code&gt; and the group is &lt;code&gt;www-data&lt;/code&gt; so there were some permissions that needed to be adjusted, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chown&lt;span class="w"&gt; &lt;/span&gt;-R&lt;span class="w"&gt; &lt;/span&gt;gitea:www-data&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea&lt;span class="w"&gt; &lt;/span&gt;/var/lib/gitea&lt;span class="w"&gt; &lt;/span&gt;/var/log/gitea/
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;One thing to note: the path layouts are quite different, so the Gitea &lt;code&gt;app.ini&lt;/code&gt; configuration file needed to be adjusted to the new paths.  In most cases this was just changing &lt;code&gt;/var/db/gitea&lt;/code&gt; to &lt;code&gt;/var/lib/gitea&lt;/code&gt; and the user for the &lt;strong&gt;RUN_AS&lt;/strong&gt; option had to be changed from &lt;code&gt;git&lt;/code&gt; to &lt;code&gt;gitea&lt;/code&gt; as&amp;nbsp;well.&lt;/p&gt;
 &lt;p&gt;Next, the ssh keys stored in &lt;code&gt;/usr/local/git/.ssh&lt;/code&gt; in the FreeBSD jail had to be copied over to &lt;code&gt;/var/lib/gitea/.ssh&lt;/code&gt; in the Linux virtual machine.  These need to be corrected by running, as the gitea&amp;nbsp;user:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;keys
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;keys
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -100,42 +98,42 @@ $&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;rc-
 
 &lt;p&gt;Disappointing, but not surprising.  Also not something that was about to deter me and my enjoyable Sunday afternoon sitting on the couch fiddling with this stuff.  This was a proper adventure the likes of which I don&amp;#8217;t often get to&amp;nbsp;enjoy!&lt;/p&gt;
 &lt;p&gt;And here&amp;#8217;s where I decided to take the plunge: I could hold off my upgrade desires until Alpine&amp;#8217;s community repo provided the right version of Gitea, or could I go out on a limb and grab the binary from upstream and replace what was on-disk.  My thinking was: it&amp;#8217;s a blob of Go, pretty self-contained, and the download is literally a versioned Gitea binary.  What&amp;#8217;s the worst that could&amp;nbsp;happen?&lt;/p&gt;
-&lt;p&gt;So I downloaded the &lt;a href="https://dl.gitea.com/gitea/1.24.2/"&gt;1.24.2 version from upstream&lt;/a&gt; which matched the version that was running on FreeBSD.  Slightly unorthodox, as this still an experiment and my intention, if this worked, was to ride it out until the Alpine community repo provided the right version, so I downloaded it to &lt;code&gt;/etc/gitea/&lt;/code&gt; and just&amp;#8230; changed the&amp;nbsp;binary:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;mv&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea-1.23.8
-$&lt;span class="w"&gt; &lt;/span&gt;ln&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/gitea-1.24.2-linux-amd64&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea
-$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;GITEA_WORK_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/gitea&lt;span class="w"&gt; &lt;/span&gt;gitea
+&lt;p&gt;So I downloaded the &lt;a href="https://dl.gitea.com/gitea/1.24.2/"&gt;1.24.2 version from upstream&lt;/a&gt; which matched the version that was running on FreeBSD.  Slightly unorthodox, as this still an experiment and my intention, if this worked, was to ride it out until the Alpine community repo provided the right version, so I downloaded it to &lt;code&gt;/etc/gitea/&lt;/code&gt; and just&amp;#8230; changed the binary, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mv&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea-1.23.8
+ln&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/gitea-1.24.2-linux-amd64&lt;span class="w"&gt; &lt;/span&gt;/usr/bin/gitea
+&lt;span class="nv"&gt;GITEA_WORK_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/gitea&lt;span class="w"&gt; &lt;/span&gt;gitea
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Surprisingly, it worked.  Well, thus far anyways.  No errors!  And the web interface runs as well, although granted it can&amp;#8217;t be connected to yet as it&amp;#8217;s listening to a &lt;span class="caps"&gt;UNIX&lt;/span&gt; socket, but the fact that it starts without complaint is pretty&amp;nbsp;impressive:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;GITEA_WORK_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/gitea&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;web&lt;span class="w"&gt; &lt;/span&gt;-c&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
+&lt;p&gt;Surprisingly, it worked.  Well, thus far anyways.  No errors!  And the web interface runs as well, although granted it can&amp;#8217;t be connected to yet as it&amp;#8217;s listening to a &lt;span class="caps"&gt;UNIX&lt;/span&gt; socket, but the fact that it starts without complaint is pretty impressive, as the gitea&amp;nbsp;user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;GITEA_WORK_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/lib/gitea&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;web&lt;span class="w"&gt; &lt;/span&gt;-c&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2 id="installing-nginx"&gt;Installing nginx&lt;a class="headerlink" href="#installing-nginx" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Gitea needs a proxy web server running in front of it, and my prior install used nginx so it made sense to use the same thing here.  The contents of &lt;code&gt;/usr/local/etc/nginx/nginx.conf&lt;/code&gt; on the FreeBSD setup were copied to &lt;code&gt;/etc/nginx/httpd.d/default.conf&lt;/code&gt;.  The important piece is to ensure that the &lt;strong&gt;proxy_pass&lt;/strong&gt; configuration directive in nginx&amp;#8217;s &lt;code&gt;default.conf&lt;/code&gt; is the same as that in Gitea&amp;#8217;s &lt;code&gt;app.ini&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;That said, now Let&amp;#8217;s Encrypt is required because &lt;span class="caps"&gt;SSL&lt;/span&gt; is important.  Because my Gitea server is not accessible via the internet, &lt;span class="caps"&gt;DNS&lt;/span&gt; must used for verification, so a few things needed to be&amp;nbsp;installed:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apk add certbot certbot-nginx certbot-dns
+&lt;p&gt;That said, now Let&amp;#8217;s Encrypt is required because &lt;span class="caps"&gt;SSL&lt;/span&gt; is important.  Because my Gitea server is not accessible via the internet, &lt;span class="caps"&gt;DNS&lt;/span&gt; must used for verification, so a few things needed to be installed, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apk&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;certbot&lt;span class="w"&gt; &lt;/span&gt;certbot-nginx&lt;span class="w"&gt; &lt;/span&gt;certbot-dns
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The Cloudflare credentials stored on the FreeBSD setup, which used acme.sh, are easy enough to use with certbot.  Create &lt;code&gt;~root/.cloudflare.ini&lt;/code&gt; and ensure it is mode 0600 so only root can read it, then add the appropriate credentials.  To create and install the&amp;nbsp;certificate:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# certbot certonly --dns-cloudflare -d git.mydomain.com --installer nginx
+&lt;p&gt;The Cloudflare credentials stored on the FreeBSD setup, which used acme.sh, are easy enough to use with certbot.  Create &lt;code&gt;~root/.cloudflare.ini&lt;/code&gt; and ensure it is mode 0600 so only root can read it, then add the appropriate credentials.  To create and install the certificate, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;certbot&lt;span class="w"&gt; &lt;/span&gt;certonly&lt;span class="w"&gt; &lt;/span&gt;--dns-cloudflare&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;git.mydomain.com&lt;span class="w"&gt; &lt;/span&gt;--installer&lt;span class="w"&gt; &lt;/span&gt;nginx
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Obviously change &lt;code&gt;git.mydomain.com&lt;/code&gt; to whatever the hostname for your Gitea server is.  Finally, update the nginx configuration to point to the Let&amp;#8217;s Encrypt certificates produced and then setup certbot for automatic renewals &lt;a href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal"&gt;following the instructions&lt;/a&gt;.  Now we can start nginx and Gitea and make them start at&amp;nbsp;boot:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# rc-service nginx start
-# rc-update add nginx default
-# rc-service gitea start
-# rc-update add gitea default
+&lt;p&gt;Obviously change &lt;code&gt;git.mydomain.com&lt;/code&gt; to whatever the hostname for your Gitea server is.  Finally, update the nginx configuration to point to the Let&amp;#8217;s Encrypt certificates produced and then setup certbot for automatic renewals &lt;a href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal"&gt;following the instructions&lt;/a&gt;.  Now we can start nginx and Gitea and make them start at boot, as&amp;nbsp;root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;rc-service&lt;span class="w"&gt; &lt;/span&gt;nginx&lt;span class="w"&gt; &lt;/span&gt;start
+rc-update&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;nginx&lt;span class="w"&gt; &lt;/span&gt;default
+rc-service&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;start
+rc-update&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;default
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2 id="final-steps"&gt;Final steps&lt;a class="headerlink" href="#final-steps" title="Permanent link"&gt; &lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;At this point Gitea is running and the web interface works with &lt;span class="caps"&gt;HTTPS&lt;/span&gt;.  Going into the Gitea &amp;#8220;Site Administration&amp;#8221; settings and making sure there are no errors in the &amp;#8220;Maintenance &amp;gt; Self Check&amp;#8221; section is a good idea.  That said, for this migration, there were a lot of git repos which meant there were a lot of git hooks to regenerate because the old hooks from the FreeBSD system were using different paths to the gitea binary and directories.  This is easily fixed with gitea to fix things, as the gitea&amp;nbsp;user:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;hooks&lt;span class="w"&gt; &lt;/span&gt;--config&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
-$&lt;span class="w"&gt; &lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;keys&lt;span class="w"&gt; &lt;/span&gt;--config&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;hooks&lt;span class="w"&gt; &lt;/span&gt;--config&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
+gitea&lt;span class="w"&gt; &lt;/span&gt;admin&lt;span class="w"&gt; &lt;/span&gt;regenerate&lt;span class="w"&gt; &lt;/span&gt;keys&lt;span class="w"&gt; &lt;/span&gt;--config&lt;span class="w"&gt; &lt;/span&gt;/etc/gitea/app.ini
 &lt;/pre&gt;&lt;/div&gt;
 
 

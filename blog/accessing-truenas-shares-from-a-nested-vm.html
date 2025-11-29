@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Vincent Danen" />
+
+        <meta name="description" content="In my previous article on moving Gitea from FreeBSD to Linux I ended the post noting that I needed to be able to share the host NAS filesystem with a virtual machine it was hosting. In my case, this is so that Gitea backups could be stored on the NAS …
+" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="linux, truenas, samba, fedora, alpine, Linux, " />
+
+<meta property="og:title" content="Accessing TrueNAS shares from a nested VM "/>
+<meta property="og:url" content="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm" />
+<meta property="og:description" content="In my previous article on moving Gitea from FreeBSD to Linux I ended the post noting that I needed to be able to share the host NAS filesystem with a virtual machine it was hosting. In my case, this is so that Gitea backups could be stored on the NAS …" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta property="og:article:published_time" content="2025-11-29T11:37:00-07:00" />
+<meta name="twitter:title" content="Accessing TrueNAS shares from a nested VM ">
+<meta name="twitter:description" content="In my previous article on moving Gitea from FreeBSD to Linux I ended the post noting that I needed to be able to share the host NAS filesystem with a virtual machine it was hosting. In my case, this is so that Gitea backups could be stored on the NAS …">
+
+        <title>Accessing TrueNAS shares from a nested VM  · Annvix
+</title>
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5JGVD90SKJ');
+</script>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://annvix.com
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm">
+                Accessing TrueNAS shares from a nested <span class="caps">VM</span>
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>In my previous article on <a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux">moving Gitea from FreeBSD to Linux</a> I ended the post noting that I needed to be able to share the host <span class="caps">NAS</span> filesystem with a virtual machine it was hosting.  In my case, this is so that Gitea backups could be stored on the <span class="caps">NAS</span> external to the virtual machine, but in the near future when I migrate Plex my media library will need to be available for Plex running in a <span class="caps">VM</span>, without an enormous <span class="caps">VM</span> for all the data.  And while I could mount a samba share from the other TrueNAS box to the <span class="caps">VM</span>, having it all running on the same system is the&nbsp;goal.</p>
+<h2 id="truenas-bridge-network">TrueNAS bridge network<a class="headerlink" href="#truenas-bridge-network" title="Permanent link"> </a></h2>
+<p>To do this, the first thing you need to do is setup bridge networking.  I found a good YouTube video for this, and while it was recorded for TrueNAS Scale 25.04 it works the same on the 25.10 release I&#8217;m using: <a href="https://www.youtube.com/watch?v=XBcAMd_wyI0">Building a Network Bridge in TrueNAS Fangtooth (25.04)</a>.  This is a pretty short, straightforward video.  The only caveat I&#8217;ll add is make sure you turn off all of your virtual machines <em>before</em> you attempt it or it will&nbsp;fail.</p>
+<p>Once you have a working bridge adapter (<code>br1</code> in my case) then you need to go back to the virtual machine settings to change the network adapter.  So for my Gitea <span class="caps">VM</span> I went and expanded the virtual machine and clicked on <em>Devices</em> to change the network settings.  This would be <em>Devices</em> -&gt; <em><span class="caps">NIC</span></em> -&gt; <em>Edit</em> -&gt; <em><span class="caps">NIC</span> To Attach</em> which will be set to whatever the physical <span class="caps">NIC</span> is.  Change it to <code>br1</code> (or whatever you named your bridge network adapter).  Do this for all of the virtual machines before starting&nbsp;them.</p>
+<h2 id="serial-shell-for-vms">Serial shell for VMs<a class="headerlink" href="#serial-shell-for-vms" title="Permanent link"> </a></h2>
+<p>While I was fiddling around, I also setup serial console support in my guest VMs.  Typically I interact with them via <span class="caps">SSH</span> but sometimes if you&#8217;ve not started a <span class="caps">VM</span> for a while and the <span class="caps">DHCP</span> lease expires, you might find yourself not being able to <span class="caps">SSH</span> into the <span class="caps">VM</span> because the <span class="caps">IP</span> has changed.  Using the <span class="caps">SPICE</span> client to connect is ok, but really slow.  TrueNAS gives you a wonderful way to get to your virtual machine and open a <em>Serial Shell</em> but only if you configure the guest&nbsp;first.</p>
+<p>With the <span class="caps">VM</span> started, either <span class="caps">SSH</span> in or use the <em>Display</em> button to launch the <span class="caps">SPICE</span> console.  Login and obtain a root&nbsp;shell.</p>
+<p>If your guest is Debian-based, or Alpine Linux in my case, you&#8217;ll want to edit the <code>/etc/default/grub</code> and&nbsp;add:</p>
+<div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;console=tty0 console=ttyS0,19200n8&quot;
+GRUB_TERMINAL=serial
+GRUB_SERIAL_COMMAND=&quot;serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1&quot;
+</pre></div>
+
+
+<p>Most likely there is already a <em>GRUB_CMDLINE_LINUX</em> entry so do not <em>replace</em> the entry with the one above!  You want to <em>add</em> the <code>console</code> options to the existing&nbsp;entry.</p>
+<p>Once this is done, you&#8217;ll need to run the following commands as&nbsp;root:</p>
+<div class="highlight"><pre><span></span>update-grub
+reboot
+</pre></div>
+
+
+<p>Once rebooted, you should be able to log in via the <em>Serial Shell</em> button in the TrueNAS virtual machine&nbsp;list.</p>
+<p>If you&#8217;re using <span class="caps">RHEL</span> or Fedora or similar, you&#8217;ll need to do something different.  Red Hat has some good <a href="https://access.redhat.com/articles/3166931#config910">documentation</a> but in a nutshell you&#8217;ll need to run the following as root by using the <code>grubby</code> command.  It&#8217;ll look something like&nbsp;this:</p>
+<div class="highlight"><pre><span></span>grubby<span class="w"> </span>--info<span class="o">=</span>ALL<span class="p">|</span>grep<span class="w"> </span>-i<span class="w"> </span>args
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2">&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2">&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2">&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet&quot;</span>
+
+grubby<span class="w"> </span>--update-kernel<span class="o">=</span>ALL<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;console=tty0 console=ttyS0,115200&quot;</span>
+
+grubby<span class="w"> </span>--info<span class="o">=</span>ALL<span class="p">|</span>grep<span class="w"> </span>-i<span class="w"> </span>args
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2"> console=tty0 console=ttyS0,115200&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2"> console=tty0 console=ttyS0,115200&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet </span><span class="nv">$tuned_params</span><span class="s2"> console=tty0 console=ttyS0,115200&quot;</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;ro crashkernel=2G-64G:256M,64G-:512M resume=UUID=9ed6ca57-b228-47b2-a623-f29457aa6342 rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet console=tty0 console=ttyS0,115200&quot;</span>
+
+reboot
+</pre></div>
+
+
+<p>The important command is <code>grubby --update-kernel=ALL --args="console=tty0 console=ttyS0,115200"</code></p>
+<p>Once this is rebooted, you&#8217;ll also be able to use the <em>Serial Shell</em> for <span class="caps">RHEL</span>/Fedora-based virtual machines which is significantly faster than using <span class="caps">SPICE</span>.</p>
+<h2 id="mounting-samba-shares-in-the-vm">Mounting Samba shares in the <span class="caps">VM</span><a class="headerlink" href="#mounting-samba-shares-in-the-vm" title="Permanent link"> </a></h2>
+<p>All of this was done for the purpose of mounting Samba shares inside the virtual machine.  You&#8217;ll want to make sure that you have the Samba client packages installed in whichever distro you&#8217;re using.  On&nbsp;Alpine:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>cifs-utils<span class="w"> </span>samba-client
+</pre></div>
+
+
+<p>On&nbsp;Fedora:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>samba-client
+</pre></div>
+
+
+<p>In the virtual machine guest, try listing shares with a valid&nbsp;user:</p>
+<div class="highlight"><pre><span></span>smbclient<span class="w"> </span>-L<span class="w"> </span>//&lt;ip&gt;<span class="w"> </span>-U<span class="w"> </span>&lt;user&gt;
+</pre></div>
+
+
+<p>Specify the user&#8217;s password.  If you&#8217;ve not setup specific users, this will be your user account.  In my case, I made two users: <em>gitea</em> and <em>plex</em> and gave them access to specific shares: <em>gitea</em> has access to the git backup share, and <em>plex</em> has access to where my Plex media will end up&nbsp;living.</p>
+<p>If you can successfully authenticate, it&#8217;s time to add an entry to <code>/etc/fstab</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">//&lt;ip&gt;/&lt;share name&gt; /mnt/&lt;directory name&gt; cifs credentials=/root/.smbcredentials,nofail,uid=&lt;local uid&gt;,gid=&lt;local gid&gt;,vers=3.0,sec=ntlmv2 0 0</span>
+</pre></div>
+
+
+<p>This takes a little explanation.  In the above you&#8217;ll need to&nbsp;change:</p>
+<ul>
+<li><ip>: the <span class="caps">IP</span> address of the <span class="caps">NAS</span>&nbsp;host</li>
+<li><share name>: the Samba share name on the <span class="caps">NAS</span> host (i.e. <em>gitbackup</em>)</li>
+<li><directory name>: the directory where to mount the share (i.e. <em>/mnt/gitbackup</em>)</li>
+<li><local uid>: the <span class="caps">UID</span> of the local user that will own the files on the share, in my case it&#8217;s the <em>gitea</em> user on the virtual&nbsp;machine</li>
+<li><local gid>: the <span class="caps">GID</span> of the local user that will own the files on the&nbsp;share</li>
+</ul>
+<p>Now we need to store the credentials in <code>/root/.smbcredentials</code> so that the system can authenticate when mounting.  The most secure way to do this&nbsp;is:</p>
+<div class="highlight"><pre><span></span>touch<span class="w"> </span>/root/.smbcredentials
+chmod<span class="w"> </span><span class="m">0600</span><span class="w"> </span>/root/.smbcredentials
+vim<span class="w"> </span>/root/.smbcredentials
+</pre></div>
+
+
+<p>Put the user and password information in the file&nbsp;like:</p>
+<div class="highlight"><pre><span></span>username=USER
+password=PASSWORD
+</pre></div>
+
+
+<p>When the file is saved, try to mount&nbsp;it:</p>
+<div class="highlight"><pre><span></span>mount<span class="w"> </span>-a
+mount<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cifs
+</pre></div>
+
+
+<p>If this is successful, you should see the share mounted.  Browse the directory you mounted to make sure that you expect to see there is actually there.  By setting it up this way, whenever the <span class="caps">VM</span> reboots the Samba share should automatically&nbsp;mount.</p>
+<p>For both of my projects, I can now run a fairly light and small virtual machine to access the host filesystem.  It works quite well and is exactly what I&nbsp;wanted.</p>
+<p>The next steps now are to setup a new virtual machine for Plex; I&#8217;m going to use Fedora and found an <a href="https://linuxcapable.com/install-plex-media-server-on-fedora-linux/">installation guide</a> that looks promising.  I&#8217;m just waiting for a new NVMe <span class="caps">SSD</span> I ordered to arrive which is where I&#8217;m going to be running my containers and virtual machines off of (hopefully I can migrate the virtual machine datasets easily from one pool to another!).  This will let me keep the <span class="caps">NAS</span> storage for just that, and run my containers and VMs on something a little more&nbsp;zippy.</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Accessing%20TrueNAS%20shares%20from%20a%20nested%20VM&url=https%3A//annvix.com/blog/accessing-truenas-shares-from-a-nested-vm&hashtags=linux,truenas,samba,fedora,alpine" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/accessing-truenas-shares-from-a-nested-vm&title=Accessing%20TrueNAS%20shares%20from%20a%20nested%20VM&summary=In%20my%20previous%20article%20on%20moving%20Gitea%20from%20FreeBSD%20to%20Linux%20I%20ended%20the%20post%20noting%20that%20I%20needed%20to%20be%20able%20to%20share%20the%20host%20NAS%20filesystem%20with%20a%20virtual%20machine%20it%20was%20hosting.%20%20In%20my%20case%2C%20this%20is%20so%20that%20Gitea%20backups%20could%20be%20stored%20on%20the%20NAS%20%E2%80%A6&source=https%3A//annvix.com/blog/accessing-truenas-shares-from-a-nested-vm" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/holiday-hacking" title="Holiday Hacking">Holiday Hacking</a></li>
+<li><a href="https://annvix.com/blog/security-unscripted" title="Security Unscripted">Security Unscripted</a></li>
+<li><a href="https://annvix.com/blog/red-hat-summit-2025" title="Red Hat Summit 2025">Red Hat Summit 2025</a></li>
+<li><a href="https://annvix.com/blog/compiler-the-new-security-landscape" title="Compiler: The New Security Landscape">Compiler: The New Security Landscape</a></li>
+<li><a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux" title="Moving Gitea from FreeBSD to Linux">Moving Gitea from FreeBSD to Linux</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux" title="Previous: Moving Gitea from FreeBSD to Linux">Moving Gitea from FreeBSD to Linux</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2025-11-29T11:37:00-07:00">Nov 29, 2025</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#alpine-ref">alpine
+                    <span class="superscript">2</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#fedora-ref">fedora
+                    <span class="superscript">16</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">20</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#samba-ref">samba
+                    <span class="superscript">3</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#truenas-ref">truenas
+                    <span class="superscript">5</span>
+</a></li>
+            </ul>
+<h4>Stay in touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://github.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/vdanen/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://infosec.exchange/@vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Copyright &copy; 2024 Vincent Danen
+    </div>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

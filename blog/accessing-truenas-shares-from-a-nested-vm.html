@@ -167,11 +167,11 @@ reboot
 
 <p>This takes a little explanation.  In the above you&#8217;ll need to&nbsp;change:</p>
 <ul>
-<li><ip>: the <span class="caps">IP</span> address of the <span class="caps">NAS</span>&nbsp;host</li>
-<li><share name>: the Samba share name on the <span class="caps">NAS</span> host (i.e. <em>gitbackup</em>)</li>
-<li><directory name>: the directory where to mount the share (i.e. <em>/mnt/gitbackup</em>)</li>
-<li><local uid>: the <span class="caps">UID</span> of the local user that will own the files on the share, in my case it&#8217;s the <em>gitea</em> user on the virtual&nbsp;machine</li>
-<li><local gid>: the <span class="caps">GID</span> of the local user that will own the files on the&nbsp;share</li>
+<li>\&lt;ip>: the <span class="caps">IP</span> address of the <span class="caps">NAS</span>&nbsp;host</li>
+<li>\&lt;share name>: the Samba share name on the <span class="caps">NAS</span> host (i.e. <em>gitbackup</em>)</li>
+<li>\&lt;directory name>: the directory where to mount the share (i.e. <em>/mnt/gitbackup</em>)</li>
+<li>\&lt;local uid>: the <span class="caps">UID</span> of the local user that will own the files on the share, in my case it&#8217;s the <em>gitea</em> user on the virtual&nbsp;machine</li>
+<li>\&lt;local gid>: the <span class="caps">GID</span> of the local user that will own the files on the&nbsp;share</li>
 </ul>
 <p>Now we need to store the credentials in <code>/root/.smbcredentials</code> so that the system can authenticate when mounting.  The most secure way to do this&nbsp;is:</p>
 <div class="highlight"><pre><span></span>touch<span class="w"> </span>/root/.smbcredentials

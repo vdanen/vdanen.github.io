@@ -66,11 +66,11 @@ reboot
 
 &lt;p&gt;This takes a little explanation.  In the above you&amp;#8217;ll need to&amp;nbsp;change:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;ip&gt;: the &lt;span class="caps"&gt;IP&lt;/span&gt; address of the &lt;span class="caps"&gt;NAS&lt;/span&gt;&amp;nbsp;host&lt;/li&gt;
-&lt;li&gt;&lt;share name&gt;: the Samba share name on the &lt;span class="caps"&gt;NAS&lt;/span&gt; host (i.e. &lt;em&gt;gitbackup&lt;/em&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;directory name&gt;: the directory where to mount the share (i.e. &lt;em&gt;/mnt/gitbackup&lt;/em&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;local uid&gt;: the &lt;span class="caps"&gt;UID&lt;/span&gt; of the local user that will own the files on the share, in my case it&amp;#8217;s the &lt;em&gt;gitea&lt;/em&gt; user on the virtual&amp;nbsp;machine&lt;/li&gt;
-&lt;li&gt;&lt;local gid&gt;: the &lt;span class="caps"&gt;GID&lt;/span&gt; of the local user that will own the files on the&amp;nbsp;share&lt;/li&gt;
+&lt;li&gt;\&amp;lt;ip&gt;: the &lt;span class="caps"&gt;IP&lt;/span&gt; address of the &lt;span class="caps"&gt;NAS&lt;/span&gt;&amp;nbsp;host&lt;/li&gt;
+&lt;li&gt;\&amp;lt;share name&gt;: the Samba share name on the &lt;span class="caps"&gt;NAS&lt;/span&gt; host (i.e. &lt;em&gt;gitbackup&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;\&amp;lt;directory name&gt;: the directory where to mount the share (i.e. &lt;em&gt;/mnt/gitbackup&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;\&amp;lt;local uid&gt;: the &lt;span class="caps"&gt;UID&lt;/span&gt; of the local user that will own the files on the share, in my case it&amp;#8217;s the &lt;em&gt;gitea&lt;/em&gt; user on the virtual&amp;nbsp;machine&lt;/li&gt;
+&lt;li&gt;\&amp;lt;local gid&gt;: the &lt;span class="caps"&gt;GID&lt;/span&gt; of the local user that will own the files on the&amp;nbsp;share&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Now we need to store the credentials in &lt;code&gt;/root/.smbcredentials&lt;/code&gt; so that the system can authenticate when mounting.  The most secure way to do this&amp;nbsp;is:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;touch&lt;span class="w"&gt; &lt;/span&gt;/root/.smbcredentials

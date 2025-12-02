@@ -13,23 +13,23 @@
 
         <meta name="author" content="Vincent Danen" />
 
-        <meta name="description" content="This week’s TechMail is Two hours (and counting) with an upgrade to Fedora 11, in which I describe my initial experience with the upgrade of my laptop from Fedora 10 to Fedora 11. All-in-all, the upgrade was good and has worked great. I have no complaints, except for two …
+        <meta name="description" content="I’ve written two articles previously, first was moving Gitea from FreeBSD to Linux and the second was a followup on accessing TrueNAS shares from a nested VM. The first was a few weeks ago, the second a few days. I took a long weekend and also took advantage of …
 " />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="techmail, fedora, Linux, " />
+<meta name="keywords" content="linux, truenas, fedora, plex, unifi, Linux, " />
 
-<meta property="og:title" content="Two hours (and counting) with an upgrade to Fedora 11 "/>
-<meta property="og:url" content="https://annvix.com/blog/two-hours-and-counting-with-an-upgrade-to-fedora-11" />
-<meta property="og:description" content="This week’s TechMail is Two hours (and counting) with an upgrade to Fedora 11, in which I describe my initial experience with the upgrade of my laptop from Fedora 10 to Fedora 11. All-in-all, the upgrade was good and has worked great. I have no complaints, except for two …" />
+<meta property="og:title" content="Weekend Shenanigans "/>
+<meta property="og:url" content="https://annvix.com/blog/weekend-shenanigans" />
+<meta property="og:description" content="I’ve written two articles previously, first was moving Gitea from FreeBSD to Linux and the second was a followup on accessing TrueNAS shares from a nested VM. The first was a few weeks ago, the second a few days. I took a long weekend and also took advantage of …" />
 <meta property="og:site_name" content="Annvix" />
 <meta property="og:article:author" content="Vincent Danen" />
-<meta property="og:article:published_time" content="2009-06-16T07:00:00-06:00" />
-<meta name="twitter:title" content="Two hours (and counting) with an upgrade to Fedora 11 ">
-<meta name="twitter:description" content="This week’s TechMail is Two hours (and counting) with an upgrade to Fedora 11, in which I describe my initial experience with the upgrade of my laptop from Fedora 10 to Fedora 11. All-in-all, the upgrade was good and has worked great. I have no complaints, except for two …">
+<meta property="og:article:published_time" content="2025-12-02T07:37:00-07:00" />
+<meta name="twitter:title" content="Weekend Shenanigans ">
+<meta name="twitter:description" content="I’ve written two articles previously, first was moving Gitea from FreeBSD to Linux and the second was a followup on accessing TrueNAS shares from a nested VM. The first was a few weeks ago, the second a few days. I took a long weekend and also took advantage of …">
 
-        <title>Two hours (and counting) with an upgrade to Fedora 11  · Annvix
+        <title>Weekend Shenanigans  · Annvix
 </title>
         <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -90,8 +90,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://annvix.com/blog/two-hours-and-counting-with-an-upgrade-to-fedora-11">
-                Two hours (and counting) with an upgrade to Fedora&nbsp;11
+            <a href="https://annvix.com/blog/weekend-shenanigans">
+                Weekend&nbsp;Shenanigans
             </a>
         </h1>
     </header>
@@ -100,15 +100,33 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>This week&#8217;s TechMail is <a href="http://blogs.techrepublic.com/opensource/?p=686">Two hours (and counting) with an upgrade to Fedora 11</a>, in which I describe my initial experience with the upgrade of my laptop from Fedora 10 to Fedora 11.  All-in-all, the upgrade was good and has worked great.  I have no complaints, except for two little things: Parcellite seems a little weird (probably due to a misconfiguration though), and after I enabled the fingerprint scanner, if I ssh into my laptop and try to sudo it wants me to swipe my finger (which is a little difficult when I&#8217;m ssh&#8217;ing in from upstairs or outside).  The Parcellite issue I can probably fix if I took the time, the sudo issue I&#8217;m not too sure of (although, truth be told, the fingerprint swiping novelty has pretty much already worn off so I may end up disabling that, particularly due to the sudo/ssh&nbsp;bit).</p>
+            <p>I&#8217;ve written two articles previously, first was <a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux">moving Gitea from FreeBSD to Linux</a> and the second was a followup on <a href="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm">accessing TrueNAS shares from a nested <span class="caps">VM</span></a>.  The first was a few weeks ago, the second a few days.  I took a long weekend and also took advantage of some Black Friday sales to upgrade the drives in my TrueNAS box, some of which were 8 years old.  This should honestly be a series called &#8220;Readventure in sysadmining&#8221; as it&#8217;s turning out to be quite the adventure.  Home labs for the&nbsp;win!</p>
+<p>I swapped out 6 <span class="caps">3TB</span> drives for 6 shiny new <span class="caps">6TB</span> drives thinking: hey, some of these are getting old in the tooth.  They&#8217;re likely to start failing soon, and I could save myself a few dollars in the&nbsp;process.</p>
+<p>Got home, swapped and resilvered each drive (5x6TB in an <span class="caps">RAIDZ2</span> with one hot spare).  TrueNAS makes this ridiculously&nbsp;easy.</p>
+<p>And then I found out that my Ubiquiti CloudKey Gen2 was having a hard time.  Some of you will know this&#8230; that little <em>whine</em> then <em>click</em> of a failing hard drive.  At first I thought it was my TrueNAS Core box, and then sadly realized it was the CloudKey with it&#8217;s little 2.5&#8221; drive.  So off I went to Best Buy to get an <span class="caps">SSD</span> to replace&nbsp;it.</p>
+<p>Which didn&#8217;t&nbsp;work.</p>
+<p>Turns out the CloudKey itself was pretty much dead, and nothing I did would restore it.  So the <span class="caps">SSD</span> was returned (thank you, Best Buy) as there was no longer a need for it.  Swapped it for a <span class="caps">1TB</span> NVMe <span class="caps">SSD</span> to stick in the TrueNAS box (as all the <span class="caps">SATA</span> connectors were used and the motherboard allowed for four NVMe SSDs).  Now two are in use: one for the boot drive, and another for all of the TrueNAS apps (containers) and VMs, on its own dedicated Stripe&nbsp;pool.</p>
+<p>Moving the apps was as easy as telling it to move from one pool to another in the web <span class="caps">UI</span>.</p>
+<p>Moving the VMs was a little more involved but easy enough.  Each VMs dataset must be moved from one pool to another, which is easily accomplished by finding the dataset involved (i.e. <code>Fedora-k9krs2</code>) and moving it from one pool (<code>storage</code> in my case) to another, which was named <code>apps</code>.  Within the <code>apps</code> dataset, another dataset named <code>VMs</code> was created so that all the VMs were nicely organized together.  Before doing this, ensure the <span class="caps">VM</span> is powered&nbsp;off.</p>
+<div class="highlight"><pre><span></span>zfs<span class="w"> </span>snapshot<span class="w"> </span>-r<span class="w"> </span>storage/Fedora-k9krs2@migrate
+zfs<span class="w"> </span>send<span class="w"> </span>storage/Fedora-k9krs2@migrate<span class="w"> </span><span class="p">|</span><span class="w"> </span>zfs<span class="w"> </span>receive<span class="w"> </span>apps/VMs/Fedora-k9krs2
+</pre></div>
+
+
+<p>Now edit the virtual machine&#8217;s disk device and change the dataset it was using, in my case from <code>storage/Fedora-k9krs2</code> to <code>apps/VMs/Fedora-k9krs2</code>.  Save and start.&nbsp;Easy!</p>
+<p>Once the drives were upgraded, it was time to copy all of the Plex media from the old TrueNAS Core box to the TrueNAS Scale box with the new drives.  Exposing the Plex metadata and media files themselves via Samba to the virtual machine that was created for Plex using the <a href="https://linuxcapable.com/install-plex-media-server-on-fedora-linux/">wonderful tutorial</a> mentioned in a previous post worked like a champ.  View history and all settings retained!  Some work needed to be done to ensure that there were no FreeBSD binaries still hiding in there, and finally symlinking the <code>/var/lib/plexmediaserver/Library/Application Support/Plex Media Server</code> directory to the Samba share, so that all the metadata is stored on external to the <span class="caps">VM</span>.</p>
+<p>All of this was being done waiting for the new CloudKey Gen 2 to arrive. Because the CloudKey runs my home network and my Unifi Protect (doorbell cameras and other cameras) and my last backup was 4 years ago, I was pretty nervous.  There was no way to get any data from the drive (it was more or less empty, yet through my panic trying to mount the Linux <span class="caps">RAID</span> (mdadm) drive, having retired my Fedora laptop last year, learning how to use <span class="caps">USB</span> passthrough in a TrueNAS <span class="caps">VM</span> was accomplished!).  My operating assumption at this point, based on everything researched, was that the network would need to be reconfigured from&nbsp;scratch.</p>
+<p>But lo and behold, when it arrived and was powered up, and when I logged into it using my Ubiquiti account and <em>oh-my-gosh-my-prayers-were-heard</em> it told me there was an online backup from two weeks ago and would I like to restore it?  <em>Heck yeah I&nbsp;would!</em></p>
+<p>And it worked, which was amazing and literally made my day.  No network/camera&nbsp;reconfiguration!</p>
+<p>It may not sound like much but it was a pretty eventful few days.  It&#8217;s not often that I get back to my sysadmin roots beyond typical <span class="caps">OS</span> updates and such, so this was fun.  The next step, although I think I&#8217;ll wait a few weeks, is to see if the promise of updating TrueNAS from Core to Scale (aka FreeBSD to Linux) holds true.  That feels like some kind of amazing wizardry that will be interesting to&nbsp;see.</p>
 
 
              
  
                 <p id="post-share-links">
     Share on:
-      <a href="https://twitter.com/intent/tweet?text=Two%20hours%20%28and%20counting%29%20with%20an%20upgrade%20to%20Fedora%C2%A011&url=https%3A//annvix.com/blog/two-hours-and-counting-with-an-upgrade-to-fedora-11&hashtags=techmail,fedora" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/two-hours-and-counting-with-an-upgrade-to-fedora-11&title=Two%20hours%20%28and%20counting%29%20with%20an%20upgrade%20to%20Fedora%C2%A011&summary=This%20week%E2%80%99s%20TechMail%20is%20Two%20hours%20%28and%20counting%29%20with%20an%20upgrade%20to%20Fedora%2011%2C%20in%20which%20I%20describe%20my%20initial%20experience%20with%20the%20upgrade%20of%20my%20laptop%20from%20Fedora%2010%20to%20Fedora%2011.%20%20All-in-all%2C%20the%20upgrade%20was%20good%20and%20has%20worked%20great.%20%20I%20have%20no%20complaints%2C%20except%20for%20two%20%E2%80%A6&source=https%3A//annvix.com/blog/two-hours-and-counting-with-an-upgrade-to-fedora-11" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/intent/tweet?text=Weekend%C2%A0Shenanigans&url=https%3A//annvix.com/blog/weekend-shenanigans&hashtags=linux,truenas,fedora,plex,unifi" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/weekend-shenanigans&title=Weekend%C2%A0Shenanigans&summary=I%E2%80%99ve%20written%20two%20articles%20previously%2C%20first%20was%20moving%20Gitea%20from%20FreeBSD%20to%20Linux%20and%20the%20second%20was%20a%20followup%20on%20accessing%20TrueNAS%20shares%20from%20a%20nested%20VM.%20%20The%20first%20was%20a%20few%20weeks%20ago%2C%20the%20second%20a%20few%20days.%20%20I%20took%20a%20long%20weekend%20and%20also%20took%20advantage%20of%20%E2%80%A6&source=https%3A//annvix.com/blog/weekend-shenanigans" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
 
             
             
@@ -123,26 +141,25 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="https://annvix.com/blog/save-time-on-downloads-with-delta-rpms-in-fedora-11" title="Save time on downloads with delta RPMs in Fedora 11">Save time on downloads with delta RPMs in Fedora 11</a></li>
-<li><a href="https://annvix.com/blog/fedora-12-boasts-enhanced-performance-improved-reporting-better-graphics" title="Fedora 12 boasts enhanced performance, improved reporting, better graphics">Fedora 12 boasts enhanced performance, improved reporting, better graphics</a></li>
-<li><a href="https://annvix.com/blog/use-live-usb-creator-to-install-fedora-12-from-a-usb-stick" title="Use Live USB Creator to install Fedora 12 from a USB stick">Use Live USB Creator to install Fedora 12 from a USB stick</a></li>
-<li><a href="https://annvix.com/blog/how-to-pre-upgrade-fedora-13" title="How to pre-upgrade Fedora 13">How to pre-upgrade Fedora 13</a></li>
-<li><a href="https://annvix.com/blog/chromium-on-fedora-linux-is-closing-in-on-firefox" title="Chromium on Fedora Linux is closing in on Firefox">Chromium on Fedora Linux is closing in on Firefox</a></li>
+<li><a href="https://annvix.com/blog/holiday-hacking" title="Holiday Hacking">Holiday Hacking</a></li>
+<li><a href="https://annvix.com/blog/red-hat-summit-2025" title="Red Hat Summit 2025">Red Hat Summit 2025</a></li>
+<li><a href="https://annvix.com/blog/compiler-the-new-security-landscape" title="Compiler: The New Security Landscape">Compiler: The New Security Landscape</a></li>
+<li><a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux" title="Moving Gitea from FreeBSD to Linux">Moving Gitea from FreeBSD to Linux</a></li>
+<li><a href="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm" title="Accessing TrueNAS shares from a nested VM">Accessing TrueNAS shares from a nested VM</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://annvix.com/blog/use-tabs-to-open-multiple-files-in-vim" title="Previous: Use tabs to open multiple files in vim">Use tabs to open multiple files in vim</a></li>
-                <li class="next-article"><a href="https://annvix.com/blog/manage-dotfile-configuration-with-subversion" title="Next: Manage dotfile configuration with subversion">Manage dotfile configuration with subversion</a> »</li>
+                <li class="previous-article">« <a href="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm" title="Previous: Accessing TrueNAS shares from a nested VM">Accessing TrueNAS shares from a nested VM</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2009-06-16T07:00:00-06:00">Jun 16, 2009</time>
+            <time itemprop="dateCreated" datetime="2025-12-02T07:37:00-07:00">Dec 02, 2025</time>
             <h4>Category</h4>
             <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
             <h4>Tags</h4>
@@ -150,8 +167,17 @@
                 <li><a href="https://annvix.com/tags#fedora-ref">fedora
                     <span class="superscript">17</span>
 </a></li>
-                <li><a href="https://annvix.com/tags#techmail-ref">techmail
-                    <span class="superscript">236</span>
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">21</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#plex-ref">plex
+                    <span class="superscript">3</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#truenas-ref">truenas
+                    <span class="superscript">6</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#unifi-ref">unifi
+                    <span class="superscript">1</span>
 </a></li>
             </ul>
 <h4>Stay in touch</h4>

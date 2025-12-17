@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://annvix.com/theme/css/fontawesome.min.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Vincent Danen" />
+
+        <meta name="description" content="Recently I’ve done a lot of reorganization with TrueNAS, migrating Plex and Gitea to TrueNAS-based virtual machines and just generally spending a bunch of time poking around with my home lab and improving things. A few weeks ago I started actually using containers in earnest for the first time …
+" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="linux, truenas, containers, Linux, " />
+
+<meta property="og:title" content="Gitea container registry with podman "/>
+<meta property="og:url" content="https://annvix.com/blog/gitea-container-registry-with-podman" />
+<meta property="og:description" content="Recently I’ve done a lot of reorganization with TrueNAS, migrating Plex and Gitea to TrueNAS-based virtual machines and just generally spending a bunch of time poking around with my home lab and improving things. A few weeks ago I started actually using containers in earnest for the first time …" />
+<meta property="og:site_name" content="Annvix" />
+<meta property="og:article:author" content="Vincent Danen" />
+<meta property="og:article:published_time" content="2025-12-16T17:37:00-07:00" />
+<meta name="twitter:title" content="Gitea container registry with podman ">
+<meta name="twitter:description" content="Recently I’ve done a lot of reorganization with TrueNAS, migrating Plex and Gitea to TrueNAS-based virtual machines and just generally spending a bunch of time poking around with my home lab and improving things. A few weeks ago I started actually using containers in earnest for the first time …">
+
+        <title>Gitea container registry with podman  · Annvix
+</title>
+        <link rel="shortcut icon" href="https://annvix.com/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://annvix.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://annvix.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://annvix.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://annvix.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://annvix.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://annvix.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://annvix.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://annvix.com/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://annvix.com/recent.atom" type="application/atom+xml" rel="alternate" title="Annvix - Full Atom Feed" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5JGVD90SKJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5JGVD90SKJ');
+</script>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://annvix.com/"><span class=site-name>Annvix</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://annvix.com
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://annvix.com/categories">Categories</a></li>
+                                <li ><a href="https://annvix.com/tags">Tags</a></li>
+                                <li ><a href="https://annvix.com/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://annvix.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://annvix.com/blog/gitea-container-registry-with-podman">
+                Gitea container registry with&nbsp;podman
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p><a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux">Recently</a> I&#8217;ve done a lot of reorganization with TrueNAS, migrating Plex and Gitea to TrueNAS-based virtual machines and just generally spending a bunch of time poking around with my home lab and improving things.  A few weeks ago I started actually using containers in earnest for the first time.  Earlier versions of TrueNAS had Kubernetes and later versions are Docker-based, and while I goofed around with a few containerized apps on TrueNAS before, I always found them clunky and painful to upgrade (which is why I bought a Raspberry Pi and put Pi-hole on it rather than reconfigure the container every time there was an upgrade that&nbsp;failed).</p>
+<p>With Docker it&#8217;s a bit more comfortable because I&#8217;m a happy Podman user and it all just feels more stable.  And when I moved Gitea around and was thinking about whether it was worth containerizing a few things I was running in FreeBSD jails on the old TrueNAS box, I realized that I can run a container registry with Gitea and the possibilities all of a sudden presented themselves.  So this post digs into how to do it and then I&#8217;ll finish up with a description of a few things that I&#8217;ve containerized (which, in the weeks since I initially set this up, has actually been quite a&nbsp;lot).</p>
+<p>I&#8217;m making quite a few assumptions here and writing about my own experience, which means that I&#8217;m running the latest version of <a href="https://www.truenas.com/truenas-community-edition/">TrueNAS Scale</a> (Electric Eel), and I&#8217;m running <a href="https://about.gitea.com/products/gitea/">Gitea</a> locally as well (as a <span class="caps">VM</span> on TrueNAS but it doesn&#8217;t need to be).  On the MacOS desktop where I&#8217;m building the container I&#8217;m using <a href="https://podman.io/">Podman</a> rather than&nbsp;Docker.</p>
+<h2 id="gitea-container-registry-with-podman">Gitea container registry with Podman<a class="headerlink" href="#gitea-container-registry-with-podman" title="Permanent link"> </a></h2>
+<p>To begin with, we&#8217;ll need a Personal Access Token (<span class="caps">PAT</span>) in Gitea so we can read and write to the container registry.  You don&#8217;t have to do anything special to enable it.  This can be done by going to Gitea, then <em>Settings</em> -&gt; <em>Applications</em> then under <em>Manage Access Tokens</em> you need to <em>Generate New Token</em>.  Create this new token with <code>write:package</code> and <code>read:package</code> permisions.  Copy the token once it&#8217;s created.  We&#8217;ll use it for both pushing to the registry and pulling from&nbsp;it.</p>
+<p>We need to login to Gitea using Podman with our Gitea username and <span class="caps">PAT</span>:</p>
+<div class="highlight"><pre><span></span>podman login https://git.mydomain.com
+</pre></div>
+
+
+<p>For the image you want to publish to the Gitea container registry, we&#8217;ll need to tag the image with <code>&lt;gitea-domain&gt;/&lt;username&gt;/&lt;image-name&gt;:&lt;tag&gt;</code>.  Assuming my application is called&nbsp;&#8220;my-app&#8221;:</p>
+<div class="highlight"><pre><span></span>podman tag my-app git.mydomain.com/myusername/my-app:latest
+</pre></div>
+
+
+<p>Now we have to push the image to the&nbsp;registry:</p>
+<div class="highlight"><pre><span></span>podman push git.mydomain.com/myusername/my-app:latest
+</pre></div>
+
+
+<p>Podman should tell us this was successful if it worked, or complain if it didn&#8217;t.  Now we can go to Gitea&#8217;s web interface, click on the profile icon, then <em>Profile</em> and then click on the <em>Packages</em> tab.  You should see the container you just&nbsp;pushed.</p>
+<p>For the most part, this should just work however I did run into one issue.  Podman complained of: <code>Error: writing blob: uploading layer chunked: StatusCode: 413, "&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;413 Request Entity Too Large&lt;..."</code>.  This error was because Nginx, my reverse proxy, was configured to only allow 100M upload sizes.  By changing this to unlimited, the push was successful.  This was done by changing <code>nginx.conf</code> and setting <code>client_max_body_size</code> to <strong>0</strong>:</p>
+<div class="highlight"><pre><span></span>http {
+    ...
+    client_max_body_size 0;
+    ...
+}
+</pre></div>
+
+
+<h2 id="truenas-custom-container-application">TrueNAS custom container application<a class="headerlink" href="#truenas-custom-container-application" title="Permanent link"> </a></h2>
+<p>In TrueNAS, a Docker registry must be signed into (which, in this case, is the Gitea registry).  In <em>Apps</em>, click on <em>Configuration</em> then <em>Sign-in to a Docker registry</em>.  Click <em>Add Registry</em> and set the <span class="caps">URI</span> to &#8220;Other Registry&#8221;.  Set the following configuration in the dialog that will now be&nbsp;showing:</p>
+<ul>
+<li><strong><span class="caps">URI</span></strong>:&nbsp;https://git.mydomain.com</li>
+<li><strong>Name</strong>:&nbsp;git.mydomain.com</li>
+<li><strong>Username</strong>: your&nbsp;username</li>
+<li><strong>Password</strong>: the <span class="caps">PAT</span> for your&nbsp;user</li>
+</ul>
+<p>Head back to <em>Apps</em> and then click <em>Discover Apps</em> then click <em>Custom App</em>.</p>
+<p>The following settings will need to be set (using what we used above),&nbsp;minimally:</p>
+<ul>
+<li><strong>Application Name</strong>:&nbsp;my-app</li>
+<li><strong>Image Repository</strong>:&nbsp;git.mydomain.com/myusername/my-app</li>
+<li><strong>Tag</strong>:&nbsp;latest</li>
+<li><strong>Host Network</strong>:&nbsp;true</li>
+</ul>
+<p>You&#8217;ll need to setup the <em>Ports</em> configuration which will allow you to expose a different port than what the container is listening to.  This is really useful if you&#8217;re using a bunch of Flask-based apps, for example, that want to listen on port 5000 by default, as you can map it to a different port without changing the code.  So for&nbsp;example:</p>
+<ul>
+<li><strong>Port Bind Mode</strong>: Publish port on the host for external&nbsp;access</li>
+<li><strong>Host Port</strong>: 32667 <em>(the port exposed for external&nbsp;access)</em></li>
+<li><strong>Container Port</strong>: 32667 <em>(the port the container is listening&nbsp;to)</em></li>
+<li><strong>Protocol</strong>: <span class="caps">TCP</span> <em>(unless you need <span class="caps">UDP</span> or <span class="caps">UDP</span>+<span class="caps">TCP</span> for some&nbsp;reason)</em></li>
+</ul>
+<p>Be sure to add a <em>Portal</em> pointing to whatever port the thing you&#8217;re running in the container is listening to.  As in the example above, one of my applications is listening to port 32667 in the&nbsp;container:</p>
+<ul>
+<li><strong>Name</strong>: Web <span class="caps">UI</span></li>
+<li><strong>Protocol</strong>: <span class="caps">HTTP</span></li>
+<li><strong>Use Node <span class="caps">IP</span></strong>: <em>true (or&nbsp;checked)</em></li>
+<li><strong>Port</strong>:&nbsp;32667</li>
+</ul>
+<p>If you require storage, you&#8217;ll want to configure it here as well.  There are lots of options: you can create a new ixVolume dataset to keep the data isolated.  You can choose a Host Path which will basically map a directory from the host TrueNAS filesystem into the container.  You can also mount remote <span class="caps">NFS</span> or Samba shares as well.  <em>Note to self: is a containerized Gitea and/or Plex in my future?</em>&nbsp;🤔</p>
+<p>In my case, I did have data for the application, a simple SQLite database, and it needed to persist across container rebuilds.  In my home directory on TrueNAS, I created a subdirectory called <code>~/apps/</code> and another subdirectory for this specific application, so <code>~/apps/my-app</code> which needed to be mounted inside the container.  This also makes backups as easy as a simple weekly <code>tar cvzf backup-YYYYMMMDD.tar.gz apps/</code> to backup all the data for the custom&nbsp;applications.</p>
+<p>This is done in the <em>Storage</em> section, such&nbsp;as:</p>
+<ul>
+<li><strong>Type</strong>: Host Path (Path that already exists on the&nbsp;system)</li>
+<li><strong>Read Only</strong>: <em>true or false depending on your&nbsp;needs</em></li>
+<li><strong>Mount Path</strong>:&nbsp;/app/instance</li>
+<li><strong>Enable <span class="caps">ACL</span></strong>: <em>again, depends on the security you&#8217;re looking for, I left this&nbsp;off</em></li>
+<li><strong>Host Path</strong>:&nbsp;/mnt/storage/myusername/apps/my-app</li>
+</ul>
+<p>This can be a specific file (like a configuration file) or a directory, it doesn&#8217;t really&nbsp;matter.</p>
+<p>Depending on what you&#8217;re installing you may want to configure other settings here, so custommize to suit; the <a href="https://www.truenas.com/docs/scale/25.10/scaleuireference/apps/installcustomappscreens/">TrueNAS documentation</a> is generally helpful.  Click <em>Install</em> and it should&nbsp;install.</p>
+<h2 id="building-containers-for-other-architectures">Building containers for other architectures<a class="headerlink" href="#building-containers-for-other-architectures" title="Permanent link"> </a></h2>
+<p>I ran into my first snag as I use MacOS, so my containers are built with the same architecture (<span class="caps">ARM</span>) but TrueNAS is running on an Intel x86_64 system.  Thankfully, Podman makes this really easy and we can build an <em>amd64</em> container&nbsp;using:</p>
+<div class="highlight"><pre><span></span>podman build --platform linux/amd64 -t git.mydomain.com/myusername/my-app:latest .
+podman push git.mydomain.com/myusername/my-app:latest
+</pre></div>
+
+
+<p>Now the container image is built for the right architecture, pushed to the Gitea registry, and can be&nbsp;deployed.</p>
+<p>At this point the application should run properly.  Podman can be used locally to test, build, debug, and push to the Gitea container registry which will be used to pull the application for use in TrueNAS, basically in &#8220;production&#8221; (or around here, as in my wife and I can access it from any device on the&nbsp;network).</p>
+<p>Every time code changes are made, necessitating a container rebuild, the <code>podman</code> commands above are all that need to be run to rebuild and push the container to the registry.  If we want to pull the container every time we start the container, such that simply restarting the container will get the latest version, we just need to change the <em>Pull Policy</em> in the container configuration page.  It needs to change from the default &#8220;<em>Pull the image if it is not already present on the host</em>&#8221; to &#8220;<em>Always pull an image even if it is present on the host</em>&#8220;.  This is a great option, particularly if something is in active development, as it just takes a restart to pull the updated container.  For something more stable, you probably want to change this and consider something like <a href="https://github.com/containrrr/watchtower">Watchtower</a> instead, but I haven&#8217;t found the need for this&nbsp;yet.</p>
+<h2 id="so-what-got-containerized">So what got containerized?<a class="headerlink" href="#so-what-got-containerized" title="Permanent link"> </a></h2>
+<p>For those of you who have been using containers for years this might sound like pretty simple stuff.  For me, this has opened up an entire world of possibilities (I&#8217;m an old school <span class="caps">VM</span> guy, not a container guy like the cool kids).  Except maybe now&#8230; maybe I might be one of the cool kids&nbsp;now.</p>
+<p>As I noted earlier, I had a few applications running in FreeBSD jails which are pretty lightweight and easy to use.  I&#8217;m finding that the containers are just as easy to use, perhaps more so, once you understand how to set them up (which is the thing I learned to do recently, as before I was just using Podman on my desktop, rather&nbsp;randomly).</p>
+<p>Writing this, I&#8217;m on the second day of Christmas holidays.  Before the holidays, I had containerized a few things already that had previously been running in&nbsp;jails:</p>
+<ul>
+<li>A weather application that&#8217;s been running for a few years taking hourly samples of local weather data and charting it so I can look at historical&nbsp;information</li>
+<li>My <a href="https://github.com/vdanen/vex-server"><span class="caps">VEX</span> server demo</a> which pulls the Red Hat <span class="caps">VEX</span> for a given <span class="caps">CVE</span> and also talks to <span class="caps">CVE</span>.org/<span class="caps">NVD</span>/<span class="caps">EPSS</span>/<span class="caps">CISA</span> <span class="caps">KEV</span>/VulnCheck <span class="caps">KEV</span> APIs to display the information in a nice web&nbsp;interface</li>
+</ul>
+<p>I also used the <a href="https://nginxproxymanager.com/">Nginx Proxy Manager</a> in a container to configure custom domains, with Let&#8217;s Encrypt <span class="caps">SSL</span> certificates, to serve these up at proper internal domain names rather than connecting to my apps via their strange ports, which are always painful to&nbsp;remember.</p>
+<p>Since these initial applications moved over, and over the last four days, I&#8217;ve also created two new apps that I&#8217;ve&nbsp;containerized:</p>
+<ul>
+<li>A stock portfolio tracker with the ability to import data from my brokerage (so I no longer need to track this by&nbsp;hand)</li>
+<li>A budget application with the ability to import Quicken <span class="caps">QFX</span> files and display whether I&#8217;m spending within my defined budget (so I also no longer need to do this by&nbsp;hand)</li>
+</ul>
+<p>The budget application took a few hours with <a href="https://cursor.com/">Cursor</a> this morning.  It now does everything my very convoluted Google Spreadsheet did (and&nbsp;more).</p>
+<p>The stock portfolio tracker took a few days due to the complexity of what I was asking for: dealing with currency conversions, historical currencies, running tallies of stock purchases and sales, stocks converting to something else, stock splits and so on, plus visualizing realized gains/losses, highlighting unrealized gains/losses, showing dividends received, and more &#8212; basically showing me where I&#8217;m making decent returns and where I chose poorly.  I would spend a few hours a month inputing data into a spreadsheet to track this and now it&#8217;s downloading an activity report from my brokerage that I upload.  Yes, I know there are already tools that do this.  Yes, I&#8217;m cheap and don&#8217;t want to buy&nbsp;them.</p>
+<p>The results of <span class="caps">AI</span>-powered coding is shockingly good.  The stock portfolio tracker was absolutely amazing and is 99% code generated just by prompting Cursor.  The amount of complexity here is astounding (as is the unfortunate amount of javascript that I couldn&#8217;t code in months even if I wanted to).  Interestingly, it chose two different approaches for each project.  The stock app is a single <span class="caps">HTML</span> page with a ton of javascript and APIs.  The budget app is multiple <span class="caps">HTML</span> pages with minimal javascript.  Both use Python and the Flask&nbsp;framework.</p>
+<p>Additionally, just getting all of this setup, from the Gitea container registry on, was done with the help of Gemini because this was absolutely new territory.  It would have taken me three to five times longer if I had to do it on my own and figure out all the pieces.  That&#8217;s not to say that I couldn&#8217;t have, but my time is precious and until I actually knew what this could all do, I didn&#8217;t know that I would want it.  Getting started has always been daunting (and I&#8217;ve poked at containers a number of times in the past, but the time investment exceeded what little time I had available, until holidays of&nbsp;course!).</p>
+<p>So while this was all very slick and now I have a half dozen applications running, containerized, with an easy process to update and deploy, it wouldn&#8217;t have happened if it weren&#8217;t for <span class="caps">AI</span>.  I don&#8217;t think <span class="caps">AI</span> will do &#8220;all the things&#8221; or solve world hunger but dang it, it helped me learn something new, create some wickedly cool personal applications, and those same applications will save me tons of time in the future.  All in all, I&#8217;d say it&#8217;s a winner and I&#8217;m pretty excited to see where it&nbsp;goes.</p>
+<p>Last item on the journey is now is upgrading TrueNAS Core to TrueNAS Scale and maybe I&#8217;ll be done&#8230; for now, anyways.  Whole new worlds have opened up!  Who knows what will happen over the next 8 days before&nbsp;Christmas?</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Share on:
+      <a href="https://twitter.com/intent/tweet?text=Gitea%20container%20registry%20with%C2%A0podman&url=https%3A//annvix.com/blog/gitea-container-registry-with-podman&hashtags=linux,truenas,containers" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//annvix.com/blog/gitea-container-registry-with-podman&title=Gitea%20container%20registry%20with%C2%A0podman&summary=Recently%20I%E2%80%99ve%20done%20a%20lot%20of%20reorganization%20with%20TrueNAS%2C%20migrating%20Plex%20and%20Gitea%20to%20TrueNAS-based%20virtual%20machines%20and%20just%20generally%20spending%20a%20bunch%20of%20time%20poking%20around%20with%20my%20home%20lab%20and%20improving%20things.%20%20A%20few%20weeks%20ago%20I%20started%20actually%20using%20containers%20in%20earnest%20for%20the%20first%20time%20%E2%80%A6&source=https%3A//annvix.com/blog/gitea-container-registry-with-podman" target="_blank" rel="nofollow noopener noreferrer" title="Share on LinkedIn">LinkedIn</a>
+
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="https://annvix.com/blog/holiday-hacking" title="Holiday Hacking">Holiday Hacking</a></li>
+<li><a href="https://annvix.com/blog/compiler-the-new-security-landscape" title="Compiler: The New Security Landscape">Compiler: The New Security Landscape</a></li>
+<li><a href="https://annvix.com/blog/moving-gitea-from-freebsd-to-linux" title="Moving Gitea from FreeBSD to Linux">Moving Gitea from FreeBSD to Linux</a></li>
+<li><a href="https://annvix.com/blog/accessing-truenas-shares-from-a-nested-vm" title="Accessing TrueNAS shares from a nested VM">Accessing TrueNAS shares from a nested VM</a></li>
+<li><a href="https://annvix.com/blog/weekend-shenanigans" title="Weekend Shenanigans">Weekend Shenanigans</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://annvix.com/blog/weekend-shenanigans" title="Previous: Weekend Shenanigans">Weekend Shenanigans</a></li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2025-12-16T17:37:00-07:00">Dec 16, 2025</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://annvix.com/categories#linux-ref">Linux</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://annvix.com/tags#containers-ref">containers
+                    <span class="superscript">7</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#linux-ref">linux
+                    <span class="superscript">22</span>
+</a></li>
+                <li><a href="https://annvix.com/tags#truenas-ref">truenas
+                    <span class="superscript">7</span>
+</a></li>
+            </ul>
+<h4>Stay in touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://twitter.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://github.com/vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/vdanen/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://infosec.exchange/@vdanen" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Copyright &copy; 2024 Vincent Danen
+    </div>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://annvix.com/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

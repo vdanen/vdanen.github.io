@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2025-12-27T15:24:00-07:00</updated><entry><title>2025: A Retrospective</title><link href="https://annvix.com/blog/2025-a-retrospective" rel="alternate"></link><published>2025-12-27T15:24:00-07:00</published><updated>2025-12-27T15:24:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-12-27:/blog/2025-a-retrospective</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/kitten-po.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Annvix</title><link href="https://annvix.com/" rel="alternate"></link><link href="https://annvix.com/recent.atom" rel="self"></link><id>https://annvix.com/</id><updated>2026-05-18T19:20:00-06:00</updated><entry><title>MCP servers for use with Obsidian (or anywhere else)</title><link href="https://annvix.com/blog/mcp-servers-for-use-with-obsidian" rel="alternate"></link><published>2026-05-18T19:20:00-06:00</published><updated>2026-05-18T19:20:00-06:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2026-05-18:/blog/mcp-servers-for-use-with-obsidian</id><summary type="html">&lt;p&gt;I&amp;#8217;ve talked about my use of Obsidian &lt;a href="https://annvix.com/blog/using-obsidian-with-a-local-llm"&gt;in the
+past&lt;/a&gt;.  It&amp;#8217;s my
+second brain, yet it takes too much manual effort to track everything in
+it.  What important emails were there today?  What meetings?  Any tasks?
+In my role as a security practioner, were there new vulnerabilities to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I&amp;#8217;ve talked about my use of Obsidian &lt;a href="https://annvix.com/blog/using-obsidian-with-a-local-llm"&gt;in the
+past&lt;/a&gt;.  It&amp;#8217;s my
+second brain, yet it takes too much manual effort to track everything in
+it.  What important emails were there today?  What meetings?  Any tasks?
+In my role as a security practioner, were there new vulnerabilities to pay
+attention&amp;nbsp;to?&lt;/p&gt;
+&lt;p&gt;So over the last few weeks I&amp;#8217;ve been fiddling with Claude to make things a
+little easier for me, slowly iterating over a few skills to make it more
+useful.  Currently, these are my three&amp;nbsp;skills:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/morning-briefing&lt;/code&gt;: this looks at my calendar for the day, identifies
+  any meetings and creates individual meeting notes using my Obsidian
+  meeting note template, gives me a report of the number of new
+  vulnerabilities that have come in over the last 24h (72h on Mondays) and
+  the number closed out and which new vulnerabilities I should be most
+  worried about, it looks at my email to me tell me what&amp;#8217;s most important
+  for me to prioritize,  and tells me what OmniFocus tasks are due today or
+      are&amp;nbsp;overdue&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/evening-debrief&lt;/code&gt;: looks at emails I sent today and tells me if there&amp;#8217;s
+  anything urgent I need to respond to before I sign off, creates tasks in
+  OmniFocus for anything I&amp;#8217;ve tasked people with (to remind me to
+  followup), and gives me an overview of the vulnerability handling that
+  day; all of this is added to my daily&amp;nbsp;note&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/weekend-summary&lt;/code&gt;: this skill gives me the overview of the week and
+  pulls out all of my meeting notes, looks at all of the vulnerability
+  data, the number of meetings (and with who), pulls out any themes for the
+  week, challenges and accomplishments, any outstanding open loops for the
+  week, and assigns an intensity score; this gets added to my weekly&amp;nbsp;note&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It&amp;#8217;s taken quite a bit of fiddling to get all of this!  But right now I&amp;#8217;m
+pretty pleased and looking for other ways to make this useful.  One of the
+challenges I have is my memory sucks, and that&amp;#8217;s what Obsidian was supposed
+to help with &amp;#8212; and it definitely does, but with so many notes everywhere
+it gets hard to step back and get the high level view of everything and tie
+it all together, so this helps&amp;nbsp;immensely.&lt;/p&gt;
+&lt;p&gt;There are a few tools necessary for this.  One is an &lt;span class="caps"&gt;MCP&lt;/span&gt; server and tool
+called BragAI which was written by a co-worker; it does all of the
+email/calendar heavy lifting.  I was looking to see if it was public and
+it&amp;#8217;s not so&amp;#8230; you&amp;#8217;ll need to find some other &lt;span class="caps"&gt;MCP&lt;/span&gt; server to handle that
+with whichever mail/calendar clients you use.  Note there is something out
+there called BragAI now, but it&amp;#8217;s not the same thing &amp;#8212; I&amp;#8217;ve never tried it
+and don&amp;#8217;t endorse&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;The other was an &lt;span class="caps"&gt;MCP&lt;/span&gt; server for OmniFocus.  I found one, but it was written
+in javascript, which meant I couldn&amp;#8217;t look at it and understand what it was
+doing (since I don&amp;#8217;t write code in javascript), so I asked Cursror to help
+me write a functionally-equivalent one in Python (which I can understand).
+So together we created &lt;a href="https://github.com/vdanen/pymnifocus"&gt;pymnifocus&lt;/a&gt;
+which will let you either interact with OmniFocus on the commandline or as
+an &lt;span class="caps"&gt;MCP&lt;/span&gt;&amp;nbsp;server.&lt;/p&gt;
+&lt;p&gt;And then more recently, because we use
+&lt;a href="https://github.com/RedHatProductSecurity/osidb"&gt;&lt;span class="caps"&gt;OSIDB&lt;/span&gt;&lt;/a&gt; internally to
+manage our flaw database, Cursor and I created
+&lt;a href="https://github.com/vdanen/osidb-mcp"&gt;osidb-mcp&lt;/a&gt; which is an &lt;span class="caps"&gt;MCP&lt;/span&gt; server to
+interact with the &lt;span class="caps"&gt;OSIDB&lt;/span&gt; instance using the available osidb-bindings (also
+all written in&amp;nbsp;Python).&lt;/p&gt;
+&lt;p&gt;Both pymnifocus and osidb-mcp are available via Homebrew and pip.  Patches
+and feedback&amp;nbsp;welcome!&lt;/p&gt;
+&lt;p&gt;The creation of these &lt;span class="caps"&gt;MCP&lt;/span&gt; servers has been a lot of fun and opened a world
+of potential to these skills by helping me keep track of everything in
+Obsidian.  With these tools I have the memory that I need.  It&amp;#8217;s also been
+interesting to get hands-on with some of these &lt;span class="caps"&gt;AI&lt;/span&gt; advancements, which has
+helped me learn&amp;nbsp;faster.&lt;/p&gt;
+&lt;p&gt;Of course, running Claude in &amp;#8220;yolo&amp;#8221; mode is desireable but not really
+practical.  There&amp;#8217;s a few ways I can probably tackle this.  One was to
+containerize things, but another co-worker pointed out
+&lt;a href="https://nono.sh/"&gt;nono&lt;/a&gt; which is a sandboxing effort for agents, which
+sounded perfect and very lightweight.  This morning I figured most of it
+out, but since pymnifocus requires talking to a running instance of
+OmniFocus via AppleScript and OmniJS scripts, it was the one &lt;span class="caps"&gt;MCP&lt;/span&gt; server I
+couldn&amp;#8217;t get working in nono.  The rest work fine with some fiddling.  So
+there&amp;#8217;s still some work there to be done before I can have this fully
+automated.  Perhaps in the next few weeks, but not&amp;nbsp;yet.&lt;/p&gt;</content><category term="Macos"></category><category term="macos"></category><category term="ai"></category><category term="llm"></category><category term="productivity"></category></entry><entry><title>2025: A Retrospective</title><link href="https://annvix.com/blog/2025-a-retrospective" rel="alternate"></link><published>2025-12-27T15:24:00-07:00</published><updated>2025-12-27T15:24:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2025-12-27:/blog/2025-a-retrospective</id><summary type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/kitten-po.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Reading my &lt;a href="https://annvix.com/blog/2024-a-retrospective"&gt;2024 retrospective&lt;/a&gt; was a little depressing, yet I&amp;#8217;m happy to report that despite this year having its challenges, they were nothing like last year.  What an amazing way to feel gratitude&amp;#8230; remembering the things you&amp;#8217;ve gone through and seeing that sometimes what you&amp;#8217;re going through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Image" src="https://annvix.com/images/kitten-po.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Reading my &lt;a href="https://annvix.com/blog/2024-a-retrospective"&gt;2024 retrospective&lt;/a&gt; was a little depressing, yet I&amp;#8217;m happy to report that despite this year having its challenges, they were nothing like last year.  What an amazing way to feel gratitude&amp;#8230; remembering the things you&amp;#8217;ve gone through and seeing that sometimes what you&amp;#8217;re going through now isn&amp;#8217;t nearly as tough as some of the stuff you&amp;#8217;ve gone through in the past.  In a number of ways, this year was great and definitely better than last&amp;nbsp;year.&lt;/p&gt;
 &lt;p&gt;From a travel perspective, this year was pretty busy but felt lighter than last year.  In February I was in both Las Vegas and Raleigh, and in March I was in Washington and for the second time brought my wife with me on a work trip and we had a lot of fun.  In April I was back in Raleigh for &lt;a href="https://annvix.com/blog/vulncon-2025"&gt;VulnCon&lt;/a&gt; which is probably the best security conference I&amp;#8217;ve ever gone to.  In May it was Boston for &lt;a href="https://annvix.com/blog/red-hat-summit-2025"&gt;Red Hat Summit&lt;/a&gt;.  In June I was in Brno again for DevConf, the first time I&amp;#8217;d ever been and it was great.  In July I was in &lt;span class="caps"&gt;NYC&lt;/span&gt; again (this time not on Times Square!), and in August I was back in Boston.  September we were able to spend two weeks in Jasper, but not at the cabins we typically stayed at as they were rebuilding.  It was both beautiful and sombre, seeing all the devastation from the fires in 2024.  In October I was in Brno again, and also went to Toronto for a customer meeting (interestingly, despite traveling &lt;em&gt;through&lt;/em&gt; Toronto all the time, this was only my second time ever actually being in the city outside of the airport).  And then finally in November, I was in Atlanta for KubeCon and the OpenSSF security&amp;nbsp;day.&lt;/p&gt;
@@ -4354,14 +4429,4 @@ The Church is &lt;i&gt;one&lt;/i&gt; because all true Christians, while we parti
 &lt;p&gt;The rest, with the exception of @&lt;span class="caps"&gt;EVENTS&lt;/span&gt; (which should be cleared out after any said events), should be reviewed at the beginning of each week.  Before I used to do reviews on Friday, but that seems odd to me now as I&amp;#8217;ll be emailing a bunch of folks right before the weekend when they probably don&amp;#8217;t want to hear from me.  Better to catch them (hopefully!) fresh and chipper on a&amp;nbsp;Monday.&lt;/p&gt;
 &lt;p&gt;So I&amp;#8217;ve cleaned out two out of my four emails.  They were the easiest of the two.  Inbox-zero for them both.  My work and primary personal accounts are two different stories, however, and will probably require some time this weekend to&amp;nbsp;do.&lt;/p&gt;
 &lt;p&gt;I have many friends who have, quite literally, thousands of emails in their inbox.  How they manage to stay sane is beyond me.  Maybe if I can get a system that works and I can do consistently (that is my biggest challenge&amp;#8230; taking those few seconds to just deal with things) then I can share it with them and they&amp;#8217;ll maybe realize what a crippling thing it is to have such horrendously large inboxes (and why it feels like their email is so slow.. seriously, I cannot make this make sense to&amp;nbsp;them!).&lt;/p&gt;
-&lt;p&gt;Any other tips from anyone out there on how to manage your email, or perhaps what clever things you do to manage your email?  Keep in mind that for my work I can quite easily get a few hundred emails in a day, so email is a very important and severely irritating part of my&amp;nbsp;life.&lt;/p&gt;</content><category term="Linux"></category><category term="email"></category><category term="gmail"></category><category term="mailmate"></category></entry><entry><title>40 day social media fast</title><link href="https://annvix.com/blog/40-day-social-media-fast" rel="alternate"></link><published>2014-01-06T18:11:00-07:00</published><updated>2014-01-06T18:11:00-07:00</updated><author><name>Vincent Danen</name></author><id>tag:annvix.com,2014-01-06:/blog/40-day-social-media-fast</id><summary type="html">&lt;p&gt;Being sick this Christmas season with a cold and a middle ear infection caused me to spend more time than I normally would have on Twitter and Facebook because it was a complete time-killer and I didn&amp;#8217;t have energy for anything productive.  In fact, my one goal for this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Being sick this Christmas season with a cold and a middle ear infection caused me to spend more time than I normally would have on Twitter and Facebook because it was a complete time-killer and I didn&amp;#8217;t have energy for anything productive.  In fact, my one goal for this week and a half off of work was to clean my office and as I sit here typing this, I&amp;#8217;m taking sad glances around me, to see that my one measly little goal didn&amp;#8217;t get accomplished.  Which is frustrating and&amp;nbsp;annoying.&lt;/p&gt;
-&lt;p&gt;I suspect if I had spent less time just wasting time (heck, even sleep would have been more productive), my office would be clean and I&amp;#8217;d be feeling good about myself, until at least next week when it would become less-than-tidy&amp;nbsp;again.&lt;/p&gt;
-&lt;p&gt;Obviously blaming social media here is silly, but it did get me to thinking about how much time I spend on these two sites (I have never attempted to measure it), and what I actually get out of the multiple-times-a-day visits.  There&amp;#8217;s an extremely low &amp;#8220;news value&amp;#8221; from these sites, and I&amp;#8217;m not as interested in what is going on in the lives of friends and family as I perhaps once thought I might be.  In fact, when I really think about it, I realize that they are a complete, utter, and absolute waste of time.  I seriously have better things to do with my&amp;nbsp;time.&lt;/p&gt;
-&lt;p&gt;I&amp;#8217;ve always liked the lyric &amp;#8220;wasting time like it was free&amp;#8221; (from a Godsmack song) because there is a definite cost to my time.  If I look at what I charge people for my consultancy work, and if I applied that value to the time I spend on something that doesn&amp;#8217;t actually bring me any pleasure or money (which, I must add, is a very important thing &amp;#8212; if reading Facebook or Twitter was anything more than a &amp;#8220;I&amp;#8217;m sitting on the toilet and need something quick to read&amp;#8221; or &amp;#8220;I&amp;#8217;m bored so will aimlessly wander around on social media sites&amp;#8221;, then I would not be making this decision or writing this blog&amp;nbsp;post).&lt;/p&gt;
-&lt;p&gt;Strangely enough, I find more value on Google+ because it&amp;#8217;s all tech-related things that show up the odd time I go on there.  I am going to put Google+ into the fast&amp;nbsp;however.&lt;/p&gt;
-&lt;p&gt;So I&amp;#8217;m going to fast from Facebook, Twitter, and Google+.  I&amp;#8217;ve already removed the apps from my phone (which is the only time I really look at them).  And I think I&amp;#8217;m going to close my Linkedin account because I get absolutely &lt;i&gt;zero&lt;/i&gt; value from that and all the Linkedin endorsements and buddy requests and so on just annoy me.  I mean, as an example, there is a wonderful woman who&amp;#8217;s daughter we took in for a few months as a friend/buddy/whatever on Linkedin and we know each other, but she doesn&amp;#8217;t really know the work that I do (other than it&amp;#8217;s computer-related).  So for her to endorse me for my Ruby programming skills is a bit odd &amp;#8212; for one, I can say with 98% certainty that she has no idea what Ruby is other than it must be a geek thing, I&amp;#8217;m a geek-ish person, so I must have the skill, right?  Secondly, I don&amp;#8217;t have any Ruby skills so&amp;#8230; yeah.. don&amp;#8217;t endorse me for Ruby.  Now I doubt she thought one day that she would endorse me for a bunch of random crap, but Linkedin did helpfully suggest that maybe she&amp;#8217;d like to endorse me for random crap?  And so she did&amp;#8230; probably because she was bored or thought it had some value for me (it&amp;nbsp;doesn&amp;#8217;t).&lt;/p&gt;
-&lt;p&gt;Facebook and Twitter just irritate me, Linkedin actually cheeses me right&amp;nbsp;off.&lt;/p&gt;
-&lt;p&gt;Anyways, I&amp;#8217;m going to fast from these social media sites for 40 days.  After that, we&amp;#8217;ll see.  Maybe I&amp;#8217;ll find I didn&amp;#8217;t miss them at all and shut them down permanently.  Maybe I&amp;#8217;ll be desperate to know what&amp;#8217;s been going on the last 40 days and will binge and spend a whole hour or so feasting my eyes with&amp;nbsp;nonsense.&lt;/p&gt;
-&lt;p&gt;Will I miss hearing about friends who love their kids one day and hate them the next?  Will I miss hearing about the seemingly constant misadventures of family when it comes to dating?  Or dieting?  Will I miss people who whine and complain about their crap lives?  When Facebook was new and a novelty, I thought that sort of thing was amusing.  Now I just find it sort of&amp;nbsp;sad.&lt;/p&gt;
-&lt;p&gt;Postings from my blog will still get auto-posted to Facebook and Twitter.  But if you intend to comment on them, you may want to do so here and not via either social media site as I won&amp;#8217;t see the response.  Also, there&amp;#8217;s a few &lt;span class="caps"&gt;RSS&lt;/span&gt; feeds on my Facebook, but I have no idea how to configure the app to disable them, and it&amp;#8217;s just my blog and opensource.com (highly recommended!) anyways, so I&amp;#8217;ll leave those&amp;nbsp;intact.&lt;/p&gt;
-&lt;p&gt;So February 15th is the day I either return to social media or &amp;#8230; don&amp;#8217;t.  Right now, I&amp;#8217;m betting on the latter.  All social expression will be made here on my blog.  Or Flickr.  I intend to spend some time getting some photos I&amp;#8217;ve been meaning to get up there so as to share (some great pics of our trip to Jasper and the Columbian Ice Fields last summer are my top&amp;nbsp;priority).&lt;/p&gt;</content><category term="Life"></category><category term="facebook"></category><category term="twitter"></category></entry></feed>
+&lt;p&gt;Any other tips from anyone out there on how to manage your email, or perhaps what clever things you do to manage your email?  Keep in mind that for my work I can quite easily get a few hundred emails in a day, so email is a very important and severely irritating part of my&amp;nbsp;life.&lt;/p&gt;</content><category term="Linux"></category><category term="email"></category><category term="gmail"></category><category term="mailmate"></category></entry></feed>

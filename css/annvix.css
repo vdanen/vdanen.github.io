@@ -256,3 +256,27 @@ a.page-taxonomies__badge--tag:hover {
   opacity: 0.55;
   vertical-align: super;
 }
+
+/* Pagefind search UI — follow Compose light/dark tokens */
+.pagefind-ui-host {
+  margin-top: 1rem;
+  max-width: 48rem;
+}
+.pagefind-ui {
+  --pagefind-ui-primary: var(--theme, #0f3d3e);
+  --pagefind-ui-text: var(--text, #1a1a1a);
+  --pagefind-ui-background: var(--bg, #ffffff);
+  --pagefind-ui-border: var(--border-color, #d0d7d7);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 6px;
+}
+/* Compose sets --border-color: transparent in dark mode; give Pagefind a visible edge. */
+html[data-mode="dark"] .pagefind-ui,
+html.dark .pagefind-ui {
+  --pagefind-ui-border: rgba(255, 255, 255, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  html[data-mode="auto"] .pagefind-ui {
+    --pagefind-ui-border: rgba(255, 255, 255, 0.18);
+  }
+}

@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang=en data-mode=auto itemscope itemtype=http://schema.org/WebPage>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Hugo 0.165.0">
+<link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/favicons/apple-touch-icon.png'>
+<link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/favicons/favicon-32x32.png'>
+<link rel="icon" type="image/png" sizes="16x16" href='http://localhost:1313/favicons/favicon-16x16.png'>
+<link rel="manifest" href='http://localhost:1313/favicons/site.webmanifest'>
+<link rel="mask-icon" href='http://localhost:1313/favicons/safari-pinned-tab.svg' color="#004750">
+<link rel="shortcut icon" href='http://localhost:1313/favicons/favicon.ico'>
+<meta name="msapplication-config" content='http://localhost:1313/favicons/browserconfig.xml'>
+<title>Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP | Annvix</title><meta property="og:url" content="http://localhost:1313/impelementing_a_disconnected_authentication_and_pdc_bdc_relationships_using_samba_and_openldap/">
+	<meta property="og:site_name" content="Annvix">
+	<meta property="og:title" content="Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP">
+	<meta property="og:description" content="Copyright © 2003 Buchan Milne
+Originally written for the MandrakeSecure website.
+In what is now becoming a series on LDAP, previous articles have already covered basic LDAP setup and UNIX authentication, and the basics of building a samba PDC backended on OpenLDAP. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="documentation">
+		<meta property="article:published_time" content="2008-03-28T12:00:00-06:00">
+		<meta property="article:modified_time" content="2008-03-28T12:00:00-06:00">
+		<meta property="article:tag" content="Security">
+		<meta property="article:tag" content="Ldap">
+
+	<meta itemprop="name" content="Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP">
+	<meta itemprop="description" content="Copyright © 2003 Buchan Milne
+Originally written for the MandrakeSecure website.
+In what is now becoming a series on LDAP, previous articles have already covered basic LDAP setup and UNIX authentication, and the basics of building a samba PDC backended on OpenLDAP. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.">
+	<meta itemprop="datePublished" content="2008-03-28T12:00:00-06:00">
+	<meta itemprop="dateModified" content="2008-03-28T12:00:00-06:00">
+	<meta itemprop="wordCount" content="6509">
+	<meta itemprop="keywords" content="Security,Ldap">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP">
+	<meta name="twitter:description" content="Copyright © 2003 Buchan Milne
+Originally written for the MandrakeSecure website.
+In what is now becoming a series on LDAP, previous articles have already covered basic LDAP setup and UNIX authentication, and the basics of building a samba PDC backended on OpenLDAP. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.">
+
+<link rel="stylesheet" href="http://localhost:1313/css/styles.8d8085f7db497b3f3b3071490f89d4ce22990b40da7e429db3a4bfbf559eb93c93a40c627e51f10b618139145d468ecfdccb9425643cc38726adff2ceaf5ad10.css" integrity="sha512-jYCF99tJez87MHFJD4nUziKZC0DafkKds6S/v1WeuTyTpAxiflHxC2GBORRdRo7P3MuUJWQ8w4cmrf8s6vWtEA==">
+<meta name="description" content="Copyright © 2003 Buchan Milne
+Originally written for the MandrakeSecure website.
+In what is now becoming a series on LDAP, previous articles have already covered basic LDAP setup and UNIX authentication, and the basics of building a samba PDC backended on OpenLDAP. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.
+">
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<link href="/css/annvix.css" rel="stylesheet">
+<style>
+  .pagefind-ui-host { margin-top: 1rem; max-width: 48rem; }
+  .pagefind-ui { --pagefind-ui-primary: #0f3d3e; --pagefind-ui-text: #1a1a1a; --pagefind-ui-background: #ffffff; --pagefind-ui-border: #d0d7d7; --pagefind-ui-border-width: 1px; --pagefind-ui-border-radius: 6px; }
+</style>
+
+</head>
+<body class="page-page" id="pagetop">
+  <header class="nav_header">
+<nav class="wrap nav menu">
+	<a href='http://localhost:1313/' class="nav_brand">
+		<picture data-lit="http://localhost:1313/images/annvix.svg" data-dark="http://localhost:1313/images/annvix.svg">
+			<img src="http://localhost:1313/images/annvix.svg" alt="Annvix Logo">
+		</picture>
+		<div class="nav_toggle toggle" title='Site Menu'><svg class="icon icon_harmburger">
+  <use href="#harmburger"></use>
+</svg>
+		</div>
+	</a>
+	<ul class="nav_body">
+		<li class="nav-item">
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/blog/"><span>Blog</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/tags/"><span>Tags</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/categories/"><span>Categories</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/documentation/"><span>Documentation</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/about/"><span>About</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/marriage/"><span>Marriage</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="http://localhost:1313/search/"><span>Search</span></a>
+		</li>
+		<li class="nav-item"><div class=color_mode>
+  <label for=mode></label>
+  <input type="checkbox" class="color_choice standardize-input" id="mode" title="Toggle Dark Mode">
+</div>
+</li>
+	</ul>
+</nav>
+
+  </header>
+  <div class="main wrap pt-4"><div class="grid-auto"><aside class="aside menu">
+  <div>
+    <label class="aside_toggle toggle" title='Docs Menu' role="button">Docs Menu <svg class="icon icon_carly">
+  <use href="#carly"></use>
+</svg></label>
+  </div>
+  <section class="section aside_inner">
+    <h2 class="section_title"><a  href="http://localhost:1313/documentation/" class="group">Documentation</a></h2>
+      <section class="" id="docs-documentation">
+        <h3 class="section_link"><a id="docs-common-security-mistakes" href="http://localhost:1313/common_security_mistakes/">Common Security Mistakes</a></h3><nav id="toc-common-security-mistakes">
+  <ul>
+    <li><a href="#weak-passwords">Weak Passwords</a></li>
+    <li><a href="#old-or-unused-accounts">Old or Unused Accounts</a></li>
+    <li><a href="#un-used-server-software">Un-used server software</a></li>
+    <li><a href="#neglecting-updates">Neglecting Updates</a></li>
+    <li><a href="#physical-security">Physical Security</a></li>
+    <li><a href="#procrastination">Procrastination</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-creating-and-maintaining-a-security-policy" href="http://localhost:1313/creating_and_maintaining_a_security_policy/">Creating and Maintaining a Security Policy</a></h3><nav id="toc-creating-and-maintaining-a-security-policy">
+  <ul>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-creating-and-maintaining-your-own-certification-authority-incomplete" href="http://localhost:1313/creating_and_maintaining_your_own_certification_authority/">Creating and Maintaining Your Own Certification Authority (incomplete)</a></h3><nav id="toc-creating-and-maintaining-your-own-certification-authority-incomplete">
+  <ul>
+    <li><a href="#using-tinyca">Using TinyCA</a></li>
+    <li><a href="#creating-a-ca-the-old-fashioned-way">Creating a CA &ldquo;The Old Fashioned Way&rdquo;</a>
+      <ul>
+        <li><a href="#the-openssl-configuration-file">The OpenSSL Configuration File</a></li>
+      </ul>
+    </li>
+    <li><a href="#creating-the-root-certificate">Creating the Root Certificate</a></li>
+    <li><a href="#exporting-your-ca-certificate">Exporting your CA Certificate</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-dansguardian-a-content-filtering-system" href="http://localhost:1313/dansguardian_a_content_filtering_system/">DansGuardian: A Content Filtering System</a></h3><nav id="toc-dansguardian-a-content-filtering-system">
+  <ul>
+    <li><a href="#configuring-dansguardian">Configuring DansGuardian</a></li>
+    <li><a href="#configuring-squid">Configuring Squid</a></li>
+    <li><a href="#a-word-on-apache">A Word On Apache</a></li>
+    <li><a href="#pics-filtering">PICS Filtering</a>
+      <ul>
+        <li><a href="#weighted-phrases">Weighted Phrases</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-enabling-sasl-in-postfix" href="http://localhost:1313/enabling_sasl_in_postfix/">Enabling SASL in Postfix</a></h3><nav id="toc-enabling-sasl-in-postfix">
+  <ul>
+    <li><a href="#pre-requisites">Pre-requisites</a></li>
+    <li><a href="#configuring-postfix">Configuring postfix</a></li>
+    <li><a href="#configuring-cyrus-sasl">Configuring Cyrus SASL</a></li>
+    <li><a href="#testing-your-configuration">Testing Your Configuration</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-encrypted-dmg-files-in-os-x" href="http://localhost:1313/encrypted_dmg_files_in_os_x/">Encrypted DMG Files in OS X</a></h3><nav id="toc-encrypted-dmg-files-in-os-x">
+  <ul>
+    <li><a href="#dropdmg">DropDMG</a></li>
+    <li><a href="#disk-copy">Disk Copy</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-filesystem-security" href="http://localhost:1313/filesystem_security/">Filesystem Security</a></h3><nav id="toc-filesystem-security">
+  <ul>
+    <li><a href="#permissions">Permissions</a></li>
+    <li><a href="#changing-permissions">Changing Permissions</a></li>
+    <li><a href="#changing-user-and-group-ownership">Changing User and Group Ownership</a></li>
+    <li><a href="#setting-default-permissions">Setting Default Permissions</a></li>
+    <li><a href="#the-sticky-bit">The Sticky Bit</a></li>
+    <li><a href="#per-filesystem-security-and-options">Per-Filesystem Security and Options</a></li>
+    <li><a href="#extending-filesystem-security">Extending Filesystem Security</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-filesystem-security-access-control-lists" href="http://localhost:1313/filesystem_security_access_control_lists/">Filesystem Security: Access Control Lists</a></h3><nav id="toc-filesystem-security-access-control-lists"></nav>
+        <h3 class="section_link"><a id="docs-filesystem-security-aide" href="http://localhost:1313/filesystem_security_aide/">Filesystem Security: AIDE</a></h3><nav id="toc-filesystem-security-aide">
+  <ul>
+    <li><a href="#compiling-and-installing-aide">Compiling and Installing AIDE</a></li>
+    <li><a href="#configuring-aide">Configuring AIDE</a></li>
+    <li><a href="#aideconf">aide.conf</a></li>
+    <li><a href="#default-groups">Default Groups</a></li>
+    <li><a href="#the-checks">The Checks</a></li>
+    <li><a href="#initializing-the-database">Initializing the Database</a></li>
+    <li><a href="#updating-the-database">Updating the Database</a></li>
+    <li><a href="#final-notes">Final Notes</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-mutt-on-os-x" href="http://localhost:1313/using_mutt_on_os_x/">Using mutt on OS X</a></h3><nav id="toc-using-mutt-on-os-x">
+  <ul>
+    <li><a href="#applying-the-sidebar-patch">Applying the sidebar patch</a></li>
+    <li><a href="#compiling-mutt">Compiling mutt</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#mailtomutt">MailtoMutt</a></li>
+    <li><a href="#lbdb-the-little-brothers-database">lbdb: The Little Brother&rsquo;s Database</a></li>
+    <li><a href="#urlview">urlview</a></li>
+    <li><a href="#mairix">Mairix</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#configure-postfix">Configure postfix</a></li>
+    <li><a href="#using-exim-instead-of-postfix">Using exim instead of postfix</a>
+      <ul>
+        <li><a href="#create-the-exim-system-account">Create the exim system account</a></li>
+        <li><a href="#compile-and-install-exim">Compile and install exim</a></li>
+        <li><a href="#telling-os-x-to-start-exim-at-boot">Telling OS X to start exim at boot</a></li>
+        <li><a href="#configure-exim">Configure exim</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#sourcing-external-configuration-files">Sourcing external configuration files</a></li>
+    <li><a href="#muttrc-options">muttrc options</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#special-keybindings">Special Keybindings</a></li>
+            <li><a href="#editor-settings">Editor settings</a></li>
+            <li><a href="#print-settings">Print settings</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-freeipa-for-user-authentication" href="http://localhost:1313/using_freeipa_for_user_authentication/">Using FreeIPA for User Authentication</a></h3><nav id="toc-using-freeipa-for-user-authentication">
+  <ul>
+    <li><a href="#pre-requisites">Pre-requisites</a>
+      <ul>
+        <li><a href="#network-changes">Network Changes</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuring-the-ipa-server">Configuring the IPA Server</a>
+      <ul>
+        <li><a href="#post-installation-configuration">Post-installation Configuration</a></li>
+        <li><a href="#adding-users">Adding Users</a></li>
+        <li><a href="#adding-services">Adding Services</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuring-ipa-clients">Configuring IPA Clients</a>
+      <ul>
+        <li><a href="#red-hat-enterprise-linux--centos">Red Hat Enterprise Linux / CentOS</a></li>
+        <li><a href="#fedora">Fedora</a></li>
+        <li><a href="#mac-os-x-107108">Mac OS X 10.7/10.8</a>
+          <ul>
+            <li><a href="#kerberos-setup">Kerberos Setup</a></li>
+            <li><a href="#ipa-enrollment">IPA Enrollment</a></li>
+            <li><a href="#directory-utility-setup">Directory Utility Setup</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-kerberized-nfsv4-server">Setting up Kerberized NFSv4 Server</a>
+      <ul>
+        <li><a href="#configuring-a-fedorared-hat-enterprise-linuxcentos-server">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Server</a>
+          <ul>
+            <li><a href="#configuring-a-fedorared-hat-enterprise-linuxcentos-client">Configuring a Fedora/Red Hat Enterprise Linux/CentOS Client</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-a-kerberized-afp-server">Setting up a Kerberized AFP Server</a></li>
+    <li><a href="#browser-configuration">Browser Configuration</a>
+      <ul>
+        <li><a href="#firefox">Firefox</a></li>
+        <li><a href="#google-chrome--chromium">Google Chrome / Chromium</a></li>
+        <li><a href="#safari">Safari</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-systemdsystemctl-tips-and-info" href="http://localhost:1313/systemd/">Systemd/systemctl tips and info</a></h3><nav id="toc-systemd/systemctl-tips-and-info">
+  <ul>
+    <li><a href="#changing-the-default-runlevel">Changing the Default Runlevel</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#systemctl-show">Systemctl Show</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-kerberos-5-for-single-sign-on-authentication" href="http://localhost:1313/using_kerberos_5_for_single_sign-on_authentication/">Using Kerberos 5 for Single Sign-On Authentication</a></h3><nav id="toc-using-kerberos-5-for-single-sign-on-authentication">
+  <ul>
+    <li><a href="#configuring-the-kerberos-server">Configuring the Kerberos Server</a>
+      <ul>
+        <li><a href="#use-modprinc-to-modify-defaults">Use modprinc to modify defaults</a></li>
+      </ul>
+    </li>
+    <li><a href="#creating-the-kerberos-database">Creating the Kerberos Database</a></li>
+    <li><a href="#kerberos-principals-and-instances">Kerberos Principals and Instances</a></li>
+    <li><a href="#the-access-control-list">The Access Control List</a></li>
+    <li><a href="#testing-the-install">Testing the Install</a></li>
+    <li><a href="#setting-up-client-realm-systems">Setting up Client Realm Systems</a>
+      <ul>
+        <li><a href="#adding-new-users-and-hosts-to-the-database">Adding New Users and Hosts to the Database</a></li>
+        <li><a href="#setting-up-a-mac-os-x-client--106">Setting up a Mac OS X Client (&lt;= 10.6)</a>
+          <ul>
+            <li><a href="#enabling-auto-renewing-tickets">Enabling auto-renewing Tickets</a></li>
+          </ul>
+        </li>
+        <li><a href="#setting-up-a-mac-os-x-client-107">Setting up a Mac OS X Client (10.7)</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuring-openssh-to-use-kerberos">Configuring OpenSSH to use Kerberos</a></li>
+    <li><a href="#configuring-a-subversion-client-to-use-kerberos">Configuring a Subversion client to use Kerberos</a></li>
+    <li><a href="#configure-firefox-to-use-kerberos">Configure Firefox to use Kerberos</a></li>
+    <li><a href="#changing-kerberos-passwords">Changing Kerberos Passwords</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-openldap-for-user-authentication" href="http://localhost:1313/using_openldap_for_user_authentication/">Using OpenLDAP for User Authentication</a></h3><nav id="toc-using-openldap-for-user-authentication">
+  <ul>
+    <li><a href="#pre-requisites">Pre-requisites</a></li>
+    <li><a href="#configuring-the-openldap-server">Configuring the OpenLDAP Server</a></li>
+    <li><a href="#configuring-server-acls">Configuring Server ACLs</a></li>
+    <li><a href="#migrating-data">Migrating Data</a></li>
+    <li><a href="#configuring-the-openldap-clients">Configuring the OpenLDAP Clients</a></li>
+    <li><a href="#configuring-nss-to-use-ldap">Configuring NSS to use LDAP</a></li>
+    <li><a href="#configuring-pam-to-use-ldap">Configuring PAM to use LDAP</a></li>
+    <li><a href="#host-based-authentication">Host-based Authentication</a></li>
+    <li><a href="#configuring-samba-to-use-ldap">Configuring Samba to use LDAP</a></li>
+    <li><a href="#using-ssltls-with-openldap">Using SSL/TLS with OpenLDAP</a></li>
+    <li><a href="#using-webmin-with-openldap">Using webmin with OpenLDAP</a></li>
+    <li><a href="#other-openldap-clients">Other OpenLDAP Clients</a></li>
+    <li><a href="#notes-on-other-software">Notes on Other Software</a>
+      <ul>
+        <li><a href="#openssh">OpenSSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#credits-and-links">Credits and Links</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-geektool" href="http://localhost:1313/geektool/">GeekTool</a></h3><nav id="toc-geektool">
+  <ul>
+    <li><a href="#ip-information">IP Information</a></li>
+    <li><a href="#mini-calendar">Mini-Calendar</a></li>
+    <li><a href="#uptime-cpuram-usage">Uptime, CPU/RAM usage</a></li>
+    <li><a href="#disk-usage">Disk Usage</a></li>
+    <li><a href="#weather">Weather</a></li>
+    <li><a href="#the-hit-list">The Hit List</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link active"><a id="docs-impelementing-a-disconnected-authentication-and-pdcbdc-relationships-using-samba-and-openldap" href="http://localhost:1313/impelementing_a_disconnected_authentication_and_pdc_bdc_relationships_using_samba_and_openldap/">Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP</a></h3><nav id="toc-impelementing-a-disconnected-authentication-and-pdc/bdc-relationships-using-samba-and-openldap">
+  <ul>
+    <li><a href="#initial-ldap-setup">Initial LDAP Setup</a></li>
+    <li><a href="#initial-samba-setup-for-ldap">Initial Samba setup for LDAP</a></li>
+    <li><a href="#changes-required-on-the-master-ldap-server">Changes required on the Master LDAP Server</a></li>
+    <li><a href="#setting-up-the-slave-ldap-servers">Setting up the Slave LDAP Servers</a>
+      <ul>
+        <li><a href="#copying-configuration-files">Copying configuration files</a></li>
+        <li><a href="#modifications-to-slapdconf">Modifications to slapd.conf</a></li>
+        <li><a href="#transferring-the-directory-to-the-slave">Transferring the directory to the slave</a></li>
+      </ul>
+    </li>
+    <li><a href="#testing-replication">Testing replication</a></li>
+    <li><a href="#disconnected-authentication">Disconnected Authentication</a></li>
+    <li><a href="#configuring-the-samba-bdc">Configuring the Samba &ldquo;BDC&rdquo;</a>
+      <ul>
+        <li><a href="#preparing-the-ldap-directory-for-samba">Preparing the LDAP directory for Samba</a></li>
+        <li><a href="#configuration-file-changes-for-the-samba-bdc">Configuration file changes for the Samba BDC</a></li>
+        <li><a href="#complications-for-windows-specific-features">Complications for Windows-specific features</a></li>
+      </ul>
+    </li>
+    <li><a href="#password-changing-expiry-and-synchronisation">Password Changing, Expiry and Synchronisation</a></li>
+    <li><a href="#changing-samba-passwords-from-windows-machines">Changing Samba passwords from Windows machines</a>
+      <ul>
+        <li><a href="#windows-users-changing-unix-passwords">Windows users changing Unix passwords</a></li>
+        <li><a href="#unix-users-changing-unix-passwords">Unix users changing Unix passwords</a></li>
+        <li><a href="#unix-users-change-windows-passwords">Unix users change Windows passwords</a></li>
+        <li><a href="#password-expiry">Password Expiry</a></li>
+      </ul>
+    </li>
+    <li><a href="#exercises-for-the-student">Exercises for the student</a></li>
+    <li><a href="#cleaning-up">Cleaning up</a></li>
+    <li><a href="#credits-and-references">Credits and References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-os-x-as-an-nfs-client" href="http://localhost:1313/using_os_x_as_an_nfs_client/">Using OS X as an NFS Client</a></h3><nav id="toc-using-os-x-as-an-nfs-client">
+  <ul>
+    <li><a href="#nfs-manager">NFS Manager</a></li>
+    <li><a href="#using-netinfo-manager">Using NetInfo Manager</a></li>
+    <li><a href="#using-the-command-line">Using the Command Line</a></li>
+    <li><a href="#restarting-automount">Restarting automount</a></li>
+    <li><a href="#final-notes">Final Notes</a>
+      <ul>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-openldap-as-an-address-book" href="http://localhost:1313/using_openldap_as_an_address_book/">Using OpenLDAP as an Address Book</a></h3><nav id="toc-using-openldap-as-an-address-book">
+  <ul>
+    <li><a href="#creating-the-address-book">Creating the Address Book</a></li>
+    <li><a href="#modifying-entries-in-the-address-book">Modifying Entries in the Address Book</a></li>
+    <li><a href="#configuring-lbdb">Configuring lbdb</a></li>
+    <li><a href="#configuring-mutt">Configuring mutt</a></li>
+    <li><a href="#configuring-apples-address-book">Configuring Apple&rsquo;s Address Book</a></li>
+    <li><a href="#configuring-mozilla">Configuring Mozilla</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-djbdns-with-mandrakelinux" href="http://localhost:1313/using_djbdns_with_mandrakelinux/">Using djbdns with Mandrakelinux</a></h3><nav id="toc-using-djbdns-with-mandrakelinux">
+  <ul>
+    <li><a href="#installing-djbdns">Installing djbdns</a></li>
+    <li><a href="#configuring-djbdns-extcache">Configuring djbdns-extcache</a></li>
+    <li><a href="#configuring-djbdns-localcache">Configuring djbdns-localcache</a></li>
+    <li><a href="#configuring-djbdns">Configuring djbdns</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-tcpserver" href="http://localhost:1313/using_tcpserver/">Using tcpserver</a></h3><nav id="toc-using-tcpserver">
+  <ul>
+    <li><a href="#installing-tcpserver">Installing tcpserver</a></li>
+    <li><a href="#using-tcpserver-and-supervise">Using tcpserver and supervise</a></li>
+    <li><a href="#access-controls-with-tcprules">Access controls with tcprules</a></li>
+    <li><a href="#controlling-supervised-services">Controlling supervised services</a></li>
+    <li><a href="#final-notes">Final Notes</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-qmail-with-mandrakelinux" href="http://localhost:1313/using_qmail_with_mandrakelinux/">Using qmail with Mandrakelinux</a></h3><nav id="toc-using-qmail-with-mandrakelinux"></nav>
+        <h3 class="section_link"><a id="docs-using-courier-imap-and-ssl" href="http://localhost:1313/using_courier-imap_and_ssl/">Using Courier-IMAP and SSL</a></h3><nav id="toc-using-courier-imap-and-ssl"></nav>
+        <h3 class="section_link"><a id="docs-using-apache-and-ssl-for-security-and-authentication-incomplete" href="http://localhost:1313/using_apache_and_ssl_for_security_and_authentication/">Using Apache and SSL for Security and Authentication (incomplete)</a></h3><nav id="toc-using-apache-and-ssl-for-security-and-authentication-incomplete"></nav>
+        <h3 class="section_link"><a id="docs-secure-irc-authentication-and-encryption" href="http://localhost:1313/secure_irc_authentication_and_encryption/">Secure IRC: Authentication and Encryption</a></h3><nav id="toc-secure-irc-authentication-and-encryption">
+  <ul>
+    <li><a href="#compiling-the-irc-server">Compiling the IRC Server</a></li>
+    <li><a href="#configuring-the-irc-server">Configuring the IRC Server</a></li>
+    <li><a href="#setting-up-the-chroot-environment">Setting up the chroot Environment</a></li>
+    <li><a href="#setting-up-the-ssh-forwarder-account">Setting up the SSH Forwarder Account</a></li>
+    <li><a href="#using-ssl">Using SSL</a>
+      <ul>
+        <li><a href="#sslwrap">sslwrap</a></li>
+        <li><a href="#stunnel">stunnel</a></li>
+        <li><a href="#configuration-and-ssl-keys">Configuration and SSL Keys</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-gnupg" href="http://localhost:1313/using_gnupg/">Using GnuPG</a></h3><nav id="toc-using-gnupg">
+  <ul>
+    <li><a href="#generating-a-key">Generating a Key</a></li>
+    <li><a href="#using-gnupg-to-signencrypt">Using GnuPG to Sign/Encrypt</a></li>
+    <li><a href="#using-gnupg-to-digitally-sign-files">Using GnuPG to Digitally Sign Files</a></li>
+    <li><a href="#importing-and-managing-gpg-keys">Importing and Managing GPG Keys</a></li>
+    <li><a href="#creating-a-web-of-trust">Creating a Web of Trust</a></li>
+    <li><a href="#revoking-a-gpg-key">Revoking a GPG Key</a></li>
+    <li><a href="#gpg-signatures-in-rpm-files">GPG Signatures in RPM Files</a></li>
+    <li><a href="#references">References</a>
+      <ul>
+        <li><a href="#public-keyservers">Public Keyservers</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-personal-privacy-and-encryption" href="http://localhost:1313/personal_privacy_and_encryption/">Personal Privacy and Encryption</a></h3><nav id="toc-personal-privacy-and-encryption"></nav>
+        <h3 class="section_link"><a id="docs-preventing-trojan-downloads" href="http://localhost:1313/preventing_trojan_downloads/">Preventing Trojan Downloads</a></h3><nav id="toc-preventing-trojan-downloads"></nav>
+        <h3 class="section_link"><a id="docs-security-with-php" href="http://localhost:1313/security_with_php/">Security with PHP</a></h3><nav id="toc-security-with-php">
+  <ul>
+    <li><a href="#error-reporting">Error Reporting</a></li>
+    <li><a href="#register-globals">Register Globals</a></li>
+    <li><a href="#safe-mode">Safe Mode</a></li>
+    <li><a href="#additional-directives">Additional Directives</a></li>
+    <li><a href="#setting-php-configuration-settings">Setting PHP Configuration Settings</a></li>
+    <li><a href="#a-virtualhost-example">A VirtualHost Example</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-sudo-to-limit-access" href="http://localhost:1313/using_sudo_to_limit_access/">Using Sudo to Limit Access</a></h3><nav id="toc-using-sudo-to-limit-access">
+  <ul>
+    <li><a href="#configuring-sudo">Configuring sudo</a></li>
+    <li><a href="#using-sudo">Using sudo</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-optimizing-openssh" href="http://localhost:1313/optimizing_openssh/">Optimizing OpenSSH</a></h3><nav id="toc-optimizing-openssh">
+  <ul>
+    <li><a href="#the-passwordless-entry-using-publicprivate-keys-with-openssh">The Passwordless Entry&hellip; Using Public/Private Keys with OpenSSH</a></li>
+    <li><a href="#using-agents">Using Agents</a></li>
+    <li><a href="#x-and-port-forwarding">X and Port Forwarding</a></li>
+    <li><a href="#unattended-ssh">Unattended SSH</a></li>
+    <li><a href="#client-configuration">Client Configuration</a></li>
+    <li><a href="#server-configuration">Server Configuration</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-password-protected-booting" href="http://localhost:1313/password_protected_booting/">Password Protected Booting</a></h3><nav id="toc-password-protected-booting">
+  <ul>
+    <li><a href="#mac-os-x--apple-hardware">Mac OS X / Apple Hardware</a></li>
+    <li><a href="#linux">Linux</a>
+      <ul>
+        <li><a href="#lilo">LILO</a></li>
+        <li><a href="#grub">Grub</a></li>
+      </ul>
+    </li>
+    <li><a href="#sparc-hardware">Sparc Hardware</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-the-os-x-keychain" href="http://localhost:1313/the_os_x_keychain/">The OS X Keychain</a></h3><nav id="toc-the-os-x-keychain">
+  <ul>
+    <li><a href="#managing-keychain">Managing Keychain</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-implementing-a-samba-ldap-primary-domain-controller-setup" href="http://localhost:1313/implementing_a_samba_ldap_primary_domain_controller_setup/">Implementing a Samba LDAP Primary Domain Controller Setup</a></h3><nav id="toc-implementing-a-samba-ldap-primary-domain-controller-setup">
+  <ul>
+    <li><a href="#upgrading-to-samba-ldap">Upgrading to Samba-LDAP</a></li>
+    <li><a href="#adjustments-to-smbconf">Adjustments to smb.conf</a></li>
+    <li><a href="#the-computers-ou">The &ldquo;Computers&rdquo; OU</a></li>
+    <li><a href="#configuring-the-perl-scripts">Configuring the Perl Scripts</a></li>
+    <li><a href="#editing-etcldapconf">Editing /etc/ldap.conf</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#congratulations">Congratulations!</a></li>
+    <li><a href="#credits">Credits</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-user-management" href="http://localhost:1313/user_management/">User Management</a></h3><nav id="toc-user-management"></nav>
+        <h3 class="section_link"><a id="docs-user-auditing" href="http://localhost:1313/user_auditing/">User Auditing</a></h3><nav id="toc-user-auditing">
+  <ul>
+    <li><a href="#finding-accounts-without-a-password">Finding Accounts Without a Password</a></li>
+    <li><a href="#finding-accounts-with-uid-0-aka-superuser">Finding Accounts with UID 0 (aka SuperUser)</a></li>
+    <li><a href="#viewing-login-history">Viewing Login History</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-using-swatch-to-monitor-logfiles" href="http://localhost:1313/using_swatch_to_monitor_logfiles/">Using swatch to Monitor Logfiles</a></h3><nav id="toc-using-swatch-to-monitor-logfiles">
+  <ul>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-syslog-and-klog" href="http://localhost:1313/syslog_and_klog/">Syslog and Klog</a></h3><nav id="toc-syslog-and-klog">
+  <ul>
+    <li><a href="#facilities-levels-and-actions">Facilities, Levels, and Actions</a></li>
+    <li><a href="#configuring-syslog">Configuring syslog</a></li>
+    <li><a href="#remote-and-central-logging">Remote and Central Logging</a></li>
+  </ul>
+</nav>
+        <h3 class="section_link"><a id="docs-logfile-auditing" href="http://localhost:1313/logfile_auditing/">Logfile Auditing</a></h3><nav id="toc-logfile-auditing"></nav>
+      </section>
+  </section>
+</aside>
+
+  <main class="content">
+    <h1>Impelementing a Disconnected Authentication and PDC/BDC Relationships Using Samba and OpenLDAP</h1>
+<p class="page-date">March 28, 2008</p>
+<p class="page-tags">
+  <a class="page-tags__badge" href="/tags/security/">security</a>
+  <a class="page-tags__badge" href="/tags/ldap/">ldap</a>
+</p><p>Copyright © 2003 Buchan Milne</p>
+<p>Originally written for the MandrakeSecure website.</p>
+<p>In what is now becoming a series on LDAP, previous articles have already covered <a href="/Using_OpenLDAP_for_User_Authentication">basic LDAP setup and UNIX authentication</a>, and the basics of <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup">building a samba PDC backended on OpenLDAP</a>. However, many of the advantages of using LDAP as a backend for storing Samba accounts can only be realised by replicating the LDAP database to slave servers, which was not covered in either article.</p>
+<p>The advantages that are available in running slave LDAP servers include:</p>
+<ul>
+<li>Redundancy</li>
+<li>Reduced network traffic</li>
+<li>Better performance of LDAP clients (samba, nss_ldap, pam_ldap, MTAs)</li>
+<li>Disconnected authentication</li>
+</ul>
+<p>One can see that all of these benefits would be advantageous to both UNIX authentication, and authentication of Windows clients via Samba. In fact, the use of LDAP as authentication backend is the only way to implement Backup Domain Controllers with Samba (besides home-cooked rsync scripts).</p>
+<p>In addition, having Samba on an LDAP backend allows non-root users (who have Domain Admin rights) to join machines to the Domain (this is not possible when using the smbpasswd file).</p>
+<p>In this article, we will look at the various aspects of setting up your domain, with the objectives of enabling disconnected Unix authentication and PDC/BDC functionality with Samba, using the following values in the examples in this document:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Setting</th>
+					<th>Value</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Base DN:</td>
+					<td>dc=mylan,dc=net</td>
+			</tr>
+			<tr>
+					<td>Mail Domain:</td>
+					<td>mylan.net</td>
+			</tr>
+			<tr>
+					<td>Root DN:</td>
+					<td>cn=root,dc=mylan,dc=net</td>
+			</tr>
+			<tr>
+					<td>Samba DN(s):</td>
+					<td>cn=samba,dc=mylan,dc=net</td>
+			</tr>
+			<tr>
+					<td>Mail Host:</td>
+					<td>mail.mylan.net</td>
+			</tr>
+			<tr>
+					<td>LDAP Master server:</td>
+					<td>ldap.mylan.net</td>
+			</tr>
+			<tr>
+					<td>LDAP Slave servers:</td>
+					<td>ldap1.mylan.net; ldap2.mylan.net</td>
+			</tr>
+			<tr>
+					<td>Netbios Domain Name:</td>
+					<td>mylan</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="initial-ldap-setup" class=link_owner>
+  Initial LDAP Setup
+  <a href="#initial-ldap-setup" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>While the original LDAP article covers the initial setup of the LDAP server and clients in detail, there are some issues which have caused frustration, and they will be mentioned here in the hope of allowing some of you to go home on time for a change!</p>
+<p><strong>Avoiding editing the migration scripts</strong></p>
+<p>When using the migration tools, the first article suggested editing the scripts to customise the settings. However, since those files will likely be lost in an upgrade (they are not marked as config files to rpm), and since scripts should not rely on editing of the files, I prefer to use the mechanism provided in the migration tools, the use of shell variables.</p>
+<p>Following the example configuration, we would set these variables instead of editing the <code>migrate_common.ph</code> as in the <a href="/Using_OpenLDAP_for_User_Authentication">migration section of the first article</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ldap</span> <span class="o">~</span><span class="p">]</span><span class="c1"># export LDAP_BASEDN=&#34;dc=mylan,dc=net&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ldap</span> <span class="o">~</span><span class="p">]</span><span class="c1"># export LDAP_DEFAULT_MAIL_DOMAIN=&#34;mylan.net&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ldap</span> <span class="o">~</span><span class="p">]</span><span class="c1"># export LDAP_DEFAULT_MAIL_HOST=&#34;mail.mylan.net&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ldap</span> <span class="o">~</span><span class="p">]</span><span class="c1"># export LDAP_EXTENDED_SCHEMA=1</span>
+</span></span></code></pre></div><p>For actually adding the entries to the LDAP server, I would follow a similar approach to save typing:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# LDAP_ROOTDN=&#34;cn=root,dc=mylan,dc=net&#34;
+</span></span><span class="line"><span class="cl">[root@ldap ~]# read -s -p &#34;Enter LDAP Root DN Password: &#34; LDAP_BINDPW
+</span></span><span class="line"><span class="cl">[root@ldap ~]# &lt;span class=&#34;input LDAP_ADD=&#34;ldapadd -x -H ldap://localhost -D $LDAP_ROOTDN -w $L
+</span></span></code></pre></div><p>Note that the LDAP password is not exported, since it is only needed in the current shell. It is now much simpler to import data into the LDAP server. From the <code>/usr/share/openldap/migration</code> directory, to import the base entries, run:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# ./migrate_base.pl | $LDAP_ADD
+</span></span></code></pre></div><p><em>Importing the base entries has been the cause of much frustration for people who use a longer suffix than the examples of mylan.net, padl.com and example.com that are available all over. This frustration is avoided simply by use the &ldquo;-c&rdquo; option with ldapadd, as we have in the LDAP_ADD variable. If you have received errors such as &ldquo;parent does not exist&rdquo; or &ldquo;No such object&rdquo;, this is for you!</em></p>
+<h2 id="initial-samba-setup-for-ldap" class=link_owner>
+  Initial Samba setup for LDAP
+  <a href="#initial-samba-setup-for-ldap" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>The <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup">second LDAP</a> article covers the setup of a single samba server on an LDAP backend well, but one of the steps (mentioned in both articles) is providing samba with it&rsquo;s LDAP password.</p>
+<p>One of my pet hates is seeing clear-text passwords, and unfortunately providing samba with it&rsquo;s LDAP password is one case where this is usually necessary. If you thought storing the LDAP password in a shell variable (as above) was insecure, you will see that this is the reason for it. I prefer a password in a shell variable than on my screen and in my history, since I can unset the variable when I am done. By using the &ldquo;-s&rdquo; switch to read, we avoid seeing the password when we enter it, thus we don&rsquo;t see it at all. Now, passing the LDAP password of your choice is as easy as:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# read -s -p &#34;Enter LDAP Root DN Password: &#34; LDAP_BINDPW
+</span></span><span class="line"><span class="cl">Enter LDAP Root DN Password:
+</span></span><span class="line"><span class="cl">[root@ldap ~]# smbpasswd -w $LDAP_BINDPW
+</span></span></code></pre></div><p>If you are using your rootdn account for samba, the first step may be unnecessary if you entered it above. If you are done with your password for the moment, remove it from your shell with <code>'unset LDAP_BINDPW'</code>.</p>
+<h2 id="changes-required-on-the-master-ldap-server" class=link_owner>
+  Changes required on the Master LDAP Server
+  <a href="#changes-required-on-the-master-ldap-server" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>To make provision for slave LDAP servers, we need to make some changes to the <code>slapd.conf</code> file on the master LDAP server, and possibly add some entries to the LDAP directory, which will be used for the replication. Note that all the changes we are adding here are database-specific options (as opposed to global options), so they must be added after the <code>database</code> directive for the database you are replicating.</p>
+<p>LDAP replication works by notifying each slave LDAP server of changes that have been made on the master server. For you to have a consistent directory across your servers, this requires that the copies of the directory are consistent to begin with (which we will do later), and then updates to each server need to be tracked to ensure that a given server has received all it&rsquo;s updates. To accomplish this, OpenLDAP uses a replication log file, which logs all the changes that must be made across all servers. Each replication host will also have a log file, indicating which updates still need to be applied. These changes are managed by a separate daemon, slurpd, which spawns a separate instance per replication host.</p>
+<p>The first change we need to make on the server is thus to tell OpenLDAP which file to use as a log file. Add a &ldquo;replogfile&rdquo; directive to <code>slapd.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">replogfile</span>      <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ldap</span><span class="o">/</span><span class="n">replog</span>
+</span></span></code></pre></div><p>Note that slapd needs to be able to create (or write to, if it already exists) the file, so it is best to leave it in a place that the user slapd runs as has write access. Also, since the replog is associated with a database, placing it in the directory specified in the &ldquo;directory&rdquo; directive for the database is convenient.</p>
+<p>Now, for each LDAP slave, we need to add a replica section, which will specify the host to replicate to, the LDAP DN to connect to the replica as, the bind method (and password in the case of clear-text) and ssl settings. Assuming we were wanting to replicate the LDAP directory to hosts ldap1.mylan.net, ldap2.myland.net, we would add something like this to slapd.conf on the master:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">replica host=ldap1.mylan.net:389
+</span></span><span class="line"><span class="cl">        binddn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+</span></span><span class="line"><span class="cl">        bindmethod=simple credentials=&#39;4l70szch&#39;
+</span></span><span class="line"><span class="cl">        tls=yes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">replica host=ldap2.mylan.net:389
+</span></span><span class="line"><span class="cl">        binddn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+</span></span><span class="line"><span class="cl">        bindmethod=simple credentials=&#39;4l70szch&#39;
+</span></span><span class="line"><span class="cl">        tls=yes
+</span></span></code></pre></div><p>It is essential that the password is secured in some fashion, either via SASL (which is beyond the scope of this article, and I&rsquo;m waiting for an article that does cover it!), or if you are using simple bind, via either ssl or tls. Please note that the use of SSL or TLS requires that you specify the host as the name that appears on the SSL certificate the host is using. The simplest way to ensure this is to use the FQDN on the certificate and in the host entry for the replica, and ensure that you have working DNS, specifically resolution of the FQDN to the IP address of the host.</p>
+<p>I would suggest using a password generator to generate passwords, the one above was generated for use in this document using passwd-gen (available in contrib).</p>
+<p>Now, we also need to ensure that this DN exists in the directory, and that it has the password to authenticate against. If you already have an LDAP entity that can be used for this (in this case an entry from the hosts file for the server itself that was imported with migrate_hosts.pl), you could do something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# slappasswd -s 4l70szch
+</span></span><span class="line"><span class="cl">{SSHA}ZVlKuLSLDJ/2AVbedB3qQ+S6c6K+Fgum
+</span></span><span class="line"><span class="cl">[root@ldap ~]# LDAP_MODIFY=&#34;ldapmodify -x -H ldap://localhost -D $LDAP_ROOTDN
+</span></span><span class="line"><span class="cl">[root@ldap ~]# $LDAP_MODIFY
+</span></span><span class="line"><span class="cl">dn: cn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net
+</span></span><span class="line"><span class="cl">changetype: modify
+</span></span><span class="line"><span class="cl">add: objectclass
+</span></span><span class="line"><span class="cl">objectclass: simpleSecurityObject
+</span></span><span class="line"><span class="cl">-
+</span></span><span class="line"><span class="cl">add: userPassword
+</span></span><span class="line"><span class="cl">userPassword: {SSHA}ZVlKuLSLDJ/2AVbedB3qQ+S6c6K+Fgum
+</span></span><span class="line"><span class="cl">^D
+</span></span><span class="line"><span class="cl">modifying entry &#34;ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&#34;
+</span></span><span class="line"><span class="cl">^C
+</span></span><span class="line"><span class="cl">[root@ldap ~]#
+</span></span></code></pre></div><p><em>Note, the <strong>^D</strong> indicates the use of the key combination CTRL-D to signify the end of input, after which the modification will be applied. The <strong>^C</strong> ends the ldapmodify session.</em></p>
+<p>We will need to restart the ldap server, which will then start up a slurpd to replicate to ldap1.mylan.net, but first we need to configure ldap1.mylan.net.</p>
+<h2 id="setting-up-the-slave-ldap-servers" class=link_owner>
+  Setting up the Slave LDAP Servers
+  <a href="#setting-up-the-slave-ldap-servers" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>You should repeat this section for each of your LDAP slaves, in this case we will use ldap1.mylan.net.</p>
+<p>Before we start, you need to ensure you have the necessary software installed on each machine which is to become a slave LDAP server. You will need at least the &lsquo;openldap-servers&rsquo; package, but openldap-clients, openldap, nss_ldap and pam_ldap may be useful, depending on your objectives. To install all the LDAP software we will be using, run the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# urpmi openldap openldap-clients openldap-servers nss_ldap pam_ldap
+</span></span></code></pre></div><p><em>Apparently on Debian systems the equivalent command would be something like &lsquo;apt-get install slapd ldap-utils nss_ldap pam_ldap&rsquo;</em></p>
+<p>In setting up each slave LDAP server, we need to complete a number of tasks. First, we should copy all the configurations from the master server (as for example, we don&rsquo;t want ACLs weaker on the slave). We then need to make a few changes to make slapd run as a slave (instead of allowing updates as usual, it will only accept changes from the master, and refer all requests for modifications to the master). We can then start up the LDAP server, and import the entire directory.</p>
+<h3 id="copying-configuration-files" class=link_owner>
+  Copying configuration files
+  <a href="#copying-configuration-files" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>First, you need to get copies of all the config files to the slave server. The most convenient way is probably via scp. If you have not used scp before, see [/syshardening/openssh.php Using OpenSSH]. Assuming we have a secure, convenient means of using ssh (such as via ssh-agent/keychain and keys with passphrases), you can copy the configuration files across to the first LDAP slave as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# scp ldap:/etc/openldap/slapd.conf /etc/openldap/
+</span></span></code></pre></div><p>Be sure to copy any other config files you have modified, or added to the master server. Examples include <code>/etc/openldap/slapd.access.conf</code>, <code>/etc/samba/samba-slapd.include</code>, <code>/usr/share/openldap/schema/samba.schema</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap1 ~]# scp ldap:/etc/openldap/slapd.access.conf /etc/openldap/
+</span></span><span class="line"><span class="cl">[root@ldap1 ~]# scp ldap:/etc/samba/samba-slapd.include /etc/samba/
+</span></span><span class="line"><span class="cl">[root@ldap1 ~]# scp ldap:/usr/share/openldap/schema/samba.schema \
+</span></span><span class="line"><span class="cl">/usr/share/openldap/schema/
+</span></span></code></pre></div><p><em>The file <code>/etc/samba-slapd.include</code> has not been discussed before. It just contains directives to index the rid (which samba uses when doing lookups on users, so indexing it should improve samba&rsquo;s LDAP queries), and an ACL to protect the samba passwords in the lmPassword and ntPassword attributes. You may want to instead make these changes in the slapd.conf file itself, or you could use an include directive in <code>slapd.conf</code>, between the existing ACLs and index directives, such as <strong>include /etc/samba/samba-slapd.include</strong></em></p>
+<h3 id="modifications-to-slapdconf" class=link_owner>
+  Modifications to slapd.conf
+  <a href="#modifications-to-slapdconf" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p><em>Before we continue, just undo the changes we made above on the master to add the replica hosts in the slapd.conf on the slave.</em></p>
+<p>We need to tell slapd a few things now, first, which DN to accept updates from, with:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">updatedn &#34;ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&#34;
+</span></span></code></pre></div><p>We also need to tell slapd that it is to refer any changes not from the replica DN to the master server, by adding:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">updateref &#34;ldap://ldap.mylan.net&#34;
+</span></span></code></pre></div><p>Finally, we also need to add ACLs on the slave to allow the DN used for replica update write access, so in each set of ACLs covering entries which need to be replicated, add write access for the replication DN, such as:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">access to attr=userPassword
+</span></span><span class="line"><span class="cl">        by self read
+</span></span><span class="line"><span class="cl">        by anonymous auth
+</span></span><span class="line"><span class="cl">        by dn=&#34;cn=ldap.mylan.net,ou=Hosts,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by * none
+</span></span></code></pre></div><p>Remember also to check any ACLs defined in files included in your <code>slapd.conf</code>, such as <code>/etc/openldap/slapd.access.conf</code> and <code>/etc/samba/samba-slapd.include</code>.</p>
+<h3 id="transferring-the-directory-to-the-slave" class=link_owner>
+  Transferring the directory to the slave
+  <a href="#transferring-the-directory-to-the-slave" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>We need to initialise the LDAP directory on the slave server. To my knowledge, the best way to do this is to run an ldap dump (<code>slapcat</code>) on the slave, and pipe the LDIF data into <code>slapadd</code>, which must be done while the slave server is not running. To ensure consistency, we must prevent any changes from occuring on the master server. The OpenLDAP documentation recommends stopping the master LDAP server, however small installations which rely on the master LDAP server will want to rather put the master server into read-only mode (also mentioned in the OpenLDAP documentation).</p>
+<p>On the master server, set it to read-only mode (by placing &ldquo;readonly on&rdquo; in the section of the <code>slapd.conf</code> file for the database you want to have in read-only mode), and restart. If you have just one database on the master server, you can do this as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# echo &#34;readonly on&#34; &gt;&gt; /etc/openldap/slapd.conf
+</span></span><span class="line"><span class="cl">[root@ldap ~]# service ldap restart
+</span></span><span class="line"><span class="cl">Stopping slapd:                                                 [  OK  ]
+</span></span><span class="line"><span class="cl">Stopping slurpd:                                                [FAILED]
+</span></span><span class="line"><span class="cl">ldaps
+</span></span><span class="line"><span class="cl">Starting slapd (ldap + ldaps):                                  [  OK  ]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Starting slurpd:                                                [  OK  ]
+</span></span><span class="line"><span class="cl">[root@ldap ~]#
+</span></span></code></pre></div><p>As you will see, we now have slurpd starting up as well (as a result of our changes above). Now, we can run the LDAP query on the slave server, or run <code>slapcat</code>, and pipe the output directly into the database. An LDAP query may be easier, but will possibly not return all entries in the directory (specifically if you have more entries than your LDAP server is configured to return on a query, or if your query does not take LDAP server settings into account, or if the DN you use does not have access to all data. Ensure that the ldap server is not running on the slave server, as we are going to use <code>slapadd</code> (instead of <code>ldapadd</code>), since we have only one account that will be able to do modifications to the directory, but it is not in the local copy of the directory yet. It would also be possible to uncomment the settings for the slave, and use <code>ldapadd</code> as the rootdn, but that could mean that the master LDAP server would have to run in read-only mode for longer. To accomplish this easily, we want to be able to run some commands as the user who the ldap server runs as, which means we don&rsquo;t have to worry about permissions afterwards on new files. This requires that the user has a valid shell, which is most likely not the case by default. On Mandrake, simply run &lsquo;<code>usermod -s /bin/bash ldap</code>&rsquo; as root first. Then run something like this on the slave:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap1 ~]# ssh ldap1.mylan.net slapcat | su ldap -c &#39;slapadd -c; slapindex&#39;
+</span></span></code></pre></div><p>This runs <code>slapcat</code> on the master (ldap.mylan.net), and brings back the output to stdout on the slave (ldap1.mylan.net), which we then pipe into &lsquo;slapadd -c&rsquo;, and <code>slapindex</code>, both run as the user &rsquo;ldap&rsquo;.</p>
+<p>If you do not have ssh setup (either via ssh keys or using password authentication) to allow connections as root, and you have fewer entries that your LDAP search limit, you can run an LDAP query on the slave:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap1 ~]# ldapsearch -x -LLL -h ldap.mylan.net -D &#34;cn=root,dc=mylan,dc=net&#34; -W \
+</span></span><span class="line"><span class="cl"> | su ldap -c &#39;slapadd -c;slapindex&#39;
+</span></span><span class="line"><span class="cl">Enter LDAP Password:
+</span></span><span class="line"><span class="cl">[root@ldap1 ~]#
+</span></span></code></pre></div><p>Last resort is to run <code>slapcat -l &lt;file&gt;</code> on the master LDAP server, transfer the file to the slave server, and run <code>su ldap -c 'slapadd -c -l &lt;file&gt;;slapindex'</code>.</p>
+<p>We are now ready to fire up the slapd on the slave:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap1 ~]# service ldap start
+</span></span><span class="line"><span class="cl">Stopping slapd:                                                 [  OK  ]
+</span></span><span class="line"><span class="cl">ldaps
+</span></span><span class="line"><span class="cl">Starting slapd (ldap + ldaps):                                  [  OK  ]
+</span></span></code></pre></div><p>Now, you can restart the master LDAP server in read-write mode. Comment out the &ldquo;readonly on&rdquo; you added above and restart the master server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# perl -pi -e &#39;s/^readonly on/#readonly on/g&#39; /etc/openldap/slap
+</span></span><span class="line"><span class="cl">[root@ldap ~]# service ldap restart
+</span></span><span class="line"><span class="cl">ldaps
+</span></span><span class="line"><span class="cl">Starting slapd (ldap + ldaps):                                  [  OK  ]
+</span></span><span class="line"><span class="cl">Starting slurpd:                                                [  OK  ]
+</span></span></code></pre></div><p>While it is not critical at this stage, in future you will want to minimise the amount of time that your master is in read-only mode, since this will prevent users from changing their passwords, other admins from making their changes etc. As your enterprise grows and you rely more on your LDAP service, this will become more important. So, get into the habit of being quick with a new slave LDAP server. You should not need to have the master server in readonly mode for more than a minute when adding a slave, if you follow the method above.</p>
+<p>Remember to set the ldap user&rsquo;s shell (on the slave) back in the interest of security! <code>'usermod -s /bin/false ldap'</code> should do.</p>
+<h2 id="testing-replication" class=link_owner>
+  Testing replication
+  <a href="#testing-replication" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>The whole point of this exercise was to have working replication, so it is worthwhile ensuring that it works correctly. I find the easiest way is to modify the gecos of my own user account on the master, and query it on the slave. I guess it would also be feasible to use a separate LDAP entity for this, but would be more effort. Since we already have the smbldap tools available and configured on the master server (see <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup">article 2</a>), it is convenient to use them to modify values, since we don&rsquo;t have to bother with passwords. In this example, I will use the account &ldquo;joe&rdquo; from the <a href="/Using_OpenLDAP_for_User_Authentication">first article</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# smbldap-usermod -c &#34;Joe User - ldap replication test 1&#34; joe
+</span></span><span class="line"><span class="cl">[root@ldap ~]# ldapsearch -x -h ldap1 &#34;(uid=joe)&#34; gecos -LLL
+</span></span><span class="line"><span class="cl">dn: uid=joe,ou=People,dc=mylan,dc=net
+</span></span><span class="line"><span class="cl">gecos: Joe User - ldap replication test 1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[root@ldap ~]#
+</span></span></code></pre></div><p>You should also test a few more attributes to ensure that ACLs on the slave work, so test an attribute for each ACL you have.</p>
+<p>If you don&rsquo;t get your modification back, you have a problem with your replication, which you need to fix before we progress further. On the master server, you should find a file such as <code>/var/lib/ldap/replica/ldap1.mylan.net:389.rej</code> and <code>/var/lib/ldap/replica/slurpd.replog</code> which should contain some debugging information which should be able to help you find out what is wrong. You may want to test various pieces of the replication setup, such as binding to the slave as the updatedn, or running slurpd in one-shot mode (&rsquo;<code>slurpd -o -d31 -r /var/lib/ldap/replica/slurpd.replog</code>&rsquo; should work to test <code>slurpd</code>). Unfortunately not all the errors from slurpd in one-shot mode are self-explanatory.</p>
+<p>If replication is working, remember to set Joe&rsquo;s gecos back, or he might complain when he gets to his Linux workstation and the screen saver dialog doesn&rsquo;t have his name correct anymore!</p>
+<h2 id="disconnected-authentication" class=link_owner>
+  Disconnected Authentication
+  <a href="#disconnected-authentication" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>To complete our first objective, disconnected authentication, we finally need to do the client-side setup on the LDAP slave. The most important thing here is the configuration of the host in <code>/etc/ldap.conf</code>, as this hostname must be resolvable to the local machine at all times. The next decision is whether to use SSL/TLS here or not. Since all communication will be local, SSL/TLS should not be necessary for encryption support between the client and the server. This frees us from the need to specify an FQDN, and we can use the loopback IP address, 127.0.0.1.</p>
+<p>We mentioned redundancy, and to achieve that goal, you can configure multiple LDAP servers in the host line of <code>/etc/ldap.conf</code>. If the first server listed (which should be the localhost on a slave server) is not available, pam_ldap and nss_ldap should failover to the next server in the list.</p>
+<p>Now, you should be able to disconnect your LDAP slave from the network, and still be able to authenticate. Note however that you may have problems if your network interface stays up, as slapd or pam_ldap or nss_ldap may try and use it, and not return. So, you may have to manually take the interface down, with something like &lsquo;ifdown eth0&rsquo;. If your NIC is supported by ifstatus (check with &lsquo;ifstatus -v&rsquo; while both connected and disconnected), then ifplugd will do this for you on Mandrake 9.1, and you won&rsquo;t have to think about it. However, this issue seems to have been resolved with the latest pam_ldap packages which are available as updates for Mandrake 9.1.</p>
+<p>If you only wanted disconnected authentication (for example for use on laptops which run Linux), you can skip the Samba bits and go right to the end.</p>
+<p>If you cannot authenticate while disconnected, you have a problem you must solve before continuing.</p>
+<h2 id="configuring-the-samba-bdc" class=link_owner>
+  Configuring the Samba &ldquo;BDC&rdquo;
+  <a href="#configuring-the-samba-bdc" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>Before continuing with this section, ensure you have installed the software required, you should use the latest samba packages available from the samba ftp mirrors, compiled with ldap support. &lsquo;urpmi samba-server-ldap&rsquo; should be sufficient to install the necessary software if you have set up your urpmi sources at <a href="http://plf.zarb.org/~nanardon/?minor=1">http://plf.zarb.org/~nanardon/</a>. (I am not aware of Debian sources for samba packages compiled with LDAP support, so I am not aware of an apt-get equivalent.)</p>
+<h3 id="preparing-the-ldap-directory-for-samba" class=link_owner>
+  Preparing the LDAP directory for Samba
+  <a href="#preparing-the-ldap-directory-for-samba" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>As before, we need to configure a few aspects of how Samba will connect to the LDAP server. The first issue to be decided is which DN samba will use when connecting to the LDAP server. To decide this, it is worthwhile reviewing what changes a Samba BDC will be making to the directory. At minimum Samba will need to be able to modify the attributes that it uses for authentication, namely <strong>lmPassword</strong>, <strong>ntPassword</strong> and <strong>pwdLastSet</strong> when users change their passwords from the BDC.</p>
+<p>Unfortunately, Samba (at least 2.2.x) makes changes to all the attributes it uses when modifying one, so Samba-2.2.x will additionally need write access all those defined in the objectclass:SambaAccount.</p>
+<p>If you want to be able to create user accounts from the remote server, Samba (or rather the DN used in the &lsquo;add user script&rsquo;, thus the DN configured in the <code>smbldap_conf.pm</code> on the BDC) will also need to have write access to the OU used for storing user accounts, and must have write access to all attributes. Similarly, if you want to be able to join machines to the domain from the BDC without pre-making machine accounts, you will need to give Samba (via the DN in <code>smbldap_conf.pm</code>) write access to the OU you use for machine accounts.</p>
+<p>Since Samba thus has many rights on the directory, some people will be satisfied in giving samba the rootdn account. However, note that Samba will then store the LDAP rootdn password in a plaintext-readable format on the machine (both in the secrets.tdb file for internal Samba use, and if you use smbldap-tools, in the <code>smbldap_conf.pm</code> file). Also, using a separate DN will give more traceability to modifications to the directory. Any modifications will mark the entries modified with the DN that made the most recent changes, and using one DN for multiple modifiers defeats the point of maintaining this data.</p>
+<p>In this example, we will add a new LDAP entry, &ldquo;cn=samba,dc=mylan,dc=net&rdquo; to the root of our directory, for use by samba. First ensure that your new samba DN is added to the existing ACLs for ntPassword and lmPassword, then add something like the following to the ACL section of your <code>slapd.conf</code> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">access to attr=uid,rid,cn,logonTime,logoffTime,kickoffTime,pwdCanchange,pwdMustchange,\
+</span></span><span class="line"><span class="cl">acctFlags,displayName,smbHome,scriptPath,profilePath,description,userWorkstations,\
+</span></span><span class="line"><span class="cl">primaryGroupID,domain
+</span></span><span class="line"><span class="cl">        by dn=&#34;uid=root,ou=People,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by dn=&#34;cn=samba,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by * read
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">access to dn=&#34;ou=People,dc=mylan,dc=net&#34;
+</span></span><span class="line"><span class="cl">        by dn=&#34;uid=root,ou=People,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by dn=&#34;cn=samba,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by * read
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">access to dn=&#34;ou=Group,dc=mylan,dc=net&#34;
+</span></span><span class="line"><span class="cl">        by dn=&#34;uid=root,ou=People,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by dn=&#34;cn=samba,dc=mylan,dc=net&#34; write
+</span></span><span class="line"><span class="cl">        by * read
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[root@ldap ~]# slappasswd -s 8gi42uie
+</span></span><span class="line"><span class="cl">{SSHA}Yc0VQhwX8IQGyKDnWLUrP+OTnRYAjhl/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[root@ldap ~]# $LDAP_ADD
+</span></span><span class="line"><span class="cl">dn: cn=samba,dc=mylan,dc=netobjectclass: top
+</span></span><span class="line"><span class="cl">objectclass: simpleSecurityObject
+</span></span><span class="line"><span class="cl">userPassword: {SSHA}Yc0VQhwX8IQGyKDnWLUrP+OTnRYAjhl/
+</span></span><span class="line"><span class="cl">adding new entry &#34;cn=samba,dc=mylan,dc=net&#34;
+</span></span></code></pre></div><p>You must now replace your previous settings in <code>/etc/samba/smb.conf</code> and <code>/etc/samba/smbldap_conf.pm</code>, and tell Samba the password for the new DN:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# smbpasswd -w 8gi42uie
+</span></span></code></pre></div><p>Whether you want each samba server using the LDAP server to use its own DN is a choice for you to make. Doing so will allow better auditing (from the ldap data you would be able to know which server had made the most recent change, which would narrow down the search for the admin who made a mistake), but will be more effort. If you choose to do so, just repeat the steps above, adding the new DN to the existing samba ACLs on the directory.</p>
+<p>After making your changes, test your ACLs, ensuring that now samba has the ability to make changes to those attributes. For example, you can create a new user using <code>smbldap-useradd</code> and then test that you can disable the user via <code>smbpasswd</code>. This is also a convenient time to ensure that your LDAP data is replicating to the slave. You will probably have to change some of the ACLs on the slave to allow samba to read the attributes it needs.</p>
+<h3 id="configuration-file-changes-for-the-samba-bdc" class=link_owner>
+  Configuration file changes for the Samba BDC
+  <a href="#configuration-file-changes-for-the-samba-bdc" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>The majority of the configuration from your PDC will apply to your BDC, so copy your <code>smb.conf</code> from the PDC to the BDC, and the <code>smbldap_conf.pm</code> also. The changes you should make to the <code>smb.conf</code> on the BDC include:</p>
+<ul>
+<li>netbios name (if you set it manually on the PDC) - <code>smb.conf</code></li>
+<li>If your PDC runs as a WINS server, make your BDC a WINS client of the PDC instead, since Samba does not support WINS replication yet - <code>smb.conf</code></li>
+<li>If you are using different DNs, change them - <code>smb.conf</code></li>
+<li>Don&rsquo;t set the BDC as <strong>domain master</strong>, but ensure it is set up for <strong>domain logons</strong> - <code>smb.conf</code></li>
+<li>Affinity of clients for a certain logon server can be adjusted with <strong>os level</strong> - <code>smb.conf</code></li>
+<li>In the <code>smbldap_conf.pm</code>, where you previously set $slaveLDAP and $masterLDAP, you should obviously ensure they point to the relevant LDAP servers.</li>
+</ul>
+<p>The final change to the smb.conf file relates to the creation of machine accounts. When you join a machine to the domain, samba will do a check for a machine account on the LDAP server, and if no account exists, it will run the &ldquo;add user script&rdquo;, and query its LDAP server again for an account. You may find that Samba does not wait long enough between adding the account (to the master) and checking for the account on the slave to allow replication to occur. If this is the case, you can just force samba to wait after running the script by making the full &ldquo;add user script&rdquo; on the slave look something like this (which will make it wait for 5 seconds):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">add user script = /usr/share/samba/scripts/smbldap-useradd.pl -w -d /dev/null \
+</span></span><span class="line"><span class="cl"> -g machines -c &#39;Machine Account&#39; -s /bin/false %u; sleep 5
+</span></span></code></pre></div><p>Remember to import Samba&rsquo;s LDAP DN password on the slave via <code>smbpasswd -w &lt;password&gt;</code>.</p>
+<p>The last bit that is important is importing the domain SID, which the PDC has, on the BDC. On the BDC, run something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@ldap ~]# smbpasswd -S -r ldap.mylan.net
+</span></span></code></pre></div><p>Start your samba server up on the slave, and you should now be able to join a Windows machine to the domain, via either machine. If you imported a <strong>uid=root</strong> account, that had an smbpasswd, you should be able to use that account. Additionally, any user that is a member of the adm group on one of the machines should have rights to join the machine to the domain. This is controlled by the permissions on the smbldap-tools scripts and configuration file. Additionally, members of the adm group should have Domain Admin rights on the windows machines, controlled by the &ldquo;domain admin group&rdquo; parameter in the smb.conf file. Furthermore, members of the adm group should be able to administer printers on any Mandrake samba servers, due to the &ldquo;printer admin group&rdquo; default parameter, and the permissions on the files in the print$ share.</p>
+<p>For more detail on joining Windows clients to a Samba Domain Controller, including screenshots, please see the <a href="http://mandrake.vmlinuz.ca/bin/view/Main/SambaDomainController#join">relevant section of the Mandrake Community Wiki</a>. Note of course that although the screenshots show the use of the root account, any Domain Admin account should be able to join machines to the domain.</p>
+<p>You should be able to log in to the windows client with a domain account (after the reboot) to either server. Test this by stopping samba on one machine at a time (if the server you are stopping is your WINS server, you must not shut nmbd down but rather just the smbd&rsquo;s, which you can do (assuming no users have files open) with &lsquo;killall smbd&rsquo; as root).</p>
+<h3 id="complications-for-windows-specific-features" class=link_owner>
+  Complications for Windows-specific features
+  <a href="#complications-for-windows-specific-features" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>Note that there are additional complications for LDAP domain controllers that you will encounter on your first login, relating to profiles and login scripts. When using LDAP accounts, Samba will first check to see if the LDAP account for the user has profilePath and scriptPath LDAP attributes, in which case those paths will be used for locating the user&rsquo;s profile and login script. If the attributes do not exist for the LDAP account, Samba will fall back to the settings in <code>smb.conf</code>. While settings in <code>smb.conf</code> are not as flexible, the use of samba macros in the &rsquo;logon path&rsquo; and &rsquo;login script&rsquo; entries allows easy customisation. Additionally, if you are using multiple domain controllers to cut down on bandwidth, having the profilePath contain the server name defeats this purpose. Unfortunately, the smbldap-tools will always set the LDAP attributes, so if you don&rsquo;t use them, you must currently delete them manually, in which case it is also a good time to add any additional attributes for the user.</p>
+<p>Also, the user logging must either have rights to create a profile directory, or their profile directory must exist and be accessible by them. An example of one way to achieve this is given in the example config file, using a &lsquo;root preexec&rsquo; on the profiles share to create and assign permissions on the profile directory.</p>
+<p>The final issue is with retaining existing profiles. For Windows NT-based (ie Windows NT, Windows 2000, Windows XP Professional) version, the registry settings in a user&rsquo;s profile are protected by ACLs, so when copying profiles (such as a local profile to the server), you must ensure that you assign the new (domain) user account rights to use the profile. If you are migrating a large network from an existing Windows domain, it is not easy to do this, and you may want to use Samba3 instead, which is able to retain the SIDs for each user, making this unnecessary.</p>
+<p>You may notice that you now end up with multiple of your profile. Ideally you will want to ensure that profiles are replicated somehow, but that is beyond the scope of this article. It seems the windows machines will always attempt to log on to the server they most recently logged into. If this machine is not available, they will query for a logon server.</p>
+<h2 id="password-changing-expiry-and-synchronisation" class=link_owner>
+  Password Changing, Expiry and Synchronisation
+  <a href="#password-changing-expiry-and-synchronisation" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>Depending on your future plans for your network, you may want to accomplish different objectives for password synchronisation, expiry etc. The most basic password-changing aspect is an administrative user changing passwords for users, which can be done conveniently on any machine setup for smbldap-tools by using <code>smbldap-passwd</code>. However, in most cases you will want the users to be able to change their passwords easily on their own, and in all likelihood you will want to enforce password changes at regular intervals. The issues we will look at in accomplishing this include:</p>
+<ul>
+<li>Windows users changing their Windows password from their Windows client (probably the most important in the short-term)</li>
+<li>Windows users changing their Unix password from their Windows client (important if you authenticate other services on Unix via the Unix password</li>
+</ul>
+<p>in LDAP, such as IMAP/SSH servers etc)</p>
+<ul>
+<li>Unix users changing their Unix password from their Unix machine (if you have Unix/Linux desktops, you will want this at least)</li>
+<li>Unix users changing their Windows password from their Unix machine (the most difficult part)</li>
+</ul>
+<h2 id="changing-samba-passwords-from-windows-machines" class=link_owner>
+  Changing Samba passwords from Windows machines
+  <a href="#changing-samba-passwords-from-windows-machines" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>Password changing for windows machines should now work as follows:</p>
+<ul>
+<li>User runs password-changing tool (ie CTRL-ALT-DEL-&gt;Change Password)</li>
+<li>If samba is configured for unix password synchronisation, either via a password script or via pam, Samba will first try to change the Unix password.</li>
+<li>If the Unix password change succeeded (if configured) or if samba is not configured for Unix password synchronisation, Samba will try to change the ntPassword and lmPassword attributes in its LDAP server.</li>
+<li>If Samba is a &ldquo;PDC&rdquo;, its changes should be successful. If samba is a &ldquo;BDC&rdquo;, its first attempt should fail, returning a referral to the master LDAP server. Samba should then rebind to the master LDAP server, and attempt to change lmPassword and ntPassword.</li>
+<li>If this is all successful, Windows should tell you your password change was successful.</li>
+</ul>
+<h3 id="windows-users-changing-unix-passwords" class=link_owner>
+  Windows users changing Unix passwords
+  <a href="#windows-users-changing-unix-passwords" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>To keep passwords in synchronisation, it is possible to have samba change the users Unix password whenever they change their Windows/Samba password. To do this, you need to enable the <strong>unix password sync</strong> option, and either use <strong>passwd program = /usr/bin/passwd %u</strong> or <strong>pam password change = yes</strong>, both of which require a suitable <strong>passwd chat</strong>.</p>
+<p>The advantage of using pam is that you can customise the way Samba passwords are changed, however by default they will work just like the passwd program (since the <code>/etc/pam.d/samba</code> file by default should use pam_stack and pass password changes on to the configuration in <code>/etc/pam.d/system-auth</code>).</p>
+<p>Note that the password change operation will take place as root, so any Samba server that does Unix password synchronisation for LDAP accounts must be configured to bind as a DN that has write access to the password attributes in LDAP, normally by configuring a <strong>rootbinddn</strong> in <code>/etc/ldap.conf</code> and entering the password for that DN in plain text in <code>/etc/ldap.secret</code>. Finally, note that failure of a Unix password change operation will cause the samba password change to fail, so ensure your Unix password change for other users works as root before testing from Windows clients.</p>
+<p>Full configuration for Unix password synchronisation via Samba could look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">unix password sync = yes
+</span></span><span class="line"><span class="cl">pam password change = yes
+</span></span><span class="line"><span class="cl">passwd chat = *New*UNIX*password* %n\n *Re*ype*new*UNIX*password* %n\n \
+</span></span><span class="line"><span class="cl">*passwd:*all*authentication*tokens*updated*successfully*
+</span></span></code></pre></div><h3 id="unix-users-changing-unix-passwords" class=link_owner>
+  Unix users changing Unix passwords
+  <a href="#unix-users-changing-unix-passwords" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>If your pam_ldap is set up correctly according to the original article, then password changes should work from your Unix clients, however note that some packages of openldap have a bug in this regard. If you have updated to the latest openldap packages for Mandrakelinux, everything should work fine. Note that a user will require their existing Unix password in LDAP in order to be able to change their password. Also, in most cases it should not be possible for the local root user to be able to change other users passwords in LDAP, since you would not place your rootdn password on the clients.</p>
+<h3 id="unix-users-change-windows-passwords" class=link_owner>
+  Unix users change Windows passwords
+  <a href="#unix-users-change-windows-passwords" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>This is one of the most difficult to solve cleanly, as there are only two ways this can be accomplished, one which is not available in maintained form, the other has security implications:</p>
+<ul>
+<li>There is a <a href="http://www.rit.bme.hu/~balsa/pam_ldap_ntlm/">version of pam_ldap available</a> that will modify the lmPassword and ntPassword attributes when changing the userPassword attribute, however it is not maintained and has not been merged into the mainline pam_ldap.</li>
+<li>pam_smbpass (part of the Samba suite) will, when samba is compiled with ldapsam support, change Samba passwords in the configured sam backend on the machine where it is called, however this requires that each pam_smbpass installation installed for this purpose be provided with an LDAP DN with rights to change the password, and the password for that rootdn be imported into Samba, consequently stored in plain-text in one of Samba&rsquo;s tdb files (protected with file permissions of course). This is no better than entering your rootdn password into <code>/etc/ldap.secret</code> and should be avoided on non-server machines.</li>
+</ul>
+<p>At present, since your Unix users are likely to be more command-line literate, it may be best to have them change their Samba password manually with <code>smbpasswd</code>.</p>
+<h3 id="password-expiry" class=link_owner>
+  Password Expiry
+  <a href="#password-expiry" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h3>
+<p>Password expiry for Samba password will only be fully functional with Samba-3 on a &ldquo;rich&rdquo; SAM backend, including LDAP. The Samba schema for Samba-2.2.x includes password-expiry-related attributes, but only minimal use is made of them. While it is possible to get samba to cause a password-expiry prompt to appear at login time, changing the password will not update the password age, thus the following login prompt will still result in a password-expiry dialog. Also, an expired samba password may also not prevent a user from logging in. The updating of password ages could be done via a modified &lsquo;passwd program&rsquo; and a cron job (this is being investigated).</p>
+<p>However, Samba can be configured to &ldquo;obey pam restrictions&rdquo;, in which case Samba will deny logins to users when a pam &ldquo;account&rdquo; or &ldquo;session&rdquo; module has failed. Thus, if you expire Unix accounts via the LDAP attribute <em>shadowExpire</em>, both Unix and Samba accounts will be locked out until their passwords are reset. Unfortunately it seems impossible to have users warned automatically when their passwords are about to expire (as it would be with Samba-3), so you may have to write a script to check for accounts that are about to expire.</p>
+<h2 id="exercises-for-the-student" class=link_owner>
+  Exercises for the student
+  <a href="#exercises-for-the-student" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>There are always things that can be improved upon, and these are some examples which the author is currently implementing, but are not complete or have not been in production for sufficient time that the author is willing to make them available for public scrutiny:</p>
+<ul>
+<li>Using regex-based ACLs for <code>slapd.conf</code>, allowing generic ACLs in the global section of slapd.conf, instead of per-db ACLs</li>
+<li>Using OUs to group entities that require the same Access Controls (such as Domain Controllers and/or LDAP slaves), allowing fewer ACLs (which can have a significant performance impact)</li>
+<li>Patching the smbldap-tools to make the addition of profilePath and scriptPath attributes configurable</li>
+<li>Implementation of password-unexpiry for Samba passwords in LDAP</li>
+<li>Two-way (minimum) replication of user profiles (since one-way is too easy to give for homework)</li>
+<li>Update to OpenLDAP-2.1 and Samba3</li>
+</ul>
+<h2 id="cleaning-up" class=link_owner>
+  Cleaning up
+  <a href="#cleaning-up" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>No job is done until the tools have been put back in their places, and in our case that applies to any changes you made to your configurations during testing. So, remember to remove any passwords you used for migrating data (such as in the <code>import_smbpasswd.pl</code> file), turn logging back to sane levels, change any passwords that may have been transmitted in the clear or stored in files with weak permissions. Remove unnecessary bloat from your configuration files (you may want to make backups first), and ensure all the services are configured to start at boot. You should also ensure that your backup system takes snapshots of your LDAP database.</p>
+<h2 id="credits-and-references" class=link_owner>
+  Credits and References
+  <a href="#credits-and-references" class="link icon">
+    <svg>
+      <use xlink:href="#anchor-link"></use>
+    </svg>
+  </a>
+</h2>
+<p>A number of people have been involved in allowing me to complete this document. Firstly, Vincent Danen, whose <a href="/Using_OpenLDAP_for_User_Authentication">LDAP authentication article</a> allowed me to get our LDAP authentication working correctly. Without Jim Collings, who wrote the <a href="/Implementing_a_Samba_LDAP_Primary_Domain_Controller_Setup">initial Samba+LDAP PDC article</a> I would not have been motivated to tackle this large topic, since we already had everything running. Of course, the <a href="http://www.samba.org">The Samba Team</a> who provide excellent software and better support, as well as the <a href="http://www.openldap.org">OpenLDAP developers</a>.</p>
+<p>I located a lot of documentation covering issues relating to LDAP (including ACLs and replication etc) and Samba. Some good documents which have content I have not referred to or covered are referenced below:</p>
+<ul>
+<li>Ignacio Coupeau&rsquo;s [Samba-2.2.x&lt;/ a&gt; and <a href="http://www.unav.es/cti/ldap-smb/ldap-smb-2_2-howto.html">http://www.unav.es/cti/ldap-smb/smb-ldap-3-howto.html Samba-3</a> HOWTOS</li>
+<li><a href="http://www.arrayservices.com/projects/Exchange-HOWTO/html/book1.html">The Exchange Server Replacement HOWTO</a></li>
+<li><a href="http://group-ldap-auth.sourceforge.net/squid/group_ldap_auth/">Squid authentication by groups</a></li>
+<li><a href="http://www.metaconsultancy.com/whitepapers/ldap.htm">Using OpenLDAP (includes minimal information on LDAP slaves)</a></li>
+<li><a href="http://caesar.elte.hu/eltenet/projects/demogrid/demogrid-report-1/dg-rep-1-sec-eval.pdf">Evaluation of Distributed Authentication, Authorization and Directory Services</a></li>
+<li><a href="http://www.daasi.de/staff/norbert/thesis/html/thesis.html">Directory Services for Linux</a></li>
+<li>OpenLDAP Admin Guide: <a href="http://www.openldap.org/devel/admin/slapdconfig.html#Access">ACLs</a></li>
+</ul>
+<p>Copyright © 2003 Buchan Milne</p>
+
+    <div class="pager">
+  
+    
+    <div class="pager_item prev">
+      <a href="http://localhost:1313/geektool/" class="pager_link button" title="GeekTool" rel="prev">
+        <span class="pager_label">GeekTool</span>
+      </a>
+    </div>
+    
+  
+
+  
+    
+    <div class="pager_item next">
+      <a href="http://localhost:1313/using_os_x_as_an_nfs_client/" class="pager_link button" title="Using OS X as an NFS Client" rel="next">
+        <span class="pager_label">Using OS X as an NFS Client</span>
+      </a>
+    </div>
+    
+  
+</div>
+  </main>
+</div>
+</div><script>
+
+const copy_text = 'Copy';
+const copied_text = 'Copied';
+const toggle_line_numbers_text = 'Toggle line numbers';
+const toggle_line_wrap_text = 'Toggle line wrap';
+const resize_snippet = 'Resize snippet height';
+const not_set = 'not set';
+const quick_links = 'Quick links';
+const search_results_label = 'Search Results';
+const short_search_query = 'Query is too short'
+const type_to_search = 'Type to search';
+const no_matches_found = 'No matches found';
+</script>
+<footer class="pt-2 pb-2">
+  <div class="wrap footer-inner">
+    <div class="footer-social">
+      <div class="footer-social__links" id="sidebar-social-link">
+        <a href="https://x.com/vdanen" title="X" target="_blank" rel="me noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="X" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#000"/><path fill="#fff" d="M346.4 153H385l-85.3 97.5L400 359h-74.4l-58.3-76.2L160.6 359H122l91.2-104.2L112 153h76.2l52.6 69.3L346.4 153zm-13.1 185.2h20.6L179.5 172.4h-22.1l176 165.8z"/></svg>
+        </a>
+        <a href="https://github.com/vdanen" title="GitHub" target="_blank" rel="me noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/vdanen/" title="LinkedIn" target="_blank" rel="me noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+        </a>
+        <a href="https://infosec.exchange/@vdanen" title="Mastodon" target="_blank" rel="me noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+        </a>
+      </div>
+    </div>
+    <p>
+      &copy; <span class="year">2026</span>
+        <a href="http://localhost:1313/about/" rel="noopener">Vincent Danen</a>
+    </p>
+    <a href="#pagetop" id="toTop" title=Back&#32;to&#32;top></a>
+  </div>
+</footer>
+<svg width="0" height="0" class="hidden">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492.004 492.004" id="next">
+    <path d="M484.14 226.886L306.46 49.202c-5.072-5.072-11.832-7.856-19.04-7.856-7.216 0-13.972 2.788-19.044 7.856l-16.132 16.136c-5.068 5.064-7.86 11.828-7.86 19.04 0 7.208 2.792 14.2 7.86 19.264L355.9 207.526H26.58C11.732 207.526 0 219.15 0 234.002v22.812c0 14.852 11.732 27.648 26.58 27.648h330.496L252.248 388.926c-5.068 5.072-7.86 11.652-7.86 18.864 0 7.204 2.792 13.88 7.86 18.948l16.132 16.084c5.072 5.072 11.828 7.836 19.044 7.836 7.208 0 13.968-2.8 19.04-7.872l177.68-177.68c5.084-5.088 7.88-11.88 7.86-19.1.016-7.244-2.776-14.04-7.864-19.12z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.999 511.999" id="search">
+    <path d="M508.874 478.708L360.142 329.976c28.21-34.827 45.191-79.103 45.191-127.309C405.333 90.917 314.416 0 202.666 0S0 90.917 0 202.667s90.917 202.667 202.667 202.667c48.206 0 92.482-16.982 127.309-45.191l148.732 148.732c4.167 4.165 10.919 4.165 15.086 0l15.081-15.082c4.165-4.166 4.165-10.92-.001-15.085zM202.667 362.667c-88.229 0-160-71.771-160-160s71.771-160 160-160 160 71.771 160 160-71.771 160-160 160z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 241 179" id="harmburger">
+    <path d="M1 10C1 4.477 5.477 0 11 0h220c5.523 0 10 4.477 10 10s-4.477 10-10 10H11C5.477 20 1 15.523 1 10zm0 80c0-5.523 4.477-10 10-10h220c5.523 0 10 4.477 10 10s-4.477 10-10 10H11c-5.523 0-10-4.477-10-10zm9 69c-5.523 0-10 4.477-10 10s4.477 10 10 10h220c5.523 0 10-4.477 10-10s-4.477-10-10-10H10z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 401.998 401.998" id="sort">
+    <path d="M73.092 164.452h255.813c4.949 0 9.233-1.807 12.848-5.424 3.613-3.616 5.427-7.898 5.427-12.847s-1.813-9.229-5.427-12.85L213.846 5.424C210.232 1.812 205.951 0 200.999 0s-9.233 1.812-12.85 5.424L60.242 133.331c-3.617 3.617-5.424 7.901-5.424 12.85 0 4.948 1.807 9.231 5.424 12.847 3.621 3.617 7.902 5.424 12.85 5.424zm255.813 73.097H73.092c-4.952 0-9.233 1.808-12.85 5.421-3.617 3.617-5.424 7.898-5.424 12.847s1.807 9.233 5.424 12.848L188.149 396.57c3.621 3.617 7.902 5.428 12.85 5.428s9.233-1.811 12.847-5.428l127.907-127.906c3.613-3.614 5.427-7.898 5.427-12.848 0-4.948-1.813-9.229-5.427-12.847-3.614-3.616-7.899-5.42-12.848-5.42z"></path>
+  </symbol>
+</svg>
+
+<svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol enable-background="new 0 0 64 64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="anchor-link">
+    <g fill="var(--theme)">
+      <path d="m19 40c1.104 0 2-.896 2-2s-.896-2-2-2c-3.86 0-7-3.14-7-7 0-1.873.728-3.628 2.059-4.95 1.313-1.322 3.068-2.05 4.941-2.05h10c3.86 0 7 3.14 7 7 0 .258-.015.509-.048.78-.174 1.574-.885 3.052-2.017 4.176-.532.54-1.137.974-1.797 1.289-.997.476-1.419 1.669-.944 2.666.476.996 1.669 1.419 2.667.943 1.08-.516 2.063-1.219 2.908-2.075 1.763-1.75 2.885-4.08 3.156-6.539.051-.413.075-.819.075-1.24 0-6.065-4.935-11-11-11h-10c-2.947 0-5.709 1.147-7.77 3.221-2.083 2.07-3.23 4.832-3.23 7.779 0 6.065 4.935 11 11 11z"></path>
+      <path d="m45 28c-1.104 0-2 .896-2 2s.896 2 2 2c3.86 0 7 3.141 7 7 0 1.873-.728 3.628-2.059 4.95-1.313 1.322-3.068 2.05-4.941 2.05h-10c-3.86 0-7-3.141-7-7 0-.258.015-.509.048-.78.174-1.574.885-3.052 2.017-4.176.532-.54 1.136-.974 1.796-1.289.997-.476 1.419-1.67.944-2.667s-1.669-1.418-2.667-.944c-1.081.516-2.064 1.22-2.908 2.076-1.763 1.75-2.885 4.08-3.156 6.538-.05.415-.074.821-.074 1.242 0 6.065 4.935 11 11 11h10c2.946 0 5.709-1.147 7.77-3.221 2.083-2.07 3.23-4.833 3.23-7.779 0-6.065-4.935-11-11-11z"></path>
+    </g>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol aria-hidden="true" viewBox="0 0 24 24" id="carly">
+    <path fill="currentColor" d="M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3l3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z"></path>
+  </symbol>
+  <symbol enable-background="new 0 0 512 512" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="copy">
+    <path d="m366.905 108.016h-141.91c-11.048 0-20.003 8.955-20.003 20.003s8.955 20.003 20.003 20.003h141.91c11.048 0 20.003-8.955 20.003-20.003s-8.956-20.003-20.003-20.003z"></path>
+    <path d="m366.905 188.027h-141.91c-11.048 0-20.003 8.955-20.003 20.003s8.955 20.003 20.003 20.003h141.91c11.047 0 20.003-8.955 20.003-20.003s-8.955-20.003-20.003-20.003z"></path>
+    <path d="m286.004 268.039h-61.009c-11.048 0-20.003 8.955-20.003 20.003s8.955 20.003 20.003 20.003h61.009c11.048 0 20.003-8.955 20.003-20.003s-8.955-20.003-20.003-20.003z"></path>
+    <path d="m448.028 272.039c11.048 0 20.003-8.955 20.003-20.003v-172.024c0-44.119-35.894-80.012-80.012-80.012h-184.027c-44.094 0-79.971 35.853-80.012 79.938-44.118 0-80.012 35.893-80.012 80.012v272.039c0 44.118 35.893 80.012 80.012 80.012h194.028c44.118 0 80.012-35.893 80.012-80.012v-.608c39.414-4.938 70.01-38.662 70.01-79.389 0-11.048-8.955-20.003-20.003-20.003s-20.003 8.955-20.003 20.003c0 22.054-17.942 40.001-39.996 40.006l-184.027.045h-.009c-10.685 0-20.73-4.16-28.285-11.715-7.558-7.556-11.721-17.604-11.721-28.291v-272.025c0-22.059 17.947-40.006 40.006-40.006h184.028c22.059 0 40.006 17.947 40.006 40.006v172.025c-.001 11.047 8.954 20.002 20.002 20.002zm-244.036 160.008h.02l154.002-.038c-.012 22.049-17.954 39.984-40.006 39.984h-194.027c-22.059 0-40.006-17.947-40.006-40.006v-272.039c0-22.059 17.947-40.006 40.006-40.006v232.094c0 21.375 8.325 41.471 23.441 56.583 15.113 15.11 35.2 23.428 56.57 23.428z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube">
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.016 512" id="expand">
+    <path d="m240 426.675781h-181.332031c-32.363281 0-58.667969-26.304687-58.667969-58.667969v-309.332031c0-32.363281 26.304688-58.6679685 58.667969-58.6679685h309.332031c32.363281 0 58.667969 26.3046875 58.667969 58.6679685v181.332031c0 8.832032-7.167969 16-16 16s-16-7.167968-16-16v-181.332031c0-14.699219-11.96875-26.667969-26.667969-26.667969h-309.332031c-14.699219 0-26.667969 11.96875-26.667969 26.667969v309.332031c0 14.699219 11.96875 26.667969 26.667969 26.667969h181.332031c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"></path>
+    <path d="m496 512.007812h-138.667969c-8.832031 0-16-7.167968-16-16 0-8.832031 7.167969-16 16-16h122.667969v-122.667968c0-8.832032 7.167969-16 16-16s16 7.167968 16 16v138.667968c0 8.832032-7.167969 16-16 16zm0 0"></path>
+    <path d="m496 512.007812c-4.097656 0-8.191406-1.558593-11.308594-4.691406l-181.332031-181.335937c-6.25-6.25-6.25-16.382813 0-22.632813s16.382813-6.25 22.636719 0l181.332031 181.332032c6.25 6.25 6.25 16.382812 0 22.636718-3.136719 3.132813-7.230469 4.691406-11.328125 4.691406zm0 0"></path>
+  </symbol>
+  <symbol enable-background="new 0 0 512 512" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="order">
+    <path d="m492 236h-347.738c-11.046 0-20 8.954-20 20s8.954 20 20 20h347.738c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+    <path d="m492 86h-347.738c-11.046 0-20 8.954-20 20s8.954 20 20 20h347.738c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+    <path d="m492 386h-347.738c-11.046 0-20 8.954-20 20s8.954 20 20 20h347.738c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+    <circle cx="27" cy="106" r="27"></circle>
+    <circle cx="27" cy="256" r="27"></circle>
+    <circle cx="27" cy="406" r="27"></circle>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#666" viewBox="0 0 512 512" id="check">
+    <path d="M99.941 293.748a21.78 21.78 0 0 1-7.175-16.153c0-11.938 9.823-21.765 21.764-21.765a21.772 21.772 0 0 1 15.737 6.733l85.958 83.825 164.42-194.504c18.463-21.833 51.574 6.326 33.213 28.125L234.276 392.324l-1.032 1.135c-8.327 8.55-22.218 8.74-30.773.412L99.941 293.748z"></path>
+  </symbol>
+</svg>
+
+<script>
+  "use strict";const doc=document.documentElement,toggle_id="toggle",show_id="show",menu="menu",active="active";let site_title=`annvix`,root_url="/";root_url=root_url.startsWith("http")?root_url:window.location.origin;const go_back_class="button_back",line_class=".line",code_block_config=JSON.parse('{"maximum":20,"show":false}'),iconsPath=`icons/`,shell_based=["sh","shell","zsh","bash"],body=elem("body"),max_lines=code_block_config.maximum,show_lines=code_block_config.show,copy_id="panel_copy",wrap_id="panel_wrap",lines_id="panel_lines",panel_expand="panel_expand",panel_expanded="panel_expanded",panel_box="panel_box",panel_hide="panel_hide",panel_from="panel_from",full_height="initial",highlight="highlight",highlight_wrap="highlight_wrap",hash="#",light="light",dark="dark",storageKey=`${site_title}-color-mode`,mermaidThemeKey=`${site_title}-mermaid`,key="--color-mode",mode_data="data-mode",bank=window.localStorage;function isObj(e){return!!(e&&typeof e=="object"&&e!==null)}function createEl(e="div"){return document.createElement(e)}function emptyEl(e){for(;e.firstChild;)e.removeChild(e.firstChild)}function elem(e,t=document){let n=!!isObj(t)&&t.querySelector(e);return n}function elems(e,t=document){return isObj(t)?t.querySelectorAll(e):[]}function pushClass(e,t){if(isObj(e)&&t){let n=e.classList;!n.contains(t)&&n.add(t)}}function deleteClass(e,t){if(isObj(e)&&t){let n=e.classList;!!n.contains(t)&&n.remove(t)}}function modifyClass(e,t){if(isObj(e)&&t){const n=e.classList;n.contains(t)?n.remove(t):n.add(t)}}function containsClass(e,t){if(isObj(e)&&t&&e!==document)return!!e.classList.contains(t)}function isChild(e,t){let n=isObj(e)&&t&&typeof t=="string";return!!(n&&e.closest(t))}function elemAttribute(e,t,n=null){if(n)e.setAttribute(t,n);else return n=e.getAttribute(t),n}function deleteChars(e,t){let n=e;if(Array.isArray(t))for(let e=0;e<t.length;e++)n=n.replace(t[e],"");else n=n.replace(t,"");return n}function isBlank(e){return!e||e.trim().length===0}function isMatch(e,t){if(isObj(e)){if(t.isArray){let n=t.map(function(t){return e.matches(t)});return n.includes(!0)}return e.matches(t)}}function closestInt(e,t){return t.reduce(function(t,n){return Math.abs(n-e)<Math.abs(t-e)?n:t})}function hasClasses(e){if(isObj(e)){const t=e.classList;return t.length}}function wrapEl(e,t){e.parentNode.insertBefore(t,e),t.appendChild(e)}function wrapText(e,t,n="mark"){let s=`<${n}>`,o=`</${n}>`,r=`%3C${n}%3E`,c=`%3C/${n}%3E`;function i(t){let n=t.innerHTML,a=new RegExp(e,"gi"),i=e.length?n.match(a):null;if(i){i.forEach(function(e){n=n.replaceAll(e,`${s}${e}${o}`),t.innerHTML=n});const e=elems("img",t);e&&e.forEach(e=>{e.src=e.src.replaceAll(s,"").replaceAll(o,"").replaceAll(r,"").replaceAll(c,"")})}}const l=["h1","h2","h3","h4","h5","h6","p","code","td"];l.forEach(function(e){const n=elems(e,t);n.length&&n.forEach(function(e){e.children.length>=1?(Array.from(e.children).forEach(function(e){i(e)}),i(e)):i(e)})});const a=elems("a");a&&a.forEach(function(e){e.href=e.href.replaceAll(encodeURI(s),"").replaceAll(encodeURI(o),"")})}function parseBoolean(e=""){switch(e=e.trim().toLowerCase(),e){case"true":return!0;case"false":return!1;default:return 0[0]}}function loadSvg(e,t){t.innerHTML=`
+  <svg class="icon_${e}">
+    <use xlink:href="#${e}"></use>
+  </svg>`}function copyToClipboard(e){let t,n,s;t=createEl("textarea"),t.value=e,t.setAttribute("readonly",""),t.style.position="absolute",t.style.left="-9999px",n=document.getSelection(),doc.appendChild(t),s=n.rangeCount>0&&n.getRangeAt(0),t.select(),document.execCommand("copy"),doc.removeChild(t),s&&(n.removeAllRanges(),n.addRange(s))}const snippet_actions=[{icon:"copy",id:"copy",title:copy_text,show:!0},{icon:"order",id:"lines",title:toggle_line_numbers_text,show:!0},{icon:"carly",id:"wrap",title:toggle_line_wrap_text,show:!1},{icon:"expand",id:"expand",title:resize_snippet,show:!1}];function addLines(e){let t=e.textContent;const n=[];t.includes(`
+`)&&e.closest("pre")&&!e.children.length&&(t=t.split(`
+`),t.forEach((t,s)=>{if(t.trim().length){const o=`
+        <span class="line line-flex">
+          <span class="ln">${s+1}</span>
+          <span class="cl">${t.trim()}</span>
+        </span>`.trim();n.push(o),e.closest("pre").className="chroma",pushClass(e,"language-unknown"),e.dataset.lang=not_set}}),e.innerHTML=n.join("").trim(" "))}function wrapOrphanedPreElements(){const e=elems("pre");Array.from(e).forEach(function(e){const t=e.parentNode,n=!containsClass(t,highlight);if(n){const t=createEl();t.className=highlight;const n=createEl();n.className=highlight_wrap,wrapEl(e,t),wrapEl(t,n)}})}wrapOrphanedPreElements();function codeBlocks(){const e=elems("code"),t=Array.from(e).filter(function(e){return addLines(e),e.closest("pre")&&!Array.from(e.classList).includes("noClass")}).map(function(e){return e});return t}function codeBlockFits(e){const t=e.offsetWidth,n=e.closest(`.${highlight}`).offsetWidth;return t<=n}function maxHeightIsSet(e){let t=e.style.maxHeight;return t.includes("px")}function restrainCodeBlockHeight(e){const n=e[max_lines-1];let t=full_height;if(n){const s=n.offsetTop;if(s!==0){t=`${s}px`;const n=e[0].parentNode,o=n.closest(`.${highlight}`),i=containsClass(o,panel_expanded);i||(n.dataset.height=t,n.style.maxHeight=t)}}}const blocks=codeBlocks();function collapseCodeBlock(e){const t=elems(line_class,e),n=t.length;if(n>max_lines){const n=createEl();pushClass(n,panel_expand),pushClass(n,panel_from),n.title="Toggle snippet",n.textContent="...";const s=e.closest(".highlight");window.setTimeout(function(){const e=s.nextElementSibling.lastElementChild;deleteClass(e,panel_hide)},150),restrainCodeBlockHeight(t);const o=e.parentNode.parentNode;o.appendChild(n)}}blocks.forEach(function(e){collapseCodeBlock(e)});function actionPanel(){const e=createEl();return e.className=panel_box,snippet_actions.forEach(function(t){const n=createEl("a");n.href="#",n.title=t.title,n.className=`icon panel_icon panel_${t.id}`,!t.show&&pushClass(n,panel_hide),loadSvg(t.icon,n),e.appendChild(n)}),e}function toggleLineNumbers(e){e&&(e.forEach(e=>modifyClass(e,"pre_nolines")),restrainCodeBlockHeight(e))}function toggleLineWrap(e){modifyClass(e,"pre_wrap");const t=elems(".ln",e);restrainCodeBlockHeight(t)}function copyCode(e){const t=e.parentNode.parentNode.querySelector(`.${copy_id}`),s=t.title;loadSvg("check",t),t.title=copied_text,e=e.cloneNode(!0);const n=elems(".ln",e);!!n.length&&n.forEach(e=>e.remove());let o=elems("span",e);o.forEach(e=>{const t=e.textContent.trim(" ");t.indexOf("$")===0&&(e.textContent=e.textContent.replace("$ ",""))});const i=e.textContent.trim(" ");copyToClipboard(i),setTimeout(function(){t.title=s,loadSvg("copy",t)},2250)}(function(){const n=highlight_wrap;blocks.forEach(function(e){show_lines===!1&&toggleLineNumbers(elems(".ln",e));const o=e.parentNode.parentNode,t=createEl();t.className=n,wrapEl(o,t);const s=actionPanel(),i=elem(`.${wrap_id}`,s);!codeBlockFits(e)&&deleteClass(i,panel_hide),t.appendChild(s)});function t(e,t){return e.matches(`.${t}`)||e.closest(`.${t}`)}function s(e,t){const n=e.matches(`.${t}`)?e:e.closest(`.${t}`);deleteClass(n,active),setTimeout(function(){modifyClass(n,active)},50)}doc.addEventListener("click",function(e){const o=e.target,i=t(o,copy_id),a=t(o,wrap_id),r=t(o,lines_id),c=t(o,panel_expand),l=i||a||r||c;if(l){e.preventDefault(),s(o,"icon");const t=o.closest(`.${n}`).firstElementChild.firstElementChild;let l=elems(".ln",t);if(!!a&&toggleLineWrap(t),!!r&&toggleLineNumbers(l),c){let e=t.firstElementChild;const n=e.closest(".highlight");maxHeightIsSet(e)?(e.style.maxHeight=full_height,pushClass(n,panel_expanded)):(e.style.maxHeight=e.dataset.height,deleteClass(n,panel_expanded))}!!i&&copyCode(t)}}),function(){blocks.forEach(e=>{let t=e.dataset.lang;const n=shell_based.includes(t);if(n){const t=elems(line_class,e);Array.from(t).forEach(e=>{e=e.lastElementChild;let t=e.textContent.trim(" ");!!(t.indexOf("$")!==0&&t.trim(" ").length)&&pushClass(e,"shell")})}if(t=t==="sh"?"shell":t,t!=="fallback"){const n=createEl();n.textContent=t,pushClass(n,"lang"),e.closest(`.${highlight_wrap}`).appendChild(n)}})}()})();function prefersColor(e){return`(prefers-color-scheme: ${e})`}function systemMode(){return window.matchMedia&&window.matchMedia(prefersColor(dark)).matches?dark:light}function currentMode(){let e=light+dark;e=[...e];let t=getComputedStyle(doc).getPropertyValue(key).replace(/"/g,"").trim();return[...t].filter(t=>e.includes(t)).join("")}function changeMode(e){e?(bank.setItem(storageKey,light),elemAttribute(doc,mode_data,light)):(bank.setItem(storageKey,dark),elemAttribute(doc,mode_data,dark))}function pickModePicture(e){elems("picture").forEach(function(t){let o=t.firstElementChild;const n=t.dataset,s=[n.lit,n.dark];o.src=e=="dark"?s[1]:s[0]})}function setMermaidTheme(e){bank.setItem(mermaidThemeKey,e);let t=elem(".color_choice");t.value=e}function setUserColorMode(e=!1){const n=currentMode()==dark,s=bank.getItem(storageKey),o=systemMode();s?e?changeMode(n):elemAttribute(doc,mode_data,s):changeMode(e===!0?n:o!==dark);const t=doc.dataset.mode;doc.dataset.systemmode=o,!!t&&pickModePicture(t),setMermaidTheme(t)}setUserColorMode(),function(){return elem(".nav_header").offsetHeight+25}();function toggleMenu(e){const t=e.target,o=t.matches(`.${toggle_id}`),n=t.closest(`.${toggle_id}`),i=elems(`.${show_id}`)?Array.from(elems(`.${show_id}`)):[],a=t.closest(`.${menu}`);function s(e,t=!1){i.forEach(function(n){!t&&deleteClass(n,show_id),n!==e.closest(`.${menu}`)&&deleteClass(n,show_id)})}if(o||n){const s=n?n.parentNode.parentNode:t.parentNode.parentNode;e.preventDefault(),modifyClass(s,show_id)}else a?s(t,!0):s(t)}(function(){const t=elems("code");t&&t.forEach(function(e){hasClasses(e)||!e.children.length&&pushClass(e,"noClass")})})();function featureHeading(){const t="section_link",n="section_title",e=elem(".aside");if(e){let s=elem(`.${t}.${active}`);s=s||elem(`.${n}.${active}`),e.scroll({top:s.offsetTop,left:0})}}function activeHeading(e,t){let n=Object.create(null);n.active=t.filter(function(e){return containsClass(e,active)})[0],n.new=t[e],n.active!=n.new&&(!!n.active&&deleteClass(n.active,active),pushClass(n.new,active))}setTimeout(()=>{featureHeading()},50);function updateDate(){const t=new Date,e=t.getFullYear().toString,n=elem(".year");!!n&&(e.textContent=e)}function customizeSidebar(){const e="toc_active",n=elem("aside"),t=elems("nav",n);if(t){t.forEach(function(t){if(t.id="",pushClass(t,"toc"),t.children.length>=1){const n=Array.from(t.children[0].children),s=t.previousElementSibling;!!s.matches(`.${active}`)&&pushClass(t,e),n.forEach(function(e){pushClass(e,"toc_item"),pushClass(e.firstElementChild,"toc_link")})}});const n=elem(`.${e}`);if(n){const e=Array.from(elems("a",n)),t=e.map(function(e){return document.getElementById(decodeURIComponent(e.hash.replace("#","")))});window.addEventListener("scroll",function(){let o=window.scrollY+window.innerHeight/2,s=0;for(const[n,e]of t.entries())e.offsetTop<o&&e.offsetTop>t[s].offsetTop&&(s=n);activeHeading(s,e)})}}elems("p").forEach(function(e){const t=elems(".button",e);t.length>1&&pushClass(e,"button_grid")})}function markExternalLinks(){let e=elems("a");e&&Array.from(e).forEach(function(e){let n,o,i,s,a,r,t,c;t=new URL(e.href),c=t.host!==location.host||t.protocol!==location.protocol||t.port!==location.port,c&&(n="target",o="rel",i="_blank",s="noopener",a=elemAttribute(e,n),r=elemAttribute(e,s),!a&&elemAttribute(e,n,i),!r&&elemAttribute(e,o,s))})}function sanitizeURL(e){const t=e.indexOf(hash);if(t>-1){const n=e.substr(t,e.length-1);e=e.replace(n,"")}return e}function copyFeedback(e){const t=document.createElement("div"),n="link_yanked";if(t.classList.add(n),t.innerText=copied_text,!elem(`.${n}`,e)){const n=e.getElementsByTagName("svg")[0],s=n.src;n.src="http://localhost:1313/icons/check.svg",e.appendChild(t),setTimeout(function(){e.removeChild(t),n.src=s},2250)}}function copyHeadingLink(){let t,n,s,o,e;t="link",n=elems(`.${t}`),n&&document.addEventListener("click",function(n){e=n.target,o=e.parentNode,(e&&containsClass(e,t)||containsClass(o,t))&&(n.preventDefault(),s=e.href!=0[0]?e.href:e.parentNode.href,copyToClipboard(s),copyFeedback(e.href!=0[0]?e:e.parentNode))})}function makeTablesResponsive(){const e=elems("table");e&&e.forEach(function(e){const t=createEl();pushClass(t,"scrollable"),wrapEl(e,t)})}function backToTop(){const e=elem("#toTop");window.addEventListener("scroll",()=>{const t=window.scrollY;t>=200?(e.style.display="flex",pushClass(e,active)):deleteClass(e,active)})}function lazyLoadMedia(e=[]){e.forEach(e=>{let t=elems(e);t&&Array.from(t).forEach(function(e){e.loading="lazy"})})}function loadActions(){updateDate(),customizeSidebar(),markExternalLinks(),copyHeadingLink(),makeTablesResponsive(),backToTop(),lazyLoadMedia(["iframe","img"]),doc.addEventListener("click",e=>{let t=e.target,n="color_choice",s=containsClass(t,n);!!s&&setUserColorMode(!0),toggleMenu(e)})}window.addEventListener("load",loadActions())
+</script>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const host = document.querySelector("#search");
+    if (!host || typeof PagefindUI === "undefined") return;
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+    });
+  });
+</script>
+
+</body>
+</html>

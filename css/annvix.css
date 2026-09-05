@@ -1,0 +1,258 @@
+/* Stay in touch social icons in footer */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer-social__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+.footer-social__links a {
+  display: inline-flex;
+  line-height: 0;
+}
+.footer-social__links svg {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.35rem;
+}
+
+/* Annvix overrides for Compose */
+
+/* Content lists: Compose resets ul globally; .content restores them, but
+   blog posts use .post (not .content), so bullets never appear there. */
+.post ul,
+.content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.post ol,
+.content ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.post li,
+.content li {
+  margin: 0.25rem 0;
+}
+
+/* Keep filenames / keywords in table cells on one line (e.g. DansGuardian File column). */
+.post table td:first-child,
+.content table td:first-child,
+.post table th:first-child,
+.content table th:first-child {
+  white-space: nowrap;
+}
+.post table code,
+.content table code {
+  white-space: nowrap;
+}
+
+/* Breathing room above ## headings (Compose uses a tight 0.5rem). */
+.post h2,
+.content h2 {
+  margin-top: 2.25rem !important;
+  margin-bottom: 0.75rem !important;
+  padding-top: 0.35rem;
+}
+
+/* Frontmatter cover on the post page: keep compact (Compose defaults to width: 100%). */
+.post img.post_thumbnail,
+.post .post_body img.post_thumbnail,
+.post .post_inner img.post_thumbnail,
+.post img.post_thumbnail:not(.icon) {
+  display: block !important;
+  width: auto !important;
+  max-width: min(100%, 20rem) !important;
+  max-height: 14rem !important;
+  height: auto !important;
+  margin: 1rem auto 2rem !important;
+  object-fit: contain;
+}
+
+/* Simple text blog index (no card thumbs / two-column showcase). */
+.blog-list {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+.blog-list__item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.25));
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+.blog-list__item:first-of-type {
+  border-top: 1px solid var(--border-color, rgba(127, 127, 127, 0.25));
+}
+.blog-list__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+.blog-list__title a {
+  color: inherit;
+  text-decoration: none;
+}
+.blog-list__title a:hover {
+  color: var(--theme, #0f3d3e);
+  text-decoration: underline;
+}
+.blog-list__date {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+.blog-list__excerpt {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+.blog-list__intro {
+  margin: 0 0 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+.blog-list__more {
+  margin: 1.75rem 0 0;
+  font-size: 1rem;
+}
+.blog-list__more a {
+  color: var(--theme, #0f3d3e);
+}
+
+/* Compact taxonomy index (categories) */
+.term-list {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0;
+  max-width: 48rem;
+}
+.term-list li {
+  margin: 0.35rem 0;
+  line-height: 1.45;
+}
+.term-list a {
+  color: inherit;
+  text-decoration: none;
+}
+.term-list a:hover {
+  color: var(--theme, #0f3d3e);
+  text-decoration: underline;
+}
+
+/* Publication date under page / post title */
+.page-date {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0.7;
+}
+.post .page-date {
+  margin-top: 0.15rem;
+}
+
+/* Categories + tags under page / post title */
+.page-taxonomies {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin: 0.15rem 0 1.25rem;
+}
+.page-taxonomies__group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.page-taxonomies__emoji {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.page-taxonomies__badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.content a.page-taxonomies__badge--category,
+.post a.page-taxonomies__badge--category,
+a.page-taxonomies__badge--category {
+  color: #0477a4;
+  background: var(--accent, #f2f5f7);
+  border: 1px solid var(--border-color, rgba(127, 127, 127, 0.28));
+}
+.content a.page-taxonomies__badge--category:hover,
+.post a.page-taxonomies__badge--category:hover,
+a.page-taxonomies__badge--category:hover {
+  color: #0594cb;
+  border-color: #0477a4;
+  text-decoration: none;
+}
+.content a.page-taxonomies__badge--tag,
+.post a.page-taxonomies__badge--tag,
+a.page-taxonomies__badge--tag {
+  color: var(--text, #1a1a1a);
+  background: var(--accent, #f2f5f7);
+  border: 1px solid var(--border-color, rgba(127, 127, 127, 0.28));
+}
+.content a.page-taxonomies__badge--tag:hover,
+.post a.page-taxonomies__badge--tag:hover,
+a.page-taxonomies__badge--tag:hover {
+  color: var(--theme, #0f3d3e);
+  border-color: var(--theme, #0f3d3e);
+  text-decoration: none;
+}
+.post .page-taxonomies {
+  margin-top: 0.15rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Weighted tag cloud on /tags/ */
+.tag-cloud {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+.tag-cloud__intro {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.tag-cloud__cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.65rem 1rem;
+  line-height: 1.35;
+}
+.tag-cloud__tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.tag-cloud__tag:hover {
+  opacity: 1;
+  color: var(--theme, #0f3d3e);
+  text-decoration: underline;
+}
+.tag-cloud__count {
+  font-size: 0.55em;
+  font-weight: 500;
+  opacity: 0.55;
+  vertical-align: super;
+}
